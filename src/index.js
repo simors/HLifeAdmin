@@ -1,8 +1,13 @@
 import './index.html'
 import dva from 'dva'
+import createLogger from 'redux-logger';
 
 // 1. Initialize
-const app = dva()
+const app = dva({
+    onAction: createLogger(),
+  }
+
+)
 
 // 2. Model
 
