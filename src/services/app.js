@@ -1,4 +1,11 @@
 import { request } from '../utils'
+import AV from 'leancloud-storage'
+
+export function getPivilege (params){
+
+}
+
+
 
 export async function login (params) {
   return request('/api/login', {

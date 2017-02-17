@@ -1,12 +1,14 @@
 import { create, remove, update, query } from '../services/users'
 import { parse } from 'qs'
-
+import {userConfig} from './structs/users'
+const user = userConfig()
 export default {
 
   namespace: 'users',
 
   state: {
     list: [],
+    user:user,
     loading: false,
     currentItem: {},
     modalVisible: false,
@@ -48,7 +50,7 @@ export default {
       }
     },
     *'delete' ({ payload }, { call, put }) {
-      yield put({ type: 'showLoading' })
+     yield put({ type: 'showLoading' })
       const data = yield call(remove, { id: payload })
       if (data && data.success) {
         yield put({

@@ -14,6 +14,8 @@ export default function request (url, options) {
       processData: options.method === 'get',
       dataType: 'JSON'
     }).done((data) => {
+      console.log('option......?',data)
+
       return data
     })
   }
