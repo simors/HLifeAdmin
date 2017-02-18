@@ -14,7 +14,8 @@ export default {
     siderFold: localStorage.getItem('antdAdminSiderFold') === 'true',
     darkTheme: localStorage.getItem('antdAdminDarkTheme') !== 'false',
     isNavbar: document.body.clientWidth < 769,
-    navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]') //侧边栏菜单打开的keys
+    navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]') ,//侧边栏菜单打开的keys
+    menuList:undefined,
   },
   subscriptions: {
     setup ({dispatch}) {
@@ -31,13 +32,14 @@ export default {
       yield put({type: 'showLoginButtonLoading'})
       const data = yield call(login, parse(payload))
       console.log('hahahahahahahah',data)
-      if (data.success) {
+      if (data) {
         yield put({
           type: 'loginSuccess',
           payload: {
             user: {
               name: payload.username
-            }
+            },
+            menuList:data
           }})
       } else {
         yield put({

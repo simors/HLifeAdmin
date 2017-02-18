@@ -1,6 +1,6 @@
 import { request } from '../utils'
 import AV from 'leancloud-storage'
-
+import {MenuList} from '../models/structs/app'
 export function getPivilege (params){
 
 }
@@ -8,9 +8,13 @@ export function getPivilege (params){
 
 
 export async function login (params) {
-  return request('/api/login', {
-    method: 'post',
-    data: params
+  return AV.Cloud.run('getPermissionListOnlyByLogin',params).then((results)=>{
+    //let permissionList = List(results)
+    console.log(results)
+    if(results) {
+      let menuList = MenuList.fromLeancloudObject(results)
+      return menuList
+    }
   })
 }
 
