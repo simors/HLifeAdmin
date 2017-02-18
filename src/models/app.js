@@ -58,7 +58,8 @@ export default {
           payload: {
             user: {
               name: data.username
-            }
+            },
+            menuList:data.menuList
           }
         })
       }
@@ -69,7 +70,7 @@ export default {
       payload
     }, {call, put}) {
       const data = yield call(logout, parse(payload))
-      console.log('data',data)
+     // console.log('data',data)
       if (data.success) {
         yield put({
           type: 'logoutSuccess'

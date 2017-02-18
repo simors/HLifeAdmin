@@ -55,6 +55,14 @@ export default function ({history, app}) {
               cb(null, require('./routes/ui/search'))
             })
           }
+        },{
+          path: 'BKManager/personManager',
+          name: 'BKManager/personManager',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/BKManager/personManager'))
+            })
+          }
         }, {
           path: '*',
           name: 'error',
