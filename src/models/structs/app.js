@@ -3,6 +3,12 @@
  */
 import {Record, List, Map} from 'immutable'
 
+export const welcomeConfig = Record({
+  key: 'welcome',
+  name: '首页',
+  icon: '',
+  // child: List()
+}, 'welcomeConfig')
 
 export const articleManagerConfig = Record({
   key: 'articleManager',
@@ -116,8 +122,9 @@ export class MenuList  {
       record.set('child',List(actionList))
     })
 
-
+    let welcome = new welcomeConfig()
     let menuList=[]
+    // menuList.push(welcome)
     if(actionSubMenu.child.size>0){
       menuList.push(actionSubMenu)
     }
