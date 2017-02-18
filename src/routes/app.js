@@ -9,9 +9,10 @@ import styles from '../components/layout/main.less'
 import { Spin } from 'antd'
 import { classnames } from '../utils'
 import '../components/layout/common.less'
+import {getMenuList} from '../selector/app'
 
 function App ({children, location, dispatch, app}) {
-  const {login, loading, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys} = app
+  const {login, loading, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys,menuList} = app
   const loginProps = {
     loading,
     loginButtonLoading,
@@ -19,7 +20,8 @@ function App ({children, location, dispatch, app}) {
       dispatch({type: 'app/login', payload: data})
     }
   }
-
+  const menu = getMenuList(menuList)
+  console.log('menuList========>',menu)
   const headerProps = {
     user,
     siderFold,
@@ -43,6 +45,7 @@ function App ({children, location, dispatch, app}) {
   }
 
   const siderProps = {
+    menu,
     siderFold,
     darkTheme,
     location,
@@ -64,7 +67,7 @@ function App ({children, location, dispatch, app}) {
           </aside> : ''}
           <div className={styles.main}>
             <Header {...headerProps} />
-            <Bread location={location} />
+            <Bread location={location} menuList={menu} />
             <div className={styles.container}>
               <div className={styles.content}>
                 {children}
@@ -78,6 +81,7 @@ function App ({children, location, dispatch, app}) {
 }
 
 App.propTypes = {
+
   children: PropTypes.element.isRequired,
   location: PropTypes.object,
   dispatch: PropTypes.func,

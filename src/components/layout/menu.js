@@ -2,7 +2,7 @@ import React from 'react'
 import { Menu, Icon } from 'antd'
 import { Link } from 'dva/router'
 import { menu } from '../../utils'
-
+import {connect} from 'dva'
 const topMenus = menu.map(item => item.key)
 const getMenus = function (menuArray, siderFold, parentPath) {
   parentPath = parentPath || '/'
@@ -26,8 +26,8 @@ const getMenus = function (menuArray, siderFold, parentPath) {
   })
 }
 
-function Menus ({ siderFold, darkTheme, location, isNavbar, handleClickNavMenu, navOpenKeys, changeOpenKeys }) {
-  const menuItems = getMenus(menu, siderFold)
+function Menus ({ siderFold, darkTheme, location, isNavbar, handleClickNavMenu, navOpenKeys, changeOpenKeys,menuList }) {
+  const menuItems = getMenus(menuList, siderFold)
 
   const onOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => !(navOpenKeys.indexOf(key) > -1))

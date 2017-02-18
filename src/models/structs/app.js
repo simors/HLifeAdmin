@@ -34,7 +34,12 @@ export const topicManagerConfig = Record({
   icon: '',
   child: List()
 }, 'topicManagerConfig')
-
+export const actionManagerConfig = Record({
+  key: 'actionManager',
+  name: '活动管理',
+  icon: '',
+  child: List()
+}, 'actionManagerConfig')
 // export const MenuListConfig = List([
 //   articleManager(),
 //   doctorManager(),
@@ -50,6 +55,8 @@ export class MenuList  {
     let shopManager = new shopManagerConfig()
     let BKManager = new BKManagerConfig()
     let topicManager = new topicManagerConfig()
+    let actionManager = new actionManagerConfig()
+    let actionList = []
     let articleList=[]
     let doctorList = []
     let shopList = []
@@ -61,7 +68,7 @@ export class MenuList  {
 
       let menuRecord = Record(result)
       let menu = new menuRecord
-      console.log('menuSUBPERmission',menu.subPermission)
+      // console.log('menuSUBPERmission',menu.subPermission)
 
       switch (menu.subPermission) {
         case '文章管理':
@@ -79,14 +86,17 @@ export class MenuList  {
         case '话题管理':
           topicList.push(menu)
           break
+        case '活动管理':
+          actionList.push(menu)
+          break
       }
 
     })
-    console.log('articleManager',articleList)
-    console.log('doctorManager',doctorList)
-    console.log('shopManager',shopList)
-    console.log('BKManager',BKList)
-    console.log('topicManager',topicList)
+    // console.log('articleManager',articleList)
+    // console.log('doctorManager',doctorList)
+    // console.log('shopManager',shopList)
+    // console.log('BKManager',BKList)
+    // console.log('topicManager',topicList)
     let articleSubMenu=articleManager.withMutations((record)=>{
       record.set('child',List(articleList))
     })
@@ -102,9 +112,15 @@ export class MenuList  {
     let topicSubMenu=topicManager.withMutations((record)=>{
       record.set('child',List(topicList))
     })
+    let actionSubMenu=actionManager.withMutations((record)=>{
+      record.set('child',List(actionList))
+    })
 
 
     let menuList=[]
+    if(actionSubMenu.child.size>0){
+      menuList.push(actionSubMenu)
+    }
     if(articleSubMenu.child.size>0){
       menuList.push(articleSubMenu)
     }

@@ -18,9 +18,11 @@ const getPathSet = function (menuArray, parentPath) {
     }
   })
 }
-getPathSet(menu)
+// getPathSet(menu)
 
-function Bread ({ location }) {
+function Bread ({ location,menuList }) {
+  getPathSet(menuList)
+
   let pathNames = []
   location.pathname.substr(1).split('/').map((item, key) => {
     if (key > 0) {

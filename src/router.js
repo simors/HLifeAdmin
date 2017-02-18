@@ -9,7 +9,7 @@ export default function ({history, app}) {
       component: App,
       getIndexRoute (nextState, cb) {
         require.ensure([], require => {
-          cb(null, {component: require('./routes/dashboard')})
+          cb(null, {component: require('./routes/welcome')})
         })
       },
       childRoutes: [
@@ -21,7 +21,17 @@ export default function ({history, app}) {
               cb(null, require('./routes/dashboard'))
             })
           }
-        }, {
+        },
+        {
+          path: 'welcome',
+          name: 'welcome',
+          getComponent (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, require('./routes/welcome'))
+            })
+          }
+        },
+        {
           path: 'users',
           name: 'users',
           getComponent (nextState, cb) {

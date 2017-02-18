@@ -1,5 +1,10 @@
 module.exports = [
   {
+    key: 'welcome',
+    name: '首页',
+    icon: 'laptop'
+  },
+  {
     key: 'dashboard',
     name: '仪表盘',
     icon: 'laptop'
