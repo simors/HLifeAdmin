@@ -7,6 +7,7 @@ export default {
   namespace: 'users',
 
   state: {
+   // location:location,
     list: [],
     user:user,
     loading: false,

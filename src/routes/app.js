@@ -21,7 +21,7 @@ function App ({children, location, dispatch, app}) {
     }
   }
   const menu = getMenuList(menuList)
-  console.log('menuList========>',menu)
+  //console.log('menuList========>',location)
   const headerProps = {
     user,
     siderFold,

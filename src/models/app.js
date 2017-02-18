@@ -32,14 +32,14 @@ export default {
       yield put({type: 'showLoginButtonLoading'})
       const data = yield call(login, parse(payload))
       console.log('hahahahahahahah',data)
-      if (data) {
+      if (data.success) {
         yield put({
           type: 'loginSuccess',
           payload: {
             user: {
               name: payload.username
             },
-            menuList:data
+            menuList:data.menuList
           }})
       } else {
         yield put({
@@ -69,6 +69,7 @@ export default {
       payload
     }, {call, put}) {
       const data = yield call(logout, parse(payload))
+      console.log('data',data)
       if (data.success) {
         yield put({
           type: 'logoutSuccess'
