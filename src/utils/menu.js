@@ -6,8 +6,8 @@ module.exports = [
   },
   {
     key: 'dashboard',
-    name: '仪表盘',
-    icon: 'laptop'
+    name: '',
+    icon: ''
   },
   {
     key: 'users',

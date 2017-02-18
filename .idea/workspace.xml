@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c3a634c-2388-4565-9deb-fc0087194485" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/app.js" afterPath="$PROJECT_DIR$/src/models/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/users.js" afterPath="$PROJECT_DIR$/src/models/users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/app.js" afterPath="$PROJECT_DIR$/src/routes/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/app.js" afterPath="$PROJECT_DIR$/src/services/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/menu.js" afterPath="$PROJECT_DIR$/src/utils/menu.js" />
     </list>
     <ignored path="HLifeAdmin.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -81,7 +77,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/users.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-510">
@@ -91,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/users.js">
+      <file leaf-file-name="menu.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/utils/menu.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="32" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="32" />
+            <state relative-caret-position="153">
+              <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -152,7 +148,6 @@
         <option value="$PROJECT_DIR$/src/models/structs/users.js" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
         <option value="$PROJECT_DIR$/src/selector/app.js" />
-        <option value="$PROJECT_DIR$/src/utils/menu.js" />
         <option value="$PROJECT_DIR$/src/router.js" />
         <option value="$PROJECT_DIR$/src/routes/welcome.js" />
         <option value="$PROJECT_DIR$/src/components/layout/sider.js" />
@@ -164,6 +159,7 @@
         <option value="$PROJECT_DIR$/src/routes/app.js" />
         <option value="$PROJECT_DIR$/src/services/app.js" />
         <option value="$PROJECT_DIR$/src/models/app.js" />
+        <option value="$PROJECT_DIR$/src/utils/menu.js" />
       </list>
     </option>
   </component>
@@ -451,12 +447,12 @@
       <updated>1487163933628</updated>
       <workItem from="1487163935783" duration="17799000" />
       <workItem from="1487336053279" duration="14806000" />
-      <workItem from="1487400684358" duration="7318000" />
+      <workItem from="1487400684358" duration="7588000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39923000" />
+    <option name="totallyTimeSpent" value="40193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-269" y="-1057" width="1920" height="1057" extended-state="6" />
@@ -621,14 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -911,6 +899,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-510">
           <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
           <folding />
         </state>
       </provider>
