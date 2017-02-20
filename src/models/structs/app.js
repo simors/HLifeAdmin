@@ -28,8 +28,8 @@ export const shopManagerConfig = Record({
   icon: '',
   child: List()
 }, 'shopManagerConfig')
-export const BKManagerConfig = Record({
-  key: 'BKManager',
+export const BGManagerConfig = Record({
+  key: 'BGManager',
   name: '后台管理',
   icon: '',
   child: List()
@@ -50,7 +50,7 @@ export const actionManagerConfig = Record({
 //   articleManager(),
 //   doctorManager(),
 //   shopManager(),
-//   BKManager(),
+//   BGManager(),
 //   topicManager(),
 // ])
 export class MenuList  {
@@ -59,7 +59,7 @@ export class MenuList  {
     let articleManager = new articleManagerConfig()
     let doctorManager = new doctorManagerConfig()
     let shopManager = new shopManagerConfig()
-    let BKManager = new BKManagerConfig()
+    let BKManager = new BGManagerConfig()
     let topicManager = new topicManagerConfig()
     let actionManager = new actionManagerConfig()
     let actionList = []
@@ -101,7 +101,7 @@ export class MenuList  {
     // console.log('articleManager',articleList)
     // console.log('doctorManager',doctorList)
     // console.log('shopManager',shopList)
-    // console.log('BKManager',BKList)
+    // console.log('BGManager',BKList)
     // console.log('topicManager',topicList)
     let articleSubMenu=articleManager.withMutations((record)=>{
       record.set('child',List(articleList))

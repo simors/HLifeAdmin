@@ -56,11 +56,11 @@ export default function ({history, app}) {
             })
           }
         },{
-          path: 'BKManager/personManager',
-          name: 'BKManager/personManager',
+          path: 'BGManager/personManager',
+          name: 'BGManager/personManager',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require('./routes/BKManager/personManager'))
+              cb(null, require('./routes/BGManager/personManager'))
             })
           }
         }, {

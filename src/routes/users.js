@@ -101,7 +101,7 @@ Users.propTypes = {
 }
 
 function mapStateToProps ({ users }) {
-  console.log('hahahahahahahah',{users})
+  //console.log('hahahahahahahah',{users})
   return { users }
 }
 

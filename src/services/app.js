@@ -27,7 +27,7 @@ export async function login (params) {
     let storage = window.localStorage
     storage.setItem('username',params.username)
     storage.setItem('password',params.password)
-    console.log('storage',window.localStorage)
+    //console.log('storage',window.localStorage)
     return {success:true,menuList:menuList}
   }catch (err){
     err.message='用户名或密码错误'

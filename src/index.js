@@ -4,6 +4,7 @@ import createLogger from 'redux-logger';
 import AV from 'leancloud-storage'
 import * as LC_CONFIG from './constants/adminConfig'
 import {message} from 'antd'
+import {Map,Record,List} from 'immutable'
 
 const KM_Dev = {
   appId: LC_CONFIG.LC_DEV_APP_ID,
@@ -23,7 +24,7 @@ AV.init(
 const app = dva({
     onAction: createLogger(),
     onError(e) {
-      message.error(e.message,3)
+      message.error(e.message, 3)
     }
   }
 )
@@ -31,8 +32,9 @@ const app = dva({
 // 2. Model
 
 app.model(require('./models/app'))
-app.model(require('./models/dashboard'))
-app.model(require('./models/users'))
+// app.model(require('./models/dashboard'))
+// app.model(require('./models/users'))
+ app.model(require('./models/BGManager/personManager'))
 
 // 3. Router
 app.router(require('./router'))

@@ -91,7 +91,8 @@ export default {
         type: 'handleChangeTheme'
       })
     },
-    *changeNavbar ({
+    *
+    changeNavbar ({
       payload
     }, {put}) {
       if (document.body.clientWidth < 769) {
