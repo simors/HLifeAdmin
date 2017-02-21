@@ -13,6 +13,7 @@ function personManager({location,dispath,personList}) {
   const userListProps = {
     dataSource: personList
   }
+  console.log('personList====>',personList)
 return (
   <div className='content-inner'>
 

@@ -7,7 +7,7 @@
 import {Record, List, Map} from 'immutable'
 
 const personInfoConfig = Record({
-  // key:undefined
+   id:undefined,
   username: undefined,
   password: undefined,
   roleList: List()
@@ -19,14 +19,17 @@ export class personList {
     results.forEach((result)=> {
       let personInfo = new personInfoConfig
       let roleList = []
+     // let count = 1
       result.roleList.forEach((role)=> {
         roleList.push(role)
       })
       let person = personInfo.withMutations((record)=> {
+        record.set('id', result.username)
         record.set('username', result.username)
         record.set('password', result.password)
         record.set('roleList', List(roleList))
       })
+     // count++
       personList.push(person)
     })
     return List(personList)

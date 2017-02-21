@@ -108,7 +108,7 @@ class personList extends React.Component {
     ]
     return <div>
       <Table className={styles.table} bordered scroll={{
-        x: 1200
+        x: 800
       }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id}/>
     </div>
   }
