@@ -6,9 +6,10 @@
  */
 //import { create, remove, update, query } from '../services/users'
 import {personManageConfig} from '../structs/BGManager/personManage'
-import {getPersonList} from '../../services/BGManager/personManage'
+import {getPersonList,getAllRoles} from '../../services/BGManager/personManage'
 import {parse} from 'qs'
 import {Record, List, Map} from 'immutable'
+
 // import {userConfig} from './structs/users'
 // const user = userConfig()
 export default {
@@ -20,30 +21,33 @@ export default {
     // location:location,
     //user:user,
     loading: false,
-    personList: List()
+    personList: [],
+    roleList: []
   },
 
   subscriptions: {
-    setup ({dispatch, history}) {
-      history.listen(location => {
-        if (location.pathname === '/BGManager/personManager') {
-          dispatch({
-            type: 'query',
-            payload: location.query
-          })
-        }
-      })
-    }
+    // setup ({dispatch, history}) {
+    //   history.listen(location => {
+    //     if (location.pathname === '/BGManager/personManager') {
+    //       dispatch({
+    //         type: 'query',
+    //         payload: location.query
+    //       })
+    //     }
+    //   })
+    // }
   },
 
   effects: {
     *query ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
       const data = yield call(getPersonList, parse(payload))
-      if (data.success) {
+      const roleList = yield call(getAllRoles, parse(payload))
+      if (data.success&&roleList.success) {
         yield put({
           type: 'querySuccess',
           payload: {
+            roleList:roleList.data,
             list: data.data,
             //pagination: data.page
           }
@@ -111,12 +115,13 @@ export default {
     querySuccess (state, action) {
 
       let {list} = action.payload
+      let {roleList} = action.payload
       // console.log('state====>',state)
       // let _map = state.personList
       // console.log('-map======>',_map)
       //  _map = _map.set('personList',list)
       // state = state.set('personManage',_map)
-      return {...state, personList: list}
+      return {...state, personList: list,roleList:roleList}
     },
     showModal (state, action) {
       return {...state, ...action.payload, modalVisible: true}

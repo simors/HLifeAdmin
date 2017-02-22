@@ -6,35 +6,59 @@
  */
 import {Record, List, Map} from 'immutable'
 
-const personInfoConfig = Record({
+const personInfoConfig = {
    id:undefined,
   username: undefined,
   password: undefined,
-  roleList: List()
-}, 'personInfoConfig')
+  roleList: []
+}
 
 export class personList {
   static fromLeancloudObject(results) {
+    console.log('result===>',results)
     let personList = []
     results.forEach((result)=> {
-      let personInfo = new personInfoConfig
+      let personInfo = {}
       let roleList = []
      // let count = 1
       result.roleList.forEach((role)=> {
         roleList.push(role)
       })
-      let person = personInfo.withMutations((record)=> {
-        record.set('id', result.username)
-        record.set('username', result.username)
-        record.set('password', result.password)
-        record.set('roleList', List(roleList))
-      })
+      personInfo.id = result.username
+      personInfo.username = result.username
+      personInfo.password = result.password
+      personInfo.roleList = result.roleList
+
      // count++
-      personList.push(person)
+      personList.push(personInfo)
     })
-    return List(personList)
+    return personList
   }
 }
+
+const Role = Record({
+  name:undefined,
+  id:undefined
+})
+
+export class roleList{
+  static fromLeancloudObject(results){
+    let roleList = []
+    results.forEach((result)=>{
+    //  console.log('result',result)
+
+      let role = new Role
+      let roleInfo = role.withMutations((record)=>{
+        record.set('id',result.roleId)
+        record.set('name',result.roleName)
+      })
+      roleList.push(result)
+    })
+  //  console.log('roleList',roleList)
+    return roleList
+  }
+}
+
 
 export const personManageConfig = Record({
   personList: List(),
