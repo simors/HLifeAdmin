@@ -8,7 +8,7 @@ export async function getPersonList() {
   try {
     let personListInfo = await AV.Cloud.run('getAdminUserList')
     let personListIM = personList.fromLeancloudObject(personListInfo)
-    console.log('personList',personListIM)
+    //console.log('personList',personListIM)
     return {success:true, data: personListIM}
   }catch (err){
     return {success:false}

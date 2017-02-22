@@ -25,12 +25,12 @@ class personModal extends Component {
 
   componentWillReceiveProps(newProps) {
     if (this.props.visible != newProps.visible) {
-      // this.setState({visible: newProps.visible})
+       this.setState({visible: newProps.visible})
     }
   }
 
   componentDidMount() {
-    // this.setState({visible: !!this.props.visible})
+     this.setState({visible: !!this.props.visible})
   }
 
   handleOk() {
@@ -51,13 +51,13 @@ class personModal extends Component {
       <Modal
         title={(this.props.type === 'create') ? '新建用户' : '修改用户'}
         visible={this.state.visible}
-        onOk={this.handleOk()}
-        onCancel={this.props.onCancel}
+        onOk={()=>{this.handleOk()}}
+        onCancel={()=>{this.props.onCancel()}}
         wrapClassName='vertical-center-modal'
       >
         <Form horizontal>
           <FormItem label='姓名：' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('name', {
+            {this.props.form.getFieldDecorator('name', {
               initialValue: this.props.item.name,
               rules: [
                 {
@@ -68,7 +68,7 @@ class personModal extends Component {
             })(<Input />)}
           </FormItem>
           <FormItem label='密码：' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('password', {
+            {this.props.form.getFieldDecorator('password', {
               initialValue: this.props.item.password,
               rules: [
                 {
@@ -79,7 +79,7 @@ class personModal extends Component {
             })(<Input />)}
           </FormItem>
           <FormItem label='角色' hasFeedback {...formItemLayout}>
-            {getFieldDecorator('roleList', {
+            {this.props.form.getFieldDecorator('roleList', {
               initialValue: this.props.roleList,
               rules: [
                 {
@@ -88,7 +88,7 @@ class personModal extends Component {
                 }
               ]
             })(
-              <CheckboxGroup options={this.props.roleList}>
+              <CheckboxGroup options={this.props.roleList} key={record => record.key}>
               </CheckboxGroup>
             )}
           </FormItem>

@@ -15,7 +15,7 @@ const personInfoConfig = {
 
 export class personList {
   static fromLeancloudObject(results) {
-    console.log('result===>',results)
+    //console.log('result===>',results)
     let personList = []
     results.forEach((result)=> {
       let personInfo = {}
@@ -47,14 +47,14 @@ export class roleList{
     results.forEach((result)=>{
     //  console.log('result',result)
 
-      let role = new Role
-      let roleInfo = role.withMutations((record)=>{
-        record.set('id',result.roleId)
-        record.set('name',result.roleName)
-      })
-      roleList.push(result)
+      let role = {
+        key: result.roleName,
+        value: result.roleName
+      }
+
+      roleList.push(role)
     })
-  //  console.log('roleList',roleList)
+    console.log('roleList',roleList)
     return roleList
   }
 }

@@ -22,9 +22,10 @@ class personManager extends Component{
     this.props.dispatch({type:'personManage/query'})
   }
   add(){
+    console.log('openModal')
     this.setState({modalVisible:true})
   }
-  onOk(){
+  onOk(data){
     this.setState({modalVisible:false})
   }
   onCancel(){
@@ -32,19 +33,20 @@ class personManager extends Component{
   }
  // console.log('personList====>',personList)
   render() {
-    console.log('personList===>',this.props.personList)
+   // console.log('personList===>',this.props.personList)
 
     return (
       <div className='content-inner'>
-        <Button onClick={()=>this.add()}></Button>
+        <Button onClick={()=>{this.add()}}></Button>
         <UserList dataSource={this.props.personList} />
-        {/*<UserModal*/}
-          {/*visible = {this.state.modalVisible}*/}
-          {/*type = {this.state.modalType}*/}
-          {/*onOk={()=>this.onOk()}*/}
-          {/*onCancel={()=>this.onCancel()}*/}
-          {/*item = {{}}*/}
-        {/*/>*/}
+        <UserModal
+          visible = {this.state.modalVisible}
+          type = {this.state.modalType}
+          onOk={()=>{this.onOk()}}
+          onCancel={()=>{this.onCancel()}}
+          item = {{}}
+          roleList = {this.props.roleList}
+        />
       </div>
     )
   }
