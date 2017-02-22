@@ -24,3 +24,14 @@ export async function getAllRoles() {
     return {success: false}
   }
 }
+
+
+export async function addAdminUser(payload) {
+  try{
+     await AV.Cloud.run('addUserFromAdmin',payload)
+    return {success:true}
+  }catch(err){
+    return{success: false}
+  }
+
+}

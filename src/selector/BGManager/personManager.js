@@ -7,5 +7,5 @@ export function getPersonList(state) {
 
 
 export function getAllRoleList(state) {
-  return state.personManage.personList
+  return state.personManage.roleList
 }

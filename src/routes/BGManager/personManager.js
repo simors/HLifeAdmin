@@ -26,6 +26,11 @@ class personManager extends Component{
     this.setState({modalVisible:true})
   }
   onOk(data){
+    this.props.dispatch({
+      type:'personManage/create',
+      payload:data
+    })
+    // console.log('data====>',data)
     this.setState({modalVisible:false})
   }
   onCancel(){
@@ -33,16 +38,16 @@ class personManager extends Component{
   }
  // console.log('personList====>',personList)
   render() {
-   // console.log('personList===>',this.props.personList)
+   // console.log('personList===>',this.props.roleList)
 
     return (
       <div className='content-inner'>
-        <Button onClick={()=>{this.add()}}></Button>
+        <Button size='large' type='ghost'  onClick={()=>{this.add()}}>添加用户</Button>
         <UserList dataSource={this.props.personList} />
         <UserModal
           visible = {this.state.modalVisible}
           type = {this.state.modalType}
-          onOk={()=>{this.onOk()}}
+          onOk={(payload)=>{this.onOk(payload)}}
           onCancel={()=>{this.onCancel()}}
           item = {{}}
           roleList = {this.props.roleList}

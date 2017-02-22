@@ -48,11 +48,10 @@ export class roleList{
     //  console.log('result',result)
 
       let role = {
-        key: result.roleName,
         value: result.roleName
       }
 
-      roleList.push(role)
+      roleList.push(result.roleName)
     })
     console.log('roleList',roleList)
     return roleList

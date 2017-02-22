@@ -20,7 +20,7 @@ function App ({children, location, dispatch, app}) {
       dispatch({type: 'app/login', payload: data})
     }
   }
-  const menu = menuList
+  const menu = getMenuList(menuList)
   //console.log('location========>',location)
   const headerProps = {
     user,

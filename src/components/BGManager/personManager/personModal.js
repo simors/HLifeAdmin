@@ -44,11 +44,16 @@ class personModal extends Component {
         ...this.props.form.getFieldsValue(),
         key: this.props.item.key
       }
+      console.log('data',data)
       this.props.onOk(data)
     })
   }
 
   render() {
+const options = ['apple','pear','orange']
+    // console.log('ahahahahahaha',this.props.roleList)
+    // console.log('ahahahahahaha',options)
+
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建用户' : '修改用户'}
@@ -90,7 +95,8 @@ class personModal extends Component {
                 }
               ]
             })(
-              <CheckboxGroup options={this.props.roleList} rowKey={record => record.key}>
+              <CheckboxGroup options={this.props.roleList} >
+
               </CheckboxGroup>
             )}
           </FormItem>

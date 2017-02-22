@@ -1,7 +1,9 @@
 import React from 'react'
-import {Router,Route} from 'dva/router'
+import {Router, Route, IndexRoute} from 'dva/router'
 import App from './routes/app'
 import PersonManage from './routes/BGManager/personManager'
+import Welcome from './routes/welcome'
+import err from './routes/error'
 export default function ({history, app}) {
   // const routes = [
   //   {
@@ -75,10 +77,13 @@ export default function ({history, app}) {
   //     ]
   //   }
   // ]
-const routes =
-  <Route path="/" component={App}>
-    <Route path="/BGManager/personManager" component={PersonManage}/>
-  </Route>
+  const routes =
+    <Route path="/" component={App}>
+      <IndexRoute component={Welcome}/>
+      <Route path="/BGManager/personManager" component={PersonManage}/>
+      <Route path="/error" component={err}/>
 
-  return <Router history={history} routes={routes} />
+    </Route>
+
+  return <Router history={history} routes={routes}/>
 }
