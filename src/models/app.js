@@ -26,9 +26,7 @@ export default {
     }
   },
   effects: {
-    *login ({
-      payload
-    }, {call, put}) {
+    *login ({payload}, {call, put}) {
       yield put({type: 'showLoginButtonLoading'})
       const data = yield call(login, parse(payload))
       // console.log('hahahahahahahah',data)
@@ -47,9 +45,7 @@ export default {
         })
       }
     },
-    *queryUser ({
-      payload
-    }, {call, put}) {
+    *queryUser ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
       const data = yield call(userInfo, parse(payload))
       if (data.success) {
@@ -186,6 +182,10 @@ export default {
         ...state,
         ...action.payload
       }
-    }
+    },
+    REHYDRATE(state, action) {
+      console.log("rehydrate")
+      return {...state}
+    },
   }
 }
