@@ -1,6 +1,5 @@
 import {login, userInfo, logout} from '../services/app'
 import {parse} from 'qs'
-import {REHYDRATE} from 'redux-persist/constants'
 
 export default {
   namespace: 'app',
@@ -88,7 +87,8 @@ export default {
         type: 'handleChangeTheme'
       })
     },
-    *changeNavbar ({
+    *
+    changeNavbar ({
       payload
     }, {put}) {
       if (document.body.clientWidth < 769) {
