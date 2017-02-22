@@ -31,6 +31,8 @@ class personModal extends Component {
 
   componentDidMount() {
      this.setState({visible: !!this.props.visible})
+    console.log(...this.props)
+
   }
 
   handleOk() {
@@ -88,7 +90,7 @@ class personModal extends Component {
                 }
               ]
             })(
-              <CheckboxGroup options={this.props.roleList} key={record => record.key}>
+              <CheckboxGroup options={this.props.roleList} rowKey={record => record.key}>
               </CheckboxGroup>
             )}
           </FormItem>
