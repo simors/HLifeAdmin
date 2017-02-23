@@ -45,8 +45,8 @@ export async function logout (params) {
   //   data: params
   // })
   let storage = window.localStorage
-  storage.removeItem('username')
-  storage.removeItem('password')
+  // storage.removeItem('username')
+  // storage.removeItem('password')
   return {success:true}
 }
 

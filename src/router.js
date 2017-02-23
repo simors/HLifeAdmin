@@ -77,6 +77,7 @@ export default function ({history, app}) {
   //     ]
   //   }
   // ]
+
   const routes =
     <Route path="/" component={App}>
       <IndexRoute component={Welcome}/>

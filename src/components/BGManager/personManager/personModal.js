@@ -44,16 +44,24 @@ class personModal extends Component {
         ...this.props.form.getFieldsValue(),
         key: this.props.item.key
       }
-      console.log('data',data)
+      //console.log('data',data)
       this.props.onOk(data)
     })
   }
 
   render() {
-const options = ['apple','pear','orange']
-    // console.log('ahahahahahaha',this.props.roleList)
+    const options = ['apple', 'pear', 'orange']
+   // console.log('ahahahahahaha', this.props.item)
     // console.log('ahahahahahaha',options)
-
+    const roles = []
+    if (this.props.item.roleList)
+    {
+      this.props.item.roleList.forEach((record)=>{
+        roles.push(record)
+      })
+    }
+    console.log('mayrole',roles)
+    console.log('roleList',this.props.roleList)
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建用户' : '修改用户'}
@@ -65,7 +73,7 @@ const options = ['apple','pear','orange']
         <Form horizontal>
           <FormItem label='姓名：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
-              initialValue: this.props.item.name,
+              initialValue: this.props.type==='create'?'':this.props.item.username,
               rules: [
                 {
                   required: true,
@@ -76,7 +84,7 @@ const options = ['apple','pear','orange']
           </FormItem>
           <FormItem label='密码：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('password', {
-              initialValue: this.props.item.password,
+              initialValue: this.props.type==='create'?'':this.props.item.password,
               rules: [
                 {
                   required: true,
@@ -87,7 +95,7 @@ const options = ['apple','pear','orange']
           </FormItem>
           <FormItem label='角色' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('roleList', {
-              initialValue: this.props.roleList,
+              initialValue: roles,
               rules: [
                 {
                   required: true,

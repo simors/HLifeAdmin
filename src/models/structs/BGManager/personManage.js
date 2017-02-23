@@ -24,7 +24,7 @@ export class personList {
       result.roleList.forEach((role)=> {
         roleList.push(role)
       })
-      personInfo.id = result.username
+      personInfo.id = result.id
       personInfo.username = result.username
       personInfo.password = result.password
       personInfo.roleList = result.roleList

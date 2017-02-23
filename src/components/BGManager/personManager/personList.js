@@ -96,10 +96,10 @@ class personList extends React.Component {
         width: 100,
         render: (text, record) => (
           <p>
-            <a onClick={() => onEditItem(record)} style={{
+            <a onClick={() => this.props.onEditItem(record)} style={{
               marginRight: 4
             }}>编辑</a>
-            <Popconfirm title='确定要删除吗？' onConfirm={() => onDeleteItem(record.id)}>
+            <Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.id)}>
               <a>删除</a>
             </Popconfirm>
           </p>
