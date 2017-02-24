@@ -10,17 +10,49 @@ export const welcomeConfig = Record({
   // child: List()
 }, 'welcomeConfig')
 
-export const articleManagerConfig = {
-  key: 'articleManager',
-  name: '文章管理',
+export const userFeedbackConfig = {
+  key: 'userFeedback',
+  name: '用户反馈',
   icon: '',
   child: []
 }
-export const doctorManagerConfig = {
-  key: 'doctorManager',
-  name: '医生管理',
+
+export const messagePushConfig = {
+  key: 'messagePush',
+  name: '消息推送',
   icon: '',
   child: []
+}
+
+export const actionManagerConfig = {
+  key: 'actionManager',
+  name: '活动管理',
+  icon: '',
+  child: []
+}
+export const topicManagerConfig = {
+  key: 'topicManager',
+  name: '话题管理' ,
+  icon: '',
+  child: []
+}
+export const BGManagerConfig = {
+  key: 'BGManager',
+  name: '用户管理',
+  icon: '',
+  child: []
+}
+export const backgroundStatisticsConfig = {
+  key: 'backgroundStatistics',
+  name: '后台统计',
+  icon: '',
+  child: []
+}
+export const promoterManagerConfig = {
+  key: 'promoterManager',
+  name: '推广员管理',
+  icon: '',
+  child:[]
 }
 export const shopManagerConfig = {
   key: 'shopManager',
@@ -28,24 +60,46 @@ export const shopManagerConfig = {
   icon: '',
   child: []
 }
-export const BGManagerConfig = {
-  key: 'BGManager',
-  name: '后台管理',
-  icon: '',
-  child: []
+
+export const subMenuList = [shopManagerConfig,promoterManagerConfig,backgroundStatisticsConfig,BGManagerConfig,topicManagerConfig,messagePushConfig,actionManagerConfig,userFeedbackConfig]
+export const shopManagerChilds = ['shopManager']
+export const promoterManagerChilds = ['promoterManager']
+export const backgroundStatisticsChilds = ['companyStatistics']
+export const BGManagerChilds = ['personManager']
+export const topicManagerChilds = ['topicManager']
+export const actionManagerChilds = ['actionPromote']
+export const messagePushChilds = ['messagePush']
+export const userFeedbackChilds = ['userFeedback']
+
+export class getMenuList{
+  static fromLeancloudObject(results){
+    let menuList=[]
+    subMenuList.forEach((record)=>{
+      let menus=[]
+      results.forEach((result)=>{
+
+        if(result.subPermission == record.name){
+         // console.log('result===>',result)
+         // console.log('record====>',record)
+          menus.push({key:result.key,name:result.menu})
+        }
+      })
+      if(menus.length>0) {
+       // console.log('menus===>',menus)
+        let set = new Set(menus)
+
+        menus = [...set]
+       // console.log('menus===>',menus)
+        record.child = menus
+       // console.log('record===>',record)
+
+        menuList.push(record)
+      }
+    })
+    return menuList
+  }
 }
-export const topicManagerConfig = {
-  key: 'topicManager',
-  name: '话题管理',
-  icon: '',
-  child: []
-}
-export const actionManagerConfig = {
-  key: 'actionManager',
-  name: '活动管理',
-  icon: '',
-  child:[]
-}
+
 // export const MenuListConfig = List([
 //   articleManager(),
 //   doctorManager(),
@@ -57,7 +111,7 @@ export class MenuList  {
   static fromLeancloudObject(results) {
     // console.log('results===>',results)
     let articleManager =  articleManagerConfig
-    let doctorManager =  doctorManagerConfig
+    let doctorManager = doctorManagerConfig
     let shopManager = shopManagerConfig
     let BKManager =  BGManagerConfig
     let topicManager =  topicManagerConfig

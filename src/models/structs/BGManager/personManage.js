@@ -24,7 +24,7 @@ export class personList {
       result.roleList.forEach((role)=> {
         roleList.push(role)
       })
-      personInfo.id = result.id
+      personInfo.key = result.id
       personInfo.username = result.username
       personInfo.password = result.password
       personInfo.roleList = result.roleList
@@ -32,6 +32,7 @@ export class personList {
      // count++
       personList.push(personInfo)
     })
+    console.log('personList',personList)
     return personList
   }
 }

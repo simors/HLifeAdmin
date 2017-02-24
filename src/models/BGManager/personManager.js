@@ -6,7 +6,7 @@
  */
 //import { create, remove, update, query } from '../services/users'
 import {personManageConfig} from '../structs/BGManager/personManage'
-import {getPersonList,getAllRoles,addAdminUser} from '../../services/BGManager/personManage'
+import {getPersonList,getAllRoles,addAdminUser,updeteAdminUser} from '../../services/BGManager/personManage'
 import {parse} from 'qs'
 import {Record, List, Map} from 'immutable'
 
@@ -81,11 +81,11 @@ export default {
       }
     },
     *update ({payload}, {select, call, put}) {
-      yield put({type: 'hideModal'})
+      // yield put({type: 'hideModal'})
       yield put({type: 'showLoading'})
-      const id = yield select(({users}) => users.currentItem.id)
-      const newUser = {...payload, id}
-      const data = yield call(update, newUser)
+      // const id = yield select(({users}) => users.currentItem.id)
+      // const newUser = {...payload, id}
+      const data = yield call(updeteAdminUser, payload)
       if (data && data.success) {
         yield put({
           type: 'querySuccess',

@@ -99,7 +99,7 @@ class personList extends React.Component {
             <a onClick={() => this.props.onEditItem(record)} style={{
               marginRight: 4
             }}>编辑</a>
-            <Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.id)}>
+            <Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>
               <a>删除</a>
             </Popconfirm>
           </p>
@@ -109,7 +109,7 @@ class personList extends React.Component {
     return <div>
       <Table className={styles.table} bordered scroll={{
         x: 800
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id}/>
+      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.key}/>
     </div>
   }
 }

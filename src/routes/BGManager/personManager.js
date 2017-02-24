@@ -30,7 +30,7 @@ class personManager extends Component{
   }
   onOk(data){
     this.props.dispatch({
-      type:'personManage/create',
+      type:'personManage/'+this.state.modalType,
       payload:data
     })
     // console.log('data====>',data)

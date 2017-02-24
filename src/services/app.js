@@ -1,6 +1,6 @@
 import { request } from '../utils'
 import AV from 'leancloud-storage'
-import {MenuList} from '../models/structs/app'
+import {MenuList,getMenuList} from '../models/structs/app'
 export function getPivilege (params){
 
 }
@@ -25,7 +25,7 @@ export async function login (params) {
     let results = await AV.Cloud.run('getPermissionListOnlyByLogin',params)
     //console.log('menuList',results)
 
-    let menuList = MenuList.fromLeancloudObject(results)
+    let menuList = getMenuList.fromLeancloudObject(results)
 
     // let storage = window.localStorage
     // storage.setItem('username',params.username)
@@ -45,8 +45,8 @@ export async function logout (params) {
   //   data: params
   // })
   let storage = window.localStorage
-  // storage.removeItem('username')
-  // storage.removeItem('password')
+  storage.removeItem('username')
+  storage.removeItem('password')
   return {success:true}
 }
 
