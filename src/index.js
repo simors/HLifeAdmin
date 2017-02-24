@@ -27,7 +27,7 @@ AV.init(
 
 const app = dva({
   initialState: {},
-  history: browserHistory,
+  // history: browserHistory,
   onAction: createLogger(),
   // extraEnhancers: [autoRehydrate()],
   onError(e) {

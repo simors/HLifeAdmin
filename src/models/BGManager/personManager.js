@@ -6,7 +6,7 @@
  */
 //import { create, remove, update, query } from '../services/users'
 import {personManageConfig} from '../structs/BGManager/personManage'
-import {getPersonList,getAllRoles,addAdminUser,updeteAdminUser} from '../../services/BGManager/personManage'
+import {getPersonList,getAllRoles,addAdminUser,updeteAdminUser,deleteAdminUser} from '../../services/BGManager/personManage'
 import {parse} from 'qs'
 import {Record, List, Map} from 'immutable'
 
@@ -54,19 +54,12 @@ export default {
         })
       }
     },
-    *'delete' ({payload}, {call, put}) {
+    *delete ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
-      const data = yield call(remove, {id: payload})
+      const data = yield call(deleteAdminUser, {id: payload})
       if (data && data.success) {
         yield put({
-          type: 'querySuccess',
-          payload: {
-            list: data.data,
-            pagination: {
-              total: data.page.total,
-              current: data.page.current
-            }
-          }
+          type: 'query',
         })
       }
     },

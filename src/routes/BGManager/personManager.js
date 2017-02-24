@@ -45,7 +45,10 @@ class personManager extends Component{
   }
 
   onDelete(itemId){
-
+    this.props.dispatch({
+      type:'personManage/delete',
+      payload:itemId
+    })
   }
  // console.log('personList====>',personList)
   render() {

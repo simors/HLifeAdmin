@@ -40,5 +40,14 @@ export async function addAdminUser(payload) {
 export async function updeteAdminUser(payload) {
   console.log('hahahahaha',payload)
   return {success:true}
+}
 
+export async function deleteAdminUser(payload){
+  //let user = {id:payload}
+  try{  await AV.Cloud.run('deleteUserFromAdmin',payload)
+    return {success: true}
+
+  }catch (err){
+    return{success:false}
+  }
 }
