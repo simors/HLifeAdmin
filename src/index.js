@@ -40,6 +40,7 @@ app.model(require('./models/app'))
 // app.model(require('./models/dashboard'))
 // app.model(require('./models/users'))
  app.model(require('./models/BGManager/personManager'))
+app.model(require('./models/topicManager/topicManager'))
 
 // 3. Router
 app.router(require('./router'))
