@@ -1,7 +1,5 @@
 import { create, remove, update, query } from '../services/users'
 import { parse } from 'qs'
-import {userConfig} from './structs/users'
-const user = userConfig()
 export default {
 
   namespace: 'users',
@@ -9,7 +7,7 @@ export default {
   state: {
    // location:location,
     list: [],
-    user:user,
+    user:undefined,
     loading: false,
     currentItem: {},
     modalVisible: false,

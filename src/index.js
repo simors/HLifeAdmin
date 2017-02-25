@@ -29,7 +29,7 @@ const app = dva({
   initialState: {},
   // history: browserHistory,
   onAction: createLogger(),
-  // extraEnhancers: [autoRehydrate()],
+   extraEnhancers: [autoRehydrate()],
   onError(e) {
     message.error(e.message, 3)
   }

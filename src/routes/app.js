@@ -67,7 +67,7 @@ function App ({children, location, dispatch, app}) {
           </aside> : ''}
           <div className={styles.main}>
             <Header {...headerProps} />
-            {/*<Bread location={location} menuList={menu} />*/}
+            <Bread location={location} menuList={menu} />
             <div className={styles.container}>
               <div className={styles.content}>
                 {children}

@@ -21,7 +21,7 @@ const getPathSet = function (menuArray, parentPath) {
 function Bread ({ location,menuList }) {
   if(menuList)
   getPathSet(menuList)
-  console.log(pathSet)
+ // console.log(pathSet)
 
   let pathNames = []
   location.pathname.substr(1).split('/').map((item, key) => {
@@ -33,7 +33,13 @@ function Bread ({ location,menuList }) {
   })
   const breads = pathNames.map((item, key) => {
     if (!(item in pathSet)) {
-      item = 'Dashboard'
+      //item = {icon:'',key:'welcome',name:'welcome'}
+      //console.log('here is code hahahahaaha',item,key)
+return(
+  <Breadcrumb.Item key={key} href={ '#' + 'welcome' }>
+    <span>{'welcome'}</span>
+  </Breadcrumb.Item>
+)
     }
     return (
       <Breadcrumb.Item key={key} {...((pathNames.length - 1 === key) || !pathSet[item].clickable) ? '' : { href: '#' + pathSet[item].path }}>

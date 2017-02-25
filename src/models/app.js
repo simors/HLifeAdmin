@@ -7,7 +7,6 @@ export default {
     login: false,
     loading: false,
     user: {
-      name: '吴彦祖'
     },
     loginButtonLoading: false,
     menuPopoverVisible: false,
@@ -16,6 +15,7 @@ export default {
     isNavbar: document.body.clientWidth < 769,
     navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]') ,//侧边栏菜单打开的keys
     menuList:undefined,
+    permissionList:undefined
   },
   subscriptions: {
     setup ({dispatch}) {
@@ -35,9 +35,11 @@ export default {
           type: 'loginSuccess',
           payload: {
             user: {
-              name: payload.username
+              name: payload.username,
+              password:payload.password
             },
-            menuList:data.menuList
+            menuList:data.menuList,
+            permissionList:data.permissionList
           }})
       } else {
         yield put({
@@ -53,7 +55,8 @@ export default {
           type: 'loginSuccess',
           payload: {
             user: {
-              name: data.username
+              name: data.username,
+              password:data.password
             },
             menuList:data.menuList
           }
