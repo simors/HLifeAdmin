@@ -77,6 +77,12 @@ export const shopManagerConfig = {
   ]
 }
 
+export const adminUserInfo = {
+  key:'adminUserInfoManager',
+  name:'个人信息',
+  icon:''
+}
+
 export const subMenuList = [shopManagerConfig,promoterManagerConfig,backgroundStatisticsConfig,BGManagerConfig,topicManagerConfig,messagePushConfig,actionManagerConfig,userFeedbackConfig]
 export const shopManagerChilds = ['shopManager']
 export const promoterManagerChilds = ['promoterManager']
@@ -122,6 +128,7 @@ export class getMenuList{
       }
     })
    // console.log('menuList',menuList)
+    menuList.push(adminUserInfo)
     return menuList
   }
 }

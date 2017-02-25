@@ -7,7 +7,6 @@ export default {
     login: false,
     loading: false,
     user: {
-      name: '吴彦祖'
     },
     loginButtonLoading: false,
     menuPopoverVisible: false,
@@ -36,7 +35,8 @@ export default {
           type: 'loginSuccess',
           payload: {
             user: {
-              name: payload.username
+              name: payload.username,
+              password:payload.password
             },
             menuList:data.menuList,
             permissionList:data.permissionList
@@ -55,7 +55,8 @@ export default {
           type: 'loginSuccess',
           payload: {
             user: {
-              name: data.username
+              name: data.username,
+              password:data.password
             },
             menuList:data.menuList
           }
