@@ -1,6 +1,10 @@
 import config from './config'
-import menu from './menu'
+
+// import menu from './menu'
  import request from './request'
+
+
+
 import classnames from 'classnames'
 import {color} from './theme'
  // require('./mock.js')
@@ -42,7 +46,6 @@ Date.prototype.format = function (format) {
 
 module.exports = {
   config,
-  menu,
   request,
   color,
   classnames
