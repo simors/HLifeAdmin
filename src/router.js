@@ -84,7 +84,7 @@ export default function ({history, app}) {
       <IndexRoute component={Welcome}/>
       <Route path="/BGManager/personManager" component={PersonManage}/>
       <Route path="/topicManager/topicManager" component={TopicManage}/>
-      <Route path="/error" component={err}/>
+      <Route path="*" component={err}/>
 
     </Route>
 
