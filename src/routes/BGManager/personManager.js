@@ -45,7 +45,10 @@ class personManager extends Component{
   }
 
   onDelete(itemId){
-
+    this.props.dispatch({
+      type:'personManage/delete',
+      payload:itemId
+    })
   }
  // console.log('personList====>',personList)
   render() {
@@ -54,7 +57,12 @@ class personManager extends Component{
     return (
       <div className='content-inner'>
         <Button size='large' type='ghost'  onClick={()=>{this.add()}}>添加用户</Button>
-        <UserList dataSource={this.props.personList} onEditItem={(payload)=>{this.onModify(payload)}} onDeleteItem={(payload)=>{this.onDelete(payload)}}/>
+        <UserList
+          dataSource={this.props.personList}
+          onEditItem={(payload)=>{this.onModify(payload)}}
+          onDeleteItem={(payload)=>{this.onDelete(payload)}}
+          pagination={{total:this.props.personList.length,pageSize:10}}
+        />
         <UserModal
           visible = {this.state.modalVisible}
           type = {this.state.modalType}

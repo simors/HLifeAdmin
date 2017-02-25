@@ -1,11 +1,15 @@
 import React from 'react'
 import { Menu, Icon } from 'antd'
 import { Link } from 'dva/router'
-import { menu } from '../../utils'
+
+// import { menu } from '../../utils'
 import {connect} from 'dva'
-const topMenus = menu.map(item => item.key)
+// const topMenus = menu.map(item => item.key)
+
 const getMenus = function (menuArray, siderFold, parentPath) {
+  const topMenus = menuArray.map(item => item.key)
   parentPath = parentPath || '/'
+ // console.log('payload',menuArray,siderFold,parentPath)
   return menuArray.map(item => {
     if (item.child) {
       return (

@@ -63,7 +63,7 @@ export async function userInfo (params) {
   // }
   try{
     let results = await AV.Cloud.run('getPermissionListOnlyByLogin',payload)
-    let menuList = MenuList.fromLeancloudObject(results)
+    let menuList = getMenuList.fromLeancloudObject(results)
     return {success:true,menuList:menuList,username:storage.getItem('username')}
   }catch (err){
     err.message='用户名或密码错误'

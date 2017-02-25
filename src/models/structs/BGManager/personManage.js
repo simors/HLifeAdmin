@@ -32,7 +32,7 @@ export class personList {
      // count++
       personList.push(personInfo)
     })
-    console.log('personList',personList)
+    // console.log('personList',personList)
     return personList
   }
 }
@@ -54,7 +54,7 @@ export class roleList{
 
       roleList.push(result.roleName)
     })
-    console.log('roleList',roleList)
+    // console.log('roleList',roleList)
     return roleList
   }
 }

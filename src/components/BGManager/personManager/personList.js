@@ -109,7 +109,7 @@ class personList extends React.Component {
     return <div>
       <Table className={styles.table} bordered scroll={{
         x: 800
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.key}/>
+      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.key} pagination={this.props.pagination?this.props.pagination:{}} />
     </div>
   }
 }
