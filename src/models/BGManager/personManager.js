@@ -81,14 +81,8 @@ export default {
       const data = yield call(updeteAdminUser, payload)
       if (data && data.success) {
         yield put({
-          type: 'querySuccess',
-          payload: {
-            list: data.data,
-            pagination: {
-              total: data.page.total,
-              current: data.page.current
-            }
-          }
+          type: 'query',
+
         })
       }
     }

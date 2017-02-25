@@ -60,8 +60,8 @@ class personModal extends Component {
         roles.push(record)
       })
     }
-     console.log('type',this.props.type)
-     console.log('roleList',this.props.roleList)
+     // console.log('type',this.props.type)
+     // console.log('roleList',this.props.roleList)
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建用户' : '修改用户'}

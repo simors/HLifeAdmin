@@ -1,12 +1,12 @@
 import './index.html'
 import dva from 'dva'
 import createLogger from 'redux-logger'
-import { browserHistory } from 'dva/router'
+import {browserHistory} from 'dva/router'
 import AV from 'leancloud-storage'
 import * as LC_CONFIG from './constants/adminConfig'
 import {message} from 'antd'
-import { persistStore, autoRehydrate } from 'redux-persist'
-import {Map,Record,List} from 'immutable'
+import {persistStore, autoRehydrate} from 'redux-persist'
+import {Map, Record, List} from 'immutable'
 
 const KM_Dev = {
   appId: LC_CONFIG.LC_DEV_APP_ID,
@@ -29,7 +29,7 @@ const app = dva({
   initialState: {},
   // history: browserHistory,
   onAction: createLogger(),
-  // extraEnhancers: [autoRehydrate()],
+  extraEnhancers: [autoRehydrate()],
   onError(e) {
     message.error(e.message, 3)
   }
@@ -39,7 +39,7 @@ const app = dva({
 app.model(require('./models/app'))
 // app.model(require('./models/dashboard'))
 // app.model(require('./models/users'))
- app.model(require('./models/BGManager/personManager'))
+app.model(require('./models/BGManager/personManager'))
 
 // 3. Router
 app.router(require('./router'))
