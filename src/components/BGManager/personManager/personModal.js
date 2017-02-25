@@ -80,7 +80,7 @@ class personModal extends Component {
                   message: '姓名未填写'
                 }
               ]
-            })(<Input />)}
+            })(<Input disabled={this.props.type==='create'?false:true}/>)}
           </FormItem>
           <FormItem label='密码：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('password', {
