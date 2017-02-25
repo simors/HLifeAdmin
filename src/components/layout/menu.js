@@ -1,9 +1,7 @@
 import React from 'react'
 import { Menu, Icon } from 'antd'
 import { Link } from 'dva/router'
-import { menu } from '../../utils'
-import {connect} from 'dva'
-const topMenus = menu.map(item => item.key)
+
 const getMenus = function (menuArray, siderFold, parentPath) {
   parentPath = parentPath || '/'
   return menuArray.map(item => {
