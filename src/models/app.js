@@ -16,6 +16,7 @@ export default {
     isNavbar: document.body.clientWidth < 769,
     navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]') ,//侧边栏菜单打开的keys
     menuList:undefined,
+    permissionList:undefined
   },
   subscriptions: {
     setup ({dispatch}) {
@@ -37,7 +38,8 @@ export default {
             user: {
               name: payload.username
             },
-            menuList:data.menuList
+            menuList:data.menuList,
+            permissionList:data.permissionList
           }})
       } else {
         yield put({

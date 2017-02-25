@@ -2,6 +2,7 @@ import React from 'react'
 import {Router, Route, IndexRoute} from 'dva/router'
 import App from './routes/app'
 import PersonManage from './routes/BGManager/personManager'
+import TopicManage from './routes/topicManager/topicManager'
 import Welcome from './routes/welcome'
 import err from './routes/error'
 export default function ({history, app}) {
@@ -82,6 +83,7 @@ export default function ({history, app}) {
     <Route path="/" component={App}>
       <IndexRoute component={Welcome}/>
       <Route path="/BGManager/personManager" component={PersonManage}/>
+      <Route path="/topicManager/topicManager" component={TopicManage}/>
       <Route path="/error" component={err}/>
 
     </Route>

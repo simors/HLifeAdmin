@@ -39,6 +39,8 @@ const app = dva({
 app.model(require('./models/app'))
 // app.model(require('./models/dashboard'))
 // app.model(require('./models/users'))
+
+app.model(require('./models/topicManager/topicManager'))
 app.model(require('./models/BGManager/personManager'))
 
 // 3. Router
