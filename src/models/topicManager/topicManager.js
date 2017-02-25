@@ -2,7 +2,7 @@
  * Created by wuxingyu on 2017/2/20.
  */
 
-import {getTopicList} from '../../services/topicManager/topicManage'
+import {getTopicList, getTopicCategoryList} from '../../services/topicManager/topicManage'
 import {parse} from 'qs'
 
 export default {
@@ -13,6 +13,7 @@ export default {
   {
     loading: false,
     topicList: [],
+    topicCategoryList:[]
   },
 
   subscriptions: {
@@ -22,11 +23,13 @@ export default {
     *query ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
       const data = yield call(getTopicList, payload)
-      if (data.success) {
+      const topicCategory = yield call(getTopicCategoryList, payload)
+      if (data.success && topicCategory.success) {
         yield put({
           type: 'querySuccess',
           payload: {
             list: data.data,
+            categoryList:topicCategory.data
           }
         })
       }
@@ -40,7 +43,8 @@ export default {
     querySuccess (state, action) {
 
       let {list} = action.payload
-      return {...state, topicList: list}
+      let {categoryList} = action.payload
+      return {...state, topicList: list, topicCategoryList: categoryList}
     },
     showModal (state, action) {
       return {...state, ...action.payload, modalVisible: true}

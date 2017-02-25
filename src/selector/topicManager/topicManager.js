@@ -4,3 +4,7 @@
 export function getTopicList(state) {
   return state.topicManage.topicList
 }
+
+export function getTopicCategoryList(state) {
+  return state.topicManage.topicCategoryList
+}
