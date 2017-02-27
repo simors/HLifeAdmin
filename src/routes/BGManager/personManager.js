@@ -6,7 +6,7 @@ import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
 import {Button} from 'antd'
 import UserList from '../../components/BGManager/personManager/personList'
-import {getPersonList,getAllRoleList} from '../../selector/BGManager/personManager'
+import {getPersonList,getAllRoleList} from '../../selector/BGManager/personManagerSelector'
 // import UserSearch from '../../components/users/search'
 import UserModal from '../../components/BGManager/personManager/personModal'
 

@@ -17,7 +17,9 @@ const formItemLayout = {
 class UserInfoManage extends Component {
   constructor(props) {
     super(props)
-
+    this.state = {
+      visible: false
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -27,6 +29,7 @@ class UserInfoManage extends Component {
   }
 
   componentDidMount() {
+    this.setState({visible: !!this.props.visible})
 
   }
 
@@ -36,6 +39,7 @@ class UserInfoManage extends Component {
         return
       }
       const data = {
+        username:this.props.username,
         ...this.props.form.getFieldsValue(),
         // key: this.props.item.key
       }
@@ -47,13 +51,14 @@ class UserInfoManage extends Component {
   render() {
 
     return (
-      <div>
+      <Modal
+        title={'修改密码'}
+        visible={this.state.visible}
+        onOk={()=>{this.handleOk()}}
+        onCancel={()=>{this.props.onCancel()}}
+        wrapClassName='vertical-center-modal'
+      >
         <Form horizontal>
-          <FormItem label='姓名：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('username', {
-              initialValue: this.props.username,
-            })(<Input disabled={true}/>)}
-          </FormItem>
           <FormItem label='旧密码：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('password', {
               initialValue: '',
@@ -79,9 +84,9 @@ class UserInfoManage extends Component {
             )}
           </FormItem>
         </Form>
-        <Button size='large' type='ghost'  onClick={()=>{this.handleOk()}}>修改密码</Button>
+        {/*<Button size='large' type='ghost'  onClick={()=>{this.handleOk()}}>修改密码</Button>*/}
 
-      </div>
+      </Modal>
     )
   }
 }

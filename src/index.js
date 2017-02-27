@@ -27,7 +27,7 @@ AV.init(
 
 const app = dva({
   initialState: {},
-  // history: browserHistory,
+   // history: browserHistory,
   onAction: createLogger(),
    extraEnhancers: [autoRehydrate()],
   onError(e) {
@@ -41,7 +41,7 @@ app.model(require('./models/app'))
 // app.model(require('./models/users'))
 
 app.model(require('./models/topicManager/topicManager'))
-app.model(require('./models/BGManager/personManager'))
+app.model(require('./models/BGManager/personManagerModel'))
 
 // 3. Router
 app.router(require('./router'))
