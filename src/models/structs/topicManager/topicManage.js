@@ -22,14 +22,26 @@ export class topicList {
      // count++
       topicList.push(topicInfo)
     })
-    console.log('topicList ==>',topicList)
     return topicList
+  }
+}
+
+export class topicCategoryList {
+  static fromLeancloudObject(results) {
+    let topicCategoryList = []
+    results.forEach((result)=> {
+      let topicCategoryInfo = {}
+      topicCategoryInfo.title = result.title
+      topicCategoryList.push(topicCategoryInfo)
+    })
+    return topicCategoryList
   }
 }
 
 export const topicManageConfig = Record({
   topicList: List(),
-}, 'personManageConfig')
+  topicCategoryList: List(),
+}, 'topicManageConfig')
 
 export const topicAllManageConfig = Record({
   topicManage: topicManageConfig()
