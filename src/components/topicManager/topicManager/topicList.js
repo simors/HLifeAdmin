@@ -5,7 +5,7 @@ import React from 'react'
 import {Table, Popconfirm} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './topicList.less'
-
+import {Link, } from 'dva/router'
 class topicList extends React.Component {
   constructor (props) {
     super(props)
@@ -106,16 +106,18 @@ class topicList extends React.Component {
         title: '操作',
         key: 'operation',
         width: 100,
-        render: (text, record) => (
+        render: (text, record) => {
+          console.log("-++++++>>>>>")
+          return (
           <p>
-            <a onClick={() => this.props.onEditItem(record)} style={{
+            <Link to={{pathname:"/topicManager/topicDetail", query:{articleContent: record.content, title: record.title}}} style={{
               marginRight: 4
-            }}>文章详情</a>
+            }}>文章详情</Link>
             <Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>
               <a>删除</a>
             </Popconfirm>
           </p>
-        )
+        )}
       }
     ]
     return <div>
