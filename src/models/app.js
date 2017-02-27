@@ -1,4 +1,4 @@
-import {login, userInfo, logout,updatePassword} from '../services/app'
+import {login, userInfo, logout, updatePassword} from '../services/app'
 import {parse} from 'qs'
 
 export default {
@@ -6,16 +6,16 @@ export default {
   state: {
     login: false,
     loading: false,
-    user: {
-    },
+    user: {},
+   // message: '',
     loginButtonLoading: false,
     menuPopoverVisible: false,
     siderFold: localStorage.getItem('antdAdminSiderFold') === 'true',
     darkTheme: localStorage.getItem('antdAdminDarkTheme') !== 'false',
     isNavbar: document.body.clientWidth < 769,
-    navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]') ,//侧边栏菜单打开的keys
-    menuList:undefined,
-    permissionList:undefined
+    navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]'),//侧边栏菜单打开的keys
+    menuList: undefined,
+    permissionList: undefined
   },
   subscriptions: {
     setup ({dispatch}) {
@@ -36,11 +36,12 @@ export default {
           payload: {
             user: {
               name: payload.username,
-              password:payload.password
+              password: payload.password
             },
-            menuList:data.menuList,
-            permissionList:data.permissionList
-          }})
+            menuList: data.menuList,
+            permissionList: data.permissionList
+          }
+        })
       } else {
         yield put({
           type: 'loginFail'
@@ -56,36 +57,36 @@ export default {
           payload: {
             user: {
               name: data.username,
-              password:data.password
+              password: data.password
             },
-            menuList:data.menuList
+            menuList: data.menuList
           }
         })
       }
 
       yield put({type: 'hideLoading'})
     },
-    *updatePassword({payload},{call,put}){
-      const data = yield call(updatePassword,parse(payload))
-      if (data.success){
+    *updatePassword({payload}, {call, put}){
+      const data = yield call(updatePassword, parse(payload))
+      if (data.success) {
+        //console.log(data)
         yield put({
-          type:'loginSuccess',
-          payload:{
-            user:{
-            name:data.username,
-            password:data.password
+          type: 'loginSuccess',
+          payload: {
+            user: {
+              name: data.username,
+              password: data.password
+            }
           }
-          }
-
         })
       }
-      },
+    },
 
     *logout ({
       payload
     }, {call, put}) {
       const data = yield call(logout, parse(payload))
-     // console.log('data',data)
+      // console.log('data',data)
       if (data.success) {
         yield put({
           type: 'logoutSuccess'
@@ -202,8 +203,9 @@ export default {
         ...action.payload
       }
     },
+
     REHYDRATE(state, action) {
-      console.log("rehydrate")
+      // console.log("rehydrate")
       return {...state}
     },
   }

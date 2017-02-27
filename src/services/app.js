@@ -1,6 +1,7 @@
 import { request } from '../utils'
 import AV from 'leancloud-storage'
 import {MenuList,getMenuList} from '../models/structs/app'
+import {message} from 'antd'
 export function getPivilege (params){
 
 }
@@ -73,11 +74,14 @@ export async function userInfo (params) {
 
 
 export async function updatePassword(params) {
+  console.log('params',params)
   try{
     let result = await AV.Cloud.run('updateMyPassword',params)
+
     return {success:true,username:result.username,password: result.password}
   }catch(err){
     err.message='密码错误'
-    return {success:false}
+    throw err
+    //return {success:false}
   }
 }

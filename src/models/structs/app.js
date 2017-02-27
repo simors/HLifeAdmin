@@ -73,7 +73,7 @@ export const shopManagerConfig = {
   name: '店铺管理',
   icon: '',
   child: [
-    {key:'shopManager',name:'店铺管理'}
+    {key:'shopManager',name:'店铺管理'},{key:'shopCategoryManager',name:'店铺分类管理'}
   ]
 }
 
@@ -84,14 +84,6 @@ export const adminUserInfo = {
 }
 
 export const subMenuList = [shopManagerConfig,promoterManagerConfig,backgroundStatisticsConfig,BGManagerConfig,topicManagerConfig,messagePushConfig,actionManagerConfig,userFeedbackConfig]
-export const shopManagerChilds = ['shopManager']
-export const promoterManagerChilds = ['promoterManager']
-export const backgroundStatisticsChilds = ['companyStatistics']
-export const BGManagerChilds = ['personManager']
-export const topicManagerChilds = ['topicManager']
-export const actionManagerChilds = ['actionPromote']
-export const messagePushChilds = ['messagePush']
-export const userFeedbackChilds = ['userFeedback']
 
 export class getMenuList{
   static fromLeancloudObject(results){
@@ -102,7 +94,7 @@ export class getMenuList{
       results.forEach((result)=>{
 
         if(result.subPermission == record.name){
-         // console.log('result===>',result)
+          console.log('result===>',result)
          // console.log('record====>',record)
           if(result.key )
           keys.push(result.key)
