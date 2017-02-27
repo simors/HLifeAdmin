@@ -1,4 +1,4 @@
-import {login, userInfo, logout} from '../services/app'
+import {login, userInfo, logout,updatePassword} from '../services/app'
 import {parse} from 'qs'
 
 export default {
@@ -65,6 +65,22 @@ export default {
 
       yield put({type: 'hideLoading'})
     },
+    *updatePassword({payload},{call,put}){
+      const data = yield call(updatePassword,parse(payload))
+      if (data.success){
+        yield put({
+          type:'loginSuccess',
+          payload:{
+            user:{
+            name:data.username,
+            password:data.password
+          }
+          }
+
+        })
+      }
+      },
+
     *logout ({
       payload
     }, {call, put}) {

@@ -70,3 +70,14 @@ export async function userInfo (params) {
     //throw err
     return {success:false}  }
 }
+
+
+export async function updatePassword(params) {
+  try{
+    let result = await AV.Cloud.run('updateMyPassword',params)
+    return {success:true,username:result.username,password: result.password}
+  }catch(err){
+    err.message='密码错误'
+    return {success:false}
+  }
+}
