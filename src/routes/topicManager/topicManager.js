@@ -143,7 +143,7 @@ class topicManager extends Component {
     return (
       <div className='content-inner'>
         <Row gutter={24}>
-          <Col lg={2} style={{marginBottom: 16}}>
+          <Col lg={4} style={{marginBottom: 16}}>
             <p>排序方式：</p>
             <Dropdown overlay={menu}>
               <Button style={{marginBottom: 10, width: 100}}>
@@ -151,7 +151,7 @@ class topicManager extends Component {
               </Button>
             </Dropdown>
           </Col>
-          <Col lg={{offset: 0, span: 2}} style={{marginBottom: 16, textAlign: 'left'}}>
+          <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
             <p>话题分类：</p>
             <Dropdown overlay={categoryMenu}>
               <Button style={{marginBottom: 10, width: 100}}>
@@ -159,11 +159,11 @@ class topicManager extends Component {
               </Button>
             </Dropdown>
           </Col>
-          <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
+          <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
             <p>标题关键字：</p>
             <Input style={{width: 200}} defaultValue="" onChange={this.handleFilterInputChange}/>
           </Col>
-          <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
+          <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
             <p>选择日期：</p>
             <RangePicker
               defaultValue={[moment('2000-01-01', dateFormat), new moment()]}
