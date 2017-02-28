@@ -64,6 +64,27 @@ class personList extends React.Component {
     e.target.style.height = 'auto'
   }
 
+  renderOneROle(result){
+    return (
+      <a style={{marginRight: 4}}>{result}</a>
+    )
+  }
+
+  renderRole(text,record){
+  //  console.log('record',record)
+  //   let roleList = ''
+    if (record&&record.roleList.length>0){
+    return  (record.roleList.forEach((result)=>{
+        console.log('result',result)
+        return this.renderOneROle()
+      })
+)
+    }
+    // console.log('roleList',roleList)
+    // return roleList
+
+  }
+
   async pageChange (pagination) {
     await this.props.onPageChange(pagination)
     this.newPage = pagination.current
@@ -90,6 +111,16 @@ class personList extends React.Component {
         title: '角色列表',
         dataIndex: 'roleList',
         key: 'roleList',
+        // render: (text,record)=> {
+            // if (record && record.roleList.length > 0) {
+            //   return (record.roleList.forEach((result)=> {
+            //       console.log('result', result)
+            //       return this.renderOneROle()
+            //     })
+            //   )
+            // }
+        //     return <a>hahahahah</a>
+        // }
       }, {
         title: '操作',
         key: 'operation',
