@@ -103,6 +103,11 @@ class topicList extends React.Component {
         dataIndex: 'likeCount',
         key: 'likeCount',
       },{
+        title: '是否精选',
+        dataIndex: 'picked',
+        key: 'picked',
+      },
+      {
         title: '操作',
         key: 'operation',
         width: 100,

@@ -4,7 +4,7 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'dva'
 import {Button, Menu, Dropdown, Icon, message, Input, DatePicker, Row, Col} from 'antd'
-const { MonthPicker, RangePicker } = DatePicker;
+const {MonthPicker, RangePicker} = DatePicker;
 import TopicList from '../../components/topicManager/topicManager/topicList'
 import {getTopicList, getTopicCategoryList} from '../../selector/topicManager/topicManager'
 import TopicModal from '../../components/topicManager/topicManager/topicModal'
@@ -32,6 +32,8 @@ class topicManager extends Component {
       filterValue: '',
       startTime: new Date('2000-01-01 00:00:00'),
       endTime: new Date(),
+      picked: false,
+      pickedName: '全部',
       selectedItem: {},
 
     }
@@ -42,6 +44,17 @@ class topicManager extends Component {
   handleMenuClick(e) {
     this.setState({orderMode: e.key})
     this.setState({orderModeShow: orderShowTab[e.key]})
+  }
+
+  handlePickedClick(e) {
+    if (e.key == "true") {
+      this.setState({picked: true})
+      this.setState({pickedName: "精选"})
+    }
+    else {
+      this.setState({picked: false})
+      this.setState({pickedName: "全部"})
+    }
   }
 
   handleCategoryMenuClick(e) {
@@ -55,8 +68,8 @@ class topicManager extends Component {
         orderMode: this.state.orderMode,
         categoryName: this.state.categoryName == '所有分类' ? '' : this.state.categoryName,
         filterValue: this.state.filterValue,
-        startTime:this.state.startTime,
-        endTime:this.state.endTime,
+        startTime: this.state.startTime,
+        endTime: this.state.endTime,
       }
     })
   }
@@ -92,8 +105,9 @@ class topicManager extends Component {
         orderMode: this.state.orderMode,
         categoryName: this.state.categoryName == '所有分类' ? '' : this.state.categoryName,
         filterValue: this.state.filterValue,
-        startTime:this.state.startTime,
-        endTime:this.state.endTime,
+        startTime: this.state.startTime,
+        endTime: this.state.endTime,
+        picked: this.state.picked,
       }
     })
   }
@@ -117,10 +131,11 @@ class topicManager extends Component {
   }
 
   onDateChange(date, dateString) {
-  console.log(date[0]._d);
+    console.log(date[0]._d);
     this.setState({startTime: date[0]._d});
     this.setState({endTime: date[1]._d});
-}
+  }
+
   render() {
     var menu = (
       <Menu onClick={(e)=> {
@@ -140,10 +155,18 @@ class topicManager extends Component {
         {this.renderMenu()}
       </Menu>
     );
+    var pickedMenu = (
+      <Menu onClick={(e)=> {
+        this.handlePickedClick(e)
+      }}>
+        <Menu.Item key="true">精选</Menu.Item>
+        <Menu.Item key="false">全部</Menu.Item>
+      </Menu>
+    );
     return (
       <div className='content-inner'>
         <Row gutter={24}>
-          <Col lg={4} style={{marginBottom: 16}}>
+          <Col lg={3} style={{marginBottom: 16}}>
             <p>排序方式：</p>
             <Dropdown overlay={menu}>
               <Button style={{marginBottom: 10, width: 100}}>
@@ -151,11 +174,19 @@ class topicManager extends Component {
               </Button>
             </Dropdown>
           </Col>
-          <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
+          <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
             <p>话题分类：</p>
             <Dropdown overlay={categoryMenu}>
               <Button style={{marginBottom: 10, width: 100}}>
                 {this.state.categoryName} <Icon type="down"/>
+              </Button>
+            </Dropdown>
+          </Col>
+          <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <p>是否精选：</p>
+            <Dropdown overlay={pickedMenu}>
+              <Button style={{marginBottom: 10, width: 100}}>
+                {this.state.pickedName} <Icon type="down"/>
               </Button>
             </Dropdown>
           </Col>
