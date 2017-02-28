@@ -16,7 +16,7 @@ export default function ({history, app}) {
       <IndexRoute component={Welcome}/>
       <Route path="/BGManager/personListManager" breadcrumbName="用户列表管理" component={PersonManage}/>
       <Route path="/adminUserInfoManager" breadcrumbName="个人信息" component={UserInfoManage}/>
-      <Route path="/topicManager/topicManager" breadcrumbName="话题管理" component={TopicManage}/>
+      <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>
       <Route path="*" component={err}/>
     </Route>
