@@ -11,7 +11,7 @@ import { classnames } from '../utils'
 import '../components/layout/common.less'
 import {getMenuList} from '../selector/app'
 
-function App ({children, location, dispatch, app}) {
+function App ({params,routes,children, location, dispatch, app}) {
   const {login, loading, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys,menuList} = app
   const loginProps = {
     loading,
@@ -21,7 +21,7 @@ function App ({children, location, dispatch, app}) {
     }
   }
   const menu = getMenuList(menuList)
-  //console.log('location========>',location)
+  console.log('routes========>',routes)
   const headerProps = {
     user,
     siderFold,
@@ -67,7 +67,7 @@ function App ({children, location, dispatch, app}) {
           </aside> : ''}
           <div className={styles.main}>
             <Header {...headerProps} />
-            <Bread location={location} menuList={menu} />
+            <Bread location={location} menuList={menu} routes={routes} params={params}/>
             <div className={styles.container}>
               <div className={styles.content}>
                 {children}

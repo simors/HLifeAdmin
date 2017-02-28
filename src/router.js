@@ -81,12 +81,12 @@ export default function ({history, app}) {
   //   }
   // ]
 
-  const routes =
-    <Route path="/" component={App}>
-      <IndexRoute component={Welcome}/>
-      <Route path="/BGManager/personManager" component={PersonManage}/>
-      <Route path="/adminUserInfoManager" component={UserInfoManage}/>
-      <Route path="/topicManager/topicManager" component={TopicManage}/>
+   const routes =
+    <Route path="/"  breadcrumbName="Home" component={App}>
+      <IndexRoute component={Welcome} breadcrumbName="welcome"/>
+      <Route path="/BGManager/personManager"  breadcrumbName="BGManager/personManager" component={PersonManage}/>
+      <Route path="/adminUserInfoManager" breadcrumbName="adminUserInfoManager" component={UserInfoManage}/>
+      <Route path="/topicManager/topicManager" breadcrumbName="topicManager/topicManager" component={TopicManage}/>
       <Route path="*" component={err}/>
 
     </Route>
