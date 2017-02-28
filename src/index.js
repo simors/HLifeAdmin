@@ -29,7 +29,7 @@ const app = dva({
   initialState: {},
    // history: browserHistory,
   onAction: createLogger(),
-   extraEnhancers: [autoRehydrate()],
+   // extraEnhancers: [autoRehydrate()],
   onError(e) {
     message.error(e.message, 3)
   }
@@ -39,7 +39,7 @@ const app = dva({
 app.model(require('./models/app'))
 // app.model(require('./models/dashboard'))
 // app.model(require('./models/users'))
-
+app.model(require('./models/ShopManager/categoryManagerModel'))
 app.model(require('./models/topicManager/topicManager'))
 app.model(require('./models/BGManager/personManagerModel'))
 
