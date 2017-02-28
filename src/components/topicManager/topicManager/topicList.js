@@ -107,7 +107,6 @@ class topicList extends React.Component {
         key: 'operation',
         width: 100,
         render: (text, record) => {
-          console.log("-++++++>>>>>")
           return (
           <p>
             <Link to={{pathname:"/topicManager/topicDetail", query:{articleContent: record.content, title: record.title}}} style={{
