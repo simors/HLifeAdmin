@@ -14,18 +14,18 @@ export const userFeedbackConfig = {
   key: 'userFeedback',
   name: '用户反馈',
   icon: '',
-  child: [
-    {key:'userFeedback',name:'用户反馈'}
-  ]
+  // child: [
+  //   {key:'userFeedback',name:'用户反馈'}
+  // ]
 }
 
 export const messagePushConfig = {
   key: 'messagePush',
   name: '消息推送',
   icon: '',
-  child: [
-    {key:'messagePush',name:'消息推送'}
-  ]
+  // child: [
+  //   {key:'messagePush',name:'消息推送'}
+  // ]
 }
 
 export const actionManagerConfig = {
@@ -41,7 +41,7 @@ export const topicManagerConfig = {
   name: '话题管理' ,
   icon: '',
   child: [
-    {key:'topicManager',name:'话题管理'}
+    {key:'contentManager',name:'内容管理'}
   ]
 }
 export const BGManagerConfig = {
@@ -49,7 +49,7 @@ export const BGManagerConfig = {
   name: '用户管理',
   icon: '',
   child: [
-    {key:'personManager',name:'用户管理'}
+    {key:'personListManager',name:'用户列表管理'}
   ]
 }
 export const backgroundStatisticsConfig = {
@@ -57,7 +57,9 @@ export const backgroundStatisticsConfig = {
   name: '后台统计',
   icon: '',
   child: [
-    {key:'companyStatistics',name:'后台统计'}
+    {key:'companyStatistics',name:'公司统计'},
+    {key:'promoterBalanceStatistics',name:'推广员统计'}
+
   ]
 }
 export const promoterManagerConfig = {
@@ -65,7 +67,9 @@ export const promoterManagerConfig = {
   name: '推广员管理',
   icon: '',
   child:[
-    {key:'promoterManager',name:'推广员管理'}
+    {key:'promoterGroupManager',name:'推广小组管理'},
+    {key:'promoterCommissionManager',name:'推广员提成管理'}
+
   ]
 }
 export const shopManagerConfig = {
@@ -73,7 +77,7 @@ export const shopManagerConfig = {
   name: '店铺管理',
   icon: '',
   child: [
-    {key:'shopManager',name:'店铺管理'},{key:'shopCategoryManager',name:'店铺分类管理'}
+    {key:'shopInfoManager',name:'店铺信息管理'},{key:'shopCategoryManager',name:'店铺分类管理'}
   ]
 }
 
@@ -83,41 +87,50 @@ export const adminUserInfo = {
   icon:''
 }
 
-export const subMenuList = [shopManagerConfig,promoterManagerConfig,backgroundStatisticsConfig,BGManagerConfig,topicManagerConfig,messagePushConfig,actionManagerConfig,userFeedbackConfig]
+export const subMenuList = [shopManagerConfig,promoterManagerConfig,backgroundStatisticsConfig,BGManagerConfig,topicManagerConfig,actionManagerConfig,messagePushConfig,userFeedbackConfig]
 
 export class getMenuList{
   static fromLeancloudObject(results){
     let menuList=[]
     subMenuList.forEach((record)=>{
-      let menus=[]
-      let keys=[]
-      results.forEach((result)=>{
+      if(record.child&&record.child.length>0){
+        let menus=[]
+        let keys=[]
+        results.forEach((result)=>{
 
-        if(result.subPermission == record.name){
-          console.log('result===>',result)
-         // console.log('record====>',record)
-          if(result.key )
-          keys.push(result.key)
-        }
-      })
-      if(keys.length>0) {
-       // console.log('menus===>',menus)
-        let set = new Set(keys)
+          if(result.subPermission == record.name){
+            //  console.log('result===>',result)
+            // console.log('record====>',record)
 
-        keys = [...set]
-        keys.forEach((key)=>{
-          record.child.forEach((child)=>{
-            if(key==child.key){
-              menus.push(child)
-            }
-          })
+            if(result.key )
+              keys.push(result.key)
+          }
         })
-       // console.log('menus===>',menus)
-        record.child = menus
-      //  console.log('record===>',record)
+        if(keys.length>0) {
+          // console.log('menus===>',menus)
+          let set = new Set(keys)
+          keys = [...set]
+          keys.forEach((key)=>{
+            record.child.forEach((child)=>{
+              if(key==child.key){
+                menus.push(child)
+              }
+            })
+          })
+          // console.log('menus===>',menus)
+          record.child = menus
+          //  console.log('record===>',record)
 
-        menuList.push(record)
+          menuList.push(record)
+        }
+      }else{
+        results.forEach((result)=>{
+          if(result.subPermission==record.name){
+            menuList.push(record)
+          }
+        })
       }
+
     })
    // console.log('menuList',menuList)
     menuList.push(adminUserInfo)
