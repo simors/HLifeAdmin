@@ -103,11 +103,15 @@ class topicList extends React.Component {
         dataIndex: 'likeCount',
         key: 'likeCount',
       },{
+        title: '是否精选',
+        dataIndex: 'picked',
+        key: 'picked',
+      },
+      {
         title: '操作',
         key: 'operation',
         width: 100,
         render: (text, record) => {
-          console.log("-++++++>>>>>")
           return (
           <p>
             <Link to={{pathname:"/topicManager/topicDetail", query:{articleContent: record.content, title: record.title}}} style={{
