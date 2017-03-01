@@ -78,7 +78,7 @@ class CategoryList extends React.Component {
     //   let roleList = ''
     if (record&&record.roleList.length>0){
       return  (record.roleList.forEach((result)=>{
-          console.log('result',result)
+        //  console.log('result',result)
           return this.renderOneROle()
         })
       )
@@ -115,7 +115,11 @@ class CategoryList extends React.Component {
       }, {
         title: '图标',
         dataIndex: 'imageSource',
-        key: 'imageSource'
+        key: 'imageSource',
+        render: (text,record)=>{
+          // console.log('record', record)
+          return <img style={{width:30,height:30}} src={record.imageSource}></img>
+        }
       },
       {
         title: '状态',
@@ -129,10 +133,9 @@ class CategoryList extends React.Component {
         render: (text,record)=> {
         if (record && record.containedTag.length > 0) {
           let renderC= record.containedTag.map((item,key)=> {
-              console.log('result', item,key)
-              return <a>{item.name}</a>
+              //console.log('result', item,key)
+              return <a key={key} style={{marginRight:3}}>{item.name}</a>
             })
-          console.log('renderC',renderC)
             return renderC
 
         }else{

@@ -112,16 +112,16 @@ class personList extends React.Component {
         title: '角色列表',
         dataIndex: 'roleList',
         key: 'roleList',
-        // render: (text,record)=> {
-            // if (record && record.roleList.length > 0) {
-            //   return (record.roleList.forEach((result)=> {
-            //       console.log('result', result)
-            //       return this.renderOneROle()
-            //     })
-            //   )
-            // }
-        //     return <a>hahahahah</a>
-        // }
+        render: (text,record)=> {
+            if (record && record.roleList.length > 0) {
+              let roles= (record.roleList.map((item,key)=> {
+                  //console.log('item', item,key)
+                  return <a key={key} style={{marginRight: 4}}>{item}</a>
+                })
+              )
+              return roles
+            }
+        }
       }, {
         title: '操作',
         key: 'operation',
