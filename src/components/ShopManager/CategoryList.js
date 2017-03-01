@@ -1,12 +1,15 @@
 /**
+ * Created by lilu on 2017/2/28.
+ */
+/**
  * Created by lilu on 2017/2/20.
  */
 import React from 'react'
 import {Table, Popconfirm} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
-import styles from './personList.less'
+import styles from './CategoryList.less'
 
-class personList extends React.Component {
+class CategoryList extends React.Component {
   constructor (props) {
     super(props)
     this.enterAnim = [
@@ -66,19 +69,19 @@ class personList extends React.Component {
 
   renderOneROle(result){
     return (
-      <a style={{marginRight: 4}}>{result}</a>
+      <a style={{marginRight: 4}}>{result.name}</a>
     )
   }
 
   renderRole(text,record){
-  //  console.log('record',record)
-  //   let roleList = ''
+    //  console.log('record',record)
+    //   let roleList = ''
     if (record&&record.roleList.length>0){
-    return  (record.roleList.forEach((result)=>{
-        console.log('result',result)
-        return this.renderOneROle()
-      })
-)
+      return  (record.roleList.forEach((result)=>{
+        //  console.log('result',result)
+          return this.renderOneROle()
+        })
+      )
     }
     // console.log('roleList',roleList)
     // return roleList
@@ -98,29 +101,47 @@ class personList extends React.Component {
       // onDeleteItem,
       // onEditItem
     } = this.props
-    console.log('personDataSource',dataSource)
+    //console.log('dataSource',dataSource)
     const columns = [
-       {
-        title: '姓名',
-        dataIndex: 'username',
-        key: 'username'
+      {
+        title: '类别码',
+        dataIndex: 'shopCategoryId',
+        key: 'shopCategoryId'
+      },
+      {
+        title: '名称',
+        dataIndex: 'text',
+        key: 'text'
       }, {
-        title: '密码',
-        dataIndex: 'password',
-        key: 'password'
-      }, {
-        title: '角色列表',
-        dataIndex: 'roleList',
-        key: 'roleList',
+        title: '图标',
+        dataIndex: 'imageSource',
+        key: 'imageSource',
+        render: (text,record)=>{
+          // console.log('record', record)
+          return <img style={{width:30,height:30}} src={record.imageSource}></img>
+        }
+      },
+      {
+        title: '状态',
+        dataIndex: 'status',
+        key: 'status'
+      },
+      {
+        title: '标签列表',
+        dataIndex: 'containedTag',
+        key: 'containedTag',
         render: (text,record)=> {
-            if (record && record.roleList.length > 0) {
-              let roles= (record.roleList.map((item,key)=> {
-                  //console.log('item', item,key)
-                  return <a key={key} style={{marginRight: 4}}>{item}</a>
-                })
-              )
-              return roles
-            }
+        if (record && record.containedTag.length > 0) {
+          let renderC= record.containedTag.map((item,key)=> {
+              //console.log('result', item,key)
+              return <a key={key} style={{marginRight:3}}>{item.name}</a>
+            })
+            return renderC
+
+        }else{
+          return <a></a>
+        }
+
         }
       }, {
         title: '操作',
@@ -131,9 +152,9 @@ class personList extends React.Component {
             <a onClick={() => this.props.onEditItem(record)} style={{
               marginRight: 4
             }}>编辑</a>
-            <Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>
-              <a>删除</a>
-            </Popconfirm>
+            {/*<Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>*/}
+              {/*<a>删除</a>*/}
+            {/*</Popconfirm>*/}
           </p>
         )
       }
@@ -141,9 +162,9 @@ class personList extends React.Component {
     return <div>
       <Table className={styles.table} bordered scroll={{
         x: 800
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.key} pagination={this.props.pagination?this.props.pagination:{}} />
+      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} />
     </div>
   }
 }
 
-export default personList
+export default CategoryList
