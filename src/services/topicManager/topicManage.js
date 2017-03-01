@@ -25,3 +25,13 @@ export async function getTopicCategoryList(payload) {
     return {success:false}
   }
 }
+
+
+export async function updateTopicPicked(payload) {
+  try{
+    await AV.Cloud.run('updateTopicPicked',payload)
+    return {success:true}
+  }catch (err){
+    return {success: false}
+  }
+}
