@@ -2,7 +2,7 @@
  * Created by wuxingyu on 2017/2/20.
  */
 
-import {getTopicList, getTopicCategoryList, updateTopicPicked} from '../../services/topicManager/topicManage'
+import {getTopicList, getTopicCategoryList, updateTopicPicked} from '../../services/topicManager/topicManagerServices'
 import {parse} from 'qs'
 
 export default {

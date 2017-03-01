@@ -6,7 +6,7 @@ import {connect} from 'dva'
 import {Button, Menu, Dropdown, Icon, message, Input, DatePicker, Row, Col} from 'antd'
 const {MonthPicker, RangePicker} = DatePicker;
 import TopicList from '../../components/topicManager/topicManager/topicList'
-import {getTopicList, getTopicCategoryList} from '../../selector/topicManager/topicManager'
+import {getTopicList, getTopicCategoryList} from '../../selector/topicManager/topicManagerSelector'
 import TopicModal from '../../components/topicManager/topicManager/topicModal'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
