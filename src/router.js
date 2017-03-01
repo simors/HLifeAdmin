@@ -20,6 +20,7 @@ export default function ({history, app}) {
       <Route path="/shopManager/shopCategoryManager" breadcrumbName="店铺分类管理" component={ShopCategoryManage}/>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>
+      <Route path="/topicManager/topicCategoryManager" breadcrumbName="分类管理" component={TopicDetail}/>
       <Route path="*" component={err}/>
     </Route>
 
