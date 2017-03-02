@@ -6,7 +6,7 @@ import {connect} from 'dva'
 import {Button, Menu, Dropdown, Icon, message, Input, DatePicker, Row, Col} from 'antd'
 const {MonthPicker, RangePicker} = DatePicker;
 import TopicList from '../../components/topicManager/topicManager/topicList'
-import {getTopicList, getTopicCategoryList} from '../../selector/topicManager/topicManager'
+import {getTopicList, getTopicCategoryList} from '../../selector/topicManager/topicManagerSelector'
 import TopicModal from '../../components/topicManager/topicManager/topicModal'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -74,10 +74,6 @@ class topicManager extends Component {
     })
   }
 
-  add() {
-    this.setState({modalVisible: true, modalType: 'create'})
-  }
-
   onOk(data) {
     this.props.dispatch({
       type: 'personManage/' + this.state.modalType,
@@ -94,9 +90,6 @@ class topicManager extends Component {
     this.setState({modalVisible: true, modalType: 'update', selectedItem: data})
   }
 
-  onDelete(itemId) {
-
-  }
 
   onSearchByFilter() {
     this.props.dispatch({
@@ -207,11 +200,26 @@ class topicManager extends Component {
 
 
         </Row>
-        <TopicList dataSource={this.props.topicList} onEditItem={(payload)=> {
-          this.onModify(payload)
-        }} onDeleteItem={(payload)=> {
-          this.onDelete(payload)
-        }}/>
+        <TopicList
+          changePicked={(id, picked)=> {
+            this.props.dispatch({
+              type: 'topicManage/update',
+              payload: {
+                id: id, picked: picked, payload: {
+                  orderMode: this.state.orderMode,
+                  categoryName: this.state.categoryName == '所有分类' ? '' : this.state.categoryName,
+                  filterValue: this.state.filterValue,
+                  startTime: this.state.startTime,
+                  endTime: this.state.endTime,
+                  picked: this.state.picked,
+                }
+              }
+            })
+          }}
+          dataSource={this.props.topicList}
+          onEditItem={(payload)=> {
+            this.onModify(payload)
+          }}/>
         <TopicModal
           visible={this.state.modalVisible}
           type={this.state.modalType}

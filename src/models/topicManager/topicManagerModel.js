@@ -2,7 +2,7 @@
  * Created by wuxingyu on 2017/2/20.
  */
 
-import {getTopicList, getTopicCategoryList} from '../../services/topicManager/topicManage'
+import {getTopicList, getTopicCategoryList, updateTopicPicked} from '../../services/topicManager/topicManagerServices'
 import {parse} from 'qs'
 
 export default {
@@ -34,6 +34,17 @@ export default {
         })
       }
     },
+
+    *update ({payload}, {call, put}) {
+      yield put({type: 'showLoading'})
+      const data = yield call(updateTopicPicked, payload)
+      if (data && data.success) {
+        yield put({
+          type: 'query',
+          payload: payload.payload
+        })
+      }
+    }
   },
 
   reducers: {

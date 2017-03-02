@@ -1,13 +1,13 @@
 /**
  * Created by lilu on 2017/2/20.
  */
-import React from 'react'
-import {Table, Popconfirm} from 'antd'
+import React, {Component} from 'react'
+import {Table, Popconfirm, Checkbox} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './topicList.less'
-import {Link, } from 'dva/router'
+import {Link,} from 'dva/router'
 class topicList extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.enterAnim = [
       {
@@ -42,9 +42,6 @@ class topicList extends React.Component {
         ease: 'easeOutQuad'
       }
     ]
-    //const {current} = this.props.pagination
-    // this.currentPage = current
-    // this.newPage = current
   }
 
   getBodyWrapper = (body) => {
@@ -54,7 +51,8 @@ class topicList extends React.Component {
       return body
     }
     return (
-      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim} appear={false}>
+      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim}
+                     appear={false}>
         {body.props.children}
       </TweenOneGroup>
     )
@@ -64,18 +62,14 @@ class topicList extends React.Component {
     e.target.style.height = 'auto'
   }
 
-  async pageChange (pagination) {
+  async pageChange(pagination) {
     await this.props.onPageChange(pagination)
     this.newPage = pagination.current
   }
 
-  render () {
+  render() {
     const {
-      // loading,
       dataSource,
-      // pagination,
-      // onDeleteItem,
-      // onEditItem
     } = this.props
     const columns = [
       {
@@ -102,26 +96,33 @@ class topicList extends React.Component {
         title: '点赞数',
         dataIndex: 'likeCount',
         key: 'likeCount',
-      },{
-        title: '是否精选',
+      }, {
+        title: '精选',
         dataIndex: 'picked',
-        key: 'picked',
+        render: (text, record) => {
+          return (
+            <Checkbox checked={record.picked} disabled={false}
+                      onChange={()=>this.props.changePicked(record.key, !record.picked)}>
+            </Checkbox>
+          )
+        }
       },
       {
-        title: '操作',
+        title: '详情',
         key: 'operation',
         width: 100,
         render: (text, record) => {
           return (
-          <p>
-            <Link to={{pathname:"/topicManager/topicDetail", query:{articleContent: record.content, title: record.title}}} style={{
-              marginRight: 4
-            }}>文章详情</Link>
-            <Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>
-              <a>删除</a>
-            </Popconfirm>
-          </p>
-        )}
+            <p>
+              <Link to={{
+                pathname: "/topicManager/topicDetail",
+                query: {articleContent: record.content, title: record.title}
+              }} style={{
+                marginRight: 4
+              }}>文章详情</Link>
+            </p>
+          )
+        }
       }
     ]
     return <div>

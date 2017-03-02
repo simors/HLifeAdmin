@@ -19,10 +19,7 @@ export class topicList {
       topicInfo.likeCount = result.likeCount
       topicInfo.commentNum = result.commentNum
       topicInfo.createdAt = result.createdAt
-      if(result.picked)
-        topicInfo.picked = "true"
-      else
-        topicInfo.picked = "false"
+      topicInfo.picked = result.picked
      // count++
       topicList.push(topicInfo)
     })
