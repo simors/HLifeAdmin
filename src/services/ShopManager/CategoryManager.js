@@ -45,9 +45,16 @@ export async function createShopCategory(payload){
       status:payload.status,
       imageSource:imageSource
     }
-    console.log('categoryInfo',categoryInfo)
+  console.log('categoryInfo',categoryInfo)
 
+  try{
+    await AV.Cloud.run('createShopCategory',categoryInfo)
     return{success:true}
+
+  }catch (err){
+      return {success:false}
+  }
+
 
 
 
