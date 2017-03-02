@@ -33,6 +33,10 @@ export class topicCategoryList {
     results.forEach((result)=> {
       let topicCategoryInfo = {}
       topicCategoryInfo.title = result.title
+      topicCategoryInfo.id = result.id
+      topicCategoryInfo.picked = result.isPicked
+      topicCategoryInfo.createdAt = result.createdAt
+      topicCategoryInfo.introduction = result.introduction
       topicCategoryList.push(topicCategoryInfo)
     })
     return topicCategoryList
