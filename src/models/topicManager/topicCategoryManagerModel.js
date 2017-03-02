@@ -2,7 +2,7 @@
  * Created by wuxingyu on 2017/2/20.
  */
 
-import {getTopicCategoryList, updateTopicCategoryPicked} from '../../services/topicManager/topicManagerServices'
+import {getTopicCategoryList, updateTopicCategoryPicked, createNewTopicCategory} from '../../services/topicManager/topicManagerServices'
 
 export default {
 
@@ -40,7 +40,17 @@ export default {
           payload: payload.payload
         })
       }
-    }
+    },
+
+    *create ({payload}, {call, put}) {
+      yield put({type: 'showLoading'})
+      const data = yield call(createNewTopicCategory, {name: payload.name, introduction: payload.introduction})
+      if (data && data.success) {
+        yield put({
+          type: 'query'
+        })
+      }
+    },
   },
 
   reducers: {

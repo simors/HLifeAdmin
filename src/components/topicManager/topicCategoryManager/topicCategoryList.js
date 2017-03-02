@@ -94,6 +94,17 @@ class topicCategoryList extends React.Component {
             </Checkbox>
           )
         }
+      },{
+        title: '操作',
+        key: 'operation',
+        width: 100,
+        render: (text, record) => (
+          <p>
+            <a onClick={() => this.props.onEditItem(record)} style={{
+              marginRight: 6
+            }}>编辑</a>
+          </p>
+        )
       }
     ]
     return <div>
