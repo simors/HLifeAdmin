@@ -85,6 +85,15 @@ class topicCategoryList extends React.Component {
         dataIndex: 'createdAt',
         key: 'createdAt',
       }, {
+        title: '图标',
+        dataIndex: 'image',
+        key: 'image',
+        render: (text,record)=>{
+          // console.log('record', record)
+          return <img style={{width:150,height:150}} src={record.image}></img>
+        }
+      },
+      {
         title: '精选',
         dataIndex: 'picked',
         render: (text, record) => {
