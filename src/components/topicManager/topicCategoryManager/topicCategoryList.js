@@ -90,7 +90,7 @@ class topicCategoryList extends React.Component {
         key: 'image',
         render: (text,record)=>{
           // console.log('record', record)
-          return <img style={{width:150,height:150}} src={record.image}></img>
+          return <img style={{width:100,height:100}} src={record.image}></img>
         }
       },
       {
