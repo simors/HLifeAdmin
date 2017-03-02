@@ -24,16 +24,24 @@ export async function getShopTagList(){
 }
 
 export async function createShopCategory(payload){
-  console.log('asasasas',payload.imageSource.file.originFileObj)
+  console.log('asasasas',payload)
   let localFile = payload.imageSource.file.originFileObj
   let name = 'categorytestimage.png'
   let file = new AV.File(name,localFile)
   let a = await file.save()
-  console.log('a',a)
     let imageSource=a.attributes.url
+    let tagList = []
+    payload.selectedTags.forEach((result)=>{
+      let tag = {
+        __type:'Pointer',
+        className:'ShopTag',
+        objectId:result.id
+      }
+      tagList.push(tag)
+    })
     let categoryInfo = {
       text:payload.text,
-      tagList:payload.selectedTags,
+      tagList:tagList,
       status:payload.status,
       imageSource:imageSource
     }
