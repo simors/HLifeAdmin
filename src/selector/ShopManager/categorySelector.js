@@ -4,3 +4,7 @@
 export function getCategoryList(state) {
   return state.shopCategoryManager.categoryList
 }
+
+export function getTagList(state) {
+  return state.shopCategoryManager.tagList
+}
