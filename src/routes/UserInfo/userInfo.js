@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 import {Button,message} from 'antd'
 import {connect} from 'dva'
-import UserInfoManage from '../../components/userInfo/userInfo'
+import UserInfoManage from '../../components/userInfo/userInfoModal'
 import {getUserInfo} from '../../selector/userInfo/userInfo'
 class UserInfo extends Component {
   constructor(props) {

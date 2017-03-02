@@ -98,7 +98,7 @@ class personList extends React.Component {
       // onDeleteItem,
       // onEditItem
     } = this.props
-    console.log('personDataSource',dataSource)
+    // console.log('personDataSource',dataSource)
     const columns = [
        {
         title: '姓名',
@@ -116,7 +116,7 @@ class personList extends React.Component {
             if (record && record.roleList.length > 0) {
               let roles= (record.roleList.map((item,key)=> {
                   //console.log('item', item,key)
-                  return <a key={key} style={{marginRight: 4}}>{item}</a>
+                  return <p key={key} style={{marginRight: 4}}>{item}</p>
                 })
               )
               return roles
@@ -129,7 +129,7 @@ class personList extends React.Component {
         render: (text, record) => (
           <p>
             <a onClick={() => this.props.onEditItem(record)} style={{
-              marginRight: 4
+              marginRight: 6
             }}>编辑</a>
             <Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>
               <a>删除</a>

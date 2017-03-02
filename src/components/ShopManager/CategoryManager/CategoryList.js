@@ -134,7 +134,7 @@ class CategoryList extends React.Component {
         if (record && record.containedTag.length > 0) {
           let renderC= record.containedTag.map((item,key)=> {
               //console.log('result', item,key)
-              return <a key={key} style={{marginRight:3}}>{item.name}</a>
+              return <p key={key} style={{marginRight:3}}>{item.name}</p>
             })
             return renderC
 
