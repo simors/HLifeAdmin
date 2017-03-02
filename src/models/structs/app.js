@@ -41,7 +41,8 @@ export const topicManagerConfig = {
   name: '话题管理' ,
   icon: '',
   child: [
-    {key:'contentManager',name:'内容管理'}
+    {key:'contentManager',name:'内容管理'},
+    {key:'topicCategoryManager',name:'分类管理'}
   ]
 }
 export const BGManagerConfig = {

@@ -8,3 +8,8 @@ export function getTopicList(state) {
 export function getTopicCategoryList(state) {
   return state.topicManage.topicCategoryList
 }
+
+export function getTopicCategoryDetailList(state) {
+  return state.topicCategoryManage.topicCategoryList
+}
+
