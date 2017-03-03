@@ -69,6 +69,7 @@ class personModal extends Component {
         onOk={()=>{this.handleOk()}}
         onCancel={()=>{this.props.onCancel()}}
         wrapClassName='vertical-center-modal'
+        key = {(this.props.type === 'create') ? '0' : this.props.item.key}
       >
         <Form horizontal>
           <FormItem label='姓名：' hasFeedback {...formItemLayout}>
@@ -95,7 +96,7 @@ class personModal extends Component {
           </FormItem>
           <FormItem label='角色' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('roleList', {
-              initialValue: roles,
+              initialValue: this.props.type==='create'?[]:roles,
               rules: [
                 {
                   required: true,

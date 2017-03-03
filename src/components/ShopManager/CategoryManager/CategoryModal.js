@@ -19,6 +19,8 @@ const formItemLayout = {
 class CategoryModal extends Component {
   constructor(props) {
     super(props)
+
+
     this.state = {
       visible: false,
       fileList: [
@@ -29,12 +31,14 @@ class CategoryModal extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+
     if (this.props.visible != newProps.visible) {
       this.setState({visible: newProps.visible})
     }
   }
 
   componentDidMount() {
+
     this.setState({visible: !!this.props.visible})
     console.log(...this.props)
 
@@ -57,7 +61,7 @@ class CategoryModal extends Component {
         ...this.props.form.getFieldsValue(),
         key: this.props.item.key?this.props.item.key:''
       }
-      //console.log('data',data)
+      console.log('data',data)
       this.props.onOk(data)
     })
   }
@@ -66,7 +70,7 @@ class CategoryModal extends Component {
     var name = 'categorytestimage.png'
     var file = new AV.File(name,localFile)
     file.save().then((file)=>{
-      console.log(file.url())
+      // console.log(file.url())
       this.setState({fileList:[{
         uid:-1,
         name:name,
@@ -80,6 +84,15 @@ class CategoryModal extends Component {
   }
 
   render() {
+    // if(this.props.type!='create'){
+    //   let tagKeys = []
+    //   this.props.item.containedTag.forEach((tag)=>{
+    //     tagKeys.push(tag.key)
+    //   })
+    //   this.setState({selectedRowKeys:tagKeys})
+    // }
+    // console.log('containedTag',this.props.item.containedTag)
+
     const {  selectedRowKeys } = this.state;
     const rowSelection = {
       selectedRowKeys,
@@ -93,7 +106,7 @@ class CategoryModal extends Component {
       }
     ]
     const options = ['apple', 'pear', 'orange']
-    // console.log('ahahahahahaha', this.props.item)
+      // console.log('ahahahahahaha', selectedRowKeys)
     // console.log('ahahahahahaha',options)
     const roles = []
     if (this.props.item.roleList)
@@ -111,6 +124,7 @@ class CategoryModal extends Component {
         onOk={()=>{this.handleOk()}}
         onCancel={()=>{this.props.onCancel()}}
         wrapClassName='vertical-center-modal'
+        key={this.props.type==='create'?'0':this.props.item.id}
       >
         <Form horizontal>
           <FormItem label='名称：' hasFeedback {...formItemLayout}>
@@ -126,14 +140,14 @@ class CategoryModal extends Component {
           </FormItem>
           <FormItem label='图标：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('imageSource', {
-              initialValue: this.props.type==='create'?'':this.props.item.imageSource,
+              initialValue: this.props.type==='create'?'':{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.imageSource},
               rules: [
                 {
                   required: true,
                   message: '图标'
                 }
               ]
-            })(<Upload  listType='picture'  >
+            })(<Upload  listType='picture' defaultFileList={this.props.type==='create'?[]:[{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.imageSource}]}  >
               <Button>
               <Icon type='upload' />upload</Button>
             </Upload>)}
@@ -151,7 +165,7 @@ class CategoryModal extends Component {
           </FormItem>
           <FormItem label='标签' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('containedTag', {
-              initialValue: [],
+              initialValue: this.props.type==='create'?[]:this.props.item.containedTag,
 
             })(
              <Table bordered scroll={{
