@@ -7,7 +7,7 @@ import {Button, Menu, Dropdown, Icon, message, Input, DatePicker, Row, Col} from
 const {MonthPicker, RangePicker} = DatePicker;
 import TopicCategoryList from '../../components/topicManager/topicCategoryManager/topicCategoryList'
 import {getTopicCategoryDetailList} from '../../selector/topicManager/topicManagerSelector'
-import TopicModal from '../../components/topicManager/topicManager/topicModal'
+import TopicCategoryModal from '../../components/topicManager/topicCategoryManager/topicCategoryModal'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
@@ -27,8 +27,8 @@ class topicCategoryManager extends Component {
       modalVisible: false,
       modalType: 'create',
       filterValue: '',
-      startTime: new Date('2000-01-01 00:00:00'),
-      endTime: new Date(),
+      startTime: undefined,
+      endTime: undefined,
       picked: false,
       pickedName: '全部',
       selectedItem: {},
@@ -36,6 +36,10 @@ class topicCategoryManager extends Component {
     }
     this.handleFilterSelectedChange = this.handleFilterSelectedChange.bind(this);
     this.handleFilterInputChange = this.handleFilterInputChange.bind(this);
+  }
+
+  add(){
+    this.setState({modalVisible:true,modalType:'create'})
   }
 
   handleMenuClick(e) {
@@ -89,6 +93,15 @@ class topicCategoryManager extends Component {
         picked: this.state.picked,
       }
     })
+  }
+
+  onOk(data){
+    this.props.dispatch({
+      type:'topicCategoryManage/'+this.state.modalType,
+      payload:data
+    })
+    // console.log('data====>',data)
+    this.setState({modalVisible:false})
   }
 
   handleFilterSelectedChange(value) {
@@ -167,7 +180,9 @@ class topicCategoryManager extends Component {
           <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>
             <Button type="primary" onClick={()=>this.onSearchByFilter()}>查询</Button>
           </Col>
-
+          <Col lg={{offset: 0, span: 3}} style={{marginTop: 18, textAlign: 'left'}}>
+            <Button type='ghost' onClick={()=>{this.add()}}>添加分类</Button>
+          </Col>
 
         </Row>
         <TopicCategoryList
@@ -188,7 +203,7 @@ class topicCategoryManager extends Component {
           onEditItem={(payload)=> {
             this.onModify(payload)
           }}/>
-        <TopicModal
+        <TopicCategoryModal
           visible={this.state.modalVisible}
           type={this.state.modalType}
           onOk={(payload)=> {

@@ -37,6 +37,7 @@ export class topicCategoryList {
       topicCategoryInfo.picked = result.isPicked
       topicCategoryInfo.createdAt = result.createdAt
       topicCategoryInfo.introduction = result.introduction
+      topicCategoryInfo.image = result.image
       topicCategoryList.push(topicCategoryInfo)
     })
     return topicCategoryList

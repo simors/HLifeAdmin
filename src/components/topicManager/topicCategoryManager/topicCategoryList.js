@@ -85,6 +85,15 @@ class topicCategoryList extends React.Component {
         dataIndex: 'createdAt',
         key: 'createdAt',
       }, {
+        title: '图标',
+        dataIndex: 'image',
+        key: 'image',
+        render: (text,record)=>{
+          // console.log('record', record)
+          return <img style={{width:100,height:100}} src={record.image}></img>
+        }
+      },
+      {
         title: '精选',
         dataIndex: 'picked',
         render: (text, record) => {
@@ -94,6 +103,17 @@ class topicCategoryList extends React.Component {
             </Checkbox>
           )
         }
+      },{
+        title: '操作',
+        key: 'operation',
+        width: 100,
+        render: (text, record) => (
+          <p>
+            <a onClick={() => this.props.onEditItem(record)} style={{
+              marginRight: 6
+            }}>编辑</a>
+          </p>
+        )
       }
     ]
     return <div>

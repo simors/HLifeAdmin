@@ -78,6 +78,7 @@ class topicManager extends Component {
     this.props.dispatch({
       type: 'personManage/' + this.state.modalType,
       payload: data
+
     })
     this.setState({modalVisible: false})
   }
