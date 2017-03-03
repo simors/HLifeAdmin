@@ -8,6 +8,8 @@ import TopicCategoryManager from './routes/topicManager/topicCategoryManager'
 import TopicDetail from './routes/topicManager/TopicDetail'
 import UserInfoManage from './routes/UserInfo/userInfo'
 import ShopCategoryManage from './routes/ShopManager/CategoryManager'
+import ShopTagManage from './routes/ShopManager/TagManager'
+
 import Welcome from './routes/welcome'
 import err from './routes/error'
 export default function ({history, app}) {
@@ -19,6 +21,7 @@ export default function ({history, app}) {
       <Route path="/BGManager/personListManager" breadcrumbName="用户列表管理" component={PersonManage}/>
       <Route path="/adminUserInfoManager" breadcrumbName="个人信息" component={UserInfoManage}/>
       <Route path="/shopManager/shopCategoryManager" breadcrumbName="店铺分类管理" component={ShopCategoryManage}/>
+      <Route path="/shopManager/shopTagManager" breadcrumbName="店铺分类管理" component={ShopTagManage}/>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>
       <Route path="/topicManager/topicCategoryManager" breadcrumbName="分类管理" component={TopicCategoryManager}/>

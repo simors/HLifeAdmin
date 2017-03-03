@@ -78,7 +78,7 @@ export const shopManagerConfig = {
   name: '店铺管理',
   icon: '',
   child: [
-    {key:'shopInfoManager',name:'店铺信息管理'},{key:'shopCategoryManager',name:'店铺分类管理'}
+    {key:'shopInfoManager',name:'店铺信息管理'},{key:'shopCategoryManager',name:'店铺分类管理'},{key:'shopTagManager',name:'店铺标签管理'}
   ]
 }
 

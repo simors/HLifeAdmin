@@ -59,7 +59,7 @@ class CategoryModal extends Component {
       const data = {
         selectedTags:this.state.selectTags,
         ...this.props.form.getFieldsValue(),
-        key: this.props.item.key?this.props.item.key:''
+        key: this.props.item.id?this.props.item.id:''
       }
       console.log('data',data)
       this.props.onOk(data)
@@ -116,7 +116,7 @@ class CategoryModal extends Component {
       })
     }
     // console.log('type',this.props.type)
-    // console.log('roleList',this.props.roleList)
+     console.log('roleList',this.props.item.id)
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建分类' : '修改分类'}

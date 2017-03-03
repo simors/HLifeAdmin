@@ -7,11 +7,13 @@
 import React, { Component,PropTypes } from 'react'
 import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
-import {Button} from 'antd'
+import {Button,Tabs} from 'antd'
 import CategoryList from '../../components/ShopManager/CategoryManager/CategoryList'
 import {getCategoryList,getTagList} from '../../selector/ShopManager/categorySelector'
 // import UserSearch from '../../components/users/search'
  import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
+//
+// const TabPane = Tabs.TabPane;
 
 class categoryManager extends Component{
   constructor(props){
@@ -36,7 +38,7 @@ class categoryManager extends Component{
       type:'shopCategoryManager/'+this.state.modalType,
       payload:data
     })
-     //console.log('data====>',data)
+     console.log('data====>',data)
     this.setState({modalVisible:false})
   }
   onCancel(){
@@ -44,7 +46,8 @@ class categoryManager extends Component{
   }
 
   onModify(data){
-    this.setState({modalVisible:true,modalType:'update',selectedItem:data })
+    // console.log('data',data)
+     this.setState({modalVisible:true,modalType:'update',selectedItem:data })
   }
 
   onDelete(itemId){
@@ -58,7 +61,10 @@ class categoryManager extends Component{
     // console.log('personList===>',this.props.roleList)
 
     return (
+
       <div className='content-inner'>
+        {/*<Tabs defaultActiveKey="categoryManager" >*/}
+          {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
         <Button size='large' type='ghost'  onClick={()=>{this.add()}}>添加用户</Button>
         <CategoryList
           dataSource={this.props.categoryList}
@@ -66,6 +72,8 @@ class categoryManager extends Component{
           onDeleteItem={(payload)=>{this.onDelete(payload)}}
           pagination={{total:this.props.categoryList.length,pageSize:10}}
         />
+            {/*</TabPane>*/}
+          {/*</Tabs>*/}
         <CategoryModal
           visible = {this.state.modalVisible}
           type = {this.state.modalType}

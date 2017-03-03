@@ -44,6 +44,7 @@ app.model(require('./models/topicManager/topicManagerModel'))
 app.model(require('./models/BGManager/personManagerModel'))
 app.model(require('./models/topicManager/topicCategoryManagerModel'))
 
+
 // 3. Router
 app.router(require('./router'))
 

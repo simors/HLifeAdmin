@@ -2,7 +2,7 @@
  * Created by lilu on 2017/2/28.
  */
 import {parse} from 'qs'
-import {getShopCategoryList,getShopTagList,createShopCategory} from '../../services/ShopManager/CategoryManager'
+import {getShopCategoryList,getShopTagList,createShopCategory,updateShopCategory} from '../../services/ShopManager/CategoryManager'
 
 export default {
   namespace: 'shopCategoryManager',
@@ -38,7 +38,17 @@ export default {
 
         })
       }
-    }
+    },
+    *update ({payload},{call,put}){
+      yield put({type: 'showLoading'})
+      const category = yield call(updateShopCategory, parse(payload))
+      if (category.success) {
+        yield put({
+          type: 'query',
+
+        })
+      }
+    },
   },
   reducers:{
     showLoading (state) {
