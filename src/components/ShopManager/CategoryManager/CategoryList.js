@@ -112,13 +112,42 @@ class CategoryList extends React.Component {
         title: '名称',
         dataIndex: 'text',
         key: 'text'
-      }, {
+      },
+      {
+        title: '描述',
+        dataIndex: 'describe',
+        key: 'describe'
+      },
+      {
+        title: '精选排名',
+        dataIndex: 'displaySort',
+        key: 'displaySort'
+      },
+      {
+        title:'字体颜色',
+        dataIndex:'textColor',
+        key:'textColor',
+        render:(text,record)=>{
+          if(record.textColor)
+          return <div style={{color:record.textColor}}>{record.text}</div>
+        }
+      },
+      {
         title: '图标',
         dataIndex: 'imageSource',
         key: 'imageSource',
         render: (text,record)=>{
           // console.log('record', record)
           return <img style={{width:30,height:30}} src={record.imageSource}></img>
+        }
+      },
+      {
+        title: '封面图片',
+        dataIndex: 'showPictureSource',
+        key: 'showPictureSource',
+        render: (text,record)=>{
+          // console.log('record', record)
+          return <img style={{width:60,height:60}} src={record.showPictureSource}></img>
         }
       },
       {
@@ -161,7 +190,7 @@ class CategoryList extends React.Component {
     ]
     return <div>
       <Table className={styles.table} bordered scroll={{
-        x: 800
+        x: 1200
       }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} />
     </div>
   }
