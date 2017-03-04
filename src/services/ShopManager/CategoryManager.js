@@ -29,7 +29,12 @@ export async function createShopCategory(payload) {
   let name = 'categorytestimage.png'
   let file = new AV.File(name, localFile)
   let a = await file.save()
+  let localImage = payload.showPictureSource.file.originFileObj
+  let imageName = 'categorytestimage.png'
+  let image = new AV.File(imageName, localImage)
+  let b = await image.save()
   let imageSource = a.attributes.url
+  let showPictureSource = b.attributes.url
   let tagList = []
   payload.selectedTags.forEach((result)=> {
     let tag = {
@@ -43,7 +48,11 @@ export async function createShopCategory(payload) {
     text: payload.text,
     tagList: tagList,
     status: payload.status,
-    imageSource: imageSource
+    imageSource: imageSource,
+    showPictureSource:showPictureSource,
+    describe:payload.describe,
+    displaySort:payload.displaySort,
+    textColor:payload.textColor
   }
   console.log('categoryInfo', categoryInfo)
 
@@ -59,6 +68,7 @@ export async function createShopCategory(payload) {
 export async function updateShopCategory(payload){
   // console.log('as',payload)
   let imageSource=''
+  let showPictureSource= ''
   if (payload.imageSource.file){
     let localFile = payload.imageSource.file.originFileObj
     let name = 'categorytestimage.png'
@@ -69,6 +79,17 @@ export async function updateShopCategory(payload){
     imageSource=payload.imageSource.url
     // console.log('hahahahahahhaahhahahaha=>>>>>>>>>>>>>')
   }
+  if (payload.showPictureSource.file){
+    let localFile = payload.showPictureSource.file.originFileObj
+    let name = 'categorytestimage.png'
+    let file = new AV.File(name, localFile)
+    let a = await file.save()
+    imageSource = a.attributes.url
+  }else{
+    imageSource=payload.showPictureSource.url
+    // console.log('hahahahahahhaahhahahaha=>>>>>>>>>>>>>')
+  }
+
   let tagList = []
 
   payload.selectedTags.forEach((result)=> {
@@ -84,7 +105,11 @@ export async function updateShopCategory(payload){
     text: payload.text,
     tagList: tagList,
     status: payload.status,
-    imageSource: imageSource
+    imageSource: imageSource,
+    showPictureSource:showPictureSource,
+    describe:payload.describe,
+    displaySort:payload.displaySort,
+    textColor:payload.textColor
   }
   // console.log('categoryInfo', categoryInfo)
   try {
