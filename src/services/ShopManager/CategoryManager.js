@@ -24,7 +24,7 @@ export async function getShopTagList() {
 }
 
 export async function createShopCategory(payload) {
-  console.log('asasasas', payload)
+  // console.log('asasasas', payload)
   let localFile = payload.imageSource.file.originFileObj
   let name = 'categorytestimage.png'
   let file = new AV.File(name, localFile)
@@ -57,7 +57,7 @@ export async function createShopCategory(payload) {
 }
 
 export async function updateShopCategory(payload){
-  console.log('as',payload)
+  // console.log('as',payload)
   let imageSource=''
   if (payload.imageSource.file){
     let localFile = payload.imageSource.file.originFileObj
@@ -86,12 +86,30 @@ export async function updateShopCategory(payload){
     status: payload.status,
     imageSource: imageSource
   }
-  console.log('categoryInfo', categoryInfo)
+  // console.log('categoryInfo', categoryInfo)
   try {
     await AV.Cloud.run('updateShopCategory', categoryInfo)
     return {success: true}
 
   } catch (err) {
+    return {success: false}
+  }
+}
+
+export async function createShopTag(payload){
+  try{
+    await AV.Cloud.run('createShopTag',payload)
+    return {success: true}
+  }catch(err){
+    return {success: false}
+  }
+}
+
+export async function updateShopTag(payload){
+  try{
+    await AV.Cloud.run('updateShopTag',payload)
+    return {success: true}
+  }catch(err){
     return {success: false}
   }
 }

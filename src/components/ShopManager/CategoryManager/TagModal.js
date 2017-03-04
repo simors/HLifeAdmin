@@ -15,7 +15,7 @@ const formItemLayout = {
     span: 14
   }
 }
-class personModal extends Component {
+class TagModal extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -26,12 +26,12 @@ class personModal extends Component {
 
   componentWillReceiveProps(newProps) {
     if (this.props.visible != newProps.visible) {
-       this.setState({visible: newProps.visible})
+      this.setState({visible: newProps.visible})
     }
   }
 
   componentDidMount() {
-     this.setState({visible: !!this.props.visible})
+    this.setState({visible: !!this.props.visible})
     console.log(...this.props)
 
   }
@@ -39,14 +39,13 @@ class personModal extends Component {
   handleOk() {
     let count=this.state.count+1
     this.setState({count:count})
-
     this.props.form.validateFields((errors) => {
       if (errors) {
         return
       }
       const data = {
         ...this.props.form.getFieldsValue(),
-        key: this.props.item.key
+        key: this.props.item.id
       }
       //console.log('data',data)
       this.props.onOk(data)
@@ -55,7 +54,7 @@ class personModal extends Component {
 
   render() {
     const options = ['apple', 'pear', 'orange']
-   // console.log('ahahahahahaha', this.props.item)
+    // console.log('ahahahahahaha', this.props.item)
     // console.log('ahahahahahaha',options)
     const roles = []
     if (this.props.item.roleList)
@@ -64,8 +63,8 @@ class personModal extends Component {
         roles.push(record)
       })
     }
-     // console.log('type',this.props.type)
-     // console.log('roleList',this.props.roleList)
+    // console.log('type',this.props.type)
+    // console.log('roleList',this.props.roleList)
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建用户' : '修改用户'}
@@ -79,42 +78,16 @@ class personModal extends Component {
         key = {this.state.count}
       >
         <Form horizontal>
-          <FormItem label='姓名：' hasFeedback {...formItemLayout}>
+          <FormItem label='标签名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
-              initialValue: this.props.type==='create'?'':this.props.item.username,
+              initialValue: this.props.type==='create'?'':this.props.item.name,
               rules: [
                 {
                   required: true,
-                  message: '姓名未填写'
-                }
-              ]
-            })(<Input disabled={this.props.type==='create'?false:true}/>)}
-          </FormItem>
-          <FormItem label='密码：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('password', {
-              initialValue: this.props.type==='create'?'':this.props.item.password,
-              rules: [
-                {
-                  required: true,
-                  message: '密码未填写'
+                  message: '名称未填写'
                 }
               ]
             })(<Input />)}
-          </FormItem>
-          <FormItem label='角色' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('roleList', {
-              initialValue: this.props.type==='create'?[]:roles,
-              rules: [
-                {
-                  required: true,
-                  message: '请选择角色'
-                }
-              ]
-            })(
-              <CheckboxGroup options={this.props.roleList} >
-
-              </CheckboxGroup>
-            )}
           </FormItem>
         </Form>
       </Modal>
@@ -122,7 +95,7 @@ class personModal extends Component {
   }
 }
 
-personModal.propTypes = {
+TagModal.propTypes = {
   // visible: PropTypes.any,
   // form: PropTypes.object,
   // item: PropTypes.object,
@@ -130,4 +103,4 @@ personModal.propTypes = {
   // onCancel: PropTypes.func
 }
 
-export default Form.create()(personModal)
+export default Form.create()(TagModal)

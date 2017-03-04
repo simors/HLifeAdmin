@@ -65,7 +65,7 @@ class categoryManager extends Component{
       <div className='content-inner'>
         {/*<Tabs defaultActiveKey="categoryManager" >*/}
           {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
-        <Button size='large' type='ghost'  onClick={()=>{this.add()}}>添加用户</Button>
+        <Button size='large' type='ghost'  onClick={()=>{this.add()}}>添加分类 </Button>
         <CategoryList
           dataSource={this.props.categoryList}
           onEditItem={(payload)=>{this.onModify(payload)}}

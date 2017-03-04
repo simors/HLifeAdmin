@@ -44,11 +44,11 @@ class CategoryModal extends Component {
   componentDidMount() {
 
     this.setState({visible: !!this.props.visible})
-    console.log('hahahah',...this.props)
+    // console.log('hahahah',...this.props)
 
   }
   onSelectChange = (selectedRowKeys,selectedRowData) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    // console.log('selectedRowKeys changed: ', selectedRowKeys);
     //console.log('selectedRowKeys changed: ', this.state.selectedRowKeys);
 
     this.setState({ selectedRowKeys:selectedRowKeys,selectTags:selectedRowData });

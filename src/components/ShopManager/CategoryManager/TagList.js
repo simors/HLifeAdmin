@@ -105,13 +105,15 @@ class CategoryList extends React.Component {
       {
         title: '标签名称',
         dataIndex: 'name',
-        key: 'name'
+        key: 'name',
+        width: 1000,
+
       },
 
       {
         title: '操作',
         key: 'operation',
-        width: 100,
+        width: 1000,
         render: (text, record) => (
           <p>
             <a onClick={() => this.props.onEditItem(record)} style={{
@@ -125,9 +127,7 @@ class CategoryList extends React.Component {
       }
     ]
     return <div>
-      <Table className={styles.table} bordered scroll={{
-        x: 800
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} />
+      <Table className={styles.table} bordered  columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} />
     </div>
   }
 }
