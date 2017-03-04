@@ -5,6 +5,7 @@ import AV from 'leancloud-storage'
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, InputNumber, Radio, Modal, Checkbox,Upload,Table,Icon,Button} from 'antd'
 import styles from './CategoryModal.less'
+import {SketchPicker} from 'react-color'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -21,9 +22,11 @@ class CategoryModal extends Component {
   constructor(props) {
     super(props)
 
-
+console.log('rednder')
     this.state = {
-      count:1,
+      color:'#000000',
+      pickerOpen:false,
+      count:-1,
       visible: false,
       fileList: [
     ],
@@ -33,12 +36,12 @@ class CategoryModal extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-      console.log('imnewProps',newProps)
+      //console.log('imnewProps',newProps)
     if (this.props.visible != newProps.visible) {
       this.setState({visible: newProps.visible})
     }
     if(newProps.item.imageSource!=this.props.item.imageSource)
-    this.setState({fileList:this.state.visible==='create'?[]:[{uid:-1,status:'done',name:newProps.item.text,url:newProps.item.imageSource}]})
+    this.setState({fileList:(this.state.type==='create')?[]:[{uid:-1,status:'done',name:newProps.item.text,url:newProps.item.imageSource}]})
   }
 
   componentDidMount() {
@@ -56,8 +59,9 @@ class CategoryModal extends Component {
   }
 
   handleOk() {
-    let count=this.state.count+1
-    this.setState({count:count})
+    let count=this.state.count-1
+    this.setState({count:count,fileList:[]})
+
     this.props.form.validateFields((errors) => {
       if (errors) {
         return
@@ -67,9 +71,18 @@ class CategoryModal extends Component {
         ...this.props.form.getFieldsValue(),
         key: this.props.item.id?this.props.item.id:''
       }
-      console.log('data',data)
-      this.props.onOk(data)
+      // console.log('data',data)
+       this.props.onOk(data)
     })
+  }
+  pickOpen(){
+    this.setState({pickerOpen:!this.state.pickerOpen})
+  }
+  pickClose(){
+    this.setState({pickerOpen:false})
+  }
+  pickChange(color){
+    this.setState({color:color.hex})
   }
   returnUrl(payload){
     var localFile = payload.file
@@ -120,20 +133,26 @@ class CategoryModal extends Component {
       this.props.item.roleList.forEach((record)=>{
         roles.push(record)
       })
-    }
+  }
+
+
     // console.log('type',this.props.type)
-      console.log('fileList',this.state.fileList)
+    //   console.log('fileList',this.state.fileList)
+    // console.log('count',this.state.count)
+
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建分类' : '修改分类'}
         visible={this.state.visible}
         onOk={()=>{this.handleOk()}}
-        onCancel={()=>{ let count=this.state.count+1
-          this.setState({count:count})
-          this.props.onCancel()}}
+        onCancel={()=>{ let count=this.state.count-1
+          this.props.onCancel()
+          this.setState({count:count,fileList:[]})
+        }}
         wrapClassName='vertical-center-modal'
         key={this.state.count}
       >
+
         <Form horizontal>
           <FormItem label='名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('text', {
@@ -146,6 +165,21 @@ class CategoryModal extends Component {
               ]
             })(<Input />)}
           </FormItem>
+          <FormItem label='精选字体颜色：' hasFeedback {...formItemLayout}>
+            {this.props.form.getFieldDecorator('textColor', {
+              initialValue: this.state.color,
+
+            })( <div>
+              <Button key={this.state.count}  type='ghost' size='large' style={{width:120,height:30,backgroundColor:'#FFFFFF',color:this.state.color}} onClick={()=>{this.pickOpen()}}>
+             选择颜色点我
+              </Button>
+              { this.state.pickerOpen ? <div style={ styles.popover }>
+                <div className={ styles.cover } onClick={ ()=>{this.pickClose()} }/>
+                <SketchPicker color={ this.state.color } onChange={ (color)=>{this.pickChange(color)} } />
+              </div> : null }
+            </div>)}
+          </FormItem>
+
           <FormItem label='图标：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('imageSource', {
               initialValue: this.props.type==='create'?'':{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.imageSource},
@@ -160,15 +194,15 @@ class CategoryModal extends Component {
               accept='image/png'
               defaultFileList={this.props.type==='create'?[]:[{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.imageSource}]}
               onChange={(info)=>{
-                console.log('info',info)
+                //console.log('info',info)
                 let fileList = info.fileList
                 this.setState({fileList:fileList})
-                console.log('fileList',fileList)
+                //console.log('fileList',fileList)
 
               }}
             >
 
-              { (this.state.fileList.length>=1)?null:(<div><Icon type='plus' className={styles.avatar}/></div>)}
+              { (this.state.fileList.length>=1&&this.state.fileList[0].name!=undefined)?null:(<div><Icon type='plus' className={styles.avatar}/></div>)}
             </Upload>)}
           </FormItem>
           <FormItem label='启用状态：' hasFeedback {...formItemLayout}>

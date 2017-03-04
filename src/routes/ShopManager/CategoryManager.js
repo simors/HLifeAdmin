@@ -34,10 +34,10 @@ class categoryManager extends Component{
     this.setState({modalVisible:true,modalType:'create',selectedItem:{}})
   }
   onOk(data){
-    this.props.dispatch({
-      type:'shopCategoryManager/'+this.state.modalType,
-      payload:data
-    })
+    // this.props.dispatch({
+    //   type:'shopCategoryManager/'+this.state.modalType,
+    //   payload:data
+    // })
      console.log('data====>',data)
     this.setState({modalVisible:false})
   }
