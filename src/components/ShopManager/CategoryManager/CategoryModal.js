@@ -4,6 +4,7 @@
 import AV from 'leancloud-storage'
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, InputNumber, Radio, Modal, Checkbox,Upload,Table,Icon,Button} from 'antd'
+import styles from './CategoryModal.less'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -22,6 +23,7 @@ class CategoryModal extends Component {
 
 
     this.state = {
+      count:1,
       visible: false,
       fileList: [
     ],
@@ -31,16 +33,18 @@ class CategoryModal extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-
+      console.log('imnewProps',newProps)
     if (this.props.visible != newProps.visible) {
       this.setState({visible: newProps.visible})
     }
+    if(newProps.item.imageSource!=this.props.item.imageSource)
+    this.setState({fileList:this.state.visible==='create'?[]:[{uid:-1,status:'done',name:newProps.item.text,url:newProps.item.imageSource}]})
   }
 
   componentDidMount() {
 
     this.setState({visible: !!this.props.visible})
-    console.log(...this.props)
+    console.log('hahahah',...this.props)
 
   }
   onSelectChange = (selectedRowKeys,selectedRowData) => {
@@ -52,6 +56,8 @@ class CategoryModal extends Component {
   }
 
   handleOk() {
+    let count=this.state.count+1
+    this.setState({count:count})
     this.props.form.validateFields((errors) => {
       if (errors) {
         return
@@ -116,15 +122,17 @@ class CategoryModal extends Component {
       })
     }
     // console.log('type',this.props.type)
-     console.log('roleList',this.props.item.id)
+      console.log('fileList',this.state.fileList)
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建分类' : '修改分类'}
         visible={this.state.visible}
         onOk={()=>{this.handleOk()}}
-        onCancel={()=>{this.props.onCancel()}}
+        onCancel={()=>{ let count=this.state.count+1
+          this.setState({count:count})
+          this.props.onCancel()}}
         wrapClassName='vertical-center-modal'
-        key={this.props.type==='create'?'0':this.props.item.id}
+        key={this.state.count}
       >
         <Form horizontal>
           <FormItem label='名称：' hasFeedback {...formItemLayout}>
@@ -147,9 +155,20 @@ class CategoryModal extends Component {
                   message: '图标'
                 }
               ]
-            })(<Upload  listType='picture' defaultFileList={this.props.type==='create'?[]:[{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.imageSource}]}  >
-              <Button>
-              <Icon type='upload' />upload</Button>
+            })(<Upload
+              listType='picture'
+              accept='image/png'
+              defaultFileList={this.props.type==='create'?[]:[{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.imageSource}]}
+              onChange={(info)=>{
+                console.log('info',info)
+                let fileList = info.fileList
+                this.setState({fileList:fileList})
+                console.log('fileList',fileList)
+
+              }}
+            >
+
+              { (this.state.fileList.length>=1)?null:(<div><Icon type='plus' className={styles.avatar}/></div>)}
             </Upload>)}
           </FormItem>
           <FormItem label='启用状态：' hasFeedback {...formItemLayout}>

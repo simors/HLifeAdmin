@@ -31,7 +31,7 @@ class categoryManager extends Component{
   add(){
     // console.log('openModal')
 
-    this.setState({modalVisible:true,modalType:'create'})
+    this.setState({modalVisible:true,modalType:'create',selectedItem:{}})
   }
   onOk(data){
     this.props.dispatch({
