@@ -22,14 +22,14 @@ class CategoryModal extends Component {
   constructor(props) {
     super(props)
 
-console.log('rednder')
+// console.log('rednder')
     this.state = {
       color:'#000000',
       pickerOpen:false,
       count:-1,
       visible: false,
-      fileList: [
-    ],
+      fileList: [],
+      imageList: [],
       selectedRowKeys: [],
       selectTags:[]
     }
@@ -40,8 +40,24 @@ console.log('rednder')
     if (this.props.visible != newProps.visible) {
       this.setState({visible: newProps.visible})
     }
-    if(newProps.item.imageSource!=this.props.item.imageSource)
-    this.setState({fileList:(this.state.type==='create')?[]:[{uid:-1,status:'done',name:newProps.item.text,url:newProps.item.imageSource}]})
+    if(newProps.item.imageSource!=this.props.item.imageSource) {
+      this.setState({
+        fileList: (this.state.type === 'create') ? [] : [{
+          uid: -1,
+          status: 'done',
+          name: newProps.item.text,
+          url: newProps.item.imageSource
+        }]
+      })
+      this.setState({
+        imageList: (this.state.type === 'create') ? [] : [{
+          uid: -1,
+          status: 'done',
+          name: newProps.item.text,
+          url: newProps.item.showPictureSource
+        }],color:newProps.item.textColor
+      })
+    }
   }
 
   componentDidMount() {
@@ -60,7 +76,7 @@ console.log('rednder')
 
   handleOk() {
     let count=this.state.count-1
-    this.setState({count:count,fileList:[]})
+    this.setState({count:count,fileList:[],imageList:[]})
 
     this.props.form.validateFields((errors) => {
       if (errors) {
@@ -147,7 +163,7 @@ console.log('rednder')
         onOk={()=>{this.handleOk()}}
         onCancel={()=>{ let count=this.state.count-1
           this.props.onCancel()
-          this.setState({count:count,fileList:[]})
+          this.setState({count:count,fileList:[],imageList:[]})
         }}
         wrapClassName='vertical-center-modal'
         key={this.state.count}
@@ -165,9 +181,31 @@ console.log('rednder')
               ]
             })(<Input />)}
           </FormItem>
+          <FormItem label='描述：' hasFeedback {...formItemLayout}>
+          {this.props.form.getFieldDecorator('describe', {
+            initialValue: this.props.type==='create'?'':this.props.item.describe,
+            rules: [
+              {
+                required: true,
+                message: '名称未填写'
+              }
+            ]
+          })(<Input />)}
+        </FormItem>
+          <FormItem label='精选排名：' hasFeedback {...formItemLayout}>
+            {this.props.form.getFieldDecorator('displaySort', {
+              initialValue: this.props.type==='create'?'':this.props.item.displaySort,
+              rules: [
+                {
+                  required: true,
+                  message: '状态未填写'
+                }
+              ]
+            })(<InputNumber />)}
+          </FormItem>
           <FormItem label='精选字体颜色：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('textColor', {
-              initialValue: this.state.color,
+              initialValue: this.props.type=='create'?this.state.color:this.props.item.textColor,
 
             })( <div>
               <Button key={this.state.count}  type='ghost' size='large' style={{width:120,height:30,backgroundColor:'#FFFFFF',color:this.state.color}} onClick={()=>{this.pickOpen()}}>
@@ -203,6 +241,31 @@ console.log('rednder')
             >
 
               { (this.state.fileList.length>=1&&this.state.fileList[0].name!=undefined)?null:(<div><Icon type='plus' className={styles.avatar}/></div>)}
+            </Upload>)}
+          </FormItem>
+          <FormItem label='精选封面：' hasFeedback {...formItemLayout}>
+            {this.props.form.getFieldDecorator('showPictureSource', {
+              initialValue: this.props.type==='create'?'':{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.showPictureSource},
+              rules: [
+                {
+                  required: true,
+                  message: '图标'
+                }
+              ]
+            })(<Upload
+              listType='picture'
+              accept='image/png'
+              defaultFileList={this.props.type==='create'?[]:[{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.showPictureSource}]}
+              onChange={(info)=>{
+                //console.log('info',info)
+                let fileList = info.fileList
+                this.setState({imageList:fileList})
+                //console.log('fileList',fileList)
+
+              }}
+            >
+
+              { (this.state.imageList.length>=1&&this.state.imageList[0].name!=undefined)?null:(<div><Icon type='plus' className={styles.avatar}/></div>)}
             </Upload>)}
           </FormItem>
           <FormItem label='启用状态：' hasFeedback {...formItemLayout}>
