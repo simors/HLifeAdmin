@@ -7,8 +7,9 @@ import TopicManage from './routes/topicManager/topicManager'
 import TopicCategoryManager from './routes/topicManager/topicCategoryManager'
 import TopicDetail from './routes/topicManager/TopicDetail'
 import UserInfoManage from './routes/UserInfo/userInfo'
-import ShopCategoryManage from './routes/ShopManager/CategoryManager'
+import ShopCategoryManage from './routes/ShopManager/CategoryQuery'
 import ShopTagManage from './routes/ShopManager/TagManager'
+import ShopCategoryChoosen from './routes/ShopManager/CategoryChoosen'
 
 import Welcome from './routes/welcome'
 import err from './routes/error'
@@ -20,8 +21,11 @@ export default function ({history, app}) {
       <IndexRoute component={Welcome}/>
       <Route path="/BGManager/personListManager" breadcrumbName="用户列表管理" component={PersonManage}/>
       <Route path="/adminUserInfoManager" breadcrumbName="个人信息" component={UserInfoManage}/>
-      <Route path="/shopManager/shopCategoryManager" breadcrumbName="店铺分类管理" component={ShopCategoryManage}/>
-      <Route path="/shopManager/shopTagManager" breadcrumbName="店铺分类管理" component={ShopTagManage}/>
+      <Route path="/shopManager/shopCategoryManager" breadcrumbName="店铺分类管理" >
+        <IndexRoute   component={ShopCategoryManage}/>
+        <Route path="/shopTagManager" breadcrumbName="店铺标签管理" component={ShopTagManage}/>
+        <Route path="/ShopCategoryChoosen" breadcrumbName="精选分类管理" component={ShopCategoryChoosen}/>
+      </Route>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>
       <Route path="/topicManager/topicCategoryManager" breadcrumbName="分类管理" component={TopicCategoryManager}/>

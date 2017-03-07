@@ -1,20 +1,24 @@
 /**
- * Created by lilu on 2017/3/3.
+ * Created by lilu on 2017/3/7.
  */
-import React, {Component, PropTypes} from 'react'
-import {routerRedux} from 'dva/router'
-import {connect} from 'dva'
-import {Button, Tabs} from 'antd'
+/**
+ * Created by lilu on 2017/2/28.
+ */
+/**
+ * Created by lilu on 2017/2/18.
+ */
+import React, { Component,PropTypes } from 'react'
+import { routerRedux } from 'dva/router'
+import { connect } from 'dva'
+import {Button,Tabs} from 'antd'
 import CategoryList from '../../components/ShopManager/CategoryManager/CategoryList'
-import {getCategoryList, getTagList} from '../../selector/ShopManager/categorySelector'
+import {getCategoryList,getTagList} from '../../selector/ShopManager/categorySelector'
 // import UserSearch from '../../components/users/search'
-import TagModal from '../../components/ShopManager/CategoryManager/TagModal'
-import TagList from '../../components/ShopManager/CategoryManager/TagList'
+import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
 import CategoryManager from './CategoryManager'
+// const TabPane = Tabs.TabPane;
 
-
-class ShopTagManager extends Component {
-
+class CategoryQuery extends Component{
   constructor(props){
     super(props)
     this.state={
@@ -34,7 +38,7 @@ class ShopTagManager extends Component {
   }
   onOk(data){
     this.props.dispatch({
-      type:'shopCategoryManager/tag'+this.state.modalType,
+      type:'shopCategoryManager/'+this.state.modalType,
       payload:data
     })
     console.log('data====>',data)
@@ -55,48 +59,47 @@ class ShopTagManager extends Component {
       payload:itemId
     })
   }
+  // console.log('personList====>',personList)
   render() {
+    // console.log('personList===>',this.props.roleList)
+
     return (
-      <CategoryManager>
+<CategoryManager>
       <div className='content-inner'>
         {/*<Tabs defaultActiveKey="categoryManager" >*/}
         {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
-        <Button size='large' type='ghost' onClick={()=> {
-          this.add()
-        }}>添加标签</Button>
-        <TagList
-          dataSource={this.props.tagList}
+        <Button size='large' type='ghost'  onClick={()=>{this.add()}}>添加分类 </Button>
+        <CategoryList
+          dataSource={this.props.categoryList}
           onEditItem={(payload)=>{this.onModify(payload)}}
           onDeleteItem={(payload)=>{this.onDelete(payload)}}
-          pagination={{total:this.props.tagList.length,pageSize:10}}
+          pagination={{total:this.props.categoryList.length,pageSize:10}}
         />
-        <TagModal
-          visible={this.state.modalVisible}
-          type={this.state.modalType}
-          onOk={(payload)=> {
-            this.onOk(payload)
-          }}
-          onCancel={()=> {
-            this.onCancel()
-          }}
-          item={this.state.selectedItem}
-          tagList={this.props.tagList}
-        /></div>
-        </CategoryManager>
+        {/*</TabPane>*/}
+        {/*</Tabs>*/}
+        <CategoryModal
+          visible = {this.state.modalVisible}
+          type = {this.state.modalType}
+          onOk={(payload)=>{this.onOk(payload)}}
+          onCancel={()=>{this.onCancel()}}
+          item = {this.state.selectedItem}
+          tagList = {this.props.tagList}
+        />
+      </div>
+  </CategoryManager>
     )
   }
 }
 
 
 function mapStateToProps(state) {
-  // let categoryList = getCategoryList(state)
+  let categoryList = getCategoryList(state)
   let tagList = getTagList(state)
-  console.log('tagList', tagList)
   return {
-    //   categoryList:categoryList,
+    categoryList:categoryList,
     tagList: tagList
 
   }
 }
 
-export default connect(mapStateToProps)(ShopTagManager)
+export default connect(mapStateToProps)(CategoryQuery)
