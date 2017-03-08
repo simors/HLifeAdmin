@@ -2,7 +2,9 @@
  * Created by lilu on 2017/2/21.
  */
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, Modal} from 'antd'
+import {Form, Input, Modal, Upload,Icon} from 'antd'
+import styles from './topicCategoryModal.less'
+
 const FormItem = Form.Item
 
 const formItemLayout = {
@@ -17,7 +19,8 @@ class topicCategoryModal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      visible: false
+      visible: false,
+      fileList: [],
     }
   }
 
@@ -79,6 +82,31 @@ class topicCategoryModal extends Component {
               ]
             })(<Input />)}
           </FormItem>
+          {/*<FormItem label='图标：' hasFeedback {...formItemLayout}>*/}
+            {/*{this.props.form.getFieldDecorator('imageSource', {*/}
+              {/*initialValue: this.props.type==='create'?'':{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.imageSource},*/}
+              {/*rules: [*/}
+                {/*{*/}
+                  {/*required: true,*/}
+                  {/*message: '图标'*/}
+                {/*}*/}
+              {/*]*/}
+            {/*})(<Upload*/}
+              {/*listType='picture'*/}
+              {/*accept='image/png'*/}
+              {/*defaultFileList={this.props.type==='create'?[]:[{uid:-1,status:'done',name:this.props.item.text,url:this.props.item.imageSource}]}*/}
+              {/*onChange={(info)=>{*/}
+                {/*//console.log('info',info)*/}
+                {/*let fileList = info.fileList*/}
+                {/*this.setState({fileList:fileList})*/}
+                {/*//console.log('fileList',fileList)*/}
+
+              {/*}}*/}
+            {/*>*/}
+
+              {/*{ (this.state.fileList.length>=1&&this.state.fileList[0].name!=undefined)?null:(<div><Icon type='plus' className={styles.avatar}/></div>)}*/}
+            {/*</Upload>)}*/}
+          {/*</FormItem>*/}
         </Form>
       </Modal>
     )

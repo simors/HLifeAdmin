@@ -83,16 +83,16 @@ class topicCategoryList extends React.Component {
       }, {
         title: '创建时间',
         dataIndex: 'createdAt',
-        key: 'createdAt',
-      }, {
-        title: '图标',
-        dataIndex: 'image',
-        key: 'image',
-        render: (text,record)=>{
-          // console.log('record', record)
-          return <img style={{width:100,height:100}} src={record.image}></img>
-        }
-      },
+        key: 'createdAt',},
+      // {
+      //   title: '图标',
+      //   dataIndex: 'image',
+      //   key: 'image',
+      //   render: (text,record)=>{
+      //     // console.log('record', record)
+      //     return <img style={{width:100,height:100}} src={record.image}></img>
+      //   }
+      // },
       {
         title: '精选',
         dataIndex: 'picked',
@@ -100,6 +100,16 @@ class topicCategoryList extends React.Component {
           return (
             <Checkbox checked={record.picked} disabled={false}
                       onChange={()=>this.props.changePicked(record.id, !record.picked)}>
+            </Checkbox>
+          )
+        }
+      },{
+        title: '是否启用',
+        dataIndex: 'enabled',
+        render: (text, record) => {
+          return (
+            <Checkbox checked={record.enabled} disabled={false}
+                      onChange={()=>this.props.changeEnabled(record.id, !record.enabled)}>
             </Checkbox>
           )
         }
