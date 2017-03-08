@@ -104,6 +104,16 @@ class topicCategoryList extends React.Component {
           )
         }
       },{
+        title: '是否启用',
+        dataIndex: 'enabled',
+        render: (text, record) => {
+          return (
+            <Checkbox checked={record.enabled} disabled={false}
+                      onChange={()=>this.props.changeEnabled(record.id, !record.enabled)}>
+            </Checkbox>
+          )
+        }
+      },{
         title: '操作',
         key: 'operation',
         width: 100,

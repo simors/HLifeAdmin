@@ -35,6 +35,7 @@ export class topicCategoryList {
       topicCategoryInfo.title = result.title
       topicCategoryInfo.id = result.id
       topicCategoryInfo.picked = result.isPicked
+      topicCategoryInfo.enabled = result.enabled
       topicCategoryInfo.createdAt = result.createdAt
       topicCategoryInfo.introduction = result.introduction
       topicCategoryInfo.image = result.image

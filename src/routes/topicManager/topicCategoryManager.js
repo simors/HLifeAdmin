@@ -30,6 +30,8 @@ class topicCategoryManager extends Component {
       startTime: undefined,
       endTime: undefined,
       picked: false,
+      enabled: true,
+      enabledName: '启用',
       pickedName: '全部',
       selectedItem: {},
 
@@ -45,6 +47,17 @@ class topicCategoryManager extends Component {
   handleMenuClick(e) {
     this.setState({orderMode: e.key})
     this.setState({orderModeShow: orderShowTab[e.key]})
+  }
+
+  handleEnableClick(e) {
+    if (e.key == "true") {
+      this.setState({enabled: true})
+      this.setState({enabledName: "启用"})
+    }
+    else {
+      this.setState({enabled: false})
+      this.setState({enabledName: "全部"})
+    }
   }
 
   handlePickedClick(e) {
@@ -69,6 +82,7 @@ class topicCategoryManager extends Component {
         filterValue: this.state.filterValue,
         startTime: this.state.startTime,
         endTime: this.state.endTime,
+        enabled: this.state.enabled,
       }
     })
   }
@@ -91,6 +105,7 @@ class topicCategoryManager extends Component {
         startTime: this.state.startTime,
         endTime: this.state.endTime,
         picked: this.state.picked,
+        enabled: this.state.enabled,
       }
     })
   }
@@ -155,6 +170,14 @@ class topicCategoryManager extends Component {
         <Menu.Item key="false">全部</Menu.Item>
       </Menu>
     );
+    var enableMenu = (
+      <Menu onClick={(e)=> {
+        this.handleEnableClick(e)
+      }}>
+        <Menu.Item key="true">启用</Menu.Item>
+        <Menu.Item key="false">全部</Menu.Item>
+      </Menu>
+    );
     return (
       <div className='content-inner'>
         <Row gutter={24}>
@@ -163,6 +186,14 @@ class topicCategoryManager extends Component {
             <Dropdown overlay={pickedMenu}>
               <Button style={{marginBottom: 10, width: 100}}>
                 {this.state.pickedName} <Icon type="down"/>
+              </Button>
+            </Dropdown>
+          </Col>
+          <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <p>启用状态：</p>
+            <Dropdown overlay={enableMenu}>
+              <Button style={{marginBottom: 10, width: 100}}>
+                {this.state.enabledName} <Icon type="down"/>
               </Button>
             </Dropdown>
           </Col>
@@ -195,6 +226,21 @@ class topicCategoryManager extends Component {
                   startTime: this.state.startTime,
                   endTime: this.state.endTime,
                   picked: this.state.picked,
+                  enabled: this.state.enabled,
+                }
+              }
+            })
+          }}
+          changeEnabled={(id, enabled)=> {
+            this.props.dispatch({
+              type: 'topicCategoryManage/update',
+              payload: {
+                id: id, enabled: enabled, payload: {
+                  filterValue: this.state.filterValue,
+                  startTime: this.state.startTime,
+                  endTime: this.state.endTime,
+                  picked: this.state.picked,
+                  enabled: this.state.enabled,
                 }
               }
             })
