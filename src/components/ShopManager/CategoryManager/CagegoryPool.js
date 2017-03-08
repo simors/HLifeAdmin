@@ -1,4 +1,7 @@
 /**
+ * Created by lilu on 2017/3/7.
+ */
+/**
  * Created by lilu on 2017/2/28.
  */
 import React from 'react'
@@ -8,7 +11,7 @@ import {TweenOneGroup} from 'rc-tween-one'
 
 
 
-class CategoryList extends React.Component {
+class CategoryPool extends React.Component {
   constructor (props) {
     super(props)
     this.enterAnim = [
@@ -44,6 +47,9 @@ class CategoryList extends React.Component {
         ease: 'easeOutQuad'
       }
     ]
+    this.state={
+      selectedRowKeys:''
+    }
     //const {current} = this.props.pagination
     // this.currentPage = current
     // this.newPage = current
@@ -71,6 +77,13 @@ class CategoryList extends React.Component {
       <a style={{marginRight: 4}}>{result.name}</a>
     )
   }
+  onSelectChange = (selectedRowKeys, selectedRowData) => {
+    // console.log('selectedRowKeys changed: ', selectedRowKeys);
+    //console.log('selectedRowKeys changed: ', this.state.selectedRowKeys);
+    this.setState({selectedRowKeys: selectedRowKeys})
+    this.props.selectCategory({selectedRowKeys: selectedRowKeys, selectCategory: selectedRowData});
+
+  }
 
   renderRole(text,record){
     //  console.log('record',record)
@@ -93,6 +106,12 @@ class CategoryList extends React.Component {
   }
 
   render () {
+     const {selectedRowKeys} = this.state;
+    const rowSelection = {
+      selectedRowKeys,
+      onChange: this.onSelectChange,
+      type:'radio'
+    };
     const {
       // loading,
       dataSource,
@@ -104,32 +123,32 @@ class CategoryList extends React.Component {
     const columns = [
       {
         title: '标签名称',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'text',
+        key: 'text',
         width: 1000,
-
       },
 
-      {
-        title: '操作',
-        key: 'operation',
-        width: 1000,
-        render: (text, record) => (
-          <p>
-            <a onClick={() => this.props.onEditItem(record)} style={{
-              marginRight: 4
-            }}>编辑</a>
-            {/*<Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>*/}
-            {/*<a>删除</a>*/}
-            {/*</Popconfirm>*/}
-          </p>
-        )
-      }
+      // {
+      //   title: '操作',
+      //   key: 'operation',
+      //   width: 1000,
+      //   render: (text, record) => (
+      //     <p>
+      //       <a onClick={() => this.props.onEditItem(record)} style={{
+      //         marginRight: 4
+      //       }}>编辑</a>
+      //       {/*<Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>*/}
+      //       {/*<a>删除</a>*/}
+      //       {/*</Popconfirm>*/}
+      //     </p>
+      //   )
+      // }
     ]
     return <div>
-      <Table  bordered  columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} />
+      <Table  scroll={{y:300}} bordered  columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={false} rowSelection={rowSelection}/>
     </div>
   }
 }
 
-export default CategoryList
+
+export default CategoryPool

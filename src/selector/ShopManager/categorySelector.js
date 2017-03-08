@@ -8,3 +8,11 @@ export function getCategoryList(state) {
 export function getTagList(state) {
   return state.shopCategoryManager.tagList
 }
+
+export function getCategoryPool(state) {
+  return state.shopCategoryManager.categoryPool
+}
+
+export function getCategoryChoosenPool(state) {
+  return state.shopCategoryManager.categoryChoosenPool
+}

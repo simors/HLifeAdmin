@@ -10,6 +10,8 @@ export default {
     categoryList:[],
     tagList:[],
     loading: false,
+    categoryPool:[],
+    categoryChoosenPool:[],
   },
   subscriptions:{
 
@@ -29,6 +31,19 @@ export default {
         })
       }
     },
+    *fecthCatagoryPool({payload}, {call, put}) {
+      yield put({type: 'showLoading'})
+        yield put({
+          type: 'queryPoolSuccess',
+          payload: {
+            categoryPool: payload.categoryPool,
+            categoryChoosenPool: payload.categoryChoosenPool
+          }
+        })
+    },
+    *addChoosenCategory({payload},{call,put}){
+
+      },
     *tagcreate({payload}, {call, put}){
       yield put({type: 'showLoading'})
       const tag = yield call(createShopTag, parse(payload))
@@ -79,6 +94,13 @@ export default {
 
       return {
         ...state,categoryList:categoryList,tagList:tagList
+      }
+    },
+    queryPoolSuccess(state,action){
+      let {categoryPool,categoryChoosenPool} = action.payload
+console.log('hahahahahahah',action.payload)
+      return {
+        ...state,categoryPool:categoryPool,categoryChoosenPool:categoryChoosenPool
       }
     }
   }
