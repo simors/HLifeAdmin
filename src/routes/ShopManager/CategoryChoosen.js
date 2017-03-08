@@ -7,12 +7,17 @@ import {connect} from 'dva'
 import {Row,Col,Button,Icon} from 'antd'
 import CategoryPool from '../../components/ShopManager/CategoryManager/CagegoryPool'
 import CategoryChoosenPool from '../../components/ShopManager/CategoryManager/CategoryChoosenPool'
+import Card from '../../components/common/card'
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
+import update from 'react/lib/update';
 
 import {getCategoryList,getTagList,getCategoryChoosenPool,getCategoryPool} from '../../selector/ShopManager/categorySelector'
-
+@DragDropContext(HTML5Backend)
 class CategoryChoosen extends Component {
   constructor(props){
     super(props)
+    this.moveCard = this.moveCard.bind(this);
     this.state={
       selectCategory:{},
       choosenCategory:[],
@@ -30,6 +35,20 @@ class CategoryChoosen extends Component {
     // })
   }
 
+  moveCard(dragIndex, hoverIndex) {
+    const { choosenCategory } = this.state;
+    const dragCard = choosenCategory[dragIndex];
+
+    this.setState(update(this.state, {
+      choosenCategory: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragCard],
+        ],
+      },
+    }));
+    console.log('choosenCategory',this.state.choosenCategory)
+  }
   selectCatgory(data){
     // console.log('data',data)
 
@@ -56,6 +75,7 @@ class CategoryChoosen extends Component {
     // })
   }
   render(){
+    const { choosenCategory } = this.state;
     return(
       <CategoryManager>
         <div>
@@ -70,7 +90,18 @@ class CategoryChoosen extends Component {
                 </div>
             </Col>
             <Col  span={10}>
-              <CategoryChoosenPool dataSource={this.state.choosenCategory}/>
+              <div >
+                {choosenCategory.map((card, i) => (
+                  <Card
+                    key={card.id}
+                    index={i}
+                    id={card.id}
+                    text={card.text}
+                    moveCard={this.moveCard}
+                  />
+                ))}
+              </div>
+              {/*<CategoryChoosenPool dataSource={this.state.choosenCategory}/>*/}
             </Col>
           </Row>
         </div>
