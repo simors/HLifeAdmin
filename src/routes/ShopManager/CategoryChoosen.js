@@ -21,7 +21,8 @@ class CategoryChoosen extends Component {
     this.state={
       selectCategory:{},
       choosenCategory:[],
-      categoryPool:this.props.categoryList
+      categoryPool:this.props.categoryList,
+      count:6
     }
   }
 
@@ -34,7 +35,13 @@ class CategoryChoosen extends Component {
     //   }
     // })
   }
-
+  cancelChoosen(payload){
+    let choosenCategroyList = this.state.choosenCategory
+    choosenCategroyList.splice(payload,1)
+    this.setState({
+      choosenCategory:choosenCategroyList
+    })
+  }
   moveCard(dragIndex, hoverIndex) {
     const { choosenCategory } = this.state;
     const dragCard = choosenCategory[dragIndex];
@@ -74,6 +81,14 @@ class CategoryChoosen extends Component {
     //   }
     // })
   }
+  submitCategory(){
+    this.props.dispatch({
+      type:'shopCategoryManager/submitChoosenCategory',
+      payload:{
+        categoryChoosenPool:this.state.choosenCategory
+      }
+    })
+  }
   render(){
     const { choosenCategory } = this.state;
     return(
@@ -85,12 +100,13 @@ class CategoryChoosen extends Component {
             </Col>
             <Col  span={4}>
               <div style={{marginLeft:10}}>
-              <Button onClick={()=>{this.chooseCategory()}}> <Icon type="right"></Icon></Button>
-              <Button style={{marginTop:20}}> <Icon type="left"></Icon></Button>
+                {this.state.choosenCategory.length<this.state.count? <Button onClick={()=>{this.chooseCategory()}}> <Icon type="right"></Icon></Button>:null}
+
                 </div>
             </Col>
             <Col  span={10}>
-              <div >
+              <div style={{flex:1,height:350,borderWidth:1,borderColor:'#FFFFFF',backgroundColor:'#FFFFFF'}}>
+                <div style={{left:50,fontSize:14}}>精选分类</div>
                 {choosenCategory.map((card, i) => (
                   <Card
                     key={card.id}
@@ -98,11 +114,14 @@ class CategoryChoosen extends Component {
                     id={card.id}
                     text={card.text}
                     moveCard={this.moveCard}
+                    cancelChoosen={(payload)=>{this.cancelChoosen(payload)}}
                   />
                 ))}
               </div>
-              {/*<CategoryChoosenPool dataSource={this.state.choosenCategory}/>*/}
             </Col>
+          </Row>
+          <Row>
+            <Button onClick={()=>{this.submitCategory()}}>提交精选分类</Button>
           </Row>
         </div>
       </CategoryManager>

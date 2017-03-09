@@ -4,6 +4,7 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
+import {Button,Icon} from 'antd'
 
 const style = {
   border: '1px dashed gray',
@@ -87,13 +88,19 @@ export default class Card extends Component {
     moveCard: PropTypes.func.isRequired,
   };
 
+  onCancel(payload){
+    this.props.cancelChoosen(payload)
+  }
   render() {
-    const { text, isDragging, connectDragSource, connectDropTarget } = this.props;
+    const { text, isDragging, connectDragSource, connectDropTarget,index } = this.props;
     const opacity = isDragging ? 0 : 1;
 
     return connectDragSource(connectDropTarget(
       <div style={{ ...style, opacity }}>
         {text}
+        <Button style={{left:100,borderWidth:0}} onClick={(index)=>{this.onCancel(index)}}>
+          <Icon type='close'></Icon>
+        </Button>
       </div>,
     ));
   }

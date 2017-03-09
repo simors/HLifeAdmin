@@ -138,3 +138,13 @@ export async function updateShopTag(payload){
     return {success: false}
   }
 }
+
+export async function updateChoosenCategory(payload){
+  try{
+    await AV.Cloud.run('updateChoosenCategory',payload)
+    return {success:true}
+
+  }catch(err){
+    return {success:false}
+  }
+}

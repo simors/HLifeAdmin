@@ -31,7 +31,7 @@ export default {
         })
       }
     },
-    *fecthCatagoryPool({payload}, {call, put}) {
+    *submitChoosenCategory({payload}, {call, put}) {
       yield put({type: 'showLoading'})
         yield put({
           type: 'queryPoolSuccess',
