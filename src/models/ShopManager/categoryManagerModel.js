@@ -2,7 +2,7 @@
  * Created by lilu on 2017/2/28.
  */
 import {parse} from 'qs'
-import {getShopCategoryList,getShopTagList,createShopCategory,updateShopCategory,createShopTag,updateShopTag} from '../../services/ShopManager/CategoryManager'
+import {getShopCategoryList,getShopTagList,createShopCategory,updateShopCategory,createShopTag,updateShopTag,updateChoosenCategory} from '../../services/ShopManager/CategoryManager'
 
 export default {
   namespace: 'shopCategoryManager',
@@ -32,15 +32,12 @@ export default {
       }
     },
     *submitChoosenCategory({payload}, {call, put}) {
-      yield put({type: 'showLoading'})
-        yield put({
-          type: 'queryPoolSuccess',
-          payload: {
-            categoryPool: payload.categoryPool,
-            categoryChoosenPool: payload.categoryChoosenPool
-          }
-        })
-    },
+      yield call(updateChoosenCategory, parse(payload))
+      yield put({
+        type:'query',
+      })
+    }
+    ,
     *addChoosenCategory({payload},{call,put}){
 
       },
@@ -98,7 +95,6 @@ export default {
     },
     queryPoolSuccess(state,action){
       let {categoryPool,categoryChoosenPool} = action.payload
-console.log('hahahahahahah',action.payload)
       return {
         ...state,categoryPool:categoryPool,categoryChoosenPool:categoryChoosenPool
       }

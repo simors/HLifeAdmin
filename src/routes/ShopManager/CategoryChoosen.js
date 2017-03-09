@@ -3,6 +3,7 @@
  */
 import React, {Component, PropTypes} from 'react'
 import CategoryManager from './CategoryManager'
+import {hashHistory} from 'dva/router'
 import {connect} from 'dva'
 import {Row,Col,Button,Icon} from 'antd'
 import CategoryPool from '../../components/ShopManager/CategoryManager/CagegoryPool'
@@ -82,12 +83,14 @@ class CategoryChoosen extends Component {
     // })
   }
   submitCategory(){
+    // console.log('submit',this.state.choosenCategory)
     this.props.dispatch({
       type:'shopCategoryManager/submitChoosenCategory',
       payload:{
-        categoryChoosenPool:this.state.choosenCategory
+        choosenCategory:this.state.choosenCategory
       }
     })
+    hashHistory.pushState(null,'/shopManager/shopCategoryManager')
   }
   render(){
     const { choosenCategory } = this.state;
