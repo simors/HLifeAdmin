@@ -10,7 +10,7 @@ import UserInfoManage from './routes/UserInfo/userInfo'
 import ShopCategoryManage from './routes/ShopManager/CategoryQuery'
 import ShopTagManage from './routes/ShopManager/TagManager'
 import ShopCategoryChoosen from './routes/ShopManager/CategoryChoosen'
-import ShopInfoManager from './routes/ShopManager/ShopInfoManager'
+import ShopDetailsManager from './routes/ShopManager/ShopDetailsManager'
 import ShopListManager from './routes/ShopManager/ShopListManager'
 
 import Welcome from './routes/welcome'
@@ -25,11 +25,12 @@ export default function ({history, app}) {
       <Route path="/adminUserInfoManager" breadcrumbName="个人信息" component={UserInfoManage}/>
       <Route path="/shopManager/shopCategoryManager" breadcrumbName="店铺分类管理" >
         <IndexRoute   component={ShopCategoryManage}/>
-        <Route path="/shopTagManager" breadcrumbName="店铺标签管理" component={ShopTagManage}/>
-        <Route path="/ShopCategoryChoosen" breadcrumbName="精选分类管理" component={ShopCategoryChoosen}/>
+        <Route path="/shopManager/shopCategoryManager/ShopTagManager" breadcrumbName="店铺标签管理" component={ShopTagManage}/>
+        <Route path="/shopManager/shopCategoryManager/ShopCategoryChoosen" breadcrumbName="精选分类管理" component={ShopCategoryChoosen}/>
       </Route>
       <Route path="/shopManager/shopInfoManager" breadcrumbName="店铺信息管理" >
         <IndexRoute   component={ShopListManager}/>
+        <Route path="/shopManager/shopInfoManager/shopDetailsManager" breadcrumbName="店铺详情管理" component={ShopDetailsManager}/>
       </Route>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>

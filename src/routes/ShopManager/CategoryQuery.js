@@ -29,7 +29,7 @@ class CategoryQuery extends Component{
     }
   }
   componentDidMount(){
-    // this.props.dispatch({type:'shopCategoryManager/query'})
+    this.props.dispatch({type:'shopCategoryManager/query'})
   }
   add(){
     // console.log('openModal')

@@ -34,12 +34,12 @@ const{Header,Content} = Layout
      <Layout>
        <Header className={styles.Header}>
          <Link className={styles.Linker} to={{
-           pathname: "/ShopTagManager",
+           pathname: "/shopManager/shopCategoryManager/shopTagManager",
          }} style={{
            marginRight: 4
          }}>标签管理</Link>
          <Link className={styles.Linker} to={{
-           pathname: "/ShopCategoryChoosen",
+           pathname: "/shopManager/shopCategoryManager/shopCategoryChoosen",
          }} style={{
            marginRight: 4
          }}>分类精选</Link>

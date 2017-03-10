@@ -9,6 +9,7 @@ import React from 'react'
 import {Table, Popconfirm} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './ShopList.less'
+import {Link,} from 'dva/router'
 
 class CategoryList extends React.Component {
   constructor (props) {
@@ -155,11 +156,14 @@ class CategoryList extends React.Component {
         title: '操作',
         key: 'operation',
         width: 100,
-        render: (text, record) => (
+        render: (text, record,index) => (
           <p>
-            <a onClick={() => this.props.shopInfoView()} style={{
-              marginRight: 4
-            }}>详情</a>
+              <Link to={{
+                pathname: "/shopManager/shopInfoManager/shopDetailsManager",
+                query:{id:record.id,index:index}
+              }} style={{
+                marginRight: 4
+              }}>详情</Link>
             <Popconfirm  title='确定要开张吗？' onConfirm={() => this.props.onOpen(record.id)}>
               <a style={{
                 marginRight: 4

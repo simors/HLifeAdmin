@@ -35,8 +35,8 @@ class ShopInfoManager extends Component{
     return (
 
       <Layout>
-        <Header className={styles.Header}>
-        </Header>
+        {/*<Header className={styles.Header}>*/}
+        {/*</Header>*/}
         <Content>
           {this.props.children}
         </Content>
