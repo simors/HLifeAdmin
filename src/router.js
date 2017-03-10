@@ -10,6 +10,8 @@ import UserInfoManage from './routes/UserInfo/userInfo'
 import ShopCategoryManage from './routes/ShopManager/CategoryQuery'
 import ShopTagManage from './routes/ShopManager/TagManager'
 import ShopCategoryChoosen from './routes/ShopManager/CategoryChoosen'
+import ShopInfoManager from './routes/ShopManager/ShopInfoManager'
+import ShopListManager from './routes/ShopManager/ShopListManager'
 
 import Welcome from './routes/welcome'
 import err from './routes/error'
@@ -25,6 +27,9 @@ export default function ({history, app}) {
         <IndexRoute   component={ShopCategoryManage}/>
         <Route path="/shopTagManager" breadcrumbName="店铺标签管理" component={ShopTagManage}/>
         <Route path="/ShopCategoryChoosen" breadcrumbName="精选分类管理" component={ShopCategoryChoosen}/>
+      </Route>
+      <Route path="/shopManager/shopInfoManager" breadcrumbName="店铺信息管理" >
+        <IndexRoute   component={ShopListManager}/>
       </Route>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>

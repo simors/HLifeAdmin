@@ -40,6 +40,8 @@ app.model(require('./models/app'))
 // app.model(require('./models/dashboard'))
 // app.model(require('./models/users'))
 app.model(require('./models/ShopManager/categoryManagerModel'))
+app.model(require('./models/ShopManager/shopInfoManagerModel'))
+
 app.model(require('./models/topicManager/topicManagerModel'))
 app.model(require('./models/BGManager/personManagerModel'))
 app.model(require('./models/topicManager/topicCategoryManagerModel'))
