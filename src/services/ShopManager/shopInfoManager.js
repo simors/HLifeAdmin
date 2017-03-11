@@ -31,3 +31,28 @@ export async function closeShop(payload){
     return {success: false}
   }
 }
+
+
+export async function getShopCommentList(payload){
+  // console.log('hahaha',payload)
+  try{
+    let commentList=await AV.Cloud.run('AdminShopCommentList',payload)
+     console.log('commentList',commentList)
+
+    return {success:true,commentList:commentList}
+  }catch(err){
+    return {success: false}
+  }
+}
+
+export async function getAnnouncementsByShopId(payload){
+  // console.log('hahaha',payload)
+  try{
+    let announcements=await AV.Cloud.run('getAnnouncementsByShopId',payload)
+    // console.log('announcements',announcements)
+
+    return {success:true,announcements:announcements}
+  }catch(err){
+    return {success: false}
+  }
+}
