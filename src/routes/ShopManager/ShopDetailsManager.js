@@ -7,6 +7,8 @@ import {connect} from 'dva'
 import ShopInfoManager from './ShopInfoManager'
 import Announcement from '../../components/ShopManager/InfoManager/Announcement'
 import {Tag,Tabs} from 'antd'
+import ShopDetails from '../../components/ShopManager/InfoManager/ShopDetails'
+
 const TabPane = Tabs.TabPane
 
 class ShopDetailsManager extends Component{
@@ -34,21 +36,18 @@ this.props.dispatch({
     })
     return announcements
   }
-  renderTags(){
-    let tags = this.props.shopDetail.containedTag.map((item,key)=>{
-      return <Tag key={key}>{item.name}</Tag>
-    })
-    return tags
-  }
+
 
   render(){
     return(
       <ShopInfoManager>
 
         <Tabs defaultActiveKey='1' className='content-inner'>
-          <TabPane tab='详情管理' key='1'>标签：{this.renderTags()}
+          <TabPane tab='详情管理' key='1'><ShopDetails shopDetails={this.props.shopDetail}/>
           </TabPane>
           <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}
+          </TabPane>
+          <TabPane tab='评论管理' key='3'>hahha
           </TabPane>
 
 
