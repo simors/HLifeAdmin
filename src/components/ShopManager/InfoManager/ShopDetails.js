@@ -2,7 +2,7 @@
  * Created by lilu on 2017/3/11.
  */
 import React,{Component} from 'react'
-import {Table, Popconfirm,Card,Rate,Tag} from 'antd'
+import {Table, Popconfirm,Card,Rate,Tag,Button,Icon} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './ShopList.less'
 import {Link} from 'dva/router'
@@ -27,10 +27,17 @@ export default class ShopDetails extends Component{
       return '关张'
     }
   }
+  renderAlbum(){
+
+    let Albums=this.props.shopDetails.album.map((item,key)=>{
+        return <img style={{width:100,height:100}} src={item} key={key}></img>
+    })
+    return Albums
+  }
   render(){
     return(
       <div>
-        <div>封面:<img style={{width:100,height:100}}src={this.props.shopDetails.coverUrl}></img></div>
+        <div>封面：<img style={{width:150,height:150}} src={this.props.shopDetails.coverUrl}></img><Button onClick={()=>{this.props.cancelImg(this.props.shopDetails.coverUrl)}}><Icon type='close'></Icon></Button></div>
         <div>店铺名称：{this.props.shopDetails.shopName}</div>
         <div>所属城市：{this.props.shopDetails.geoCity}</div>
         <div>所属地区：{this.props.shopDetails.geoDistrict}</div>
@@ -45,6 +52,7 @@ export default class ShopDetails extends Component{
         <div>评分：{this.renderScore()}</div>
         <div>注册时间：{this.props.shopDetails.createdAt}</div>
         <div>权重：{this.props.shopDetails.grade}</div>
+        <div>专辑:</div><div>{this.renderAlbum()}</div>
         <div>标签：{this.renderTags()}</div>
 
       </div>
