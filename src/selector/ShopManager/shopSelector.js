@@ -20,3 +20,7 @@ shopDetail=result
 export function getAnnouncements(state){
   return state.shopInfoManager.announcements
 }
+
+export function getCommentList(state){
+  return state.shopInfoManager.commentList
+}

@@ -7,7 +7,7 @@ import AV from 'leancloud-storage'
 export async function getShopList(payload){
   try {
     let shopList = await AV.Cloud.run('getShopList',payload)
-    // console.log(shopList)
+     console.log('shopList',shopList)
     return {success: true, shopList: shopList}
   } catch (err) {
     return {success: false}
@@ -37,7 +37,7 @@ export async function getShopCommentList(payload){
   // console.log('hahaha',payload)
   try{
     let commentList=await AV.Cloud.run('AdminShopCommentList',payload)
-     console.log('commentList',commentList)
+     // console.log('commentList',commentList)
 
     return {success:true,commentList:commentList}
   }catch(err){

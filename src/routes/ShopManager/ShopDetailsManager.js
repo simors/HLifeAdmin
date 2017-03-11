@@ -2,12 +2,13 @@
  * Created by lilu on 2017/3/10.
  */
 import React, {Component} from 'react'
-import {getShopDetail,getAnnouncements} from '../../selector/ShopManager/shopSelector'
+import {getShopDetail,getAnnouncements,getCommentList} from '../../selector/ShopManager/shopSelector'
 import {connect} from 'dva'
 import ShopInfoManager from './ShopInfoManager'
 import Announcement from '../../components/ShopManager/InfoManager/Announcement'
 import {Tag,Tabs} from 'antd'
 import ShopDetails from '../../components/ShopManager/InfoManager/ShopDetails'
+import CommentList from '../../components/ShopManager/InfoManager/CommentList'
 
 const TabPane = Tabs.TabPane
 
@@ -47,7 +48,7 @@ this.props.dispatch({
           </TabPane>
           <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}
           </TabPane>
-          <TabPane tab='评论管理' key='3'>hahha
+          <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}/>
           </TabPane>
 
 
@@ -62,8 +63,9 @@ function mapStateToProps(state,ownProps) {
 
   let shopDetail = getShopDetail(state,ownProps.location.query.id)
   let announcements = getAnnouncements(state)
+  let commentList = getCommentList(state)
    // console.log('shopDetail',announcements)
- return {shopDetail:shopDetail,announcements:announcements}
+ return {shopDetail:shopDetail,announcements:announcements,commentList:commentList}
 }
 
 export default connect(mapStateToProps)(ShopDetailsManager)
