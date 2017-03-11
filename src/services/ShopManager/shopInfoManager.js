@@ -56,3 +56,25 @@ export async function getAnnouncementsByShopId(payload){
     return {success: false}
   }
 }
+
+export async function enableShopComment(payload){
+  console.log('hahaha',payload)
+
+  try{
+    await AV.Cloud.run('enableShopComment',payload)
+    return {success:true}
+  }catch(err){
+    return {success: false}
+  }
+}
+
+export async function disableShopComment(payload){
+  console.log('hahaha',payload)
+
+  try{
+    await AV.Cloud.run('disableShopComment',payload)
+    return {success:true}
+  }catch(err){
+    return {success: false}
+  }
+}

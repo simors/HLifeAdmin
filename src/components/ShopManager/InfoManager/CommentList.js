@@ -63,8 +63,8 @@ class CommentList extends React.Component {
         key: 'content',
       },{
         title: '作者',
-        dataIndex: 'user.nickname',
-        key: 'user.nickname'
+        dataIndex: 'user.username',
+        key: 'user.username'
       },
     ]
 
@@ -137,8 +137,8 @@ test(){
 
       {
         title: '作者',
-        dataIndex: 'user.nickname',
-        key: 'user.nickname'
+        dataIndex: 'user.username',
+        key: 'user.username'
       },
       {
         title: '操作',

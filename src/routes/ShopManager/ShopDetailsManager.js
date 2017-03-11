@@ -37,7 +37,29 @@ this.props.dispatch({
     })
     return announcements
   }
+  enableComment(payload){
+    console.log('payload',payload)
+    this.props.dispatch({
+      type:'shopInfoManager/enableComment',
+      payload:{id:payload}
+    })
+    this.props.dispatch({
+      type:'shopInfoManager/getCommentList',
+      payload:{id:this.props.location.query.id}
+    })
+  }
+  disableComment(payload){
+    console.log('payload',payload)
 
+    this.props.dispatch({
+      type:'shopInfoManager/disableComment',
+      payload:{id:payload}
+    })
+    this.props.dispatch({
+      type:'shopInfoManager/getCommentList',
+      payload:{id:this.props.location.query.id}
+    })
+  }
 
   render(){
     return(
@@ -48,7 +70,10 @@ this.props.dispatch({
           </TabPane>
           <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}
           </TabPane>
-          <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}/>
+          <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}
+                                                   disableComment={(data)=>{this.disableComment(data)}}
+                                                   enableComment={(data)=>{this.enableComment(data)}}
+          />
           </TabPane>
 
 
