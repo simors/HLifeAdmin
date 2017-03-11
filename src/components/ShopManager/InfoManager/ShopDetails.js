@@ -22,15 +22,16 @@ export default class ShopDetails extends Component{
   }
   renderIsOpen(){
     if(this.props.shopDetails.isOpen){
-      return <div>开张</div>
+      return '开张'
     } else {
-      return <div>关张</div>
+      return '关张'
     }
   }
   render(){
     return(
       <div>
-      <div>店铺名称：{this.props.shopDetails.shopName}</div>
+        <div>封面:<img style={{width:100,height:100}}src={this.props.shopDetails.coverUrl}></img></div>
+        <div>店铺名称：{this.props.shopDetails.shopName}</div>
         <div>所属城市：{this.props.shopDetails.geoCity}</div>
         <div>所属地区：{this.props.shopDetails.geoDistrict}</div>
         <div>是否开张：{this.renderIsOpen()}</div>

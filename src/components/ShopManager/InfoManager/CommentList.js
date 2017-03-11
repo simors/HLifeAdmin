@@ -116,6 +116,22 @@ test(){
         }
       },
       {
+        title: '图片集',
+        dataIndex: 'blueprints',
+        key: 'blueprints',
+        render: (text,record)=> {
+          if(record.blueprints){
+            let imgList = record.blueprints.map((item,key)=>{
+              return <img src={item} style={{width:50,height:50}} key={key}></img>
+            })
+            return imgList
+          }else {
+            return <div></div>
+          }
+          }
+
+      },
+      {
         title: '评论时间',
         dataIndex: 'createdDate',
         key: 'geoCity'
