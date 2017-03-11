@@ -129,6 +129,10 @@ test(){
         title:'点赞数',
         dataIndex: 'ups.length',
         key: 'ups.length'
+      },{
+        title:'回复数',
+        dataIndex: 'replys.length',
+        key: 'replys.length'
       },
 
       {
