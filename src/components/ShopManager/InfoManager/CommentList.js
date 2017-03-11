@@ -60,21 +60,28 @@ class CommentList extends React.Component {
       {
         title: '评论内容',
         dataIndex: 'content',
-        key: 'content'
+        key: 'content',
       },{
         title: '作者',
         dataIndex: 'user.nickname',
         key: 'user.nickname'
       },
     ]
-    const dataSource = data
-    console.log('dataSource',dataSource)
 
-    return <Table columns={replyColumns} dataSource={dataSource} rowKey={record=>record.id} pagination={false}></Table>
-
+    let replyData=data
+    return (
+      <Table
+        columns={replyColumns}
+        dataSource={replyData}
+        pagination={false}
+        rowKey={record=>record.id}
+      />
+    );
   }
 
-
+test(){
+  return <p>test</p>
+}
 
 
   render () {
@@ -85,7 +92,7 @@ class CommentList extends React.Component {
       // onDeleteItem,
       // onEditItem
     } = this.props
-    console.log('dataSource',dataSource)
+    // console.log('dataSource',dataSource)
     const columns = [
       {
         title: '评论内容',
@@ -98,7 +105,7 @@ class CommentList extends React.Component {
         key: 'enable',
         render: (text,record)=> {
           if (record && record.enable==true) {
-            //console.log('result', item,key)
+            // console.log('record', record)
             return <div>显示</div>
           }
 
@@ -151,7 +158,7 @@ class CommentList extends React.Component {
     return <div>
       <Table className={styles.components} bordered scroll={{
         x: 1200
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} expandedRowRender={(record)=>{this.replyList(record.replys)}} />
+      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} expandedRowRender={(record)=>{return this.replyList(record.replys)}} />
     </div>
   }
 }
