@@ -36,38 +36,66 @@ class CategoryModal extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    //console.log('imnewProps',newProps)
-    let keys = []
-    if (newProps.item.containedTag) {
+    this.setState({
+      count:this.state.count-1
+    })
+    console.log('imnewProps',newProps)
 
-      newProps.item.containedTag.forEach((result)=> {
-        keys.push(result.id)
-      })
-    }
-    if (this.props.visible != newProps.visible) {
-      this.setState({visible: newProps.visible})
-    }
-    // console.log('this.props.item.containedTag', newProps.item.containedTag)
-    // console.log('this.props.tagList', this.props.tagList)
-    if (newProps.item.imageSource != this.props.item.imageSource) {
+    // if(newProps.type!='create'){
+      let keys = []
+      if (newProps.item.containedTag) {
 
+        newProps.item.containedTag.forEach((result)=> {
+          keys.push(result.id)
+        })
+        this.setState({
+          selectedRowKeys:keys,
+          selectTags:newProps.item.containedTag
+        })
+      }
+      if (this.props.visible != newProps.visible) {
+        this.setState({visible: newProps.visible})
+      }
+      // console.log('this.props.item.containedTag', newProps.item.containedTag)
+      //  console.log('newProps.item.imageSource <<<<<<<<<<', newProps.item.imageSource )
+      // console.log('this.props.item.imageSource====>>>>>> ', this.props.item.imageSource )
+
+      if (newProps.item.imageSource ) {
+
+        this.setState({
+          fileList: (this.state.type === 'create') ? [] : [{
+            uid: -1,
+            status: 'done',
+            name: newProps.item.text,
+            url: newProps.item.imageSource
+          }],
+        })
+      }else{
+        this.setState({
+          fileList:[]
+        })
+      }
+      if(newProps.item.showPictureSource ){
+        this.setState({
+          imageList: (this.state.type === 'create') ? [] : [{
+            uid: -1,
+            status: 'done',
+            name: newProps.item.text,
+            url: newProps.item.showPictureSource
+          }],
+        })
+        console.log('state',this.state.type,this.state.imageList)
+
+      }else{
+        this.setState({
+          imageList:[]
+        })
+      }
       this.setState({
-        fileList: (this.state.type === 'create') ? [] : [{
-          uid: -1,
-          status: 'done',
-          name: newProps.item.text,
-          url: newProps.item.imageSource
-        }],
+        color: newProps.item.textColor
       })
-      this.setState({
-        imageList: (this.state.type === 'create') ? [] : [{
-          uid: -1,
-          status: 'done',
-          name: newProps.item.text,
-          url: newProps.item.showPictureSource
-        }], color: newProps.item.textColor, selectedRowKeys: keys
-      })
-    }
+    // }
+
   }
 
   componentDidMount() {
@@ -112,6 +140,7 @@ class CategoryModal extends Component {
   }
 
   pickChange(color) {
+    console.log('color',color)
     this.setState({color: color.hex})
   }
 
@@ -156,9 +185,12 @@ class CategoryModal extends Component {
         key: 'name'
       }
     ]
-    const options = ['apple', 'pear', 'orange']
+    // const options = ['apple', 'pear', 'orange']
     // console.log('ahahahahahaha', selectedRowKeys)
-    // console.log('ahahahahahaha',options)
+    //  console.log('itemandcount',this.props.item,this.state.count)
+    console.log('fileList',this.state.fileList)
+    console.log('imageList',this.state.imageList)
+
     const roles = []
     if (this.props.item.roleList) {
       this.props.item.roleList.forEach((record)=> {
@@ -180,11 +212,11 @@ class CategoryModal extends Component {
         }}
         onCancel={()=> {
           let count = this.state.count - 1
+          this.setState({count: count, })
           this.props.onCancel()
-          this.setState({count: count, fileList: [], imageList: []})
         }}
         wrapClassName='vertical-center-modal'
-        key={this.state.count}
+        key={this.props.type==='create'?this.state.count:this.props.item.id}
       >
 
         <Form horizontal>
@@ -210,17 +242,17 @@ class CategoryModal extends Component {
               ]
             })(<Input />)}
           </FormItem>
-          <FormItem label='精选排名：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('displaySort', {
-              initialValue: this.props.type === 'create' ? '' : this.props.item.displaySort,
-              rules: [
-                {
-                  required: true,
-                  message: '状态未填写'
-                }
-              ]
-            })(<InputNumber />)}
-          </FormItem>
+          {/*<FormItem label='精选排名：' hasFeedback {...formItemLayout}>*/}
+            {/*{this.props.form.getFieldDecorator('displaySort', {*/}
+              {/*initialValue: this.props.type === 'create' ? '' : this.props.item.displaySort,*/}
+              {/*rules: [*/}
+                {/*{*/}
+                  {/*required: true,*/}
+                  {/*message: '状态未填写'*/}
+                {/*}*/}
+              {/*]*/}
+            {/*})(<InputNumber />)}*/}
+          {/*</FormItem>*/}
           <FormItem label='精选字体颜色：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('textColor', {
               initialValue: this.props.type == 'create' ? this.state.color : this.props.item.textColor,
@@ -246,7 +278,7 @@ class CategoryModal extends Component {
 
           <FormItem label='图标：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('imageSource', {
-              initialValue: this.props.type === 'create' ? '' : {
+              initialValue: this.state.fileList<1 ? '' : {
                 uid: -1,
                 status: 'done',
                 name: this.props.item.text,
@@ -261,7 +293,7 @@ class CategoryModal extends Component {
             })(<Upload
               listType='picture'
               accept='image/png'
-              defaultFileList={this.props.type === 'create' ? [] : [{
+              defaultFileList={this.state.fileList<1? [] : [{
                 uid: -1,
                 status: 'done',
                 name: this.props.item.text,
@@ -276,13 +308,13 @@ class CategoryModal extends Component {
               }}
             >
 
-              { (this.state.fileList.length >= 1 && this.state.fileList[0].name != undefined) ? null : (
-                <div><Icon type='plus' className={styles.avatar}/></div>)}
+              { (this.state.fileList.length >= 1 && (this.state.fileList[0].url != undefined)) ? null :
+                <div><Icon type='plus' className={styles.avatar}/></div>}
             </Upload>)}
           </FormItem>
           <FormItem label='精选封面：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('showPictureSource', {
-              initialValue: this.props.type === 'create' ? '' : {
+              initialValue: this.state.imageList.length<1 ? '' : {
                 uid: -1,
                 status: 'done',
                 name: this.props.item.text,
@@ -291,20 +323,20 @@ class CategoryModal extends Component {
               rules: [
                 {
                   required: true,
-                  message: '图标'
+                  message: '精选封面'
                 }
               ]
             })(<Upload
               listType='picture'
               accept='image/png'
-              defaultFileList={this.props.type === 'create' ? [] : [{
+              defaultFileList={this.state.imageList.length<1 ? [] : [{
                 uid: -1,
                 status: 'done',
                 name: this.props.item.text,
                 url: this.props.item.showPictureSource
               }]}
               onChange={(info)=> {
-                //console.log('info',info)
+                console.log('info',info)
                 let fileList = info.fileList
                 this.setState({imageList: fileList})
                 //console.log('fileList',fileList)
@@ -312,7 +344,7 @@ class CategoryModal extends Component {
               }}
             >
 
-              { (this.state.imageList.length >= 1 && this.state.imageList[0].name != undefined) ? null : (
+              { (this.state.imageList.length >= 1 && (this.state.imageList[0].url != undefined) )? null : (
                 <div><Icon type='plus' className={styles.avatar}/></div>)}
             </Upload>)}
           </FormItem>

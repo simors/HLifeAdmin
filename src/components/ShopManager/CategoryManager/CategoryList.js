@@ -149,7 +149,7 @@ class CategoryList extends React.Component {
         key: 'showPictureSource',
         render: (text,record)=>{
           // console.log('record', record)
-          return <img style={{width:60,height:60}} src={record.showPictureSource}></img>
+          return record.showPictureSource?<img style={{width:60,height:60}} src={record.showPictureSource}></img>:<div></div>
         }
       },
       {

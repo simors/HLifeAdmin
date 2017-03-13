@@ -41,7 +41,7 @@ class CategoryQuery extends Component{
       type:'shopCategoryManager/'+this.state.modalType,
       payload:data
     })
-    console.log('data====>',data)
+    // console.log('data====>',data)
     this.setState({modalVisible:false})
   }
   onCancel(){

@@ -84,9 +84,9 @@ export async function updateShopCategory(payload){
     let name = 'categorytestimage.png'
     let file = new AV.File(name, localFile)
     let a = await file.save()
-    imageSource = a.attributes.url
+    showPictureSource = a.attributes.url
   }else{
-    imageSource=payload.showPictureSource.url
+    showPictureSource=payload.showPictureSource.url
     // console.log('hahahahahahhaahhahahaha=>>>>>>>>>>>>>')
   }
 
