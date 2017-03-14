@@ -129,7 +129,7 @@ class CategoryList extends React.Component {
         key:'textColor',
         render:(text,record)=>{
           if(record.textColor){
-            console.log('textColor', record.textColor)
+            // console.log('textColor', record.textColor)
             return <text style={{color:record.textColor}}>字体颜色</text>
           }
         }

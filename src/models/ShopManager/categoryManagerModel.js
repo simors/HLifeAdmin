@@ -12,6 +12,9 @@ export default {
     loading: false,
     categoryPool:[],
     categoryChoosenPool:[],
+    modalData:{},
+    catagoryModalOpen:false,
+    modalKey:-1,
   },
   subscriptions:{
 
@@ -31,6 +34,12 @@ export default {
         })
       }
     },
+    *openModal({payload}, {call, put}){
+      yield put({type:'dataToModal',payload:payload})
+      },
+    closeModal({payload},{call,put}){
+         put ({type:'closeModal'})
+      },
     *submitChoosenCategory({payload}, {call, put}) {
       yield call(updateChoosenCategory, parse(payload))
       yield put({
@@ -98,6 +107,17 @@ export default {
       return {
         ...state,categoryPool:categoryPool,categoryChoosenPool:categoryChoosenPool
       }
+    },
+    dataToModal(state,action){
+      return{
+        ...state,modalData:action.payload,catagoryModalOpen:true,modalKey:state.modalKey-1
+      }
+    },
+    closeModal(state,action){
+      return {
+        ...state,catagoryModalOpen:false,modalKey:state.modalKey-1
+      }
     }
+
   }
 }

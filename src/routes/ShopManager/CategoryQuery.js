@@ -25,32 +25,40 @@ class CategoryQuery extends Component{
       modalVisible:false,
       modalType:'create',
       selectedItem:{},
-
+      modalRandomKey:-1
     }
+    console.log('hahaha')
   }
   componentDidMount(){
     this.props.dispatch({type:'shopCategoryManager/query'})
   }
   add(){
-    // console.log('openModal')
+    this.setState({modalVisible:true,modalType:'create'})
 
-    this.setState({modalVisible:true,modalType:'create',selectedItem:{}})
+    this.props.dispatch({type:'shopCategoryManager/openModal',payload:{}})
   }
   onOk(data){
     this.props.dispatch({
       type:'shopCategoryManager/'+this.state.modalType,
       payload:data
     })
+    this.props.dispatch({type:'shopCategoryManager/closeModal'})
+
     // console.log('data====>',data)
-    this.setState({modalVisible:false})
+    // this.setState({modalVisible:false,modalRandomKey:this.state.modalRandomKey-1})
   }
   onCancel(){
-    this.setState({modalVisible:false})
+    this.props.dispatch({type:'shopCategoryManager/closeModal'})
+
+    // this.setState({modalVisible:false,modalRandomKey:this.state.modalRandomKey-1})
   }
 
   onModify(data){
-    // console.log('data',data)
-    this.setState({modalVisible:true,modalType:'update',selectedItem:data })
+    this.setState({modalVisible:true,modalType:'update' })
+    console.log('modalvisible',this.state.modalVisible)
+
+    this.props.dispatch({type:'shopCategoryManager/openModal',payload:data})
+
   }
 
   onDelete(itemId){
@@ -84,6 +92,7 @@ class CategoryQuery extends Component{
           onCancel={()=>{this.onCancel()}}
           item = {this.state.selectedItem}
           tagList = {this.props.tagList}
+          modalKey={this.state.modalRandomKey}
         />
       </div>
   </CategoryManager>

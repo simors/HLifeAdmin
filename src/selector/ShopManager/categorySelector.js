@@ -16,3 +16,13 @@ export function getCategoryPool(state) {
 export function getCategoryChoosenPool(state) {
   return state.shopCategoryManager.categoryChoosenPool
 }
+
+export function getModalData(state) {
+  return state.shopCategoryManager.modalData
+}
+export function getModalState(state) {
+  return state.shopCategoryManager.catagoryModalOpen
+}
+export function getModalKey(state) {
+  return state.shopCategoryManager.modalKey
+}
