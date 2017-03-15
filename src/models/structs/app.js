@@ -50,7 +50,9 @@ export const BGManagerConfig = {
   name: '用户管理',
   icon: '',
   child: [
-    {key:'personListManager',name:'用户列表管理'}
+    {key:'personListManager',name:'后台用户管理'},
+    {key:'appUserManager',name:'手机用户管理' }
+
   ]
 }
 export const backgroundStatisticsConfig = {
