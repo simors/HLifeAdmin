@@ -30,6 +30,14 @@ class ShopListManager extends Component{
       modalVisible:false,
       modalType:'create',
       selectedItem:{},
+      filterValue: '',
+      orderMode: 'createTimeDescend',
+      orderModeShow: orderShowTab['createTimeDescend'],
+      startTime: new Date('2000-01-01 00:00:00'),
+      endTime: new Date(),
+      geoCity:'',
+      username:'',
+      shopCategoryName:''
 
     }
   }
@@ -77,13 +85,102 @@ class ShopListManager extends Component{
       payload:itemId
     })
   }
+  handleInputCityChange(value){
+    this.setState({geoCity:value.target.value})
+  }
+  handleInputUsernameChange(value){
+    this.setState({username:value.target.value})
+
+  }
+  handleInputCategoryChange(value){
+    this.setState({shopCategoryName:value.target.value})
+
+  }
+  onDateChange(date, dateString) {
+    console.log(date[0]._d);
+    this.setState({startTime: date[0]._d});
+    this.setState({endTime: date[1]._d});
+  }
+  handleMenuClick(e) {
+    this.setState({orderMode: e.key})
+    this.setState({orderModeShow: orderShowTab[e.key]})
+  }
+  onSearchByFilter(){
+    this.props.dispatch({
+      type:'shopInfoManager/query',
+      payload:{
+        orderMode: this.state.orderMode,
+        shopCategoryName: this.state.shopCategoryName,
+        username: this.state.username,
+        startTime: this.state.startTime,
+        endTime: this.state.endTime,
+        geoCity: this.state.geoCity,
+      }
+    })
+  }
+  unSearchByFilter(){
+    this.setState({
+      orderMode: 'createTimeDescend',
+      orderModeShow: orderShowTab['createTimeDescend'],
+      startTime: new Date('2000-01-01 00:00:00'),
+      endTime: new Date(),
+      geoCity:'',
+      username:'',
+      shopCategoryName:''
+    })
+    this.props.dispatch({
+      type:'shopInfoManager/query'
+    })
+  }
   // console.log('personList====>',personList)
   render() {
     // console.log('personList===>',this.props.roleList)
-
+    let menu = (
+      <Menu onClick={(e)=> {
+        this.handleMenuClick(e)
+      }}>
+        <Menu.Item key="createTimeAscend">时间升序</Menu.Item>
+        <Menu.Item key="createTimeDescend">时间降序</Menu.Item>
+      </Menu>
+    );
     return (
       <ShopInfoManager>
         <div className='content-inner'>
+          <Row gutter={24}>
+            <Col lg={3} style={{marginBottom: 16}}>
+              <p>排序方式：</p>
+              <Dropdown overlay={menu}>
+                <Button style={{marginBottom: 10, width: 100}}>
+                  {this.state.orderModeShow} <Icon type="down"/>
+                </Button>
+              </Dropdown>
+            </Col>
+            <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <p>城市关键字：</p>
+            <Input style={{width: 200}} defaultValue="" onChange={(value)=>{this.handleInputCityChange(value)}}/>
+          </Col>
+            <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+              <p>类别关键字：</p>
+              <Input style={{width: 200}} defaultValue="" onChange={(value)=>{this.handleInputCategoryChange(value)}}/>
+            </Col>
+            <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+              <p>店主关键字：</p>
+              <Input style={{width: 200}} defaultValue="" onChange={(value)=>{this.handleInputUsernameChange(value)}}/>
+            </Col>
+            <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
+              <p>选择日期：</p>
+              <RangePicker
+                defaultValue={[moment('2000-01-01', dateFormat), new moment()]}
+                onChange={(date, dateString)=>this.onDateChange(date, dateString)}
+              />
+            </Col>
+            <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>
+            <Button type="primary" onClick={()=>this.onSearchByFilter()}>查询</Button>
+          </Col>
+            <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>
+              <Button type="ghost" onClick={()=>this.unSearchByFilter()}>取消筛选</Button>
+            </Col>
+          </Row>
 <ShopList dataSource={this.props.shopList} onClose={(payload)=>{this.onClose(payload)}}  onOpen={(payload)=>{this.onOpen(payload)}} shopInfoView={(payload)=>{this.shopInfoView(payload)}} />
         </div>
       </ShopInfoManager>
