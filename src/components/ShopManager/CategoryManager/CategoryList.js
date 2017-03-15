@@ -5,7 +5,7 @@
  * Created by lilu on 2017/2/20.
  */
 import React from 'react'
-import {Table, Popconfirm} from 'antd'
+import {Table, Popconfirm,Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './CategoryList.less'
 
@@ -153,11 +153,12 @@ class CategoryList extends React.Component {
         }
       },
       {
-        title: '状态',
+        title: '显示状态',
         dataIndex: 'status',
         key: 'status',
         render:(text,record)=>{
-          return record.status==1?<div>可见</div>:<div>不可见</div>
+          const status=record.status
+          return <Switch checkedChildren={'显示'} unCheckedChildren={'不显示'} defaultChecked={(record.status==1)?true:false} onChange={(payload)=>{this.props.updateCategory(payload,record.id)}}></Switch>
         }
       },
       {

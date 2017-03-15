@@ -3,7 +3,7 @@
  */
 import AV from 'leancloud-storage'
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button} from 'antd'
+import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button,Select} from 'antd'
 import styles from './CategoryModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
@@ -11,7 +11,7 @@ import {getModalData, getModalState, getModalKey} from '../../../selector/ShopMa
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
-
+const Option=Select.Option
 const formItemLayout = {
   labelCol: {
     span: 6
@@ -209,7 +209,9 @@ class CategoryModal extends Component {
       return (file.url())
     })
   }
-
+  selectStatus(value,optin){
+    console.log('vale',value,optin)
+  }
   render() {
     // if(this.props.type!='create'){
     //   let tagKeys = []
@@ -243,7 +245,7 @@ class CategoryModal extends Component {
       imageCount = 1
     }
     // console.log('count',fileCount,imageCount)
-    console.log('selectR', selectedRowKeys)
+    // console.log('selectR', selectedRowKeys)
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
@@ -419,17 +421,24 @@ class CategoryModal extends Component {
                 <div><Icon type='plus' className={styles.avatar}/></div>)}
             </Upload>)}
           </FormItem>
-          <FormItem label='启用状态：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('status', {
-              initialValue: this.props.type === 'create' ? '' : this.props.data.status,
-              rules: [
-                {
-                  required: true,
-                  message: '状态未填写'
-                }
-              ]
-            })(<InputNumber />)}
-          </FormItem>
+          {/*<FormItem label='显示状态：' hasFeedback {...formItemLayout}>*/}
+          {/*{this.props.form.getFieldDecorator('status', {*/}
+          {/*initialValue: 0 ,*/}
+          {/*rules: [*/}
+          {/*{*/}
+          {/*required: true,*/}
+          {/*message: '状态未填写'*/}
+          {/*}*/}
+          {/*]*/}
+          {/*})(*/}
+          {/*<div> 是否显示：*/}
+          {/*<Select onChange={this.selectStatus}>*/}
+          {/*<Option value={1}>显示</Option>*/}
+          {/*<Option value={0}>不显示</Option>*/}
+          {/*</Select>*/}
+          {/*</div>*/}
+          {/*)}*/}
+          {/*</FormItem>*/}
           <FormItem label='标签' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('containedTag', {
               initialValue: rowKeys

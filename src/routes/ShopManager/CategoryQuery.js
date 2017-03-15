@@ -72,13 +72,19 @@ class CategoryQuery extends Component {
     })
   }
   checkStatus(payload){
-    console.log('payload',payload)
+    // console.log('payload',payload)
     if(payload==true){
       this.props.dispatch({type:'shopCategoryManager/query',payload:{status:1}})
 
     }else{
       this.props.dispatch({type:'shopCategoryManager/query'})
     }
+  }
+
+  updateCategory(payload,record){
+    console.log('payload',payload,record)
+    this.props.dispatch({type:'shopCategoryManager/updateCategoryStatus',payload:{id:record,status:payload?1:0}})
+
   }
   // console.log('personList====>',personList)
   render() {
@@ -95,6 +101,7 @@ class CategoryQuery extends Component {
             this.add()
           }}>添加分类 </Button>
           <CategoryList
+            updateCategory={(payload,record)=>{this.updateCategory(payload,record)}}
             dataSource={this.props.categoryList}
             onEditItem={(payload)=> {
               this.onModify(payload)

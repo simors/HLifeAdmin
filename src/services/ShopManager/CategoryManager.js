@@ -148,3 +148,12 @@ export async function updateChoosenCategory(payload){
     return {success:false}
   }
 }
+
+export async function updateCategoryStatus(payload){
+  try{
+    await AV.Cloud.run('updateCategoryStatus',payload)
+    return {success:true}
+  }catch (err){
+    return {success:false}
+  }
+}
