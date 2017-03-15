@@ -214,10 +214,18 @@ class CategoryModal extends Component {
     //   this.setState({selectedRowKeys:tagKeys})
     // }
     // console.log('containedTag',this.props.item.containedTag)
-    const fileSource=this.state.fileList.length>0?this.state.fileList[0].thumbUrl:this.props.data.imageSource
-    const imageSource=this.state.imageList.length>0?this.state.imageList[0].thumbUrl:this.props.data.showPictureSource
+    // const fileSource=this.state.fileList.length>0?this.state.fileList[0].thumbUrl:this.props.data.imageSource
+    // const imageSource=this.state.imageList.length>0?this.state.imageList[0].thumbUrl:this.props.data.showPictureSource
     // console.log('fileSource',fileSource,this.state.fileList.length,this.props.data.imageSource)
-   let fileCount=0
+    let rowKeys=[]
+    if(this.props.data.containedTag){
+      this.props.data.containedTag.forEach((record)=>{
+        rowKeys.push(record.id)
+      })
+    }
+    const selectedRowKeys = this.state.selectedRowKeys.length>0?this.state.selectedRowKeys:rowKeys;
+
+    let fileCount=0
     let imageCount = 0
     if(this.state.fileList.length>0){
       fileCount = 1
@@ -229,8 +237,8 @@ class CategoryModal extends Component {
     }else if(this.props.data.showPictureSource){
       imageCount = 1
     }
-    console.log('count',fileCount,imageCount)
-    const {selectedRowKeys} = this.props.data;
+    // console.log('count',fileCount,imageCount)
+    console.log('selectR',selectedRowKeys)
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
@@ -418,8 +426,7 @@ class CategoryModal extends Component {
           </FormItem>
           <FormItem label='标签' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('containedTag', {
-              initialValue: this.props.type === 'create' ? [] : this.props.data.containedTag,
-
+              initialValue: rowKeys
             })(
               <Table bordered scroll={{
                 y: 300
