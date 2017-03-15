@@ -143,7 +143,7 @@ class CategoryModal extends Component {
 
 
   this.setState({visible: this.props.modalVisible})
-    console.log('hahahah',this.state.visible)
+    // console.log('hahahah',this.state.visible)
 
   }
 
@@ -164,11 +164,14 @@ class CategoryModal extends Component {
       const data = {
         selectedTags: this.state.selectTags,
         ...this.props.form.getFieldsValue(),
-        key: this.props.data.id ? this.props.data.id : ''
+        key: this.props.data.id ? this.props.data.id : '',
+        textColor:this.state.color=='#000000'?this.props.data.textColor:this.state.color
       }
      // let count = this.state.count - 1
-      this.setState({ fileList: [], imageList: []})
-      // console.log('data',data)
+      this.setState({ fileList: [], imageList: [],color:'#000000',selectedTags:[], pickerOpen: false,})
+       // console.log('data',...this.props.form.getFieldsValue())
+      console.log('data',data)
+
       this.props.onOk(data)
     })
   }
@@ -182,7 +185,7 @@ class CategoryModal extends Component {
   }
 
   pickChange(color) {
-    // console.log('color',color)
+    console.log('color',color)
     this.setState({color: color.hex})
   }
 
@@ -262,7 +265,7 @@ class CategoryModal extends Component {
         roles.push(record)
       })
     }
-
+    const color=this.state.color== '#000000'?this.props.data.textColor:this.state.color
 
      // console.log('type',this.props.modalKey)
      //   console.log('fileList',this.state.fileList)
@@ -277,7 +280,7 @@ class CategoryModal extends Component {
         }}
         onCancel={()=> {
           let count = this.state.count - 1
-          this.setState({count: count,fileList:[],imageList:[]})
+          this.setState({count: count,fileList:[],imageList:[],color:'#000000',selectedTags:[], pickerOpen: false,})
           this.props.onCancel()
         }}
         wrapClassName='vertical-center-modal'
@@ -324,7 +327,7 @@ class CategoryModal extends Component {
 
             })(<div>
               <Button key={this.state.count} type='ghost' size='large'
-                      style={{width: 120, height: 30, backgroundColor: '#FFFFFF', color: this.state.color}}
+                      style={{width: 120, height: 30, backgroundColor: '#FFFFFF', color: color}}
                       onClick={()=> {
                         this.pickOpen()
                       }}>
@@ -334,7 +337,7 @@ class CategoryModal extends Component {
                 <div className={ styles.cover } onClick={ ()=> {
                   this.pickClose()
                 } }/>
-                <SketchPicker color={ this.props.data.textColor? this.props.data.textColor:this.state.color} onChange={ (color)=> {
+                <SketchPicker color={ color} onChange={ (color)=> {
                   this.pickChange(color)
                 } }/>
               </div> : null }
