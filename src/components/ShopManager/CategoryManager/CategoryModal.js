@@ -168,7 +168,8 @@ class CategoryModal extends Component {
         textColor:this.state.color=='#000000'?this.props.data.textColor:this.state.color
       }
      // let count = this.state.count - 1
-      this.setState({ fileList: [], imageList: [],color:'#000000',selectedTags:[], pickerOpen: false,})
+      this.setState({ fileList: [], imageList: [],color:'#000000',selectedRowKeys:[], pickerOpen: false, selectTags: []
+      })
        // console.log('data',...this.props.form.getFieldsValue())
       console.log('data',data)
 
@@ -279,8 +280,8 @@ class CategoryModal extends Component {
           this.handleOk()
         }}
         onCancel={()=> {
-          let count = this.state.count - 1
-          this.setState({count: count,fileList:[],imageList:[],color:'#000000',selectedTags:[], pickerOpen: false,})
+          this.setState({fileList:[],imageList:[],color:'#000000',selectedRowKeys:[], pickerOpen: false,selectTags: []
+          })
           this.props.onCancel()
         }}
         wrapClassName='vertical-center-modal'
