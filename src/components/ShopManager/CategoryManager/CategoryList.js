@@ -155,7 +155,10 @@ class CategoryList extends React.Component {
       {
         title: '状态',
         dataIndex: 'status',
-        key: 'status'
+        key: 'status',
+        render:(text,record)=>{
+          return record.status==1?<div>可见</div>:<div>不可见</div>
+        }
       },
       {
         title: '标签列表',

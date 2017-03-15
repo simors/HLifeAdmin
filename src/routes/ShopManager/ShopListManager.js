@@ -1,24 +1,26 @@
 /**
  * Created by lilu on 2017/3/9.
  */
-/**
- * Created by lilu on 2017/3/7.
- */
-/**
- * Created by lilu on 2017/2/28.
- */
-/**
- * Created by lilu on 2017/2/18.
- */
 import React, { Component,PropTypes } from 'react'
 import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
-import {Button,Tabs} from 'antd'
+import {Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon,} from 'antd'
+const {MonthPicker, RangePicker} = DatePicker;
+
 import ShopList from '../../components/ShopManager/InfoManager/ShopList'
 import {getShopList} from '../../selector/ShopManager/shopSelector'
-// import UserSearch from '../../components/users/search'
 import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
 import ShopInfoManager from './ShopInfoManager'
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
+const dateFormat = 'YYYY-MM-DD';
+
+const orderShowTab = {
+  'createTimeDescend': '时间降序',
+  'createTimeAscend': '时间升序',
+
+}
 // const TabPane = Tabs.TabPane;
 
 class ShopListManager extends Component{

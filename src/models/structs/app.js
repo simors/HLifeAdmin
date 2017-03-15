@@ -51,7 +51,7 @@ export const BGManagerConfig = {
   icon: '',
   child: [
     {key:'personListManager',name:'后台用户管理'},
-    {key:'appUserManager',name:'手机用户管理' }
+    {key:'appUserManager',name:'app用户管理' }
 
   ]
 }

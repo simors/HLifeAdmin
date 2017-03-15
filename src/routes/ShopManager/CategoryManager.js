@@ -22,7 +22,7 @@ const{Header,Content} = Layout
 
     }
   componentDidMount(){
-    this.props.dispatch({type:'shopCategoryManager/query'})
+    this.props.dispatch({type:'shopCategoryManager/query',payload:{status:1}})
   }
 
   // console.log('personList====>',personList)

@@ -3,9 +3,9 @@
  */
 import AV from 'leancloud-storage'
 
-export async function getShopCategoryList() {
+export async function getShopCategoryList(payload) {
   try {
-    let categoryList = await AV.Cloud.run('getShopCategoryList')
+    let categoryList = await AV.Cloud.run('getShopCategoryList',payload)
     //console.log(categoryList)
     return {success: true, categoryList: categoryList}
   } catch (err) {
