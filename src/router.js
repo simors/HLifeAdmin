@@ -12,6 +12,7 @@ import ShopTagManage from './routes/ShopManager/TagManager'
 import ShopCategoryChoosen from './routes/ShopManager/CategoryChoosen'
 import ShopDetailsManager from './routes/ShopManager/ShopDetailsManager'
 import ShopListManager from './routes/ShopManager/ShopListManager'
+import AppUserListManager from './routes/AppUserManager/AppUserListManager'
 
 import Welcome from './routes/welcome'
 import err from './routes/error'
@@ -22,6 +23,9 @@ export default function ({history, app}) {
     <Route path="/" breadcrumbName='仪表盘' component={App}>
       <IndexRoute component={Welcome}/>
       <Route path="/BGManager/personListManager" breadcrumbName="用户列表管理" component={PersonManage}/>
+      <Route path="/BGManager/appUserManager" breadcrumbName="app用户管理">
+        <IndexRoute component={AppUserListManager}/>
+      </Route>
       <Route path="/adminUserInfoManager" breadcrumbName="个人信息" component={UserInfoManage}/>
       <Route path="/shopManager/shopCategoryManager" breadcrumbName="店铺分类管理" >
         <IndexRoute   component={ShopCategoryManage}/>
