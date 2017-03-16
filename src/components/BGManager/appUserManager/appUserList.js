@@ -160,7 +160,7 @@ class appUserList extends React.Component {
         render: (text, record,index) => (
           <p>
             <Link to={{
-              pathname: "/shopManager/shopInfoManager/shopDetailsManager",
+              pathname: "/BGManager/appUserManager/appUserDetailManager",
               query:{id:record.id,index:index}
             }} style={{
               marginRight: 4
