@@ -3,7 +3,7 @@
  */
 
 import {parse} from 'qs'
-import {getAppUserList} from '../../services/BGManager/appUserManager'
+import {getAppUserList,updateAppUserEnable} from '../../services/BGManager/appUserManager'
 export default {
   namespace: 'appUserManager',
   state:{
@@ -25,7 +25,14 @@ export default {
         })
       }
     },
-
+    *updateAppUserEnable({payload},{call,put}){
+      yield call(updateAppUserEnable,parse(payload))
+      // if(data.success){
+      //   put({
+      //     type:'query'
+      //   })
+      // }
+      }
   },
   reducers:{
     showLoading (state) {

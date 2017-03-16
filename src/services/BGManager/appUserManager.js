@@ -12,3 +12,13 @@ export async function  getAppUserList(payload){
     return {succes:false}
   }
 }
+
+export async function updateAppUserEnable(payload){
+  try{
+    console.log('ggogogogogo',payload)
+    await AV.Cloud.run('updateAppUserEnable',payload)
+    return {success:true}
+  }catch (err){
+    return {success:false}
+  }
+}
