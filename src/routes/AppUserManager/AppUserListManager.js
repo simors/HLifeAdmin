@@ -54,39 +54,9 @@ class AppUserListManager extends Component{
 
     this.setState({modalVisible:true,modalType:'create',selectedItem:{}})
   }
-  onOk(data){
-    this.props.dispatch({
-      type:'shopCategoryManager/'+this.state.modalType,
-      payload:data
-    })
-    // console.log('data====>',data)
-    this.setState({modalVisible:false})
-  }
-  onOpen(payload){
-    this.props.dispatch({
-      type:'shopInfoManager/openShop',
-      payload:{id:payload}
-    })  }
-  onClose(payload){
-    console.log('payload',payload)
-    this.props.dispatch({
-      type:'shopInfoManager/closeShop',
-      payload:{id:payload}
-    })  }
-  shopInfoView(){
 
-  }
-  onModify(data){
-    // console.log('data',data)
-    this.setState({modalVisible:true,modalType:'update',selectedItem:data })
-  }
 
-  onDelete(itemId){
-    this.props.dispatch({
-      type:'personManage/delete',
-      payload:itemId
-    })
-  }
+
   handleInputCityChange(value){
     this.setState({geoCity:value.target.value})
   }
@@ -109,7 +79,7 @@ class AppUserListManager extends Component{
   }
   onSearchByFilter(){
     this.props.dispatch({
-      type:'shopInfoManager/query',
+      type:'appUserManager/query',
       payload:{
         orderMode: this.state.orderMode,
         username: this.state.username,
@@ -129,7 +99,7 @@ class AppUserListManager extends Component{
       username:'',
     })
     this.props.dispatch({
-      type:'shopInfoManager/query'
+      type:'appUserManager/query'
     })
   }
   updateUserEnable(payload,record){
