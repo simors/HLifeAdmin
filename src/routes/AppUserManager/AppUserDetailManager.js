@@ -39,7 +39,7 @@ class appUserDetailManager extends Component{
           <TabPane tab='店铺详情' key='2'>
           </TabPane>
           <TabPane tab='推广详情' key='3'>
-          />
+
           </TabPane>
 
 

@@ -50,7 +50,7 @@ class AppUserListManager extends Component{
     // })
   }
   add(){
-    console.log('openModal')
+    // console.log('openModal')
 
     this.setState({modalVisible:true,modalType:'create',selectedItem:{}})
   }
@@ -69,7 +69,7 @@ class AppUserListManager extends Component{
 
   }
   onDateChange(date, dateString) {
-    console.log(date[0]._d);
+    // console.log(date[0]._d);
     this.setState({startTime: date[0]._d});
     this.setState({endTime: date[1]._d});
   }
@@ -103,7 +103,7 @@ class AppUserListManager extends Component{
     })
   }
   updateUserEnable(payload,record){
-    console.log('jhahahaha',payload,record)
+    // console.log('jhahahaha',payload,record)
     this.props.dispatch({type:'appUserManager/updateAppUserEnable',payload:{id:record,enable:payload}})
 
   }
@@ -162,7 +162,7 @@ class AppUserListManager extends Component{
 
 function mapStateToProps(state) {
   let appUserList=getAppUserList(state)
-   console.log('appUserList',appUserList)
+   // console.log('appUserList',appUserList)
   return {appUserList:appUserList}
 }
 

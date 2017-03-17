@@ -133,7 +133,7 @@ class appUserList extends React.Component {
         key: 'enable',
         render:(text,record)=>{
           const enable=record.enable
-          return <Switch checkedChildren={'显示'} unCheckedChildren={'不显示'} defaultChecked={record.enable} onChange={(payload)=>{this.props.updateUserEnable(payload,record.id)}}></Switch>
+          return <Switch checkedChildren={'使用'} unCheckedChildren={'不使用'} defaultChecked={record.enable} onChange={(payload)=>{this.props.updateUserEnable(payload,record.id)}}></Switch>
         }
       },
       {
