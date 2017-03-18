@@ -2,7 +2,7 @@
  * Created by lilu on 2017/3/11.
  */
 import React,{Component} from 'react'
-import {Table, Popconfirm,Card,Rate,Tag,Button,Icon} from 'antd'
+import {Table, Popconfirm,Card,Rate,Tag,Button,Icon,Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './ShopList.less'
 import {Link} from 'dva/router'
@@ -41,7 +41,7 @@ export default class ShopDetails extends Component{
         <div>店铺名称：{this.props.shopDetails.shopName}</div>
         <div>所属城市：{this.props.shopDetails.geoCity}</div>
         <div>所属地区：{this.props.shopDetails.geoDistrict}</div>
-        <div>是否开张：{this.renderIsOpen()}</div>
+        <div>是否开张：<Switch checkedChildren={'开张'} unCheckedChildren={'关张'} defaultChecked={(this.props.shopDetails.status==1)?true:false} onChange={(payload)=>{this.props.updateCategory(payload,this.props.shopDetails.id)}}></Switch></div>
         <div>店长：{this.props.shopDetails.name}</div>
         <div>注册用户：{this.props.shopDetails.owner.username}</div>
         <div>营业时间：{this.props.shopDetails.openTime}</div>

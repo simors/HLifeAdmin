@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import {Table, Popconfirm} from 'antd'
+import {Table, Popconfirm,Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './ShopList.less'
 import {Link,} from 'dva/router'
@@ -111,22 +111,6 @@ class CategoryList extends React.Component {
         key: 'shopName'
       },
       {
-        title: '是否开张',
-        dataIndex: 'isOpen',
-        key: 'isOpen',
-        render: (text,record)=> {
-          if (record && record.isOpen==true) {
-            //console.log('result', item,key)
-            return <div>开张</div>
-          }
-
-          else{
-            return <div>关张</div>
-          }
-
-        }
-      },
-      {
         title: '所在城市',
         dataIndex: 'geoCity',
         key: 'geoCity'
@@ -141,7 +125,24 @@ class CategoryList extends React.Component {
         dataIndex:'targetShopCategory.text',
         key:'targetShopCategory.text',
       },
-
+      {
+        title:'是否开张',
+        dataIndex:'status',
+        key:'status',
+        render:(text,record)=>{
+          const status=record.status
+          return <Switch checkedChildren={'开张'} unCheckedChildren={'关张'} defaultChecked={(record.status==1)?true:false} onChange={(payload)=>{this.props.updateCategory(payload,record.id)}}></Switch>
+        }
+      },
+      {
+        title: '封面',
+        dataIndex: 'coverUrl',
+        key: 'coverUrl',
+        render:(text,record)=>{
+          const status=record.status
+          return <div ><img style={{width:30,height:30}} src={record.coverUrl}></img></div>
+        }
+      },
       {
         title: '店主',
         dataIndex: 'owner.username',
@@ -164,14 +165,7 @@ class CategoryList extends React.Component {
               }} style={{
                 marginRight: 4
               }}>详情</Link>
-            <Popconfirm  title='确定要开张吗？' onConfirm={() => this.props.onOpen(record.id)}>
-              <a style={{
-                marginRight: 4
-              }}>开张</a>
-            </Popconfirm>
-            <Popconfirm title='确定要关张吗？' onConfirm={() => this.props.onClose(record.id)}>
-            <a>关张</a>
-            </Popconfirm>
+
           </p>
         )
       }

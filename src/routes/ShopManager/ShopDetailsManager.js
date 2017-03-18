@@ -64,13 +64,16 @@ this.props.dispatch({
   cancelImg(payload){
     console.log('payload',payload)
   }
+  updateCategory(payload,record){
+    this.props.dispatch({type:'shopInfoManager/updateShopStatus',payload:{id:record,status:payload?1:0}})
 
+  }
   render(){
     return(
       <ShopInfoManager>
 
         <Tabs defaultActiveKey='1' className='content-inner'>
-          <TabPane tab='详情管理' key='1'><ShopDetails shopDetails={this.props.shopDetail} cancelImg={(payload)=>{this.cancelImg(payload)}}/>
+          <TabPane tab='详情管理' key='1'><ShopDetails shopDetails={this.props.shopDetail} cancelImg={(payload)=>{this.cancelImg(payload)}} updateCategory={(payload,record)=>{this.updateCategory(payload,record)}}/>
           </TabPane>
           <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}
           </TabPane>

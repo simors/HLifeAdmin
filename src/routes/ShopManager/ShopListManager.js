@@ -74,6 +74,11 @@ class ShopListManager extends Component{
   shopInfoView(){
 
   }
+  updateCategory(payload,record){
+    // console.log('payload',payload,record)
+    this.props.dispatch({type:'shopInfoManager/updateShopStatus',payload:{id:record,status:payload?1:0}})
+
+  }
   onModify(data){
     // console.log('data',data)
     this.setState({modalVisible:true,modalType:'update',selectedItem:data })
@@ -181,7 +186,7 @@ class ShopListManager extends Component{
               <Button type="ghost" onClick={()=>this.unSearchByFilter()}>取消筛选</Button>
             </Col>
           </Row>
-<ShopList dataSource={this.props.shopList} onClose={(payload)=>{this.onClose(payload)}}  onOpen={(payload)=>{this.onOpen(payload)}} shopInfoView={(payload)=>{this.shopInfoView(payload)}} />
+<ShopList dataSource={this.props.shopList} updateCategory={(payload,record)=>{this.updateCategory(payload,record)}} shopInfoView={(payload)=>{this.shopInfoView(payload)}} />
         </div>
       </ShopInfoManager>
     )
