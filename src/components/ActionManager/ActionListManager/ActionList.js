@@ -8,12 +8,12 @@
  * Created by lilu on 2017/2/20.
  */
 import React from 'react'
-import {Table, Popconfirm,Switch} from 'antd'
+import {Table, Popconfirm, Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './ActionList.less'
 
 class ActionList extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.enterAnim = [
       {
@@ -60,7 +60,8 @@ class ActionList extends React.Component {
       return body
     }
     return (
-      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim} appear={false}>
+      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim}
+                     appear={false}>
         {body.props.children}
       </TweenOneGroup>
     )
@@ -70,17 +71,17 @@ class ActionList extends React.Component {
     e.target.style.height = 'auto'
   }
 
-  renderOneROle(result){
+  renderOneROle(result) {
     return (
       <a style={{marginRight: 4}}>{result.name}</a>
     )
   }
 
-  renderRole(text,record){
+  renderRole(text, record) {
     //  console.log('record',record)
     //   let roleList = ''
-    if (record&&record.roleList.length>0){
-      return  (record.roleList.forEach((result)=>{
+    if (record && record.roleList.length > 0) {
+      return (record.roleList.forEach((result)=> {
           //  console.log('result',result)
           return this.renderOneROle()
         })
@@ -91,12 +92,12 @@ class ActionList extends React.Component {
 
   }
 
-  async pageChange (pagination) {
+  async pageChange(pagination) {
     await this.props.onPageChange(pagination)
     this.newPage = pagination.current
   }
 
-  render () {
+  render() {
     const {
       // loading,
       dataSource,
@@ -127,9 +128,9 @@ class ActionList extends React.Component {
         key: 'geoDistrict'
       },
       {
-        title:'活动类型',
-        dataIndex:'actionType',
-        key:'actionType',
+        title: '活动类型',
+        dataIndex: 'actionType',
+        key: 'actionType',
 
       },
       {
@@ -142,9 +143,9 @@ class ActionList extends React.Component {
         title: '活动封面',
         dataIndex: 'image',
         key: 'image',
-        render: (text,record)=>{
-           console.log('record', record.image)
-          return record.image?<img style={{width:60,height:60}} src={record.image}></img>:<div></div>
+        render: (text, record)=> {
+          console.log('record', record.image)
+          return record.image ? <img style={{width: 60, height: 60}} src={record.image}></img> : <div></div>
         }
       },
       {
@@ -157,9 +158,12 @@ class ActionList extends React.Component {
         title: '是否启用',
         dataIndex: 'enable',
         key: 'enable',
-        render:(text,record)=>{
-          const status=record.status
-          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={record.enable} onChange={(payload)=>{this.props.updateActionEnable(payload,record.id)}}></Switch>
+        render: (text, record)=> {
+          const status = record.status
+          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={record.enable}
+                         onChange={(payload)=> {
+                           this.props.updateActionEnable(payload, record.id)
+                         }}></Switch>
         }
       }, {
         title: '操作',
@@ -180,7 +184,8 @@ class ActionList extends React.Component {
     return <div>
       <Table className={styles.table} bordered scroll={{
         x: 1200
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} />
+      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id}
+             pagination={this.props.pagination ? this.props.pagination : {}}/>
     </div>
   }
 }

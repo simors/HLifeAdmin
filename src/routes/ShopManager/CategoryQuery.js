@@ -81,9 +81,12 @@ class CategoryQuery extends Component {
     }
   }
 
-  updateCategory(payload,record){
-    console.log('payload',payload,record)
-    this.props.dispatch({type:'shopCategoryManager/updateCategoryStatus',payload:{id:record,status:payload?1:0}})
+  updateCategory(payload, record) {
+    console.log('payload', payload, record)
+    this.props.dispatch({
+      type: 'shopCategoryManager/updateCategoryStatus',
+      payload: {id: record, status: payload ? 1 : 0}
+    })
 
   }
   // console.log('personList====>',personList)

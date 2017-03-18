@@ -10,9 +10,8 @@ import {TweenOneGroup} from 'rc-tween-one'
 // import styles from './CategoryList.less'
 
 
-
 class CategoryPool extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.enterAnim = [
       {
@@ -47,8 +46,8 @@ class CategoryPool extends React.Component {
         ease: 'easeOutQuad'
       }
     ]
-    this.state={
-      selectedRowKeys:''
+    this.state = {
+      selectedRowKeys: ''
     }
     //const {current} = this.props.pagination
     // this.currentPage = current
@@ -62,7 +61,8 @@ class CategoryPool extends React.Component {
       return body
     }
     return (
-      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim} appear={false}>
+      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim}
+                     appear={false}>
         {body.props.children}
       </TweenOneGroup>
     )
@@ -72,11 +72,12 @@ class CategoryPool extends React.Component {
     e.target.style.height = 'auto'
   }
 
-  renderOneROle(result){
+  renderOneROle(result) {
     return (
       <a style={{marginRight: 4}}>{result.name}</a>
     )
   }
+
   onSelectChange = (selectedRowKeys, selectedRowData) => {
     // console.log('selectedRowKeys changed: ', selectedRowKeys);
     //console.log('selectedRowKeys changed: ', this.state.selectedRowKeys);
@@ -85,11 +86,11 @@ class CategoryPool extends React.Component {
 
   }
 
-  renderRole(text,record){
+  renderRole(text, record) {
     //  console.log('record',record)
     //   let roleList = ''
-    if (record&&record.roleList.length>0){
-      return  (record.roleList.forEach((result)=>{
+    if (record && record.roleList.length > 0) {
+      return (record.roleList.forEach((result)=> {
           //  console.log('result',result)
           return this.renderOneROle()
         })
@@ -100,17 +101,17 @@ class CategoryPool extends React.Component {
 
   }
 
-  async pageChange (pagination) {
+  async pageChange(pagination) {
     await this.props.onPageChange(pagination)
     this.newPage = pagination.current
   }
 
-  render () {
-     const {selectedRowKeys} = this.state;
+  render() {
+    const {selectedRowKeys} = this.state;
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
-      type:'radio'
+      type: 'radio'
     };
     const {
       // loading,
@@ -145,7 +146,8 @@ class CategoryPool extends React.Component {
       // }
     ]
     return <div>
-      <Table  scroll={{y:300}} bordered  columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={false} rowSelection={rowSelection}/>
+      <Table scroll={{y: 300}} bordered columns={columns} dataSource={dataSource} simple rowKey={record => record.id}
+             pagination={false} rowSelection={rowSelection}/>
     </div>
   }
 }

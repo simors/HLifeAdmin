@@ -76,21 +76,26 @@ class ActionQueryManager extends Component {
       payload: itemId
     })
   }
-  checkStatus(payload){
-    // console.log('payload',payload)
-    if(payload==true){
-      this.props.dispatch({type:'shopCategoryManager/query',payload:{status:1}})
 
-    }else{
-      this.props.dispatch({type:'shopCategoryManager/query'})
+  checkStatus(payload) {
+    // console.log('payload',payload)
+    if (payload == true) {
+      this.props.dispatch({type: 'shopCategoryManager/query', payload: {status: 1}})
+
+    } else {
+      this.props.dispatch({type: 'shopCategoryManager/query'})
     }
   }
 
-  updateActionEnable(payload,record){
-    console.log('payload',payload,record)
-    this.props.dispatch({type:'shopCategoryManager/updateCategoryStatus',payload:{id:record,status:payload?1:0}})
+  updateActionEnable(payload, record) {
+    console.log('payload', payload, record)
+    this.props.dispatch({
+      type: 'shopCategoryManager/updateCategoryStatus',
+      payload: {id: record, status: payload ? 1 : 0}
+    })
 
   }
+
   // console.log('personList====>',personList)
   render() {
     // console.log('personList===>',this.props.roleList)
@@ -98,7 +103,10 @@ class ActionQueryManager extends Component {
     return (
       <ActionListManager>
         <div className='content-inner'>
-          <div>是否仅显示可见:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true} onChange={(status)=>{this.checkStatus(status)}}></Switch></div>
+          <div>是否仅显示可见:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true}
+                               onChange={(status)=> {
+                                 this.checkStatus(status)
+                               }}></Switch></div>
           <br/>
           {/*<Tabs defaultActiveKey="categoryManager" >*/}
           {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
@@ -106,7 +114,9 @@ class ActionQueryManager extends Component {
             this.add()
           }}>创建活动 </Button>
           <ActioList
-            updateActionEnable={(payload,record)=>{this.updateActionEnable(payload,record)}}
+            updateActionEnable={(payload, record)=> {
+              this.updateActionEnable(payload, record)
+            }}
             dataSource={this.props.actionList}
             onEditItem={(payload)=> {
               this.onModify(payload)
@@ -119,17 +129,17 @@ class ActionQueryManager extends Component {
           {/*</TabPane>*/}
           {/*</Tabs>*/}
           {/*<CategoryModal*/}
-            {/*visible={this.state.modalVisible}*/}
-            {/*type={this.state.modalType}*/}
-            {/*onOk={(payload)=> {*/}
-              {/*this.onOk(payload)*/}
-            {/*}}*/}
-            {/*onCancel={()=> {*/}
-              {/*this.onCancel()*/}
-            {/*}}*/}
-            {/*item={this.state.selectedItem}*/}
-            {/*tagList={this.props.tagList}*/}
-            {/*modalKey={this.state.modalRandomKey}*/}
+          {/*visible={this.state.modalVisible}*/}
+          {/*type={this.state.modalType}*/}
+          {/*onOk={(payload)=> {*/}
+          {/*this.onOk(payload)*/}
+          {/*}}*/}
+          {/*onCancel={()=> {*/}
+          {/*this.onCancel()*/}
+          {/*}}*/}
+          {/*item={this.state.selectedItem}*/}
+          {/*tagList={this.props.tagList}*/}
+          {/*modalKey={this.state.modalRandomKey}*/}
           {/*/>*/}
         </div>
       </ActionListManager>

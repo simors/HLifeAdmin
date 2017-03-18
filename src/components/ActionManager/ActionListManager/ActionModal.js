@@ -6,7 +6,7 @@
  */
 import AV from 'leancloud-storage'
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button,Select} from 'antd'
+import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button, Select} from 'antd'
 import styles from './CategoryModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
@@ -14,7 +14,7 @@ import {getModalData, getModalState, getModalKey} from '../../../selector/ShopMa
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
-const Option=Select.Option
+const Option = Select.Option
 const formItemLayout = {
   labelCol: {
     span: 6
@@ -51,13 +51,10 @@ class ActionModal extends Component {
     }
 
 
-
-
     this.setState({visible: this.props.modalVisible})
     // console.log('hahahah',this.state.visible)
 
   }
-
 
 
   handleOk() {
@@ -80,9 +77,6 @@ class ActionModal extends Component {
       this.props.onOk(data)
     })
   }
-
-
-
 
 
   render() {

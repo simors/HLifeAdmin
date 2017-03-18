@@ -7,25 +7,26 @@
 /**
  * Created by lilu on 2017/2/18.
  */
-import React, { Component,PropTypes } from 'react'
-import { Link,routerRedux } from 'dva/router'
-import { connect } from 'dva'
-import {Button,Tabs,Layout} from 'antd'
+import React, {Component, PropTypes} from 'react'
+import {Link, routerRedux} from 'dva/router'
+import {connect} from 'dva'
+import {Button, Tabs, Layout} from 'antd'
 import CategoryList from '../../components/ShopManager/CategoryManager/CategoryList'
-import {getCategoryList,getTagList} from '../../selector/ShopManager/categorySelector'
+import {getCategoryList, getTagList} from '../../selector/ShopManager/categorySelector'
 // import UserSearch from '../../components/users/search'
 import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
 // import styles from './CategoryManager.less'
 // const TabPane = Tabs.TabPane;
-const{Header,Content} = Layout
+const {Header, Content} = Layout
 
-class ActionListManager extends Component{
-  constructor(props){
+class ActionListManager extends Component {
+  constructor(props) {
     super(props)
 
   }
-  componentDidMount(){
-     this.props.dispatch({type:'actionListManager/query'})
+
+  componentDidMount() {
+    this.props.dispatch({type: 'actionListManager/query'})
   }
 
   // console.log('personList====>',personList)
@@ -46,10 +47,7 @@ class ActionListManager extends Component{
 
 function mapStateToProps(state) {
 
-  return {
-
-
-  }
+  return {}
 }
 
 export default connect(mapStateToProps)(ActionListManager)

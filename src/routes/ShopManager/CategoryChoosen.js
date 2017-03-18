@@ -5,29 +5,34 @@ import React, {Component, PropTypes} from 'react'
 import CategoryManager from './CategoryManager'
 import {hashHistory} from 'dva/router'
 import {connect} from 'dva'
-import {Row,Col,Button,Icon} from 'antd'
+import {Row, Col, Button, Icon} from 'antd'
 import CategoryPool from '../../components/ShopManager/CategoryManager/CagegoryPool'
 import CategoryChoosenPool from '../../components/ShopManager/CategoryManager/CategoryChoosenPool'
 import Card from '../../components/common/card'
 import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext } from 'react-dnd';
+import {DragDropContext} from 'react-dnd';
 import update from 'react/lib/update';
 
-import {getCategoryList,getTagList,getCategoryChoosenPool,getCategoryPool} from '../../selector/ShopManager/categorySelector'
+import {
+  getCategoryList,
+  getTagList,
+  getCategoryChoosenPool,
+  getCategoryPool
+} from '../../selector/ShopManager/categorySelector'
 @DragDropContext(HTML5Backend)
 class CategoryChoosen extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.moveCard = this.moveCard.bind(this);
-    this.state={
-      selectCategory:{},
-      choosenCategory:[],
-      categoryPool:this.props.categoryList,
-      count:6
+    this.state = {
+      selectCategory: {},
+      choosenCategory: [],
+      categoryPool: this.props.categoryList,
+      count: 6
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // this.props.dispatch({
     //   type:'shopCategoryManager/fecthCatagoryPool',
     //   payload:{
@@ -36,15 +41,17 @@ class CategoryChoosen extends Component {
     //   }
     // })
   }
-  cancelChoosen(payload){
+
+  cancelChoosen(payload) {
     let choosenCategroyList = this.state.choosenCategory
-    choosenCategroyList.splice(payload,1)
+    choosenCategroyList.splice(payload, 1)
     this.setState({
-      choosenCategory:choosenCategroyList
+      choosenCategory: choosenCategroyList
     })
   }
+
   moveCard(dragIndex, hoverIndex) {
-    const { choosenCategory } = this.state;
+    const {choosenCategory} = this.state;
     const dragCard = choosenCategory[dragIndex];
 
     this.setState(update(this.state, {
@@ -55,22 +62,24 @@ class CategoryChoosen extends Component {
         ],
       },
     }));
-    console.log('choosenCategory',this.state.choosenCategory)
+    console.log('choosenCategory', this.state.choosenCategory)
   }
-  selectCatgory(data){
+
+  selectCatgory(data) {
     // console.log('data',data)
 
     this.setState({
-      selectCategory:data.selectCategory[0]
+      selectCategory: data.selectCategory[0]
     })
     // console.log('state',this.state.selectCategory)
 
   }
-  chooseCategory(){
+
+  chooseCategory() {
     let categoryList = this.state.choosenCategory
     categoryList.push(this.state.selectCategory)
     this.setState({
-      choosenCategory:categoryList
+      choosenCategory: categoryList
     })
 
     // console.log('this.state.choosen',this.state.choosenCategory)
@@ -82,34 +91,40 @@ class CategoryChoosen extends Component {
     //   }
     // })
   }
-  submitCategory(){
+
+  submitCategory() {
     // console.log('submit',this.state.choosenCategory)
     this.props.dispatch({
-      type:'shopCategoryManager/submitChoosenCategory',
-      payload:{
-        choosenCategory:this.state.choosenCategory
+      type: 'shopCategoryManager/submitChoosenCategory',
+      payload: {
+        choosenCategory: this.state.choosenCategory
       }
     })
-    hashHistory.pushState(null,'/shopManager/shopCategoryManager')
+    hashHistory.pushState(null, '/shopManager/shopCategoryManager')
   }
-  render(){
-    const { choosenCategory } = this.state;
-    return(
+
+  render() {
+    const {choosenCategory} = this.state;
+    return (
       <CategoryManager>
         <div>
-          <Row type='flex' justify='center' align='middle'  >
-            <Col  span={10}>
-             <div> <CategoryPool dataSource={this.state.categoryPool} selectCategory={(payload)=>{this.selectCatgory(payload)}}/></div>
+          <Row type='flex' justify='center' align='middle'>
+            <Col span={10}>
+              <div><CategoryPool dataSource={this.state.categoryPool} selectCategory={(payload)=> {
+                this.selectCatgory(payload)
+              }}/></div>
             </Col>
-            <Col  span={4}>
-              <div style={{marginLeft:10}}>
-                {this.state.choosenCategory.length<this.state.count? <Button onClick={()=>{this.chooseCategory()}}> <Icon type="right"></Icon></Button>:null}
+            <Col span={4}>
+              <div style={{marginLeft: 10}}>
+                {this.state.choosenCategory.length < this.state.count ? <Button onClick={()=> {
+                  this.chooseCategory()
+                }}> <Icon type="right"></Icon></Button> : null}
 
-                </div>
+              </div>
             </Col>
-            <Col  span={10}>
-              <div style={{flex:1,height:350,borderWidth:1,borderColor:'#FFFFFF',backgroundColor:'#FFFFFF'}}>
-                <div style={{left:50,fontSize:14}}>精选分类</div>
+            <Col span={10}>
+              <div style={{flex: 1, height: 350, borderWidth: 1, borderColor: '#FFFFFF', backgroundColor: '#FFFFFF'}}>
+                <div style={{left: 50, fontSize: 14}}>精选分类</div>
                 {choosenCategory.map((card, i) => (
                   <Card
                     key={card.id}
@@ -117,14 +132,18 @@ class CategoryChoosen extends Component {
                     id={card.id}
                     text={card.text}
                     moveCard={this.moveCard}
-                    cancelChoosen={(payload)=>{this.cancelChoosen(payload)}}
+                    cancelChoosen={(payload)=> {
+                      this.cancelChoosen(payload)
+                    }}
                   />
                 ))}
               </div>
             </Col>
           </Row>
           <Row>
-            <Button onClick={()=>{this.submitCategory()}}>提交精选分类</Button>
+            <Button onClick={()=> {
+              this.submitCategory()
+            }}>提交精选分类</Button>
           </Row>
         </div>
       </CategoryManager>
@@ -136,8 +155,9 @@ function mapStateToProps(state) {
   let categoryList = getCategoryList(state)
 
   return {
-    categoryList:categoryList,
+    categoryList: categoryList,
 
-  }}
+  }
+}
 
 export default connect(mapStateToProps)(CategoryChoosen)

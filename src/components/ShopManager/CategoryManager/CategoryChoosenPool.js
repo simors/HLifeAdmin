@@ -168,5 +168,4 @@ class CategoryChoosenPool extends React.Component {
 }
 
 
-
 export default CategoryChoosenPool

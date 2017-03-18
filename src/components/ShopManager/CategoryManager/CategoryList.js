@@ -156,9 +156,12 @@ class CategoryList extends React.Component {
         title: '显示状态',
         dataIndex: 'status',
         key: 'status',
-        render:(text,record)=>{
-          const status=record.status
-          return <Switch checkedChildren={'显示'} unCheckedChildren={'不显示'} defaultChecked={(record.status==1)?true:false} onChange={(payload)=>{this.props.updateCategory(payload,record.id)}}></Switch>
+        render: (text, record)=> {
+          const status = record.status
+          return <Switch checkedChildren={'显示'} unCheckedChildren={'不显示'}
+                         defaultChecked={(record.status == 1) ? true : false} onChange={(payload)=> {
+            this.props.updateCategory(payload, record.id)
+          }}></Switch>
         }
       },
       {

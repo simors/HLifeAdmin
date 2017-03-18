@@ -76,7 +76,7 @@ class ShopListManager extends Component{
   }
   updateCategory(payload,record){
     // console.log('payload',payload,record)
-    this.props.dispatch({type:'shopInfoManager/updateShopStatus',payload:{id:record,status:payload?1:0}})
+    this.props.dispatch({type: 'shopInfoManager/updateShopStatus', payload: {id: record, status: payload ? 1 : 0}})
 
   }
   onModify(data){

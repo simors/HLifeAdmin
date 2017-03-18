@@ -7,7 +7,7 @@ import {TweenOneGroup} from 'rc-tween-one'
 import styles from './personList.less'
 
 class personList extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.enterAnim = [
       {
@@ -54,7 +54,8 @@ class personList extends React.Component {
       return body
     }
     return (
-      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim} appear={false}>
+      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim}
+                     appear={false}>
         {body.props.children}
       </TweenOneGroup>
     )
@@ -64,33 +65,33 @@ class personList extends React.Component {
     e.target.style.height = 'auto'
   }
 
-  renderOneROle(result){
+  renderOneROle(result) {
     return (
       <a style={{marginRight: 4}}>{result}</a>
     )
   }
 
-  renderRole(text,record){
-  //  console.log('record',record)
-  //   let roleList = ''
-    if (record&&record.roleList.length>0){
-    return  (record.roleList.forEach((result)=>{
-        console.log('result',result)
-        return this.renderOneROle()
-      })
-)
+  renderRole(text, record) {
+    //  console.log('record',record)
+    //   let roleList = ''
+    if (record && record.roleList.length > 0) {
+      return (record.roleList.forEach((result)=> {
+          console.log('result', result)
+          return this.renderOneROle()
+        })
+      )
     }
     // console.log('roleList',roleList)
     // return roleList
 
   }
 
-  async pageChange (pagination) {
+  async pageChange(pagination) {
     await this.props.onPageChange(pagination)
     this.newPage = pagination.current
   }
 
-  render () {
+  render() {
     const {
       // loading,
       dataSource,
@@ -100,7 +101,7 @@ class personList extends React.Component {
     } = this.props
     // console.log('personDataSource',dataSource)
     const columns = [
-       {
+      {
         title: '姓名',
         dataIndex: 'username',
         key: 'username'
@@ -112,15 +113,15 @@ class personList extends React.Component {
         title: '角色列表',
         dataIndex: 'roleList',
         key: 'roleList',
-        render: (text,record)=> {
-            if (record && record.roleList.length > 0) {
-              let roles= (record.roleList.map((item,key)=> {
-                  //console.log('item', item,key)
-                  return <p key={key} style={{marginRight: 4}}>{item}</p>
-                })
-              )
-              return roles
-            }
+        render: (text, record)=> {
+          if (record && record.roleList.length > 0) {
+            let roles = (record.roleList.map((item, key)=> {
+                //console.log('item', item,key)
+                return <p key={key} style={{marginRight: 4}}>{item}</p>
+              })
+            )
+            return roles
+          }
         }
       }, {
         title: '操作',
@@ -141,7 +142,8 @@ class personList extends React.Component {
     return <div>
       <Table className={styles.table} bordered scroll={{
         x: 800
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.key} pagination={this.props.pagination?this.props.pagination:{}} />
+      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.key}
+             pagination={this.props.pagination ? this.props.pagination : {}}/>
     </div>
   }
 }
