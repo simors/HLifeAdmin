@@ -13,6 +13,7 @@ import {Table, Popconfirm, Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './appUserList.less'
 import {Link,} from 'dva/router'
+import {formatLeancloudTime} from '../../../utils/numberUtils'
 
 class appUserList extends React.Component {
   constructor(props) {
@@ -156,7 +157,8 @@ class appUserList extends React.Component {
         title: '注册时间',
         dataIndex: 'createdAt',
         key: 'createdAt',
-
+        render: (text, record) => (
+         <div>{formatLeancloudTime(new Date(record.createdAt),'YYYY-MM-DD')}</div>)
       }, {
         title: '操作',
         key: 'operation',
