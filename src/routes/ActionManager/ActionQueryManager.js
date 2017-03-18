@@ -86,7 +86,7 @@ class ActionQueryManager extends Component {
     }
   }
 
-  updateCategory(payload,record){
+  updateActionEnable(payload,record){
     console.log('payload',payload,record)
     this.props.dispatch({type:'shopCategoryManager/updateCategoryStatus',payload:{id:record,status:payload?1:0}})
 
@@ -104,9 +104,9 @@ class ActionQueryManager extends Component {
           {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
           <Button size='large' type='ghost' onClick={()=> {
             this.add()
-          }}>添加分类 </Button>
+          }}>创建活动 </Button>
           <ActioList
-            updateCategory={(payload,record)=>{this.updateCategory(payload,record)}}
+            updateActionEnable={(payload,record)=>{this.updateActionEnable(payload,record)}}
             dataSource={this.props.actionList}
             onEditItem={(payload)=> {
               this.onModify(payload)

@@ -133,7 +133,7 @@ class ActionList extends React.Component {
 
       },
       {
-        title: '活动链接',
+        title: '活动内容',
         dataIndex: 'action',
         key: 'action',
 
@@ -143,8 +143,8 @@ class ActionList extends React.Component {
         dataIndex: 'image',
         key: 'image',
         render: (text,record)=>{
-          // console.log('record', record)
-          return record.showPictureSource?<img style={{width:60,height:60}} src={record.image}></img>:<div></div>
+           console.log('record', record.image)
+          return record.image?<img style={{width:60,height:60}} src={record.image}></img>:<div></div>
         }
       },
       {
@@ -159,7 +159,7 @@ class ActionList extends React.Component {
         key: 'enable',
         render:(text,record)=>{
           const status=record.status
-          return <Switch checkedChildren={'显示'} unCheckedChildren={'不显示'} defaultChecked={record.enable} onChange={(payload)=>{this.props.updateActionEnable(payload,record.id)}}></Switch>
+          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={record.enable} onChange={(payload)=>{this.props.updateActionEnable(payload,record.id)}}></Switch>
         }
       }, {
         title: '操作',
