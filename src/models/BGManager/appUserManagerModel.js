@@ -26,12 +26,13 @@ export default {
       }
     },
     *updateAppUserEnable({payload},{call,put}){
-      yield call(updateAppUserEnable,parse(payload))
-      // if(data.success){
-      //   put({
-      //     type:'query'
-      //   })
-      // }
+      const data = yield call(updateAppUserEnable,parse(payload))
+      // console.log('data',data)
+      if (data && data.success) {
+        yield put({
+          type: 'query',
+        })
+      }
       }
   },
   reducers:{

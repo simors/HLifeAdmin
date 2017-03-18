@@ -104,7 +104,7 @@ class AppUserListManager extends Component{
   }
   updateUserEnable(payload,record){
     // console.log('jhahahaha',payload,record)
-    this.props.dispatch({type:'appUserManager/updateAppUserEnable',payload:{id:record,enable:payload}})
+    this.props.dispatch({type:'appUserManager/updateAppUserEnable',payload:{id:record,status:payload?1:0}})
 
   }
   // console.log('personList====>',personList)

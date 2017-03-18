@@ -25,7 +25,7 @@ export default class AppUserDetail extends Component{
         <div>注册用户名：{this.props.userDetail.username}</div>
         <div>所属城市：{this.props.userDetail.geoCity}</div>
         <div>所属地区：{this.props.userDetail.geoDistrict}</div>
-        <div>是否可用：<Switch checkedChildren={'可用'} unCheckedChildren={'不可用'} defaultChecked={this.props.userDetail.enable} onChange={(payload)=>{this.props.updateUserEnable(payload,this.props.userDetail.id)}}></Switch></div>
+        <div>是否可用：<Switch checkedChildren={'可用'} unCheckedChildren={'不可用'} defaultChecked={this.props.userDetail.status?true:false} onChange={(payload)=>{this.props.updateUserEnable(payload,this.props.userDetail.id)}}></Switch></div>
         <div>昵称：{this.props.userDetail.nickname}</div>
         <div>生日：{this.props.userDetail.birthday}</div>
         <div>类型：{this.props.userDetail.type}</div>

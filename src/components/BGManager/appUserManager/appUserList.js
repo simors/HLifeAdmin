@@ -129,11 +129,11 @@ class appUserList extends React.Component {
       },
       {
         title: '是否使用',
-        dataIndex: 'enable',
-        key: 'enable',
+        dataIndex: 'status',
+        key: 'status',
         render:(text,record)=>{
           const enable=record.enable
-          return <Switch checkedChildren={'使用'} unCheckedChildren={'不使用'} defaultChecked={record.enable} onChange={(payload)=>{this.props.updateUserEnable(payload,record.id)}}></Switch>
+          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={record.status?true:false} onChange={(payload)=>{this.props.updateUserEnable(payload,record.id)}}></Switch>
         }
       },
       {
