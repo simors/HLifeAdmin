@@ -33,7 +33,7 @@ export const actionManagerConfig = {
   name: '活动管理',
   icon: '',
   child: [
-    {key:'actionPromote',name:'活动推广'}
+    {key:'actionListManager',name:'活动列表管理'}
   ]
 }
 export const topicManagerConfig = {

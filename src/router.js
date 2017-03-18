@@ -14,6 +14,7 @@ import ShopDetailsManager from './routes/ShopManager/ShopDetailsManager'
 import ShopListManager from './routes/ShopManager/ShopListManager'
 import AppUserListManager from './routes/AppUserManager/AppUserListManager'
 import AppUserDetailManager from './routes/AppUserManager/AppUserDetailManager'
+import ActionQueryManager from './routes/ActionManager/ActionQueryManager'
 
 import Welcome from './routes/welcome'
 import err from './routes/error'
@@ -27,6 +28,9 @@ export default function ({history, app}) {
       <Route path="/BGManager/appUserManager" breadcrumbName="app用户管理">
         <IndexRoute component={AppUserListManager}/>
         <Route path="/BGManager/appUserManager/appUserDetailManager" breadcrumbName="app用户详情" component={AppUserDetailManager}/>
+      </Route>
+      <Route path="/actionManager/actionListManager" breadcrumbName="活动列表管理">
+        <IndexRoute component={ActionQueryManager}/>
       </Route>
       <Route path="/adminUserInfoManager" breadcrumbName="个人信息" component={UserInfoManage}/>
       <Route path="/shopManager/shopCategoryManager" breadcrumbName="店铺分类管理" >
