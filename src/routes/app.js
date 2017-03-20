@@ -21,7 +21,7 @@ function App ({params,routes,children, location, dispatch, app}) {
     }
   }
   const menu = getMenuList(menuList)
-  //console.log('routes========>',routes)
+  // console.log('menu========>',menu)
   const headerProps = {
     user,
     siderFold,

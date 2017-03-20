@@ -6,6 +6,7 @@ import {connect} from 'dva'
 import React, {Component} from 'react'
 import {getProvinceList} from '../../selector/ActionManager/actionListManager'
 import {getCitysByBaiduMap,getDistrictByBaiduMap} from '../../services/baiduMap'
+import {getCityList,getDistrictList,getProviceList} from './baiduMap'
 const Option = Select.Option;
 
  class SelectDistrict extends Component{
@@ -26,12 +27,20 @@ const Option = Select.Option;
 
   }
   componentDidMount(){
-    console.log('asdasdasdssssssssss')
+    // console.log('asdasdasdssssssssss')
+getProviceList().then((result)=>{
+  // console.log('asdasdasdssssssssss',result)
 
-    this.props.dispatch({type:'actionListManager/fetchProvinceList'})
-this.setState({
-  provinceList:this.props.province
+  const provinceList = result.map((item,key)=>{
+      return <Option  key={item.area_code} >{item.area_name}</Option>
+    }
+  )
+  this.setState({
+    provinceList:provinceList
+  })
 })
+    // this.props.dispatch({type:'actionListManager/fetchProvinceList'})
+
     // this.props.dispatch({type:'actionListManager/fetchProvinces'})
     // let provinces = yield getProviceBaiduMap()
     // console.log('asdasdasdasdasdasd',provinces)
@@ -39,57 +48,64 @@ this.setState({
     //   provinceList:provinces
     // })
   }
-  handleProvinceChange(value){
-    let cities= yield getCitysByBaiduMap(value)
-    console.log('cities',cities)
-    this.setState({
-      selectProvince:value,
-      cities:cities
+  handleProvinceChange(value,as){
+    // let cities= yield getCitysByBaiduMap(value)
+    console.log('value',value.key)
+     // console.log('as',as)
+    getCityList(value.key).then((results)=>{
+       // console.log('asdasdasdssssssssss',results)
+
+      const cityList = results.map((item,key)=>{
+          return <Option key={item.area_code} >{item.area_name}</Option>
+        }
+      )
+      this.setState({
+        selectProvince:value.label,
+        cities:cityList
+      })
+    })
+
+  }
+  handleCityChange(value,as){
+    getCityList(value.key).then((results)=>{
+       // console.log('asdasdasdssssssssss',results)
+
+      const districtList = results.map((item,key)=>{
+          return <Option  key={item.area_code} >{item.area_name}</Option>
+        }
+      )
+      this.setState({
+        selectCity:value.label,
+        districts:districtList
+      })
     })
   }
-  handleCityChange(value){
-    let districts = getDistrictByBaiduMap(value)
+  handleDistrictChange(value,as){
     this.setState({
-      selectCity:value,
-      districts:districts
+      selectDistrict:value.label,
     })
-  }
-  handleDistrictChange(value){
-    this.setState({
-      selectDistrict:value,
-    })
+    console.log('state',this.state.selectProvince,
+      this.state.selectCity,
+      this.state.selectDistrict)
   }
   render(){
     let province=[]
 
 
-       if(this.props.province.length>0){
-         province=this.props.province.map((item,key)=>{
-            return <Option key={item.area_code}>{item.area_name}</Option>
-          }
-        )
-      }
+      //  if(this.props.province.length>0){
+      //    province=this.props.province.map((item,key)=>{
+      //       return <Option key={item.area_code}>{item.area_name}</Option>
+      //     }
+      //   )
+      // }
 
      // console.log('this.state.province',this.state.provinceList)
-    let cities=[]
-    if(this.state.cities.length>0){
-      cities=this.state.cities.sub.map((item,key)=>{
-          return <Option key={item.area_code}>{item.area_name}</Option>
-        }
-      )
-    }
-    let districts=[]
-    if(this.state.districts.length>0){
-      districts=this.state.districts.sub.map((item,key)=>{
-          return <Option key={item.area_code}>{item.area_name}</Option>
-        }
-      )
-    }
+
     return(
       <div>
-        <Select defaultValue='省' onChange={(value)=>{this.handleProvinceChange(value)}}>{province}</Select>
-        <Select defaultValue='市' onChange={(value)=>{this.handleCityChange(value)}}>{cities}</Select>
-        <Select defaultValue='地区' onChange={(value)=>{this.handleDistrictChange(value)}}>{districts}</Select>
+        <Select style={{width:100}} defaultValue={{value:'省'}} labelInValue onChange={(value,key)=>{this.handleProvinceChange(value,key)}}>{this.state.provinceList}</Select>
+        <Select style={{width:100}} defaultValue={{value:'市'}} labelInValue onChange={(value)=>{this.handleCityChange(value)}}>{this.state.cities}</Select>
+        <Select style={{width:100}} defaultValue={{value:'地区'}} labelInValue onChange={(value)=>{this.handleDistrictChange(value)}}>{this.state.districts}</Select>
       </div>
     )
   }
@@ -98,7 +114,7 @@ this.setState({
 
 function mapStateToProps(state) {
   let province=getProvinceList(state)
-  console.log('<<<<<<<<<province>>>>>>>>>>',province)
+  // console.log('<<<<<<<<<province>>>>>>>>>>',province)
   return {
     province:province
 

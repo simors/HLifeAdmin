@@ -10,8 +10,9 @@ import CategoryList from '../../components/ShopManager/CategoryManager/CategoryL
 import {getShopList} from '../../selector/ShopManager/shopSelector'
 // import UserSearch from '../../components/users/search'
 import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
-// const TabPane = Tabs.TabPane;
+
 import {getProviceBaiduMap,getCitysByBaiduMap,getDistrictByBaiduMap} from '../../services/baiduMap'
+
 const{Header,Content} = Layout
 
 class AppUserManager extends Component{
@@ -26,8 +27,6 @@ class AppUserManager extends Component{
   // console.log('personList====>',personList)
   render() {
     // console.log('personList===>',this.props.roleList)
-    // getProviceBaiduMap()
-    // getDistrictByBaiduMap(134)
     return (
 
       <Layout>

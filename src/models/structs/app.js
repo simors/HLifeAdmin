@@ -20,12 +20,12 @@ export const userFeedbackConfig = {
 }
 
 export const messagePushConfig = {
-  key: 'messagePush',
-  name: '消息推送',
+  key: 'messagePushManager',
+  name: '消息推送管理',
   icon: '',
-  // child: [
-  //   {key:'messagePush',name:'消息推送'}
-  // ]
+  child: [
+    {key:'messagePushIndex',name:'消息推送'}
+  ]
 }
 
 export const actionManagerConfig = {
