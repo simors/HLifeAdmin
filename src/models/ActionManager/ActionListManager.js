@@ -3,7 +3,7 @@
  */
 
 import {parse} from 'qs'
-import {getActionList} from '../../services/ActionManager/actionListManager'
+import {getActionList,updateBannersStatus} from '../../services/ActionManager/actionListManager'
 import {getProvinceList,getProviceBaiduMap} from '../../services/baiduMap'
 export default {
   namespace: 'actionListManager',
@@ -27,38 +27,16 @@ export default {
         })
       }
     },
-    *fetchProvinces({payload}, {call, put}){
-      // console.log('asdasdasdhahahahahahahaha')
-      // getProvinceList().then((result)=>{
-      //   console.log('asdasdasdasdasd',result.sub)
-      //   put({
-      //     type:'pushProvince',
-      //     payload:{
-      //       provinces:result.sub
-      //     }
-      //
-      //   })
-      //   put({
-      //     type:'query'
-      //   })
-      // })
-      console.log('provinces===========>')
-
-      const data = yield call(getProviceBaiduMap)
-      console.log('**********provinces===========>')
+    *updateBannersStatus({payload},{call,put}){
+      console.log('asdasd',payload)
+      const data = yield call(updateBannersStatus,parse(payload))
       if(data&&data.success){
-        yield put ({
-          type:'pushProvince',
-          payload: data.provinces
+        put({
+          type:'query'
         })
       }
-    },
-    *fetchProvinceList ({payload},{call,put}){
-      const data = yield getProvinceList()
+      }
 
-         yield put ({type:'pushProvince',payload:{provinces:data.sub}})
-
-    }
   },
   reducers:{
     showLoading (state) {

@@ -11,3 +11,13 @@ export async function getActionList(payload) {
     return {succes: false}
   }
 }
+
+export async function updateBannersStatus(payload){
+  try {
+    console.log('payload',payload)
+    await AV.Cloud.run('updateBannersStatus', payload)
+    return {success: true}
+  } catch (err) {
+    return {succes: false}
+  }
+}

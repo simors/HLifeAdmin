@@ -26,7 +26,7 @@ class ActionListManager extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch({type: 'actionListManager/query'})
+    this.props.dispatch({type:'actionListManager/query',payload:{status:1}})
   }
 
   // console.log('personList====>',personList)
