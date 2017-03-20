@@ -144,7 +144,7 @@ class ActionList extends React.Component {
         dataIndex: 'image',
         key: 'image',
         render: (text, record)=> {
-          console.log('record', record.image)
+          // console.log('record', record.image)
           return record.image ? <img style={{width: 60, height: 60}} src={record.image}></img> : <div></div>
         }
       },
