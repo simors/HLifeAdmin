@@ -2,60 +2,31 @@
  * Created by lilu on 2017/3/18.
  */
 
-
-function initBMapLib() {
-
+export function getProviceList() {
+  return getSubAreaList(1)
+}
+export function getCityList(provinceCode) {
+  return getSubAreaList(provinceCode)
 }
 
-// var BMapLib = undefined
-export function getProviceBaiduMap() {
-
-  let province = []
-  if (window.BMapLib) {
-    var cityList = new BMapLib.CityList();
-    cityList.getSubAreaList(1, function (json) {
-      console.log('城市列表');
-      console.log(json);
-      province = json
-    });
-    return province
-    // cityList.getSubAreaList(27, function(json){
-    //   console.log('城市列表');
-    //   console.log(json);
-    // });
-  }
-
-}
-export function getCitysByBaiduMap(code) {
-  let province = []
-  if (window.BMapLib) {
-    var cityList = new BMapLib.CityList();
-    cityList.getSubAreaList(code, function (json) {
-      console.log('城市列表');
-      console.log(json);
-      province = json
-    });
-    return province
-    // cityList.getSubAreaList(27, function(json){
-    //   console.log('城市列表');
-    //   console.log(json);
-    // });
-  }
+export function getDistrictList(cityCode) {
+  return getSubAreaList(cityCode)
 }
 
-export function getDistrictByBaiduMap(code) {
-  let province = []
-  if (window.BMapLib) {
-    var cityList = new BMapLib.CityList();
-    cityList.getSubAreaList(code, function (json) {
-      console.log('城市列表');
-      console.log(json);
-      province = json
-    });
-    return province
-    // cityList.getSubAreaList(27, function(json){
-    //   console.log('城市列表');
-    //   console.log(json);
-    // });
-  }
+export function getSubAreaList(areaCode) {
+  return new Promise((resolve, reject) => {
+    if (window.BMapLib && areaCode) {
+      var cityList = new BMapLib.CityList();
+      cityList.getSubAreaList(areaCode, function (results) {
+        // console.log('getSubAreaList====>>>>>', results);
+        if(results && results.sub && results.sub.length) {
+          resolve(results.sub)
+        }else {
+          resolve([])
+        }
+      });
+    }else {
+      resolve([])
+    }
+  })
 }

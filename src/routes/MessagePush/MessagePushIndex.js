@@ -4,16 +4,18 @@
 import React, { Component,PropTypes } from 'react'
 import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
-import {Radio, Checkbox,InputNumber,Select, Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon, Layout} from 'antd'
+import {Radio, Checkbox,InputNumber,Select, Cascader, TreeSelect, Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon, Layout} from 'antd'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import styles from './messagePush.less'
+import * as BaiduMap from '../../components/common/baiduMap'
 
 const {MonthPicker, RangePicker} = DatePicker;
 moment.locale('zh-cn');
 const dateFormat = 'YYYY-MM-DD';
 const RadioGroup = Radio.Group;
 const Option = Select.Option;
+const SHOW_PARENT = TreeSelect.SHOW_PARENT;
 
 const{Header,Content} = Layout
 // const TabPane = Tabs.TabPane;
@@ -33,11 +35,18 @@ class MessagePushIndex extends Component{
       expireIntervalTime: '', //过期间隔时间
       expireIntervalTimeUnit: '1', //过期间隔时间单位; 1-小时; 2-天
       pushTargetType: '1', //1-不限; 2-指定地区; 3-指定人群
+      pushTargetDistrictTreeDatas: [{
+        label: '中国',
+        value: '1',
+        key: '1',
+        children: []
+      }],
+      pushTargetDistrict: []
     }
   }
 
   componentDidMount(){
-
+    // this.updateDistrictProvinceTreeDatas()
   }
 
   onTerminalTypeChange = (e) => {
@@ -105,7 +114,7 @@ class MessagePushIndex extends Component{
     });
   }
 
-  handleExpireIntervaluTimeUnitChange = (value) => {
+  handleExpireIntervalTimeUnitChange = (value) => {
     console.log(`handleExpireIntervaluTimeUnitChange.value = ${value}`);
     this.setState({
       expireIntervalTimeUnit: value,
@@ -123,7 +132,7 @@ class MessagePushIndex extends Component{
       return (
         <Col span={12}>
           <InputNumber style={{marginLeft:16}} min={1} max={31} defaultValue={1} onChange={this.onExpireIntervalTimeChange} />
-          <Select style={{marginLeft:16}} defaultValue="1" onChange={this.handleExpireIntervaluTimeUnitChange}>
+          <Select style={{marginLeft:16}} defaultValue="1" onChange={this.handleExpireIntervalTimeUnitChange}>
             <Option value="1">小时</Option>
             <Option value="2">天</Option>
           </Select>
@@ -140,18 +149,128 @@ class MessagePushIndex extends Component{
     });
   }
 
+  onDistrictTreeDataChange = (value, label, extra) => {
+    console.log('onDistrictTreeDataChange ', value, label, extra);
+    // this.updateDistrictCityTreeDatas(value)
+    this.setState({ pushTargetDistrict: value });
+  }
+
+  updateDistrictProvinceTreeDatas() {
+    BaiduMap.getProviceList().then((results) => {
+      console.log('updateDistrictProvinceTreeDatas.getProviceList====>>>>', results)
+      let pushTargetDistrictTreeDatas = []
+      let rootNode = this.state.pushTargetDistrictTreeDatas[0]
+      if(!rootNode.children.length) {
+        rootNode.children = results.map((item, index) => {
+          return {
+            ...item,
+            label: item.area_name,
+            value: item.area_code + "",
+            key: item.area_code + "",
+            children: []
+          }
+        })
+        pushTargetDistrictTreeDatas.push(rootNode)
+        this.setState({
+          pushTargetDistrictTreeDatas: pushTargetDistrictTreeDatas
+        })
+      }
+    })
+  }
+
+  updateDistrictCityTreeDatas(provinceCode) {
+    BaiduMap.getCityList(provinceCode).then((results) => {
+      console.log('updateDistrictCityTreeDatas.getCityList====>>>>', results)
+      let rootNode = this.state.pushTargetDistrictTreeDatas[0]
+      let provinceNodes = rootNode.children
+      let pushTargetDistrictTreeDatas = []
+      for(let i = 0; i < provinceNodes.length; i++) {
+        if(provinceNodes[i].value == provinceCode) {
+          provinceNodes[i].children = results.map((item, index) => {
+            return {
+              ...item,
+              label: item.area_name,
+              value: item.area_code + "",
+              key: item.area_code + "",
+              children: []
+            }
+          })
+          break;
+        }
+      }
+      pushTargetDistrictTreeDatas.push(rootNode)
+      this.setState({
+        pushTargetDistrictTreeDatas: pushTargetDistrictTreeDatas
+      })
+    })
+  }
+
+  loadDistrictTreeData = (node) => {
+    return new Promise((resolve, reject) => {
+      BaiduMap.getSubAreaList(node.props.value).then((results) => {
+        const findUpdate = (nodesData, targetNodeData) => {
+          for(let i = 0; i < nodesData.length; i++) {
+            // console.log('nodesData[i]=============>>>>>>>>>>.', nodesData[i])
+            // console.log('targetNodeData=============>>>>>>>>>>.', targetNodeData)
+            if(nodesData[i].value == targetNodeData.value) {
+              // console.log('nodesData[i].value == targetNodeData.value============>>>>>>>>>>.', results)
+              let children = results.map((item, index) => {
+                return {
+                  ...item,
+                  label: item.area_name,
+                  value: item.area_code + "",
+                  key: item.area_code + "",
+                  children: []
+                }
+              })
+              nodesData[i].children = children
+              console.log('this.state.pushTargetDistrictTreeDatas===========', this.state.pushTargetDistrictTreeDatas)
+              this.setState({
+                pushTargetDistrictTreeDatas: this.state.pushTargetDistrictTreeDatas
+              }, ()=> {
+
+              })
+              break
+            }else {
+              if(nodesData[i].children) {
+                findUpdate(nodesData[i].children, node.props)
+              }
+            }
+          }
+        }
+        findUpdate(this.state.pushTargetDistrictTreeDatas, node.props)
+      })
+    })
+  }
+
   renderPushTarget() {
     if(this.state.pushTargetType == 2) {
+      // this.updateDistrictProvinceTreeDatas()
+
+      const tProps = {
+        treeData: this.state.pushTargetDistrictTreeDatas,
+        value: this.state.pushTargetDistrict,
+        onChange: this.onDistrictTreeDataChange,
+        loadData: this.loadDistrictTreeData,
+        multiple: true,
+        treeCheckable: true,
+        showCheckedStrategy: SHOW_PARENT,
+        searchPlaceholder: 'Please select',
+        style: {
+          width: 300,
+        },
+      };
+
       return (
-        <Col span={6}>
-          <DatePicker style={{marginLeft:16}} onChange={this.onExpireTimeChange} />
+        <Col span={20}>
+          <TreeSelect {...tProps} />
         </Col>
       )
     }else if(this.state.pushTargetType == 3) {
       return (
         <Col span={12}>
           <InputNumber style={{marginLeft:16}} min={1} max={31} defaultValue={1} onChange={this.onExpireIntervalTimeChange} />
-          <Select style={{marginLeft:16}} defaultValue="1" onChange={this.handleExpireIntervaluTimeUnitChange}>
+          <Select style={{marginLeft:16}} defaultValue="1" onChange={this.handleExpireIntervalTimeUnitChange}>
             <Option value="1">小时</Option>
             <Option value="2">天</Option>
           </Select>
