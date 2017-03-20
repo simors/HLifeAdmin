@@ -7,6 +7,9 @@ import {connect} from 'dva'
 // const topMenus = menu.map(item => item.key)
 
 const getMenus = function (menuArray, siderFold, parentPath) {
+  if(!menuArray) {
+    return null
+  }
   const topMenus = menuArray.map(item => item.key)
   parentPath = parentPath || '/'
  // console.log('payload',menuArray,siderFold,parentPath)
