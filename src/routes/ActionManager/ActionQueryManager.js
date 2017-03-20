@@ -96,6 +96,9 @@ class ActionQueryManager extends Component {
     })
 
   }
+  submit(payload){
+    console.log(payload)
+  }
 
   // console.log('personList====>',personList)
   render() {
@@ -104,7 +107,9 @@ class ActionQueryManager extends Component {
     return (
       <ActionListManager>
         <div className='content-inner'>
-          <SelectDistrict/>
+          <SelectDistrict submit={(payload)=>{
+            this.submit(payload)
+          }}/>
           <div>是否仅显示可见:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true}
                                onChange={(status)=> {
                                  this.checkStatus(status)
