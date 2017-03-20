@@ -1,5 +1,5 @@
 /**
- * Created by lilu on 2017/3/9.
+ * Created by lilu on 2017/3/17.
  */
 /**
  * Created by lilu on 2017/2/28.
@@ -12,21 +12,21 @@ import {Link, routerRedux} from 'dva/router'
 import {connect} from 'dva'
 import {Button, Tabs, Layout} from 'antd'
 import CategoryList from '../../components/ShopManager/CategoryManager/CategoryList'
-import {getShopList} from '../../selector/ShopManager/shopSelector'
+import {getCategoryList, getTagList} from '../../selector/ShopManager/categorySelector'
 // import UserSearch from '../../components/users/search'
 import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
-import styles from './CategoryManager.less'
+// import styles from './CategoryManager.less'
 // const TabPane = Tabs.TabPane;
 const {Header, Content} = Layout
 
-class ShopInfoManager extends Component {
+class ActionListManager extends Component {
   constructor(props) {
     super(props)
 
   }
 
   componentDidMount() {
-    this.props.dispatch({type: 'shopInfoManager/query'})
+    this.props.dispatch({type: 'actionListManager/query'})
   }
 
   // console.log('personList====>',personList)
@@ -36,8 +36,7 @@ class ShopInfoManager extends Component {
     return (
 
       <Layout>
-        {/*<Header className={styles.Header}>*/}
-        {/*</Header>*/}
+
         <Content>
           {this.props.children}
         </Content>
@@ -48,9 +47,8 @@ class ShopInfoManager extends Component {
 
 function mapStateToProps(state) {
 
-
   return {}
 }
 
-export default connect(mapStateToProps)(ShopInfoManager)
+export default connect(mapStateToProps)(ActionListManager)
 

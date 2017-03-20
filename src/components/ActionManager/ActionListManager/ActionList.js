@@ -1,21 +1,18 @@
 /**
- * Created by lilu on 2017/3/16.
- */
-/**
- * Created by lilu on 2017/3/9.
+ * Created by lilu on 2017/3/18.
  */
 /**
  * Created by lilu on 2017/2/28.
  */
-
+/**
+ * Created by lilu on 2017/2/20.
+ */
 import React from 'react'
 import {Table, Popconfirm, Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
-import styles from './appUserList.less'
-import {Link,} from 'dva/router'
-import {formatLeancloudTime} from '../../../utils/numberUtils'
+import styles from './ActionList.less'
 
-class appUserList extends React.Component {
+class ActionList extends React.Component {
   constructor(props) {
     super(props)
     this.enterAnim = [
@@ -111,71 +108,79 @@ class appUserList extends React.Component {
     //console.log('dataSource',dataSource)
     const columns = [
       {
-        title: '用户账号',
-        dataIndex: 'username',
-        key: 'username'
+        title: '标题',
+        dataIndex: 'title',
+        key: 'title'
       },
       {
-        title: '用户昵称',
-        dataIndex: 'nickname',
-        key: 'nickname'
+        title: '类型',
+        dataIndex: 'type',
+        key: 'type'
       },
       {
-        title: '用户头像',
-        dataIndex: 'avatar',
-        key: 'avatar',
-        render: (text, record)=> {
-          // console.log('record', record)
-          return <img style={{width: 30, height: 30}} src={record.avatar}></img>
-        }
-      },
-      {
-        title: '是否使用',
-        dataIndex: 'status',
-        key: 'status',
-        render: (text, record)=> {
-          const enable = record.enable
-          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={record.status ? true : false}
-                         onChange={(payload)=> {
-                           this.props.updateUserEnable(payload, record.id)
-                         }}></Switch>
-        }
-      },
-      {
-        title: '所在城市',
+        title: '城市',
         dataIndex: 'geoCity',
         key: 'geoCity'
       },
       {
-        title: '联系电话',
-        dataIndex: 'mobilePhoneNumber',
-        key: 'mobilePhoneNumber'
+        title: '地区',
+        dataIndex: 'geoDistrict',
+        key: 'geoDistrict'
       },
-
-
       {
-        title: '注册时间',
+        title: '活动类型',
+        dataIndex: 'actionType',
+        key: 'actionType',
+
+      },
+      {
+        title: '活动内容',
+        dataIndex: 'action',
+        key: 'action',
+
+      },
+      {
+        title: '活动封面',
+        dataIndex: 'image',
+        key: 'image',
+        render: (text, record)=> {
+          console.log('record', record.image)
+          return record.image ? <img style={{width: 60, height: 60}} src={record.image}></img> : <div></div>
+        }
+      },
+      {
+        title: '生成日期',
         dataIndex: 'createdAt',
         key: 'createdAt',
-        render: (text, record) => (
-         <div>{formatLeancloudTime(new Date(record.createdAt),'YYYY-MM-DD')}</div>)
+
+      },
+      {
+        title: '是否启用',
+        dataIndex: 'enable',
+        key: 'enable',
+        render: (text, record)=> {
+          const status = record.status
+          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={record.enable}
+                         onChange={(payload)=> {
+                           this.props.updateActionEnable(payload, record.id)
+                         }}></Switch>
+        }
       }, {
         title: '操作',
         key: 'operation',
         width: 100,
-        render: (text, record, index) => (
+        render: (text, record) => (
           <p>
-            <Link to={{
-              pathname: "/BGManager/appUserManager/appUserDetailManager",
-              query: {id: record.id, index: index}
-            }} style={{
+            <a onClick={() => this.props.onEditItem(record)} style={{
               marginRight: 4
-            }}>详情</Link>
+            }}>编辑</a>
+            {/*<Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>*/}
+            {/*<a>删除</a>*/}
+            {/*</Popconfirm>*/}
           </p>
         )
       }
     ]
-    // console.log('hahahahahah',dataSource)
     return <div>
       <Table className={styles.table} bordered scroll={{
         x: 1200
@@ -185,4 +190,4 @@ class appUserList extends React.Component {
   }
 }
 
-export default appUserList
+export default ActionList

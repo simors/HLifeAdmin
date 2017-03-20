@@ -20,25 +20,25 @@ class personModal extends Component {
     super(props)
     this.state = {
       visible: false,
-      count:0
+      count: 0
     }
   }
 
   componentWillReceiveProps(newProps) {
     if (this.props.visible != newProps.visible) {
-       this.setState({visible: newProps.visible})
+      this.setState({visible: newProps.visible})
     }
   }
 
   componentDidMount() {
-     this.setState({visible: !!this.props.visible})
+    this.setState({visible: !!this.props.visible})
     console.log(...this.props)
 
   }
 
   handleOk() {
-    let count=this.state.count+1
-    this.setState({count:count})
+    let count = this.state.count + 1
+    this.setState({count: count})
 
     this.props.form.validateFields((errors) => {
       if (errors) {
@@ -55,44 +55,46 @@ class personModal extends Component {
 
   render() {
     const options = ['apple', 'pear', 'orange']
-   // console.log('ahahahahahaha', this.props.item)
+    // console.log('ahahahahahaha', this.props.item)
     // console.log('ahahahahahaha',options)
     const roles = []
-    if (this.props.item.roleList)
-    {
-      this.props.item.roleList.forEach((record)=>{
+    if (this.props.item.roleList) {
+      this.props.item.roleList.forEach((record)=> {
         roles.push(record)
       })
     }
-     // console.log('type',this.props.type)
-     // console.log('roleList',this.props.roleList)
+    // console.log('type',this.props.type)
+    // console.log('roleList',this.props.roleList)
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建用户' : '修改用户'}
         visible={this.state.visible}
-        onOk={()=>{this.handleOk()}}
-        onCancel={()=>{
-          let count=this.state.count+1
-          this.setState({count:count})
-          this.props.onCancel()}}
+        onOk={()=> {
+          this.handleOk()
+        }}
+        onCancel={()=> {
+          let count = this.state.count + 1
+          this.setState({count: count})
+          this.props.onCancel()
+        }}
         wrapClassName='vertical-center-modal'
-        key = {this.state.count}
+        key={this.state.count}
       >
         <Form horizontal>
           <FormItem label='姓名：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
-              initialValue: this.props.type==='create'?'':this.props.item.username,
+              initialValue: this.props.type === 'create' ? '' : this.props.item.username,
               rules: [
                 {
                   required: true,
                   message: '姓名未填写'
                 }
               ]
-            })(<Input disabled={this.props.type==='create'?false:true}/>)}
+            })(<Input disabled={this.props.type === 'create' ? false : true}/>)}
           </FormItem>
           <FormItem label='密码：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('password', {
-              initialValue: this.props.type==='create'?'':this.props.item.password,
+              initialValue: this.props.type === 'create' ? '' : this.props.item.password,
               rules: [
                 {
                   required: true,
@@ -103,7 +105,7 @@ class personModal extends Component {
           </FormItem>
           <FormItem label='角色' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('roleList', {
-              initialValue: this.props.type==='create'?[]:roles,
+              initialValue: this.props.type === 'create' ? [] : roles,
               rules: [
                 {
                   required: true,
@@ -111,7 +113,7 @@ class personModal extends Component {
                 }
               ]
             })(
-              <CheckboxGroup options={this.props.roleList} >
+              <CheckboxGroup options={this.props.roleList}>
 
               </CheckboxGroup>
             )}

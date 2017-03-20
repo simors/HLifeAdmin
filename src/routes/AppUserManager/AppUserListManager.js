@@ -4,10 +4,10 @@
 /**
  * Created by lilu on 2017/3/9.
  */
-import React, { Component,PropTypes } from 'react'
-import { routerRedux } from 'dva/router'
-import { connect } from 'dva'
-import {Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon,} from 'antd'
+import React, {Component, PropTypes} from 'react'
+import {routerRedux} from 'dva/router'
+import {connect} from 'dva'
+import {Button, Tabs, Input, DatePicker, Row, Col, Menu, Dropdown, Icon,} from 'antd'
 const {MonthPicker, RangePicker} = DatePicker;
 
 import AppUserList from '../../components/BGManager/appUserManager/appUserList'
@@ -26,61 +26,67 @@ const orderShowTab = {
 }
 // const TabPane = Tabs.TabPane;
 
-class AppUserListManager extends Component{
-  constructor(props){
+class AppUserListManager extends Component {
+  constructor(props) {
     super(props)
-    this.state={
-      modalVisible:false,
-      modalType:'create',
-      selectedItem:{},
+    this.state = {
+      modalVisible: false,
+      modalType: 'create',
+      selectedItem: {},
       filterValue: '',
       orderMode: 'createTimeDescend',
       orderModeShow: orderShowTab['createTimeDescend'],
       startTime: new Date('2000-01-01 00:00:00'),
       endTime: new Date(),
-      geoCity:'',
-      username:'',
+      geoCity: '',
+      username: '',
 
     }
   }
-  componentDidMount(){
+
+  componentDidMount() {
     // this.props.dispatch({type:'shopCategoryManager/query'})
     // this.props.dispatch({
     //   type:'shopInfoManager/query'
     // })
   }
-  add(){
-    console.log('openModal')
 
-    this.setState({modalVisible:true,modalType:'create',selectedItem:{}})
+  add() {
+    // console.log('openModal')
+
+    this.setState({modalVisible: true, modalType: 'create', selectedItem: {}})
   }
 
 
-
-  handleInputCityChange(value){
-    this.setState({geoCity:value.target.value})
+  handleInputCityChange(value) {
+    this.setState({geoCity: value.target.value})
   }
-  handleInputUsernameChange(value){
-    this.setState({username:value.target.value})
 
-  }
-  handleInputCategoryChange(value){
-    this.setState({shopCategoryName:value.target.value})
+  handleInputUsernameChange(value) {
+    this.setState({username: value.target.value})
 
   }
+
+  handleInputCategoryChange(value) {
+    this.setState({shopCategoryName: value.target.value})
+
+  }
+
   onDateChange(date, dateString) {
-    console.log(date[0]._d);
+    // console.log(date[0]._d);
     this.setState({startTime: date[0]._d});
     this.setState({endTime: date[1]._d});
   }
+
   handleMenuClick(e) {
     this.setState({orderMode: e.key})
     this.setState({orderModeShow: orderShowTab[e.key]})
   }
-  onSearchByFilter(){
+
+  onSearchByFilter() {
     this.props.dispatch({
-      type:'appUserManager/query',
-      payload:{
+      type: 'appUserManager/query',
+      payload: {
         orderMode: this.state.orderMode,
         username: this.state.username,
         startTime: this.state.startTime,
@@ -89,27 +95,30 @@ class AppUserListManager extends Component{
       }
     })
   }
-  unSearchByFilter(){
+
+  unSearchByFilter() {
     this.setState({
       orderMode: 'createTimeDescend',
       orderModeShow: orderShowTab['createTimeDescend'],
       startTime: new Date('2000-01-01 00:00:00'),
       endTime: new Date(),
-      geoCity:'',
-      username:'',
+      geoCity: '',
+      username: '',
     })
     this.props.dispatch({
-      type:'appUserManager/query'
+      type: 'appUserManager/query'
     })
   }
-  updateUserEnable(payload,record){
-    console.log('jhahahaha',payload,record)
-    this.props.dispatch({type:'appUserManager/updateAppUserEnable',payload:{id:record,enable:payload}})
+
+  updateUserEnable(payload, record) {
+    // console.log('jhahahaha',payload,record)
+    this.props.dispatch({type: 'appUserManager/updateAppUserEnable', payload: {id: record, status: payload ? 1 : 0}})
 
   }
+
   // console.log('personList====>',personList)
   render() {
-     console.log('personList===>')
+    console.log('personList===>')
     let menu = (
       <Menu onClick={(e)=> {
         this.handleMenuClick(e)
@@ -132,11 +141,15 @@ class AppUserListManager extends Component{
             </Col>
             <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>城市关键字：</p>
-              <Input style={{width: 200}} defaultValue="" onChange={(value)=>{this.handleInputCityChange(value)}}/>
+              <Input style={{width: 200}} defaultValue="" onChange={(value)=> {
+                this.handleInputCityChange(value)
+              }}/>
             </Col>
             <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>用户名关键字：</p>
-              <Input style={{width: 200}} defaultValue="" onChange={(value)=>{this.handleInputUsernameChange(value)}}/>
+              <Input style={{width: 200}} defaultValue="" onChange={(value)=> {
+                this.handleInputUsernameChange(value)
+              }}/>
             </Col>
             <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>选择日期：</p>
@@ -152,7 +165,9 @@ class AppUserListManager extends Component{
               <Button type="ghost" onClick={()=>this.unSearchByFilter()}>取消筛选</Button>
             </Col>
           </Row>
-          <AppUserList dataSource={this.props.appUserList}   updateUserEnable={(payload,record)=>{this.updateUserEnable(payload,record)} }/>
+          <AppUserList dataSource={this.props.appUserList} updateUserEnable={(payload, record)=> {
+            this.updateUserEnable(payload, record)
+          } }/>
         </div>
       </AppUserManager>
     )
@@ -161,9 +176,9 @@ class AppUserListManager extends Component{
 
 
 function mapStateToProps(state) {
-  let appUserList=getAppUserList(state)
-   console.log('appUserList',appUserList)
-  return {appUserList:appUserList}
+  let appUserList = getAppUserList(state)
+  // console.log('appUserList',appUserList)
+  return {appUserList: appUserList}
 }
 
 export default connect(mapStateToProps)(AppUserListManager)

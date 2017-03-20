@@ -1,4 +1,7 @@
 /**
+ * Created by lilu on 2017/3/18.
+ */
+/**
  * Created by lilu on 2017/3/7.
  */
 /**
@@ -11,14 +14,16 @@ import React, {Component, PropTypes} from 'react'
 import {routerRedux} from 'dva/router'
 import {connect} from 'dva'
 import {Button, Tabs, Switch} from 'antd'
-import CategoryList from '../../components/ShopManager/CategoryManager/CategoryList'
-import {getCategoryList, getTagList} from '../../selector/ShopManager/categorySelector'
+import ActioList from '../../components/ActionManager/ActionListManager/ActionList'
+import {getAppUserList} from '../../selector/ActionManager/actionListManager'
+import ActionListManager from './ActionListManager'
+import ActionListManger from './ActionListManager'
 // import UserSearch from '../../components/users/search'
-import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
-import CategoryManager from './CategoryManager'
+// import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
+// import CategoryManager from './CategoryManager'
 // const TabPane = Tabs.TabPane;
 
-class CategoryQuery extends Component {
+class ActionQueryManager extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -31,7 +36,7 @@ class CategoryQuery extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch({type: 'shopCategoryManager/query'})
+    // this.props.dispatch({type: 'shopCategoryManager/query'})
   }
 
   add() {
@@ -71,17 +76,18 @@ class CategoryQuery extends Component {
       payload: itemId
     })
   }
-  checkStatus(payload){
-    // console.log('payload',payload)
-    if(payload==true){
-      this.props.dispatch({type:'shopCategoryManager/query',payload:{status:1}})
 
-    }else{
-      this.props.dispatch({type:'shopCategoryManager/query'})
+  checkStatus(payload) {
+    // console.log('payload',payload)
+    if (payload == true) {
+      this.props.dispatch({type: 'shopCategoryManager/query', payload: {status: 1}})
+
+    } else {
+      this.props.dispatch({type: 'shopCategoryManager/query'})
     }
   }
 
-  updateCategory(payload, record) {
+  updateActionEnable(payload, record) {
     console.log('payload', payload, record)
     this.props.dispatch({
       type: 'shopCategoryManager/updateCategoryStatus',
@@ -89,61 +95,65 @@ class CategoryQuery extends Component {
     })
 
   }
+
   // console.log('personList====>',personList)
   render() {
     // console.log('personList===>',this.props.roleList)
 
     return (
-      <CategoryManager>
+      <ActionListManager>
         <div className='content-inner'>
-          <div>是否仅显示可见:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true} onChange={(status)=>{this.checkStatus(status)}}></Switch></div>
+          <div>是否仅显示可见:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true}
+                               onChange={(status)=> {
+                                 this.checkStatus(status)
+                               }}></Switch></div>
           <br/>
           {/*<Tabs defaultActiveKey="categoryManager" >*/}
           {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
           <Button size='large' type='ghost' onClick={()=> {
             this.add()
-          }}>添加分类 </Button>
-          <CategoryList
-            updateCategory={(payload,record)=>{this.updateCategory(payload,record)}}
-            dataSource={this.props.categoryList}
+          }}>创建活动 </Button>
+          <ActioList
+            updateActionEnable={(payload, record)=> {
+              this.updateActionEnable(payload, record)
+            }}
+            dataSource={this.props.actionList}
             onEditItem={(payload)=> {
               this.onModify(payload)
             }}
             onDeleteItem={(payload)=> {
               this.onDelete(payload)
             }}
-            pagination={{total: this.props.categoryList.length, pageSize: 10}}
+            pagination={{total: this.props.actionList.length, pageSize: 10}}
           />
           {/*</TabPane>*/}
           {/*</Tabs>*/}
-          <CategoryModal
-            visible={this.state.modalVisible}
-            type={this.state.modalType}
-            onOk={(payload)=> {
-              this.onOk(payload)
-            }}
-            onCancel={()=> {
-              this.onCancel()
-            }}
-            item={this.state.selectedItem}
-            tagList={this.props.tagList}
-            modalKey={this.state.modalRandomKey}
-          />
+          {/*<CategoryModal*/}
+          {/*visible={this.state.modalVisible}*/}
+          {/*type={this.state.modalType}*/}
+          {/*onOk={(payload)=> {*/}
+          {/*this.onOk(payload)*/}
+          {/*}}*/}
+          {/*onCancel={()=> {*/}
+          {/*this.onCancel()*/}
+          {/*}}*/}
+          {/*item={this.state.selectedItem}*/}
+          {/*tagList={this.props.tagList}*/}
+          {/*modalKey={this.state.modalRandomKey}*/}
+          {/*/>*/}
         </div>
-      </CategoryManager>
+      </ActionListManager>
     )
   }
 }
 
 
 function mapStateToProps(state) {
-  let categoryList = getCategoryList(state)
-  let tagList = getTagList(state)
+  let actionList = getAppUserList(state)
   return {
-    categoryList: categoryList,
-    tagList: tagList
+    actionList: actionList,
 
   }
 }
 
-export default connect(mapStateToProps)(CategoryQuery)
+export default connect(mapStateToProps)(ActionQueryManager)

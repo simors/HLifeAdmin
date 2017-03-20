@@ -15,18 +15,27 @@ export async function getShopList(payload){
   }
 }
 
-export async function openShop(payload){
+// export async function openShop(payload){
+//   try{
+//     await AV.Cloud.run('openShop',payload)
+//     return {success:true}
+//   }catch(err){
+//     return {success: false}
+//   }
+// }
+//
+// export async function closeShop(payload){
+//   try{
+//     await AV.Cloud.run('closeShop',payload)
+//     return {success:true}
+//   }catch(err){
+//     return {success: false}
+//   }
+// }
+export async function updateShopStatus(payload){
   try{
-    await AV.Cloud.run('openShop',payload)
-    return {success:true}
-  }catch(err){
-    return {success: false}
-  }
-}
-
-export async function closeShop(payload){
-  try{
-    await AV.Cloud.run('closeShop',payload)
+    console.log('asdasd',payload)
+    await AV.Cloud.run('updateShopStatus',payload)
     return {success:true}
   }catch(err){
     return {success: false}

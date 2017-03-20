@@ -7,9 +7,8 @@ import {TweenOneGroup} from 'rc-tween-one'
 // import styles from './CategoryList.less'
 
 
-
 class CategoryList extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.enterAnim = [
       {
@@ -56,7 +55,8 @@ class CategoryList extends React.Component {
       return body
     }
     return (
-      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim} appear={false}>
+      <TweenOneGroup component='tbody' className={body.props.className} enter={this.enterAnim} leave={this.leaveAnim}
+                     appear={false}>
         {body.props.children}
       </TweenOneGroup>
     )
@@ -66,17 +66,17 @@ class CategoryList extends React.Component {
     e.target.style.height = 'auto'
   }
 
-  renderOneROle(result){
+  renderOneROle(result) {
     return (
       <a style={{marginRight: 4}}>{result.name}</a>
     )
   }
 
-  renderRole(text,record){
+  renderRole(text, record) {
     //  console.log('record',record)
     //   let roleList = ''
-    if (record&&record.roleList.length>0){
-      return  (record.roleList.forEach((result)=>{
+    if (record && record.roleList.length > 0) {
+      return (record.roleList.forEach((result)=> {
           //  console.log('result',result)
           return this.renderOneROle()
         })
@@ -87,12 +87,12 @@ class CategoryList extends React.Component {
 
   }
 
-  async pageChange (pagination) {
+  async pageChange(pagination) {
     await this.props.onPageChange(pagination)
     this.newPage = pagination.current
   }
 
-  render () {
+  render() {
     const {
       // loading,
       dataSource,
@@ -127,7 +127,8 @@ class CategoryList extends React.Component {
       }
     ]
     return <div>
-      <Table  bordered  columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} />
+      <Table bordered columns={columns} dataSource={dataSource} simple rowKey={record => record.id}
+             pagination={this.props.pagination ? this.props.pagination : {}}/>
     </div>
   }
 }

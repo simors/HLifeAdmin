@@ -5,7 +5,7 @@
  * Created by lilu on 2017/2/28.
  */
 import {parse} from 'qs'
-import {getShopList,openShop,closeShop,getAnnouncementsByShopId,getShopCommentList,enableShopComment,disableShopComment} from '../../services/ShopManager/shopInfoManager'
+import {getShopList,updateShopStatus,getAnnouncementsByShopId,getShopCommentList,enableShopComment,disableShopComment} from '../../services/ShopManager/shopInfoManager'
 
 export default {
   namespace: 'shopInfoManager',
@@ -31,18 +31,10 @@ export default {
         })
       }
     },
-    *openShop ({payload}, {call, put}) {
+
+    *updateShopStatus({payload},{call,put}){
       yield put({type: 'showLoading'})
-      const shop = yield call(openShop, parse(payload))
-      if (shop.success) {
-        yield put({
-          type: 'query',
-        })
-      }
-    },
-    *closeShop ({payload}, {call, put}) {
-      yield put({type: 'showLoading'})
-      const shop = yield call(closeShop, parse(payload))
+      const shop = yield call(updateShopStatus, parse(payload))
       if (shop.success) {
         yield put({
           type: 'query',

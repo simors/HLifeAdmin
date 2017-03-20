@@ -20,7 +20,7 @@ class TagModal extends Component {
     super(props)
     this.state = {
       visible: false,
-      count:0
+      count: 0
     }
   }
 
@@ -37,8 +37,8 @@ class TagModal extends Component {
   }
 
   handleOk() {
-    let count=this.state.count+1
-    this.setState({count:count})
+    let count = this.state.count + 1
+    this.setState({count: count})
     this.props.form.validateFields((errors) => {
       if (errors) {
         return
@@ -57,9 +57,8 @@ class TagModal extends Component {
     // console.log('ahahahahahaha', this.props.item)
     // console.log('ahahahahahaha',options)
     const roles = []
-    if (this.props.item.roleList)
-    {
-      this.props.item.roleList.forEach((record)=>{
+    if (this.props.item.roleList) {
+      this.props.item.roleList.forEach((record)=> {
         roles.push(record)
       })
     }
@@ -69,18 +68,21 @@ class TagModal extends Component {
       <Modal
         title={(this.props.type === 'create') ? '新建用户' : '修改用户'}
         visible={this.state.visible}
-        onOk={()=>{this.handleOk()}}
-        onCancel={()=>{
-          let count=this.state.count+1
-          this.setState({count:count})
-          this.props.onCancel()}}
+        onOk={()=> {
+          this.handleOk()
+        }}
+        onCancel={()=> {
+          let count = this.state.count + 1
+          this.setState({count: count})
+          this.props.onCancel()
+        }}
         wrapClassName='vertical-center-modal'
-        key = {this.state.count}
+        key={this.state.count}
       >
         <Form horizontal>
           <FormItem label='标签名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
-              initialValue: this.props.type==='create'?'':this.props.item.name,
+              initialValue: this.props.type === 'create' ? '' : this.props.item.name,
               rules: [
                 {
                   required: true,

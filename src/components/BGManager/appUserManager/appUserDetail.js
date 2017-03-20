@@ -4,28 +4,29 @@
 /**
  * Created by lilu on 2017/3/11.
  */
-import React,{Component} from 'react'
-import {Table, Popconfirm,Card,Rate,Tag,Button,Icon,Switch} from 'antd'
+import React, {Component} from 'react'
+import {Table, Popconfirm, Card, Rate, Tag, Button, Icon, Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import {Link} from 'dva/router'
 
-export default class AppUserDetail extends Component{
-  constructor(props){
+export default class AppUserDetail extends Component {
+  constructor(props) {
     super(props)
   }
 
 
-
-
-  render(){
+  render() {
     // console.log('asas',this.props.userDetail)
-    return(
+    return (
       <div>
-        <div>头像：<img style={{width:150,height:150}} src={this.props.userDetail.avatar}></img></div>
+        <div>头像：<img style={{width: 150, height: 150}} src={this.props.userDetail.avatar}></img></div>
         <div>注册用户名：{this.props.userDetail.username}</div>
         <div>所属城市：{this.props.userDetail.geoCity}</div>
         <div>所属地区：{this.props.userDetail.geoDistrict}</div>
-        <div>是否可用：<Switch checkedChildren={'可用'} unCheckedChildren={'不可用'} defaultChecked={this.props.userDetail.enable} onChange={(payload)=>{this.props.updateUserEnable(payload,this.props.userDetail.id)}}></Switch></div>
+        <div>是否可用：<Switch checkedChildren={'可用'} unCheckedChildren={'不可用'}
+                          defaultChecked={this.props.userDetail.status ? true : false} onChange={(payload)=> {
+          this.props.updateUserEnable(payload, this.props.userDetail.id)
+        }}></Switch></div>
         <div>昵称：{this.props.userDetail.nickname}</div>
         <div>生日：{this.props.userDetail.birthday}</div>
         <div>类型：{this.props.userDetail.type}</div>
