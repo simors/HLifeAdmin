@@ -2,13 +2,22 @@
  * Created by zachary on 2017/3/21.
  */
 
+export function selectMessagePush(state) {
+  return state.messagePushManager
+}
+
 export function selectSubAreaList(state, areaCode) {
-  if(state.messagePushManager.subAreaMap && state.messagePushManager.subAreaMap[areaCode]) {
-    return state.messagePushManager.subAreaMap[areaCode]
+  const subAreaList = selectMessagePush(state).subAreaMap.get(areaCode)
+  if(subAreaList && subAreaList.size) {
+    return subAreaList.toJS()
   }
   return []
 }
 
 export function selectPushTargetDistrictTreeDatas(state) {
-  return state.messagePushManager.pushTargetDistrictTreeDatas || []
+  const list = selectMessagePush(state).pushTargetDistrictTreeDatas
+  if(list && list.size) {
+    return list.toJS()
+  }
+  return []
 }

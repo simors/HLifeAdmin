@@ -37,18 +37,15 @@ class MessagePushIndex extends Component{
       expireIntervalTime: '', //过期间隔时间
       expireIntervalTimeUnit: '1', //过期间隔时间单位; 1-小时; 2-天
       pushTargetType: '1', //1-不限; 2-指定地区; 3-指定人群
-      pushTargetDistrictTreeDatas: props.pushTargetDistrictTreeDatas,
       pushTargetDistrict: []
     }
   }
 
   componentDidMount(){
-    console.log('componentDidMount=**********==>>>>');
+    // console.log('componentDidMount=**********==>>>>');
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps===>>>>', nextProps.pushTargetDistrictTreeDatas);
-    // this.setState({ pushTargetDistrictTreeDatas: nextProps.pushTargetDistrictTreeDatas });
   }
 
   onTerminalTypeChange = (e) => {

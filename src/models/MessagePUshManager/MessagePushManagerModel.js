@@ -5,16 +5,17 @@ import {parse} from 'qs'
 import * as MessagePush from '../../services/MessagePushManager/MessagePush'
 import * as MessagePushSelector from '../../selector/MessagePushManager/MessagePushSelector'
 import * as antdUtils from '../../utils/antdUtils'
+import {Record, Map, List} from 'immutable'
 
 export default {
   namespace: 'messagePushManager',
-  state:{
-    subAreaMap: {},
-    pushTargetDistrictTreeDatas: [{
+  state: {
+    subAreaMap: Map(),
+    pushTargetDistrictTreeDatas: List([{
       label: '中国',
       value: '1',
       key: '1',
-    }]
+    }])
   },
   subscriptions:{
 
@@ -97,18 +98,17 @@ export default {
     fetchSubAreaListSuccess(state, action) {
       let {areaCode, subAreaList} = action.payload
       let _subAreaMap = state.subAreaMap
-      _subAreaMap[areaCode] = subAreaList
+      _subAreaMap = _subAreaMap.set(areaCode, new List(subAreaList))
+      state.subAreaMap = _subAreaMap
       return {
-        ...state,
-        subAreaMap: _subAreaMap
+        ...state
       }
     },
     updatePushTargetDistrictTreeDatasSuccess(state, action) {
       let {pushTargetDistrictTreeDatas} = action.payload
-      let _pushTargetDistrictTreeDatas = [...pushTargetDistrictTreeDatas]
+      state.pushTargetDistrictTreeDatas = new List(pushTargetDistrictTreeDatas)
       return {
-        ...state,
-        pushTargetDistrictTreeDatas: _pushTargetDistrictTreeDatas
+        ...state
       }
     }
   }
