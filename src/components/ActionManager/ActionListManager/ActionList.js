@@ -144,7 +144,7 @@ class ActionList extends React.Component {
         dataIndex: 'image',
         key: 'image',
         render: (text, record)=> {
-          console.log('record', record.image)
+          // console.log('record', record.image)
           return record.image ? <img style={{width: 60, height: 60}} src={record.image}></img> : <div></div>
         }
       },
@@ -156,11 +156,11 @@ class ActionList extends React.Component {
       },
       {
         title: '是否启用',
-        dataIndex: 'enable',
-        key: 'enable',
+        dataIndex: 'status',
+        key: 'status',
         render: (text, record)=> {
           const status = record.status
-          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={record.enable}
+          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={(record.status==1)?true:false}
                          onChange={(payload)=> {
                            this.props.updateActionEnable(payload, record.id)
                          }}></Switch>

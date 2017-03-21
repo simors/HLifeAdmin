@@ -3,11 +3,13 @@
  */
 
 import {parse} from 'qs'
-import {getActionList} from '../../services/ActionManager/actionListManager'
+import {getActionList,updateBannersStatus} from '../../services/ActionManager/actionListManager'
+import {getProvinceList,getProviceBaiduMap} from '../../services/baiduMap'
 export default {
   namespace: 'actionListManager',
   state:{
     actionList:[],
+    provinceList:[]
   },
   subscriptions:{
 
@@ -25,6 +27,15 @@ export default {
         })
       }
     },
+    *updateBannersStatus({payload},{call,put}){
+      console.log('asdasd',payload)
+      const data = yield call(updateBannersStatus,parse(payload))
+      if(data&&data.success){
+        put({
+          type:'query'
+        })
+      }
+      }
 
   },
   reducers:{
@@ -39,6 +50,13 @@ export default {
       }
     },
 
-
+    pushProvince(state,action){
+      let {provinces}=action.payload
+      // console.log('***********provinces===========>',action.payload)
+      return {
+        ...state,
+        provinceList:provinces
+      }
+    },
   }
 }

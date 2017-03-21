@@ -18,6 +18,7 @@ import ActioList from '../../components/ActionManager/ActionListManager/ActionLi
 import {getAppUserList} from '../../selector/ActionManager/actionListManager'
 import ActionListManager from './ActionListManager'
 import ActionListManger from './ActionListManager'
+import SelectDistrict from '../../components/common/selectDistrict'
 // import UserSearch from '../../components/users/search'
 // import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
 // import CategoryManager from './CategoryManager'
@@ -79,21 +80,26 @@ class ActionQueryManager extends Component {
 
   checkStatus(payload) {
     // console.log('payload',payload)
-    if (payload == true) {
-      this.props.dispatch({type: 'shopCategoryManager/query', payload: {status: 1}})
 
-    } else {
-      this.props.dispatch({type: 'shopCategoryManager/query'})
+      // this.props.dispatch({type: 'actionListManager/query', payload: {status: payload?1:0}})
+    if(payload==true){
+      this.props.dispatch({type:'actionListManager/query',payload:{status:1}})
+
+    }else{
+      this.props.dispatch({type:'actionListManager/query'})
     }
   }
 
   updateActionEnable(payload, record) {
-    console.log('payload', payload, record)
+    // console.log('payload', payload, record)
     this.props.dispatch({
-      type: 'shopCategoryManager/updateCategoryStatus',
+      type: 'actionListManager/updateBannersStatus',
       payload: {id: record, status: payload ? 1 : 0}
     })
 
+  }
+  submit(payload){
+    console.log(payload)
   }
 
   // console.log('personList====>',personList)
@@ -103,11 +109,11 @@ class ActionQueryManager extends Component {
     return (
       <ActionListManager>
         <div className='content-inner'>
-          <div>是否仅显示可见:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true}
-                               onChange={(status)=> {
-                                 this.checkStatus(status)
-                               }}></Switch></div>
-          <br/>
+          <SelectDistrict submit={(payload)=>{
+            this.submit(payload)
+          }}/>
+          <div>是否仅显示启用:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true} onChange={(status)=>{this.checkStatus(status)}}></Switch></div>
+
           {/*<Tabs defaultActiveKey="categoryManager" >*/}
           {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
           <Button size='large' type='ghost' onClick={()=> {

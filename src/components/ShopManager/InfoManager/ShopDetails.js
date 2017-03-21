@@ -6,6 +6,7 @@ import {Table, Popconfirm,Card,Rate,Tag,Button,Icon,Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './ShopList.less'
 import {Link} from 'dva/router'
+import {formatLeancloudTime} from '../../../utils/numberUtils'
 
 export default class ShopDetails extends Component{
   constructor(props){
@@ -50,7 +51,7 @@ export default class ShopDetails extends Component{
         <div>访问人数：{this.props.shopDetails.pv}</div>
         <div>店铺地址：{this.props.shopDetails.shopAddress}</div>
         <div>评分：{this.renderScore()}</div>
-        <div>注册时间：{this.props.shopDetails.createdAt}</div>
+        <div>注册时间：{formatLeancloudTime(new Date(this.props.shopDetails.createdAt))}</div>
         <div>权重：{this.props.shopDetails.grade}</div>
         <div>专辑:</div><div>{this.renderAlbum()}</div>
         <div>标签：{this.renderTags()}</div>

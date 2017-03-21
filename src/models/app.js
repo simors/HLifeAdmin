@@ -1,4 +1,5 @@
 import {login, userInfo, logout, updatePassword} from '../services/app'
+import {getProvinceList,getProviceBaiduMap} from '../services/baiduMap'
 import {parse} from 'qs'
 
 export default {
@@ -15,7 +16,8 @@ export default {
     isNavbar: document.body.clientWidth < 769,
     navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]'),//侧边栏菜单打开的keys
     menuList: undefined,
-    permissionList: undefined
+    permissionList: undefined,
+    provinceList:[]
   },
   subscriptions: {
     setup ({dispatch}) {
@@ -48,6 +50,13 @@ export default {
         })
       }
     },
+    *fetchProvinceList ({payload},{call,put}){
+      const data = yield getProvinceList()
+
+      yield put ({type:'pushProvince',payload:{provinces:data.sub}})
+
+    },
+
     *queryUser ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
       const data = yield call(userInfo, parse(payload))
