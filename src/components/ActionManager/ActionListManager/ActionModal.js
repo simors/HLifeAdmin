@@ -70,14 +70,14 @@ class ActionModal extends Component {
         geoCity:this.state.selectedCity,
         geoDistrict:this.state.selectedDistrict,
         ...this.props.form.getFieldsValue(),
-        key: this.props.data.id ? this.props.data.id : '',
+        id: this.props.data.id ? this.props.data.id : '',
       }
       // let count = this.state.count - 1
       this.setState({
         fileList: []
       })
       // console.log('data',...this.props.form.getFieldsValue())
-      console.log('data', data)
+      // console.log('data', data)
 
       this.props.onOk(data)
     })
@@ -256,7 +256,7 @@ function mapStateToProps(state) {
   let data = getModalData(state)
   let modalVisible = getModalState(state)
   let modalKey = getModalKey(state)
-  console.log('data', data)
+  // console.log('data', data)
   return {
     data: data,
     modalVisible: modalVisible,

@@ -3,7 +3,7 @@
  */
 
 import {parse} from 'qs'
-import {getActionList,updateBannersStatus,createBanner} from '../../services/ActionManager/actionListManager'
+import {getActionList,updateBannersStatus,createBanner,updateBanner} from '../../services/ActionManager/actionListManager'
 import {getProvinceList,getProviceBaiduMap} from '../../services/baiduMap'
 export default {
   namespace: 'actionListManager',
@@ -48,6 +48,16 @@ export default {
     *create ({payload},{call,put}){
       yield put({type: 'showLoading'})
       const data = yield call(createBanner, parse(payload))
+      if (data.success) {
+        yield put({
+          type: 'query',
+
+        })
+      }
+    },
+    *update ({payload},{call,put}){
+      yield put({type: 'showLoading'})
+      const data = yield call(updateBanner, parse(payload))
       if (data.success) {
         yield put({
           type: 'query',

@@ -55,7 +55,7 @@ class ActionQueryManager extends Component {
     })
     this.props.dispatch({type: 'actionListManager/closeModal'})
 
-    console.log('data====>',data)
+     console.log('data====>',data)
     this.setState({modalVisible:false,modalRandomKey:this.state.modalRandomKey-1})
   }
 

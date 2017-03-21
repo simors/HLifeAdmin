@@ -25,7 +25,6 @@ export async function updateBannersStatus(payload){
 
 export async function createBanner(payload){
   let image=''
-  if (payload.image.file){
     try{
       let localFile = payload.image.file.originFileObj
       let name = 'banners.png'
@@ -35,11 +34,7 @@ export async function createBanner(payload){
     }catch (err){
       return{success:false}
     }
-  }else{
-    image=payload.image.url
-    // console.log('hahahahahahhaahhahahaha=>>>>>>>>>>>>>')
 
-  }
   try {
     let banner={
       image:image,
@@ -53,6 +48,45 @@ export async function createBanner(payload){
     }
 
     await AV.Cloud.run('createBanner', banner)
+    return {success: true}
+  } catch (err) {
+    return {success: false}
+  }
+}
+
+
+export async function updateBanner(payload){
+  let image=''
+  // console.log('image',image,payload)
+
+  if(payload.image.file){
+    try{
+    let localFile = payload.image.file.originFileObj
+    let name = 'banners.png'
+    let file = new AV.File(name, localFile)
+    let a = await file.save()
+    image = a.attributes.url
+    }catch (err){
+      return{success:false}
+    }
+  }else {
+    image = payload.image.url
+  }
+console.log('image',image,payload)
+  try {
+    let banner={
+      id:payload.id,
+      image:image,
+      title:payload.title,
+      geoDistrict:payload.geoDistrict,
+      geoCity:payload.geoCity,
+      action:payload.action,
+      actionType:payload.actionType,
+      type:payload.type
+
+    }
+    console.log('banner',banner)
+    await AV.Cloud.run('updateBanner',banner)
     return {success: true}
   } catch (err) {
     return {success: false}
