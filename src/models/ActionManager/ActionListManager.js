@@ -3,13 +3,16 @@
  */
 
 import {parse} from 'qs'
-import {getActionList,updateBannersStatus} from '../../services/ActionManager/actionListManager'
+import {getActionList,updateBannersStatus,createBanner} from '../../services/ActionManager/actionListManager'
 import {getProvinceList,getProviceBaiduMap} from '../../services/baiduMap'
 export default {
   namespace: 'actionListManager',
   state:{
     actionList:[],
-    provinceList:[]
+    provinceList:[],
+    modalData:{},
+    actionModalOpen:false,
+    modalKey:-1,
   },
   subscriptions:{
 
@@ -35,7 +38,23 @@ export default {
           type:'query'
         })
       }
+      },
+    *openModal({payload}, {call, put}){
+      yield put({type:'dataToModal',payload:payload})
+    },
+    closeModal({payload},{call,put}){
+      put ({type:'closeModal'})
+    },
+    *create ({payload},{call,put}){
+      yield put({type: 'showLoading'})
+      const data = yield call(createBanner, parse(payload))
+      if (data.success) {
+        yield put({
+          type: 'query',
+
+        })
       }
+    },
 
   },
   reducers:{
@@ -58,5 +77,15 @@ export default {
         provinceList:provinces
       }
     },
+    dataToModal(state,action){
+      return{
+        ...state,modalData:action.payload,actionModalOpen:true,modalKey:state.modalKey-1
+      }
+    },
+    closeModal(state,action){
+      return {
+        ...state,actionModalOpen:false,modalKey:state.modalKey-1
+      }
+    }
   }
 }

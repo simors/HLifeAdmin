@@ -7,10 +7,11 @@
 import AV from 'leancloud-storage'
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button, Select} from 'antd'
-import styles from './CategoryModal.less'
+import SelectDisrict from '../../common/selectDistrict'
+import styles from './ActionModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
-import {getModalData, getModalState, getModalKey} from '../../../selector/ShopManager/categorySelector'
+import {getModalData, getModalState, getModalKey} from '../../../selector/ActionManager/actionListManager'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -32,6 +33,8 @@ class ActionModal extends Component {
       count: -1,
       visible: false,
       fileList: [],
+      selectedCity:'',
+      selectedDistrict:''
     }
   }
 
@@ -64,6 +67,8 @@ class ActionModal extends Component {
         return
       }
       const data = {
+        geoCity:this.state.selectedCity,
+        geoDistrict:this.state.selectedDistrict,
         ...this.props.form.getFieldsValue(),
         key: this.props.data.id ? this.props.data.id : '',
       }
@@ -77,7 +82,13 @@ class ActionModal extends Component {
       this.props.onOk(data)
     })
   }
-
+  submit(payload){
+    console.log('payload',payload)
+    this.setState({
+      selectedCity:payload.city,
+      selectedDistrict:payload.district
+    })
+  }
 
   render() {
     // if(this.props.type!='create'){
@@ -120,44 +131,46 @@ class ActionModal extends Component {
         wrapClassName='vertical-center-modal'
         key={this.props.modalKey}
       >
-
+        <div style={{marginRight:50,marginLeft:50,marginBottom:30}}><SelectDisrict city={this.props.data.geoCity} district={this.props.data.geoDistrict} submit={(payload)=>{
+          this.submit(payload)
+        }}></SelectDisrict></div>
         <Form horizontal>
           <FormItem label='标题：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('text', {
-              initialValue: this.props.type === 'create' ? '' : this.props.data.text,
+            {this.props.form.getFieldDecorator('title', {
+              initialValue: this.props.type === 'create' ? '' : this.props.data.title,
               rules: [
                 {
                   required: true,
-                  message: '名称未填写'
+                  message: '标题未填写'
                 }
               ]
             })(<Input />)}
           </FormItem>
-          <FormItem label='城市：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('describe', {
-              initialValue: this.props.type === 'create' ? '' : this.props.data.describe,
-              rules: [
-                {
-                  required: true,
-                  message: '城市未填写'
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
-          <FormItem label='地区：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('text', {
-              initialValue: this.props.type === 'create' ? '' : this.props.data.text,
-              rules: [
-                {
-                  required: true,
-                  message: '地区未填写'
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
+          {/*<FormItem label='城市：' hasFeedback {...formItemLayout}>*/}
+            {/*{this.props.form.getFieldDecorator('geoCity', {*/}
+              {/*initialValue: this.props.type === 'create' ? '' : this.props.data.geoCity,*/}
+              {/*rules: [*/}
+                {/*{*/}
+                  {/*required: true,*/}
+                  {/*message: '城市未填写'*/}
+                {/*}*/}
+              {/*]*/}
+            {/*})(<Input />)}*/}
+          {/*</FormItem>*/}
+          {/*<FormItem label='地区：' hasFeedback {...formItemLayout}>*/}
+            {/*{this.props.form.getFieldDecorator('geoDistrict', {*/}
+              {/*initialValue: this.props.type === 'create' ? '' : this.props.data.geoDistrict,*/}
+              {/*rules: [*/}
+                {/*{*/}
+                  {/*required: true,*/}
+                  {/*message: '地区未填写'*/}
+                {/*}*/}
+              {/*]*/}
+            {/*})(<Input />)}*/}
+          {/*</FormItem>*/}
           <FormItem label='类型：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('text', {
-              initialValue: this.props.type === 'create' ? '' : this.props.data.text,
+            {this.props.form.getFieldDecorator('type', {
+              initialValue: this.props.type === 'create' ? '' : this.props.data.type,
               rules: [
                 {
                   required: true,
@@ -166,38 +179,49 @@ class ActionModal extends Component {
               ]
             })(<InputNumber />)}
           </FormItem>
-          <FormItem label='类型：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('text', {
-              initialValue: this.props.type === 'create' ? '' : this.props.data.text,
+          <FormItem label='活动类型：' hasFeedback {...formItemLayout}>
+            {this.props.form.getFieldDecorator('actionType', {
+              initialValue: this.props.type === 'create' ? '' : this.props.data.actionType,
               rules: [
                 {
                   required: true,
-                  message: '类型未填写'
+                  message: '活动类型未填写'
                 }
               ]
-            })(<InputNumber />)}
+            })(<Input />)}
           </FormItem>
-          <FormItem label='图标：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('imageSource', {
-              initialValue: this.props.data.imageSource ? {
+          <FormItem label='活动链接：' hasFeedback {...formItemLayout}>
+            {this.props.form.getFieldDecorator('action', {
+              initialValue: this.props.type === 'create' ? '' : this.props.data.action,
+              rules: [
+                {
+                  required: true,
+                  message: '活动类型未填写'
+                }
+              ]
+            })(<Input />)}
+          </FormItem>
+          <FormItem label='封面：' hasFeedback {...formItemLayout}>
+            {this.props.form.getFieldDecorator('image', {
+              initialValue: this.props.data.image ? {
                 uid: -1,
                 status: 'done',
-                name: this.props.data.text,
-                url: this.props.data.imageSource
+                name: this.props.data.title,
+                url: this.props.data.image
               } : null,
               rules: [
                 {
                   required: true,
-                  message: '图标'
+                  message: '封面'
                 }
               ]
             })(<Upload
               listType='picture'
-              defaultFileList={this.props.data.imageSource ? [{
+              defaultFileList={this.props.data.image ? [{
                 uid: -2,
                 status: 'done',
-                name: this.props.data.text,
-                url: this.props.data.imageSource
+                name: this.props.data.title,
+                url: this.props.data.image
               }] : []}
               onChange={(info)=> {
                 console.log('info', info)

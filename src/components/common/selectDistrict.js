@@ -179,7 +179,9 @@ getProviceList().then((result)=>{
     })
   }
   handleDistrictChange(value){
-    this.setState({
+    console.log('value',value)
+
+      this.setState({
       selectDistrict:value.label,
       districts:this.state.districts
     })
@@ -208,8 +210,8 @@ this.props.submit({
     return(
       <div>
         <Select style={{width:100}} defaultValue={{key:'省',value:'省'}} labelInValue onChange={(value,key)=>{this.handleProvinceChange(value,key)}}>{this.state.provinceList}</Select>
-        <Select style={{width:100}} defaultValue={{key:'市',value:'市'}} labelInValue onChange={(value)=>{this.handleCityChange(value)}}>{this.state.cities}</Select>
-        <Select style={{width:100}} defaultValue={{key:'地区',value:'地区'}} labelInValue onChange={(value)=>{this.handleDistrictChange(value)}}>{this.state.districts}</Select>
+        <Select style={{width:100}} defaultValue={this.props.city?{key:this.props.city,value:this.props.city}:{key:'市',value:'市'}} labelInValue onChange={(value)=>{this.handleCityChange(value)}}>{this.state.cities}</Select>
+        <Select style={{width:100}} defaultValue={this.props.district?{key:this.props.district,value:this.props.district}:{key:'地区',value:'地区'}} labelInValue onChange={(value)=>{this.handleDistrictChange(value)}}>{this.state.districts}</Select>
       </div>
     )
   }

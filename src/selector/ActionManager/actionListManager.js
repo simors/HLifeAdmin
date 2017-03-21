@@ -7,3 +7,14 @@ export function getAppUserList(state) {
 export function getProvinceList(state){
   return state.actionListManager.provinceList
 }
+
+
+export function getModalData(state) {
+  return state.actionListManager.modalData
+}
+export function getModalState(state) {
+  return state.actionListManager.actionModalOpen
+}
+export function getModalKey(state) {
+  return state.actionListManager.modalKey
+}

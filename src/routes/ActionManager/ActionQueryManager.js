@@ -15,10 +15,11 @@ import {routerRedux} from 'dva/router'
 import {connect} from 'dva'
 import {Button, Tabs, Switch} from 'antd'
 import ActioList from '../../components/ActionManager/ActionListManager/ActionList'
-import {getAppUserList} from '../../selector/ActionManager/actionListManager'
+import {getAppUserList,} from '../../selector/ActionManager/actionListManager'
 import ActionListManager from './ActionListManager'
 import ActionListManger from './ActionListManager'
 import SelectDistrict from '../../components/common/selectDistrict'
+import ActionModal from '../../components/ActionManager/ActionListManager/ActionModal'
 // import UserSearch from '../../components/users/search'
 // import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
 // import CategoryManager from './CategoryManager'
@@ -42,23 +43,24 @@ class ActionQueryManager extends Component {
 
   add() {
     this.setState({modalVisible: true, modalType: 'create'})
+    console.log('modalVisible====>',this.state.modalVisible)
 
-    this.props.dispatch({type: 'shopCategoryManager/openModal', payload: {}})
+    this.props.dispatch({type: 'actionListManager/openModal', payload: {}})
   }
 
   onOk(data) {
     this.props.dispatch({
-      type: 'shopCategoryManager/' + this.state.modalType,
+      type: 'actionListManager/' + this.state.modalType,
       payload: data
     })
-    this.props.dispatch({type: 'shopCategoryManager/closeModal'})
+    this.props.dispatch({type: 'actionListManager/closeModal'})
 
-    // console.log('data====>',data)
-    // this.setState({modalVisible:false,modalRandomKey:this.state.modalRandomKey-1})
+    console.log('data====>',data)
+    this.setState({modalVisible:false,modalRandomKey:this.state.modalRandomKey-1})
   }
 
   onCancel() {
-    this.props.dispatch({type: 'shopCategoryManager/closeModal'})
+    this.props.dispatch({type: 'actionListManager/closeModal'})
 
     // this.setState({modalVisible:false,modalRandomKey:this.state.modalRandomKey-1})
   }
@@ -67,7 +69,7 @@ class ActionQueryManager extends Component {
     this.setState({modalVisible: true, modalType: 'update'})
     console.log('modalvisible', this.state.modalVisible)
 
-    this.props.dispatch({type: 'shopCategoryManager/openModal', payload: data})
+    this.props.dispatch({type: 'actionListManager/openModal', payload: data})
 
   }
 
@@ -109,9 +111,9 @@ class ActionQueryManager extends Component {
     return (
       <ActionListManager>
         <div className='content-inner'>
-          <SelectDistrict submit={(payload)=>{
-            this.submit(payload)
-          }}/>
+          {/*<SelectDistrict submit={(payload)=>{*/}
+            {/*this.submit(payload)*/}
+          {/*}}/>*/}
           <div>是否仅显示启用:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true} onChange={(status)=>{this.checkStatus(status)}}></Switch></div>
 
           {/*<Tabs defaultActiveKey="categoryManager" >*/}
@@ -147,6 +149,17 @@ class ActionQueryManager extends Component {
           {/*tagList={this.props.tagList}*/}
           {/*modalKey={this.state.modalRandomKey}*/}
           {/*/>*/}
+          <ActionModal visible={this.state.modalVisible}
+                       type={this.state.modalType}
+                       onOk={(payload)=> {
+                         this.onOk(payload)
+                       }}
+                       onCancel={()=> {
+                         this.onCancel()
+                       }}
+                       item={this.state.selectedItem}
+                       tagList={this.props.tagList}
+                       modalKey={this.state.modalRandomKey}/>
         </div>
       </ActionListManager>
     )
