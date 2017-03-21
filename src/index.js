@@ -6,7 +6,6 @@ import AV from 'leancloud-storage'
 import * as LC_CONFIG from './constants/adminConfig'
 import {message} from 'antd'
 import {persistStore, autoRehydrate} from 'redux-persist'
-import {Map, Record, List} from 'immutable'
 
 const KM_Dev = {
   appId: LC_CONFIG.LC_DEV_APP_ID,
