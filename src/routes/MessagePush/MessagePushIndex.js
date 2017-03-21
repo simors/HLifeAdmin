@@ -158,7 +158,7 @@ class MessagePushIndex extends Component{
       this.props.dispatch({
         type: 'messagePushManager/updatePushTargetDistrictTreeDatas',
         payload: {
-          areaCode: treeNode.props.eventKey
+          eventKey: treeNode.props.eventKey
         }
       })
       resolve();
@@ -175,7 +175,7 @@ class MessagePushIndex extends Component{
         multiple: true,
         treeCheckable: true,
         showCheckedStrategy: SHOW_PARENT,
-        searchPlaceholder: 'Please select',
+        searchPlaceholder: '请选择发送地区',
         style: {
           width: 300,
         },

@@ -12,8 +12,8 @@ export default {
     subAreaMap: {},
     pushTargetDistrictTreeDatas: [{
       label: '中国',
-      value: '1',
-      key: '1',
+      value: '0-1',
+      key: '0-1'
     }]
   },
   subscriptions:{
@@ -21,13 +21,14 @@ export default {
   },
   effects: {
     *updatePushTargetDistrictTreeDatas({payload}, {call, put, select}) {
+      let eventKey = payload.eventKey || '0-1'
       payload = {
         ...payload,
-        areaCode: payload.areaCode || '1'
+        eventKey: eventKey
       }
 
       let {pushTargetDistrictTreeDatas, subAreaList} = yield select(state => {
-        const _subAreaList = MessagePushSelector.selectSubAreaList(state, payload.areaCode)
+        const _subAreaList = MessagePushSelector.selectSubAreaList(state, eventKey)
         const _pushTargetDistrictTreeDatas = MessagePushSelector.selectPushTargetDistrictTreeDatas(state)
         return {
           pushTargetDistrictTreeDatas: _pushTargetDistrictTreeDatas,
@@ -36,11 +37,13 @@ export default {
       });
 
       if(!subAreaList || !subAreaList.length) {
-        subAreaList = yield call(MessagePush.fetchSubAreaList, payload)
+        subAreaList = yield call(MessagePush.fetchSubAreaList, {
+          areaCode: eventKey.split('-')[1]
+        })
         yield put({
           type: 'fetchSubAreaListSuccess',
           payload: {
-            areaCode: payload.areaCode,
+            eventKey,
             subAreaList
           }
         })
@@ -53,14 +56,15 @@ export default {
         let children = subAreaList.map((item, index) => {
           return {
             label: item.area_name,
-            value: item.area_code + "",
-            key: item.area_code + "",
+            value: `${item.area_type}-${item.area_code}`,
+            key: `${item.area_type}-${item.area_code}`,
+            area_type: item.area_type
           }
         })
         // console.log('getNewTreeData.pushTargetDistrictTreeDatas====', pushTargetDistrictTreeDatas)
         // console.log('getNewTreeData.areaCode====', payload.areaCode)
         // console.log('getNewTreeData.children====', children)
-        antdUtils.getNewTreeData(pushTargetDistrictTreeDatas, payload.areaCode, children, 3)
+        antdUtils.getNewTreeData(pushTargetDistrictTreeDatas, eventKey, children, 2)
         // console.log('getNewTreeData.pushTargetDistrictTreeDatas====', pushTargetDistrictTreeDatas)
         yield put({
           type: 'updatePushTargetDistrictTreeDatasSuccess',
@@ -72,21 +76,23 @@ export default {
     },
     *fetchSubAreaList({payload}, {call, put, select}) {
       // console.log('fetchSubAreaList.payload=====', payload)
-      const areaCode = payload.areaCode
+      const eventKey = payload.eventKey
 
       let subAreaList = yield select(state => {
-        MessagePushSelector.selectSubAreaList(state, areaCode)
+        MessagePushSelector.selectSubAreaList(state, eventKey)
       });
 
       if(!subAreaList || !subAreaList.length) {
-        subAreaList = yield call(MessagePush.fetchSubAreaList, payload)
+        subAreaList = yield call(MessagePush.fetchSubAreaList, {
+          areaCode: eventKey.split('-')[1]
+        })
       }
 
       if(subAreaList && subAreaList.length) {
         yield put({
           type: 'fetchSubAreaListSuccess',
           payload: {
-            areaCode,
+            eventKey,
             subAreaList
           }
         })
@@ -95,8 +101,8 @@ export default {
   },
   reducers:{
     fetchSubAreaListSuccess(state, action) {
-      let {areaCode, subAreaList} = action.payload
-      state.subAreaMap[areaCode] = [...subAreaList]
+      let {eventKey, subAreaList} = action.payload
+      state.subAreaMap[eventKey] = [...subAreaList]
       return {
         ...state
       }
