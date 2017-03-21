@@ -179,7 +179,9 @@ getProviceList().then((result)=>{
     })
   }
   handleDistrictChange(value){
-    this.setState({
+    console.log('value',value)
+
+      this.setState({
       selectDistrict:value.label,
       districts:this.state.districts
     })
