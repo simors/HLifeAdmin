@@ -28,7 +28,7 @@ export async function createBanner(payload){
   if (payload.image.file){
     try{
       let localFile = payload.image.file.originFileObj
-      let name = 'categorytestimage.png'
+      let name = 'banners.png'
       let file = new AV.File(name, localFile)
       let a = await file.save()
       image = a.attributes.url
@@ -51,6 +51,7 @@ export async function createBanner(payload){
       type:payload.type
 
     }
+
     await AV.Cloud.run('createBanner', banner)
     return {success: true}
   } catch (err) {

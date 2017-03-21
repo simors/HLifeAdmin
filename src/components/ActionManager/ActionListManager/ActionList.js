@@ -11,6 +11,7 @@ import React from 'react'
 import {Table, Popconfirm, Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './ActionList.less'
+import {formatLeancloudTime} from '../../../utils/numberUtils'
 
 class ActionList extends React.Component {
   constructor(props) {
@@ -152,7 +153,10 @@ class ActionList extends React.Component {
         title: '生成日期',
         dataIndex: 'createdAt',
         key: 'createdAt',
-
+        render:(text,record)=>{
+          const status=record.status
+          return <p>{formatLeancloudTime(new Date(record.createdAt))}</p>
+        }
       },
       {
         title: '是否启用',

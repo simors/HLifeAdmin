@@ -131,7 +131,7 @@ class ActionModal extends Component {
         wrapClassName='vertical-center-modal'
         key={this.props.modalKey}
       >
-        <div style={{marginRight:50,marginLeft:50,marginBottom:30}}><SelectDisrict submit={(payload)=>{
+        <div style={{marginRight:50,marginLeft:50,marginBottom:30}}><SelectDisrict city={this.props.data.geoCity} district={this.props.data.geoDistrict} submit={(payload)=>{
           this.submit(payload)
         }}></SelectDisrict></div>
         <Form horizontal>
