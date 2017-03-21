@@ -7,17 +7,17 @@ export function selectMessagePush(state) {
 }
 
 export function selectSubAreaList(state, areaCode) {
-  const subAreaList = selectMessagePush(state).subAreaMap.get(areaCode)
-  if(subAreaList && subAreaList.size) {
-    return subAreaList.toJS()
+  const subAreaList = selectMessagePush(state).subAreaMap[areaCode]
+  if(subAreaList && subAreaList.length) {
+    return subAreaList
   }
   return []
 }
 
 export function selectPushTargetDistrictTreeDatas(state) {
   const list = selectMessagePush(state).pushTargetDistrictTreeDatas
-  if(list && list.size) {
-    return list.toJS()
+  if(list && list.length) {
+    return list
   }
   return []
 }
