@@ -34,7 +34,8 @@ class ActionModal extends Component {
       visible: false,
       fileList: [],
       selectedCity:'',
-      selectedDistrict:''
+      selectedDistrict:'',
+      selectActionType:'link'
     }
   }
 
@@ -89,7 +90,11 @@ class ActionModal extends Component {
       selectedDistrict:payload.district
     })
   }
-
+  selectActionType(value){
+    this.setState({
+      selectActionType:value
+    })
+  }
   render() {
     // if(this.props.type!='create'){
     //   let tagKeys = []
@@ -146,28 +151,7 @@ class ActionModal extends Component {
               ]
             })(<Input />)}
           </FormItem>
-          {/*<FormItem label='城市：' hasFeedback {...formItemLayout}>*/}
-            {/*{this.props.form.getFieldDecorator('geoCity', {*/}
-              {/*initialValue: this.props.type === 'create' ? '' : this.props.data.geoCity,*/}
-              {/*rules: [*/}
-                {/*{*/}
-                  {/*required: true,*/}
-                  {/*message: '城市未填写'*/}
-                {/*}*/}
-              {/*]*/}
-            {/*})(<Input />)}*/}
-          {/*</FormItem>*/}
-          {/*<FormItem label='地区：' hasFeedback {...formItemLayout}>*/}
-            {/*{this.props.form.getFieldDecorator('geoDistrict', {*/}
-              {/*initialValue: this.props.type === 'create' ? '' : this.props.data.geoDistrict,*/}
-              {/*rules: [*/}
-                {/*{*/}
-                  {/*required: true,*/}
-                  {/*message: '地区未填写'*/}
-                {/*}*/}
-              {/*]*/}
-            {/*})(<Input />)}*/}
-          {/*</FormItem>*/}
+
           <FormItem label='类型：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('type', {
               initialValue: this.props.type === 'create' ? '' : this.props.data.type,
@@ -179,17 +163,13 @@ class ActionModal extends Component {
               ]
             })(<InputNumber />)}
           </FormItem>
-          <FormItem label='活动类型：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('actionType', {
-              initialValue: this.props.type === 'create' ? '' : this.props.data.actionType,
-              rules: [
-                {
-                  required: true,
-                  message: '活动类型未填写'
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
+          <div style={{marginLeft:45,marginBottom:20}}>* 活动类型:
+          <Select  style={{marginLeft:8,width:100}} defaultValue='link' onChange={(value)=>{this.selectActionType(value)}}>
+            <Option value='shop'>店铺</Option>
+            <Option value='topic'>文章</Option>
+            <Option value='link'>网页</Option>
+          </Select>
+            </div>
           <FormItem label='活动链接：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('action', {
               initialValue: this.props.type === 'create' ? '' : this.props.data.action,
