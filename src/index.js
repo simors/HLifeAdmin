@@ -21,8 +21,10 @@ const KM_PRO = {
 
 // 1. Initialize
 AV.init(
-  KM_Dev
+  // KM_Dev
+  KM_PRO
 )
+
 
 const app = dva({
   initialState: {},
