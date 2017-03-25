@@ -40,7 +40,7 @@ class ActionModal extends Component {
       selectedDistrict:'',
       selectActionType:'link',
       pushTargetDistrict: [],
-      pushTargetDistrictCode:[]
+      pushTargetDistrictLabel:[]
 
 
     }
@@ -68,7 +68,7 @@ class ActionModal extends Component {
   }
   onDistrictTreeDataChange = (value, label, extra) => {
     console.log('onDistrictTreeDataChange ', value, label, extra);
-    this.setState({ pushTargetDistrictCode: value,pushTargetDistrict: label });
+    this.setState({ pushTargetDistrictLabel: label,pushTargetDistrict: value });
   }
 
   loadDistrictTreeData = (treeNode) => {
@@ -111,7 +111,8 @@ class ActionModal extends Component {
         return
       }
       const data = {
-        
+        pushTargetDistrictLabel:this.state.pushTargetDistrictLabel,
+        pushTargetDistrict:this.state.pushTargetDistrict,
         geoCity:this.state.selectedCity,
         geoDistrict:this.state.selectedDistrict,
         ...this.props.form.getFieldsValue(),

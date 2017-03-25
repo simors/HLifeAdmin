@@ -39,8 +39,8 @@ export async function createBanner(payload){
     let banner={
       image:image,
       title:payload.title,
-      geoDistrict:payload.geoDistrict,
-      geoCity:payload.geoCity,
+      pushTargetDistrictLabel:payload.pushTargetDistrictLabel,
+      pushTargetDistrict:payload.pushTargetDistrict,
       action:payload.action,
       actionType:payload.actionType,
       type:payload.type
