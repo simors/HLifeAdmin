@@ -74,6 +74,15 @@ export default {
         })
       }
     },
+    *push({payload}, {call, put, select}) {
+      // console.log('*push----payload>>>>>>', payload)
+      let isSuccess = yield call(MessagePush.push, payload)
+      if(isSuccess) {
+        payload.success && payload.success()
+      }else {
+        payload.error && payload.error()
+      }
+    },
     *fetchSubAreaList({payload}, {call, put, select}) {
       // console.log('fetchSubAreaList.payload=====', payload)
       const eventKey = payload.eventKey

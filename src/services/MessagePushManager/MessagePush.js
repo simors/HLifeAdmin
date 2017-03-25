@@ -10,3 +10,23 @@ export async function fetchSubAreaList(payload) {
   let cityList = await BaiduMap.getSubAreaList(areaCode)
   return cityList || []
 }
+
+export async function push(payload) {
+  if(payload) {
+    if(payload.pushFileList && payload.pushFileList.length) {
+      let localCoverFile = payload.pushFileList[0].originFileObj
+      let name = 'pushCoverImage.png'
+      let file = new AV.File(name, localCoverFile)
+      let leanFileObj = await file.save()
+      // console.log('leanFileObj====', leanFileObj)
+      payload.message_cover_url = leanFileObj.attributes.url
+    }
+  }
+
+  console.log('hLifePush====', payload)
+  let result = await AV.Cloud.run('hLifePush', payload)
+  if(result && result.code == 1) {
+    return true
+  }
+  return false
+}
