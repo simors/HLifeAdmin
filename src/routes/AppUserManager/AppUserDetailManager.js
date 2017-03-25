@@ -27,7 +27,39 @@ class appUserDetailManager extends Component {
     this.props.dispatch({type: 'appUserManager/updateAppUserEnable', payload: {id: record, status: payload ? 1 : 0}})
 
   }
+  // renderShopTab(){
+  //   // console.log('this.props.appUserDetail.identity',this.props.appUserDetail.identity)
+  //   if(this.props.appUserDetail.identity&&this.props.appUserDetail.identity.length>0){
+  //     this.props.appUserDetail.identity.forEach((item)=>{
+  //       // console.log('item',item)
+  //       if(item=='shopkeeper'){
+  //         return <TabPane tab='店铺详情' key='2'></TabPane>
+  //
+  //       }else{
+  //         return null
+  //       }
+  //     })
+  //   }else {
+  //     return null
+  //   }
+  // }
+  renderTab(){
+    if(this.props.appUserDetail.identity&&this.props.appUserDetail.identity.length>0){
+      let panes=this.props.appUserDetail.identity.map((item,key)=>{
+        // console.log('item',item)
 
+        if(item=='promoter'){
+          // console.log('here is code')
+          return <TabPane tab='推广详情' key='2'></TabPane>
+        }else if(item=='shopkeeper'){
+          return <TabPane tab='店铺详情' key='3'></TabPane>
+        }
+      })
+      return panes
+    }else {
+      return null
+    }
+  }
 
   render() {
     return (
@@ -38,13 +70,10 @@ class appUserDetailManager extends Component {
                                                      updateUserEnable={(payload, record)=> {
                                                        this.updateUserEnable(payload, record)
                                                      }}/>
-          </TabPane>
-          <TabPane tab='店铺详情' key='2'>
-          </TabPane>
-          <TabPane tab='推广详情' key='3'>
 
           </TabPane>
-
+          {this.renderTab()}
+          {/*{this.renderPromotorTab()}*/}
 
         </Tabs>
 
@@ -57,7 +86,7 @@ function mapStateToProps(state, ownProps) {
 // console.log('aaaaa',ownProps.location.query)
   let appUserDetail = getAppUserDetail(state, ownProps.location.query.id)
 
-  // console.log('appUserDetail',appUserDetail)
+   console.log('appUserDetail',appUserDetail)
   return {appUserDetail: appUserDetail}
 }
 

@@ -5,7 +5,7 @@ import React from 'react'
 import { Table, Row, Col } from 'antd'
  const welcome =()=>
     <div>
-      <text>welcome to BKG</text>
+      <text>欢迎来到邻家优店后台！</text>
     </div>
 
 export default welcome
