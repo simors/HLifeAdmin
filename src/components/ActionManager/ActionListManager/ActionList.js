@@ -119,14 +119,40 @@ class ActionList extends React.Component {
         key: 'type'
       },
       {
-        title: '城市',
-        dataIndex: 'geoCity',
-        key: 'geoCity'
+        title: '省份',
+        dataIndex: 'provinceList',
+        key: 'provinceList',
+        render: (text,record)=> {
+          if (record.provinceList && record.provinceList.length > 0) {
+            let renderC= record.provinceList.map((item,key)=> {
+              //console.log('result', item,key)
+              return <p key={key} style={{marginRight:3}}>{item}</p>
+            })
+            return renderC
+
+          }else{
+            return <a></a>
+          }
+
+        }
       },
       {
-        title: '地区',
-        dataIndex: 'geoDistrict',
-        key: 'geoDistrict'
+        title: '城市',
+        dataIndex: 'cityList',
+        key: 'cityList',
+        render: (text,record)=> {
+          if (record.cityList && record.cityList.length > 0) {
+            let renderC= record.cityList.map((item,key)=> {
+              //console.log('result', item,key)
+              return <p key={key} style={{marginRight:3}}>{item}</p>
+            })
+            return renderC
+
+          }else{
+            return <a></a>
+          }
+
+        }
       },
       {
         title: '活动类型',

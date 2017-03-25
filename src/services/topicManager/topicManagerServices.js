@@ -7,6 +7,7 @@ import {topicList, topicCategoryList} from '../../models/structs/topicManager/to
 export async function getTopicList(payload) {
   try {
     let topicInfo = await AV.Cloud.run('getAdminTopicList', payload)
+    console.log('topicInfo',topicInfo)
     let topicListIM = topicList.fromLeancloudObject(topicInfo)
     return {success:true, data: topicListIM}
   }catch (err){

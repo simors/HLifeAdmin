@@ -93,17 +93,18 @@ class topicCategoryList extends React.Component {
       //     return <img style={{width:100,height:100}} src={record.image}></img>
       //   }
       // },
+      // {
+      //   title: '精选',
+      //   dataIndex: 'picked',
+      //   render: (text, record) => {
+      //     return (
+      //       <Checkbox checked={record.picked} disabled={false}
+      //                 onChange={()=>this.props.changePicked(record.id, !record.picked)}>
+      //       </Checkbox>
+      //     )
+      //   }
+      // },
       {
-        title: '精选',
-        dataIndex: 'picked',
-        render: (text, record) => {
-          return (
-            <Checkbox checked={record.picked} disabled={false}
-                      onChange={()=>this.props.changePicked(record.id, !record.picked)}>
-            </Checkbox>
-          )
-        }
-      },{
         title: '是否启用',
         dataIndex: 'enabled',
         render: (text, record) => {

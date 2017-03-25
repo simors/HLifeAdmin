@@ -69,7 +69,7 @@ class topicCategoryModal extends Component {
                   message: '分类名称未填写'
                 }
               ]
-            })(<Input disabled={this.props.type==='create'?false:true}/>)}
+            })(<Input />)}
           </FormItem>
           <FormItem label='简介：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('introduction', {
