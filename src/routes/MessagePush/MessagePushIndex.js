@@ -4,7 +4,7 @@
 import React, { Component,PropTypes } from 'react'
 import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
-import {Radio, Checkbox,InputNumber,Select, Cascader, TreeSelect, Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon, Layout} from 'antd'
+import {Radio, Checkbox,InputNumber,Select, Tag, Cascader, TreeSelect, Button, Upload, message, Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon, Layout} from 'antd'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import styles from './messagePush.less'
@@ -29,15 +29,18 @@ class MessagePushIndex extends Component{
       terminalType: 1,  // 1-不限; 2-iOS; 3-Android
       pushCondition: 1, //1-不限; 2-自定义
       inactivityDaysIsChecked: false, //是否根据未活跃天数进行推送
-      inactivityDays: 0,  //未活跃天数
+      inactivityDays: 30,  //未活跃天数
       pushTimeType: 1,   //1-现在; 2-指定时间
       pushTime: '',      //推送时间
       expireTimeType: 1, //1-从不; 2-指定时间; 3-指定间隔时间
       expireTime: '',    //过期时间
-      expireIntervalTime: '', //过期间隔时间
+      expireIntervalTime: '1', //过期间隔时间
       expireIntervalTimeUnit: '1', //过期间隔时间单位; 1-小时; 2-天
-      pushTargetType: '1', //1-不限; 2-指定地区; 3-指定人群
-      pushTargetDistrict: []
+      pushTargetUserType: '1', //1-不限; 2-店主; 3-推广员
+      pushTargetDistrict: [],
+      pushContentType: 1, //1-文本; 2-JSON
+      pushContent: '',
+      pushFileList: [],
     }
   }
 
@@ -87,7 +90,7 @@ class MessagePushIndex extends Component{
     console.log(`onPushTimeChange.date = ${date}`);
     console.log(`onPushTimeChange.dateString = ${dateString}`);
     this.setState({
-      pushTime: date,
+      pushTime: dateString,
     });
   }
 
@@ -102,7 +105,7 @@ class MessagePushIndex extends Component{
     console.log(`onPushTimeChange.date = ${date}`);
     console.log(`onPushTimeChange.dateString = ${dateString}`);
     this.setState({
-      expireTime: date,
+      expireTime: dateString,
     });
   }
 
@@ -141,13 +144,6 @@ class MessagePushIndex extends Component{
     return null
   }
 
-  handlePushTargetTypeChange = (value) => {
-    console.log(`handlePushTargetTypeChange.value = ${value}`);
-    this.setState({
-      pushTargetType: value,
-    });
-  }
-
   onDistrictTreeDataChange = (value, label, extra) => {
     console.log('onDistrictTreeDataChange ', value, label, extra);
     this.setState({ pushTargetDistrict: value });
@@ -165,35 +161,52 @@ class MessagePushIndex extends Component{
     })
   }
 
-  renderPushTarget() {
-    if(this.state.pushTargetType == 2) {
-      let tProps = {
-        treeData: this.props.pushTargetDistrictTreeDatas,
-        value: this.state.pushTargetDistrict,
-        onChange: this.onDistrictTreeDataChange,
-        loadData: this.loadDistrictTreeData,
-        multiple: true,
-        treeCheckable: true,
-        showCheckedStrategy: SHOW_PARENT,
-        searchPlaceholder: '请选择发送地区',
-        style: {
-          width: 300,
-        },
-      };
+  renderPushTargetDistrict() {
+    let tProps = {
+      treeData: this.props.pushTargetDistrictTreeDatas,
+      value: this.state.pushTargetDistrict,
+      onChange: this.onDistrictTreeDataChange,
+      loadData: this.loadDistrictTreeData,
+      multiple: true,
+      treeCheckable: true,
+      showCheckedStrategy: SHOW_PARENT,
+      searchPlaceholder: '请选择发送地区',
+      style: {
+        width: 300,
+      },
+    };
 
+    return (
+      <Col span={20}>
+        <TreeSelect {...tProps} />
+      </Col>
+    )
+  }
+
+  handlePushTargetUserTypeChange = (value) => {
+    console.log(`handlePushTargetUserTypeChange.value = ${value}`);
+    this.setState({
+      pushTargetUserType: value,
+    });
+  }
+
+  renderPushTargetUserType() {
+    return (
+      <Col span={3}>
+        <Select defaultValue="1" style={{ width: '100%' }} onChange={this.handlePushTargetUserTypeChange}>
+          <Option value="1">不限</Option>
+          <Option value="2">店主</Option>
+          <Option value="3">推广员</Option>
+        </Select>
+      </Col>
+    )
+  }
+
+  renderPushTime() {
+    if(this.state.pushTimeType == 2) {
       return (
-        <Col offset={1} span={20}>
-          <TreeSelect {...tProps} />
-        </Col>
-      )
-    }else if(this.state.pushTargetType == 3) {
-      return (
-        <Col offset={1} span={20}>
-          <InputNumber style={{}} min={1} max={31} defaultValue={1} onChange={this.onExpireIntervalTimeChange} />
-          <Select style={{marginLeft:16}} defaultValue="1" onChange={this.handleExpireIntervalTimeUnitChange}>
-            <Option value="1">小时</Option>
-            <Option value="2">天</Option>
-          </Select>
+        <Col span={6}>
+          <DatePicker style={{marginLeft:16}} onChange={this.onPushTimeChange} />
         </Col>
       )
     }
@@ -222,15 +235,13 @@ class MessagePushIndex extends Component{
           </Col>
         </Row>
           <Row className={styles.row}>
-            <Col>
-              <Select defaultValue="1" style={{ width: 120 }} onChange={this.handlePushTimeTypeChange}>
+            <Col span={3}>
+              <Select defaultValue="1" style={{ width: '100%' }} onChange={this.handlePushTimeTypeChange}>
                 <Option value="1">现在</Option>
                 <Option value="2">指定时间</Option>
               </Select>
-              {this.state.pushTimeType == 2 &&
-                <DatePicker style={{marginLeft:16}} onChange={this.onPushTimeChange} />
-              }
             </Col>
+            {this.renderPushTime()}
           </Row>
 
           <Row>
@@ -258,22 +269,125 @@ class MessagePushIndex extends Component{
             </Col>
           </Row>
           <Row className={styles.row}>
-            <Col span={3}>
-              <Select
-                defaultValue="1"
-                style={{width:'100%'}}
-                onChange={this.handlePushTargetTypeChange}>
-                <Option value="1">不限</Option>
-                <Option value="2">指定地区</Option>
-                <Option value="3">指定人群</Option>
-              </Select>
+            <Col span={2}>
+              <div className={styles.subLabel}>指定地区</div>
             </Col>
-            {this.renderPushTarget()}
+            {this.renderPushTargetDistrict()}
+          </Row>
+          <Row className={styles.row}>
+            <Col span={2}>
+              <div className={styles.subLabel}>指定人群</div>
+            </Col>
+            {this.renderPushTargetUserType()}
           </Row>
         </Content>
       )
     }
     return null
+  }
+
+  onChangePushContent = (e) => {
+    this.setState({
+      pushContent: e.target.value
+    })
+  }
+
+  renderPushContentPreview() {
+    if(this.state.pushContentType == 1) {
+      if(this.state.pushContent) {
+        return (
+          <Col offset={1} span={12}>
+            <Row className={styles.row}>
+              <Col>
+                <div className={styles.label}>推送格式预览</div>
+              </Col>
+            </Row>
+            <Row className={styles.preview}>
+              <Col>
+                <div>{'{'}</div>
+                <div>&nbsp;&nbsp;{'"alert":'}{this.state.pushContent}</div>
+                <div>}</div>
+              </Col>
+            </Row>
+          </Col>
+        )
+      }
+
+    }else if(this.state.pushContentType == 2) {
+      return (
+        <Col offset={1} span={12}>
+          <Row className={styles.row}>
+            <Col>
+              <div className={styles.label}>推送格式参考</div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Row className={styles.preview}>
+                <Col>
+                  <div>{'{'}</div>
+                    <div>&nbsp;&nbsp;{'"alert": "消息内容",'}</div>
+                    <div>&nbsp;&nbsp;{'"message_title": "消息中心列表展示标题",'}</div>
+                    <div>&nbsp;&nbsp;{'"message_abstract": "消息中心列表展示摘要",'}</div>
+                    <div>&nbsp;&nbsp;{'"message_url": "点击标题跳转url地址"'}</div>
+                    <div>}</div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      )
+    }
+    return null
+  }
+
+  onPushContentTypeChange = (e) => {
+    console.log('onPushContentTypeChange radio checked', e.target.value);
+    this.setState({
+      pushContentType: e.target.value,
+    });
+  }
+
+  onPushFileUploadChange = (info) => {
+    // console.log('onPushFileUploadChange==info==>>>>>', info)
+    let fileList = info.fileList;
+    if(fileList.length > 1) {
+      fileList = fileList.slice(-1);
+    }
+    //对于受控模式，你应该在 onChange 中始终 setState fileList，保证所有状态同步到 Upload 内
+    this.setState({ pushFileList: fileList });
+  }
+
+  renderUploadPushFile() {
+    return (
+      <Upload
+        listType="picture"
+        disabled={!!this.state.pushFileList.length}
+        fileList={this.state.pushFileList}
+        onChange={this.onPushFileUploadChange}
+      >
+        <Button>
+          <Icon type="upload" /> 点击选择封面图片
+        </Button>
+      </Upload>
+    )
+  }
+
+  handlePushBtnClick = (e) => {
+    // console.log('handlePushBtnClick.e=====', e)
+    console.log('handlePushBtnClick.this.state=====', this.state)
+    this.props.dispatch({
+      type: 'messagePushManager/push',
+      payload: {
+        ...this.state,
+        success: ()=>{
+          message.success('推送成功')
+        },
+        error: ()=>{
+          message.error('推送失败')
+        }
+      }
+    })
   }
 
   render() {
@@ -310,6 +424,55 @@ class MessagePushIndex extends Component{
 
           {this.renderCustomCondition()}
 
+          <Row>
+            <Col span={11}>
+              <Row>
+                <Col span={2}>
+                  <div className={styles.label}>内容</div>
+                </Col>
+                <Col style={{marginLeft:8}} span={3}><Tag color="red-inverse">必填</Tag></Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Input
+                    type="textarea"
+                    rows={8}
+                    size="large"
+                    value={this.state.pushContent}
+                    onChange={this.onChangePushContent}
+                  />
+                </Col>
+              </Row>
+            </Col>
+
+            {this.renderPushContentPreview()}
+          </Row>
+
+          <Row className={styles.row}>
+            <Col>
+              <RadioGroup onChange={this.onPushContentTypeChange} value={this.state.pushContentType}>
+                <Radio value={1}>Text</Radio>
+                <Radio value={2}>JSON</Radio>
+              </RadioGroup>
+            </Col>
+          </Row>
+
+          <Row className={styles.row}>
+            <Col>
+              {this.renderUploadPushFile()}
+            </Col>
+            <Col>会在推送接收端消息中心列表展示</Col>
+            <Col>注:仅当内容类型为JSON时,且message_url字段有值时生效</Col>
+          </Row>
+          <Row className={styles.row}>
+            <Col>
+              <Button
+                type="primary"
+                disabled={!this.state.pushContent}
+                onClick={this.handlePushBtnClick}
+              >发送</Button>
+            </Col>
+          </Row>
         </Content>
       </Layout>
     )
