@@ -5,6 +5,7 @@ import React, {Component} from 'react'
 import {Button,message} from 'antd'
 import {connect} from 'dva'
 import UserInfoManage from '../../components/userInfo/userInfoModal'
+import TestUpload from '../../components/common/TestUpload'
 import {getUserInfo} from '../../selector/userInfo/userInfo'
 class UserInfo extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class UserInfo extends Component {
         onCancel={()=>{this.onCancel()}}
 
       />
+        {/*<TestUpload></TestUpload>*/}
         </div>
     )
   }
