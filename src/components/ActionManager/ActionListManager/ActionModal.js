@@ -120,7 +120,9 @@ class ActionModal extends Component {
       }
       // let count = this.state.count - 1
       this.setState({
-        fileList: []
+        fileList: [],
+        pushTargetDistrict:[],
+        pushTargetDistrictLabel:[]
       })
       // console.log('data',...this.props.form.getFieldsValue())
       // console.log('data', data)
@@ -174,7 +176,9 @@ class ActionModal extends Component {
         }}
         onCancel={()=> {
           this.setState({
-            fileList: []
+            fileList: [],
+            pushTargetDistrict:[],
+            pushTargetDistrictLabel:[]
           })
           this.props.onCancel()
         }}

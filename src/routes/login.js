@@ -55,8 +55,8 @@ const login = ({
           </Button>
         </Row>
         <p>
-          <span>账号：administrator</span>
-          <span>密码：Password</span>
+          <span>账号：xiaojee</span>
+          <span>密码：xiaojee</span>
         </p>
       </form>
     </div>
