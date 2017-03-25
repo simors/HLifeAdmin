@@ -6,16 +6,19 @@
  */
 import AV from 'leancloud-storage'
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button, Select} from 'antd'
+import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button, Select,TreeSelect,Col} from 'antd'
 import SelectDisrict from '../../common/selectDistrict'
 import styles from './ActionModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
 import {getModalData, getModalState, getModalKey} from '../../../selector/ActionManager/actionListManager'
+import {selectPushTargetDistrictTreeDatas}from '../../../selector/MessagePushManager/MessagePushSelector'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
 const Option = Select.Option
+const SHOW_PARENT = TreeSelect.SHOW_PARENT;
+
 const formItemLayout = {
   labelCol: {
     span: 6
@@ -35,7 +38,11 @@ class ActionModal extends Component {
       fileList: [],
       selectedCity:'',
       selectedDistrict:'',
-      selectActionType:'link'
+      selectActionType:'link',
+      pushTargetDistrict: [],
+      pushTargetDistrictCode:[]
+
+
     }
   }
 
@@ -59,7 +66,43 @@ class ActionModal extends Component {
     // console.log('hahahah',this.state.visible)
 
   }
+  onDistrictTreeDataChange = (value, label, extra) => {
+    console.log('onDistrictTreeDataChange ', value, label, extra);
+    this.setState({ pushTargetDistrictCode: value,pushTargetDistrict: label });
+  }
 
+  loadDistrictTreeData = (treeNode) => {
+    return new Promise((resolve, reject) => {
+      this.props.dispatch({
+        type: 'messagePushManager/updatePushTargetDistrictTreeDatas',
+        payload: {
+          eventKey: treeNode.props.eventKey
+        }
+      })
+      resolve();
+    })
+  }
+  renderPushTargetDistrict() {
+    let tProps = {
+      treeData: this.props.pushTargetDistrictTreeDatas,
+      value: this.state.pushTargetDistrict,
+      onChange: this.onDistrictTreeDataChange,
+      loadData: this.loadDistrictTreeData,
+      multiple: true,
+      treeCheckable: true,
+      showCheckedStrategy: SHOW_PARENT,
+      searchPlaceholder: '请选择发布地区',
+      style: {
+        width: 300,
+      },
+    };
+
+    return (
+      <Col span={20}>
+        <TreeSelect {...tProps} />
+      </Col>
+    )
+  }
 
   handleOk() {
 
@@ -68,6 +111,7 @@ class ActionModal extends Component {
         return
       }
       const data = {
+        
         geoCity:this.state.selectedCity,
         geoDistrict:this.state.selectedDistrict,
         ...this.props.form.getFieldsValue(),
@@ -136,9 +180,12 @@ class ActionModal extends Component {
         wrapClassName='vertical-center-modal'
         key={this.props.modalKey}
       >
-        <div style={{marginRight:50,marginLeft:50,marginBottom:30}}><SelectDisrict city={this.props.data.geoCity} district={this.props.data.geoDistrict} submit={(payload)=>{
-          this.submit(payload)
-        }}></SelectDisrict></div>
+        <div style={{marginRight:50,marginLeft:50,marginBottom:30}}>
+          {/*<SelectDisrict city={this.props.data.geoCity} district={this.props.data.geoDistrict} submit={(payload)=>{*/}
+          {/*this.submit(payload)*/}
+        {/*}}></SelectDisrict>*/}
+          {this.renderPushTargetDistrict()}
+        </div>
         <Form horizontal>
           <FormItem label='标题：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('title', {
@@ -236,12 +283,15 @@ function mapStateToProps(state) {
   let data = getModalData(state)
   let modalVisible = getModalState(state)
   let modalKey = getModalKey(state)
+  const pushTargetDistrictTreeDatas = selectPushTargetDistrictTreeDatas(state)
+
   // console.log('data', data)
   return {
     data: data,
     modalVisible: modalVisible,
-    modalKey: modalKey
-  }
-}
+    modalKey: modalKey,
+    pushTargetDistrictTreeDatas: pushTargetDistrictTreeDatas
 
+}
+}
 export default connect(mapStateToProps)(Form.create()(ActionModal))

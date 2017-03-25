@@ -55,7 +55,7 @@ export default {
       if(subAreaList && subAreaList.length) {
         let children = subAreaList.map((item, index) => {
           return {
-            label: item.area_name,
+            label: `${item.area_type}-${item.area_name}`,
             value: `${item.area_type}-${item.area_code}`,
             key: `${item.area_type}-${item.area_code}`,
             area_type: item.area_type
