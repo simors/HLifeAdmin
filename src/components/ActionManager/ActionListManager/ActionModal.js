@@ -185,7 +185,7 @@ class ActionModal extends Component {
         wrapClassName='vertical-center-modal'
         key={this.props.modalKey}
       >
-        <div style={{marginRight:50,marginLeft:50,marginBottom:30}}>
+        <div style={{marginRight:50,marginLeft:50,marginBottom:40}}>
           {/*<SelectDisrict city={this.props.data.geoCity} district={this.props.data.geoDistrict} submit={(payload)=>{*/}
           {/*this.submit(payload)*/}
         {/*}}></SelectDisrict>*/}
@@ -204,17 +204,17 @@ class ActionModal extends Component {
             })(<Input />)}
           </FormItem>
 
-          <FormItem label='类型：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('type', {
-              initialValue: this.props.type === 'create' ? '' : this.props.data.type,
-              rules: [
-                {
-                  required: true,
-                  message: '类型未填写'
-                }
-              ]
-            })(<InputNumber />)}
-          </FormItem>
+          {/*<FormItem label='类型：' hasFeedback {...formItemLayout}>*/}
+            {/*{this.props.form.getFieldDecorator('type', {*/}
+              {/*initialValue: this.props.type === 'create' ? '' : this.props.data.type,*/}
+              {/*rules: [*/}
+                {/*{*/}
+                  {/*required: true,*/}
+                  {/*message: '类型未填写'*/}
+                {/*}*/}
+              {/*]*/}
+            {/*})(<InputNumber />)}*/}
+          {/*</FormItem>*/}
           <div style={{marginLeft:45,marginBottom:20}}>* 活动类型:
           <Select  style={{marginLeft:8,width:100}} defaultValue='link' onChange={(value)=>{this.selectActionType(value)}}>
             <Option value='shop'>店铺</Option>

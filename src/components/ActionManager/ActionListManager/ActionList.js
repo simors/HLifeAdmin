@@ -113,11 +113,11 @@ class ActionList extends React.Component {
         dataIndex: 'title',
         key: 'title'
       },
-      {
-        title: '类型',
-        dataIndex: 'type',
-        key: 'type'
-      },
+      // {
+      //   title: '类型',
+      //   dataIndex: 'type',
+      //   key: 'type'
+      // },
       {
         title: '省份',
         dataIndex: 'provinceList',

@@ -21,8 +21,8 @@ const KM_PRO = {
 
 // 1. Initialize
 AV.init(
-  // KM_Dev
-  KM_PRO
+  KM_Dev
+  // KM_PRO
 )
 
 
