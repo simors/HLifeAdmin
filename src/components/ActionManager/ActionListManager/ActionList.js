@@ -180,7 +180,7 @@ class ActionList extends React.Component {
         dataIndex: 'createdAt',
         key: 'createdAt',
         render:(text,record)=>{
-          const status=record.status
+          // const status=record.status
           return <p>{formatLeancloudTime(new Date(record.createdAt))}</p>
         }
       },

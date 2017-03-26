@@ -6,6 +6,8 @@ import {Table, Popconfirm, Checkbox} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './topicList.less'
 import {Link,} from 'dva/router'
+import {formatLeancloudTime} from '../../../utils/numberUtils'
+
 class topicList extends React.Component {
   constructor(props) {
     super(props)
@@ -88,6 +90,10 @@ class topicList extends React.Component {
         title: '创建时间',
         dataIndex: 'createdAt',
         key: 'createdAt',
+        render:(text,record)=>{
+          const status=record.status
+          return <p>{formatLeancloudTime(new Date(record.createdAt))}</p>
+        }
       }, {
         title: '评论数',
         dataIndex: 'commentNum',
