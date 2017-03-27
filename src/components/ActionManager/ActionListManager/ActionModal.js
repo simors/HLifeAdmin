@@ -46,19 +46,39 @@ class ActionModal extends Component {
     }
   }
 
+  componentWillReceiveProps(newProps){
+    if(newProps.data.image!=this.props.data.image){
+       console.log('data===============>', newProps.data)
 
+      if(newProps.data.image){
+       this.setState({
+         fileList: [{
+           uid: -1,
+           status: 'done',
+           name: newProps.data.title,
+           url: newProps.data.image
+         }],
+       })
+     }
+
+
+    }
+  }
   componentDidMount() {
-    console.log('data', this.props.data)
+    // console.log('data', this.props.data)
 
     if (this.props.data.image) {
-      this.setState({
-        imageList: [{
-          uid: -1,
-          status: 'done',
-          name: this.props.data.title,
-          url: this.props.data.image
-        }],
-      })
+      if(this.props.data){
+        this.setState({
+          fileList: [{
+            uid: -1,
+            status: 'done',
+            name: this.props.data.title,
+            url: this.props.data.image
+          }],
+        })
+      }
+
     }
 
 
@@ -91,7 +111,9 @@ class ActionModal extends Component {
       multiple: true,
       treeCheckable: true,
       showCheckedStrategy: SHOW_PARENT,
-      searchPlaceholder: '请选择发布地区',
+      placeholder: '请在下拉菜单选择地区',
+      disabled:false,
+      showSearch:false,
       style: {
         width: 300,
       },
@@ -157,14 +179,14 @@ class ActionModal extends Component {
 
     let fileCount = 0
     if (this.state.fileList.length > 0) {
-      fileCount = 1
-    } else if (this.props.data.image) {
-      fileCount = 1
-    }
+      fileCount = 1}
+    // } else if (this.props.data.image) {
+    //   fileCount = 1
+    // }
 
 
     // console.log('type',this.props.modalKey)
-    //   console.log('fileList',this.state.fileList)
+       console.log('fileList',this.state.fileList)
     // console.log('count',this.state.count)
 
     return (
@@ -235,11 +257,11 @@ class ActionModal extends Component {
           </FormItem>
           <FormItem label='封面：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('image', {
-              initialValue: this.props.data.image ? {
+              initialValue: (this.state.fileList.length>0) ? {
                 uid: -1,
                 status: 'done',
-                name: this.props.data.title,
-                url: this.props.data.image
+                name: this.state.fileList[0].name,
+                url: this.state.fileList[0].url
               } : null,
               rules: [
                 {
@@ -249,11 +271,11 @@ class ActionModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              defaultFileList={this.props.data.image ? [{
-                uid: -2,
+              defaultFileList={(this.state.fileList.length>0)? [{
+                uid: -1,
                 status: 'done',
-                name: this.props.data.title,
-                url: this.props.data.image
+                name: this.state.fileList[0].name,
+                url: this.state.fileList[0].url
               }] : []}
               onChange={(info)=> {
                 console.log('info', info)
@@ -265,7 +287,7 @@ class ActionModal extends Component {
               }}
             >
 
-              { fileCount == 1 ? null :
+              { (this.state.fileList.length>0) ? null :
                 <div><Icon type='plus' className={styles.avatar}/></div>}
             </Upload>)}
           </FormItem>
@@ -290,7 +312,7 @@ function mapStateToProps(state) {
   let modalKey = getModalKey(state)
   const pushTargetDistrictTreeDatas = selectPushTargetDistrictTreeDatas(state)
 
-  // console.log('data', data)
+   console.log('data', data)
   return {
     data: data,
     modalVisible: modalVisible,

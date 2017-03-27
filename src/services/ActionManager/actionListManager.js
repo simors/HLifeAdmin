@@ -78,8 +78,8 @@ console.log('image',image,payload)
       id:payload.id,
       image:image,
       title:payload.title,
-      geoDistrict:payload.geoDistrict,
-      geoCity:payload.geoCity,
+      pushTargetDistrictLabel:payload.pushTargetDistrictLabel,
+      pushTargetDistrict:payload.pushTargetDistrict,
       action:payload.action,
       actionType:payload.actionType,
       type:payload.type
