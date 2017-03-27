@@ -37,7 +37,44 @@ class CategoryModal extends Component {
     }
   }
 
-  // componentWillReceiveProps(newProps) {
+  componentWillReceiveProps(newProps) {
+    if(newProps.type!='create'){
+      if(newProps.data.imageSource!=this.props.data.imageSource){
+        console.log('data===============>', newProps.data.imageSource)
+
+        if(newProps.data.imageSource){
+          this.setState({
+            fileList: [{
+              uid: -1,
+              status: 'done',
+              name: newProps.data.text,
+              url: newProps.data.imageSource
+            }],
+          })
+        }
+
+
+      }
+      if(newProps.data.showPictureSource!=this.props.data.showPictureSource){
+        console.log('data===============>', newProps.data.showPictureSource)
+
+        if(newProps.data.showPictureSource){
+          this.setState({
+            imageList: [{
+              uid: -1,
+              status: 'done',
+              name: newProps.data.text,
+              url: newProps.data.showPictureSource
+            }],
+          })
+        }
+
+
+      }
+    }
+
+  }
+
   //
   //    console.log('imnewProps',newProps.item.imageSource)
   //
@@ -234,18 +271,18 @@ class CategoryModal extends Component {
     }
     const selectedRowKeys = this.state.selectedRowKeys.length > 0 ? this.state.selectedRowKeys : rowKeys;
 
-    let fileCount = 0
-    let imageCount = 0
-    if (this.state.fileList.length > 0) {
-      fileCount = 1
-    } else if (this.props.data.imageSource) {
-      fileCount = 1
-    }
-    if (this.state.imageList.length > 0) {
-      imageCount = 1
-    } else if (this.props.data.showPictureSource) {
-      imageCount = 1
-    }
+    // let fileCount = 0
+    // let imageCount = 0
+    // if (this.state.fileList.length > 0) {
+    //   fileCount = 1
+    // } else if (this.props.data.imageSource) {
+    //   fileCount = 1
+    // }
+    // if (this.state.imageList.length > 0) {
+    //   imageCount = 1
+    // } else if (this.props.data.showPictureSource) {
+    //   imageCount = 1
+    // }
     // console.log('count',fileCount,imageCount)
     // console.log('selectR', selectedRowKeys)
     const rowSelection = {
@@ -259,6 +296,7 @@ class CategoryModal extends Component {
         key: 'name'
       }
     ]
+    console.log('here is picture ',this.state.fileList,this.state.imageList)
     // const options = ['apple', 'pear', 'orange']
     // console.log('ahahahahahaha', selectedRowKeys)
     //  console.log('itemandcount',this.props.item,this.state.count)
@@ -353,11 +391,11 @@ class CategoryModal extends Component {
 
           <FormItem label='图标：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('imageSource', {
-              initialValue: this.props.data.imageSource ? {
+              initialValue: (this.state.fileList.length>0) ? {
                 uid: -1,
                 status: 'done',
-                name: this.props.data.text,
-                url: this.props.data.imageSource
+                name: this.state.fileList[0].name,
+                url: this.state.fileList[0].url
               } : null,
               rules: [
                 {
@@ -367,11 +405,11 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              defaultFileList={this.props.data.imageSource ? [{
-                uid: -2,
+              defaultFileList={(this.state.fileList.length>0) ? [{
+                uid: -1,
                 status: 'done',
-                name: this.props.data.text,
-                url: this.props.data.imageSource
+                name: this.state.fileList[0].name,
+                url: this.state.fileList[0].url
               }] : []}
               onChange={(info)=> {
                 console.log('info', info)
@@ -383,17 +421,17 @@ class CategoryModal extends Component {
               }}
             >
 
-              { fileCount == 1 ? null :
+              { (this.state.fileList.length>0)? null :
                 <div><Icon type='plus' className={styles.avatar}/></div>}
             </Upload>)}
           </FormItem>
           <FormItem label='精选封面：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('showPictureSource', {
-              initialValue: this.props.data.showPictureSource ? {
-                uid: -2,
+              initialValue:(this.state.imageList.length>0)? {
+                uid: -1,
                 status: 'done',
-                name: this.props.data.text,
-                url: this.props.data.showPictureSource
+                name: this.state.imageList[0].name,
+                url: this.state.imageList[0].url
               } : null,
               rules: [
                 {
@@ -403,11 +441,11 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              defaultFileList={this.props.data.showPictureSource ? [{
-                uid: -2,
+              defaultFileList={(this.state.imageList.length>0) ? [{
+                uid: -1,
                 status: 'done',
-                name: this.props.data.text,
-                url: this.props.data.showPictureSource
+                name: this.state.imageList[0].name,
+                url: this.state.imageList[0].url
               }] : []}
               onChange={(info)=> {
                 console.log('info', info)
@@ -419,7 +457,7 @@ class CategoryModal extends Component {
               }}
             >
 
-              { imageCount == 1 ? null : (
+              { (this.state.imageList.length>0) ? null : (
                 <div><Icon type='plus' className={styles.avatar}/></div>)}
             </Upload>)}
           </FormItem>
