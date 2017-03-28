@@ -3,11 +3,12 @@
  */
 
 import {parse} from 'qs'
-import {getAppUserList,updateAppUserEnable} from '../../services/BGManager/appUserManager'
+import {getAppUserList,updateAppUserEnable,getShopByUserId} from '../../services/BGManager/appUserManager'
 export default {
   namespace: 'appUserManager',
   state:{
    appUserList:[],
+   shopDetail:{}
   },
   subscriptions:{
 
@@ -25,6 +26,23 @@ export default {
         })
       }
     },
+    *fetchShopDetailByUserId({payload},{call,put}){
+      const data = yield call(getShopByUserId,parse(payload))
+      if(data&&data.success){
+        yield put({
+          type: 'shopInfoManager/getAnnouncements',
+          payload: {id: data.shopDetail.id}
+        })
+        yield put({
+          type: 'shopInfoManager/getCommentList',
+          payload: {id: data.shopDetail.id}
+        })
+        yield put({
+          type:'fetchShopDetail',
+          payload:{shopDetail:data.shopDetail}
+        })
+      }
+      },
     *updateAppUserEnable({payload},{call,put}){
       const data = yield call(updateAppUserEnable,parse(payload))
       // console.log('data',data)
@@ -46,6 +64,12 @@ export default {
         ...state,appUserList:appUserList
       }
     },
+    fetchShopDetail(state,action){
+      let {shopDetail}=action.payload
+      return{
+        ...state,shopDetail:shopDetail
+      }
+    }
 
 
   }

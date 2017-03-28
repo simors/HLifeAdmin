@@ -16,3 +16,7 @@ export function getAppUserDetail(state,id){
   })
   return userDetail
 }
+
+export function getShopDetailFromUser(state) {
+  return state.appUserManager.shopDetail
+}

@@ -25,3 +25,15 @@ export async function updateAppUserEnable(payload){
     return {success:false}
   }
 }
+
+export async function getShopByUserId(payload){
+  try{
+    console.log('ggogogogogo',payload)
+
+    let shopDetail=await AV.Cloud.run('getShopByUserId',payload)
+
+    return {shopDetail:shopDetail,success:true}
+  }catch (err){
+    return {success:false}
+  }
+}
