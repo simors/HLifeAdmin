@@ -47,8 +47,8 @@ class ActionModal extends Component {
   }
 
   componentWillReceiveProps(newProps){
-    if(newProps.data.image!=this.props.data.image){
-       console.log('data===============>', newProps.data)
+    if((newProps.data.image!=this.props.data.image)||(newProps.type=='update'&&this.state.fileList.length==0)){
+       console.log('data===============>', newProps.type)
 
       if(newProps.data.image){
        this.setState({
@@ -153,7 +153,7 @@ class ActionModal extends Component {
     })
   }
   submit(payload){
-    console.log('payload',payload)
+    // console.log('payload',payload)
     this.setState({
       selectedCity:payload.city,
       selectedDistrict:payload.district

@@ -66,7 +66,7 @@ export async function createShopCategory(payload) {
 }
 
 export async function updateShopCategory(payload){
-  // console.log('as',payload)
+   console.log('as',payload)
   let imageSource=''
   let showPictureSource= ''
   if (payload.imageSource.file){
