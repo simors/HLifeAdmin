@@ -48,6 +48,8 @@ app.model(require('./models/topicManager/topicManagerModel'))
 app.model(require('./models/BGManager/personManagerModel'))
 app.model(require('./models/topicManager/topicCategoryManagerModel'))
 app.model(require('./models/MessagePUshManager/MessagePushManagerModel'))
+app.model(require('./models/SmsManager/SmsManagerModel'))
+app.model(require('./models/CommonModel'))
 
 
 // 3. Router
