@@ -94,7 +94,7 @@ export default {
     },
     closeModal(state,action){
       return {
-        ...state,actionModalOpen:false,modalKey:state.modalKey-1
+        ...state,actionModalOpen:false,modalKey:state.modalKey-1,modalData:{}
       }
     }
   }

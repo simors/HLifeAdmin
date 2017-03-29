@@ -7,7 +7,7 @@ import {connect} from 'dva'
 import AppUserManager from './AppUserManager'
 import {Tag, Tabs} from 'antd'
 import AppUserDetail from '../../components/BGManager/appUserManager/appUserDetail'
-
+import UserShopDetail from'./UserShopDetail'
 const TabPane = Tabs.TabPane
 
 class appUserDetailManager extends Component {
@@ -17,7 +17,10 @@ class appUserDetailManager extends Component {
   }
 
   componentDidMount() {
-
+    this.props.dispatch({
+      type: 'appUserManager/fetchShopDetailByUserId',
+      payload: {id: this.props.location.query.id}
+    })
 
   }
 
@@ -52,7 +55,7 @@ class appUserDetailManager extends Component {
           // console.log('here is code')
           return <TabPane tab='推广详情' key='2'></TabPane>
         }else if(item=='shopkeeper'){
-          return <TabPane tab='店铺详情' key='3'></TabPane>
+          return <TabPane tab='店铺详情' key='3'><UserShopDetail userDetail={this.props.appUserDetail}></UserShopDetail></TabPane>
         }
       })
       return panes

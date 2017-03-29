@@ -40,7 +40,7 @@ class CategoryModal extends Component {
   componentWillReceiveProps(newProps) {
     if(newProps.type!='create'){
       if(newProps.data.imageSource!=this.props.data.imageSource){
-        console.log('data===============>', newProps.data.imageSource)
+        // console.log('data===============>', newProps.data.imageSource)
 
         if(newProps.data.imageSource){
           this.setState({
@@ -56,7 +56,7 @@ class CategoryModal extends Component {
 
       }
       if(newProps.data.showPictureSource!=this.props.data.showPictureSource){
-        console.log('data===============>', newProps.data.showPictureSource)
+        // console.log('data===============>', newProps.data.showPictureSource)
 
         if(newProps.data.showPictureSource){
           this.setState({
@@ -68,8 +68,24 @@ class CategoryModal extends Component {
             }],
           })
         }
+      }
+      if(newProps.data.containedTag!=this.props.data.containedTag) {
+        // console.log('data===============>', newProps.data.showPictureSource)
 
+        if (newProps.data.containedTag) {
+          let rowKeys=[]
+          newProps.data.containedTag.forEach((record)=> {
 
+            rowKeys.push(record.id)
+          })
+          console.log('this.rowKeys',rowKeys)
+
+          this.setState({
+            selectedRowKeys:rowKeys,
+            selectTags:newProps.data.containedTag
+          })
+          console.log('this.state',this.state.selectedRowKeys,this.state.selectTags)
+        }
       }
     }
 
@@ -139,7 +155,7 @@ class CategoryModal extends Component {
   // }
 
   componentDidMount() {
-    console.log('data', this.props.data)
+    // console.log('data', this.props.data)
     let keys = []
     if (this.props.data.containedTag) {
 
@@ -224,7 +240,7 @@ class CategoryModal extends Component {
   }
 
   pickChange(color) {
-    console.log('color', color)
+    // console.log('color', color)
     this.setState({color: color.hex})
   }
 
@@ -248,7 +264,7 @@ class CategoryModal extends Component {
   }
 
   selectStatus(value, optin) {
-    console.log('vale', value, optin)
+    // console.log('vale', value, optin)
   }
 
   render() {
@@ -269,7 +285,7 @@ class CategoryModal extends Component {
         rowKeys.push(record.id)
       })
     }
-    const selectedRowKeys = this.state.selectedRowKeys.length > 0 ? this.state.selectedRowKeys : rowKeys;
+    const selectedRowKeys =this.state.selectedRowKeys
 
     // let fileCount = 0
     // let imageCount = 0
@@ -296,7 +312,7 @@ class CategoryModal extends Component {
         key: 'name'
       }
     ]
-    console.log('here is picture ',this.state.fileList,this.state.imageList)
+    // console.log('here is picture ',this.state.fileList,this.state.imageList)
     // const options = ['apple', 'pear', 'orange']
     // console.log('ahahahahahaha', selectedRowKeys)
     //  console.log('itemandcount',this.props.item,this.state.count)
@@ -507,7 +523,7 @@ function mapStateToProps(state) {
   let data = getModalData(state)
   let modalVisible = getModalState(state)
   let modalKey = getModalKey(state)
-  console.log('data', data)
+  // console.log('data', data)
   return {
     data: data,
     modalVisible: modalVisible,
