@@ -50,7 +50,7 @@ class UserShopDetail extends Component {
     })
     this.props.dispatch({
       type: 'shopInfoManager/getCommentList',
-      payload: {id: this.props.location.query.id}
+      payload: {id: this.props.shopDetail.id}
     })
   }
 
@@ -63,7 +63,7 @@ class UserShopDetail extends Component {
     })
     this.props.dispatch({
       type: 'shopInfoManager/getCommentList',
-      payload: {id: this.props.location.query.id}
+      payload: {id: this.props.shopDetail.id}
     })
   }
 
@@ -72,7 +72,7 @@ class UserShopDetail extends Component {
   }
 
   updateCategory(payload, record) {
-    this.props.dispatch({type: 'shopInfoManager/updateShopStatus', payload: {id: record, status: payload ? 1 : 0}})
+    this.props.dispatch({type: 'appUserManager/updateShopStatus', payload: {id: record, status: payload ? 1 : 0,userId:this.props.userDetail.id}})
 
   }
 

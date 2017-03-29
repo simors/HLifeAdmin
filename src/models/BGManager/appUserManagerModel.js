@@ -4,6 +4,8 @@
 
 import {parse} from 'qs'
 import {getAppUserList,updateAppUserEnable,getShopByUserId} from '../../services/BGManager/appUserManager'
+import {updateShopStatus} from '../../services/ShopManager/shopInfoManager'
+
 export default {
   namespace: 'appUserManager',
   state:{
@@ -43,6 +45,16 @@ export default {
         })
       }
       },
+    *updateShopStatus({payload},{call,put}){
+      yield put({type: 'showLoading'})
+      const shop = yield call(updateShopStatus, parse(payload))
+      if (shop.success) {
+        yield put({
+          type: 'fetchShopDetailByUserId',
+          payload:{id:payload.userId}
+        })
+      }
+    },
     *updateAppUserEnable({payload},{call,put}){
       const data = yield call(updateAppUserEnable,parse(payload))
       // console.log('data',data)
