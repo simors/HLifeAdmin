@@ -21,8 +21,7 @@ const KM_PRO = {
 
 // 1. Initialize
 AV.init(
-  // KM_Dev
-  KM_PRO
+  LC_CONFIG.__DEV__ ? KM_Dev : KM_PRO
 )
 
 
