@@ -15,6 +15,7 @@ import ShopListManager from './routes/ShopManager/ShopListManager'
 import AppUserListManager from './routes/AppUserManager/AppUserListManager'
 import AppUserDetailManager from './routes/AppUserManager/AppUserDetailManager'
 import MessagePushIndex from './routes/MessagePush/MessagePushIndex'
+import SmsIndex from './routes/Sms/SmsIndex'
 import ActionQueryManager from './routes/ActionManager/ActionQueryManager'
 
 import Welcome from './routes/welcome'
@@ -47,6 +48,7 @@ export default function ({history, app}) {
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>
       <Route path="/topicManager/topicCategoryManager" breadcrumbName="分类管理" component={TopicCategoryManager}/>
       <Route path="/messagePushManager/messagePushIndex" breadcrumbName="消息推送" component={MessagePushIndex}/>
+      <Route path="/smsManager/smsIndex" breadcrumbName="发短信" component={SmsIndex}/>
       <Route path="*" component={err}/>
     </Route>
 

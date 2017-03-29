@@ -21,8 +21,10 @@ const KM_PRO = {
 
 // 1. Initialize
 AV.init(
-  KM_Dev
+
+  // KM_Dev
   // KM_PRO
+  LC_CONFIG.__DEV__ ? KM_Dev : KM_PRO
 )
 
 
@@ -48,6 +50,8 @@ app.model(require('./models/topicManager/topicManagerModel'))
 app.model(require('./models/BGManager/personManagerModel'))
 app.model(require('./models/topicManager/topicCategoryManagerModel'))
 app.model(require('./models/MessagePUshManager/MessagePushManagerModel'))
+app.model(require('./models/SmsManager/SmsManagerModel'))
+app.model(require('./models/CommonModel'))
 
 
 // 3. Router

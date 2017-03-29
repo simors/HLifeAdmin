@@ -29,3 +29,39 @@ export function getNewTreeData(treeData, curKey, child, level) {
   };
   loop(treeData, level);
 }
+
+export function transformSubAreaListToTreeData(subAreaList) {
+  let treeData = [{
+    label: '中国',
+    value: '0-1',
+    key: '0-1',
+    children: []
+  }]
+
+  let newSubAreaList = []
+  if(subAreaList && subAreaList.length) {
+    const loop = (areaList) => {
+      areaList.forEach((item)=>{
+        item.label = item.area_name
+        item.value = `${item.area_type}-${item.area_code}`
+        item.key = item.value
+        delete item.area_name
+        delete item.area_type
+        delete item.area_code
+        delete item.geo
+        delete item.sup_business_area
+        if(item.sub) {
+          item.children = item.sub
+          delete item.sub
+          loop(item.children)
+        }
+      })
+    }
+
+    newSubAreaList = subAreaList.map((item)=>item)
+    loop(newSubAreaList)
+  }
+  treeData[0].children = newSubAreaList
+  // console.log('transformSubAreaListToTreeData.treeData===', treeData)
+  return treeData
+}

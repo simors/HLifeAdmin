@@ -52,72 +52,72 @@ class MessagePushIndex extends Component{
   }
 
   onTerminalTypeChange = (e) => {
-    console.log('terminalType radio checked', e.target.value);
+    // console.log('terminalType radio checked', e.target.value);
     this.setState({
       terminalType: e.target.value,
     });
   }
 
   onPushConditionChange = (e) => {
-    console.log('pushCondition radio checked', e.target.value);
+    // console.log('pushCondition radio checked', e.target.value);
     this.setState({
       pushCondition: e.target.value,
     });
   }
 
   onInactivityDaysCheckBoxChange = (e) => {
-    console.log(`onInactivityDaysCheckBoxChange.checked = ${e.target.checked}`);
+    // console.log(`onInactivityDaysCheckBoxChange.checked = ${e.target.checked}`);
     this.setState({
       inactivityDaysIsChecked: e.target.checked,
     });
   }
 
   onInactivityDaysChange = (value) => {
-    console.log(`onInactivityDaysChange.days = ${value}`);
+    // console.log(`onInactivityDaysChange.days = ${value}`);
     this.setState({
       inactivityDays: value,
     });
   }
 
   handlePushTimeTypeChange = (value) => {
-    console.log(`handlePushTimeTypeChange.value = ${value}`);
+    // console.log(`handlePushTimeTypeChange.value = ${value}`);
     this.setState({
       pushTimeType: value,
     });
   }
 
   onPushTimeChange = (date, dateString) => {
-    console.log(`onPushTimeChange.date = ${date}`);
-    console.log(`onPushTimeChange.dateString = ${dateString}`);
+    // console.log(`onPushTimeChange.date = ${date}`);
+    // console.log(`onPushTimeChange.dateString = ${dateString}`);
     this.setState({
       pushTime: dateString,
     });
   }
 
   handleExpireTimeTypeChange = (value) => {
-    console.log(`handleExpireTimeTypeChange.value = ${value}`);
+    // console.log(`handleExpireTimeTypeChange.value = ${value}`);
     this.setState({
       expireTimeType: value,
     });
   }
 
   onExpireTimeChange = (date, dateString) => {
-    console.log(`onPushTimeChange.date = ${date}`);
-    console.log(`onPushTimeChange.dateString = ${dateString}`);
+    // console.log(`onPushTimeChange.date = ${date}`);
+    // console.log(`onPushTimeChange.dateString = ${dateString}`);
     this.setState({
       expireTime: dateString,
     });
   }
 
   onExpireIntervalTimeChange = (value) => {
-    console.log(`onExpireIntervalTimeChange.num = ${value}`);
+    // console.log(`onExpireIntervalTimeChange.num = ${value}`);
     this.setState({
       expireIntervalTime: value,
     });
   }
 
   handleExpireIntervalTimeUnitChange = (value) => {
-    console.log(`handleExpireIntervaluTimeUnitChange.value = ${value}`);
+    // console.log(`handleExpireIntervaluTimeUnitChange.value = ${value}`);
     this.setState({
       expireIntervalTimeUnit: value,
     });
@@ -145,7 +145,7 @@ class MessagePushIndex extends Component{
   }
 
   onDistrictTreeDataChange = (value, label, extra) => {
-    console.log('onDistrictTreeDataChange ', value, label, extra);
+    // console.log('onDistrictTreeDataChange ', value, label, extra);
     this.setState({ pushTargetDistrict: value });
   }
 
@@ -184,7 +184,7 @@ class MessagePushIndex extends Component{
   }
 
   handlePushTargetUserTypeChange = (value) => {
-    console.log(`handlePushTargetUserTypeChange.value = ${value}`);
+    // console.log(`handlePushTargetUserTypeChange.value = ${value}`);
     this.setState({
       pushTargetUserType: value,
     });
@@ -342,7 +342,7 @@ class MessagePushIndex extends Component{
   }
 
   onPushContentTypeChange = (e) => {
-    console.log('onPushContentTypeChange radio checked', e.target.value);
+    // console.log('onPushContentTypeChange radio checked', e.target.value);
     this.setState({
       pushContentType: e.target.value,
     });
@@ -375,16 +375,16 @@ class MessagePushIndex extends Component{
 
   handlePushBtnClick = (e) => {
     // console.log('handlePushBtnClick.e=====', e)
-    console.log('handlePushBtnClick.this.state=====', this.state)
+    // console.log('handlePushBtnClick.this.state=====', this.state)
     this.props.dispatch({
       type: 'messagePushManager/push',
       payload: {
         ...this.state,
-        success: ()=>{
-          message.success('推送成功')
+        success: (msg)=>{
+          message.success(msg || '推送成功')
         },
-        error: ()=>{
-          message.error('推送失败')
+        error: (msg)=>{
+          message.error(msg || '推送失败')
         }
       }
     })

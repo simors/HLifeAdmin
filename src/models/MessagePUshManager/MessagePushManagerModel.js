@@ -5,6 +5,7 @@ import {parse} from 'qs'
 import * as MessagePush from '../../services/MessagePushManager/MessagePush'
 import * as MessagePushSelector from '../../selector/MessagePushManager/MessagePushSelector'
 import * as antdUtils from '../../utils/antdUtils'
+import * as LC_CONFIG from '../../constants/adminConfig'
 
 export default {
   namespace: 'messagePushManager',
@@ -76,6 +77,20 @@ export default {
     },
     *push({payload}, {call, put, select}) {
       // console.log('*push----payload>>>>>>', payload)
+      if(payload && payload.pushContentType == 2) {
+        try{
+          let pushContentObj = JSON.parse(payload.pushContent)
+          pushContentObj.notice_type = 'SYSTEM_NOTICE'
+          payload.pushContent = JSON.stringify(pushContentObj)
+        }catch(error){
+          // console.log('error===>>>', error)
+          payload.error && payload.error('消息内容格式错误')
+          return
+        }
+      }
+      if(LC_CONFIG.__DEV__) {
+        payload.prod = 'dev'
+      }
       let isSuccess = yield call(MessagePush.push, payload)
       if(isSuccess) {
         payload.success && payload.success()

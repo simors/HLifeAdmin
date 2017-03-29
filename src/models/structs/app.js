@@ -28,6 +28,15 @@ export const messagePushConfig = {
   ]
 }
 
+export const smsConfig = {
+  key: 'smsManager',
+  name: '短信服务管理',
+  icon: '',
+  child: [
+    {key:'smsIndex',name:'发短信'}
+  ]
+}
+
 export const actionManagerConfig = {
   key: 'actionManager',
   name: '活动管理',
@@ -90,7 +99,7 @@ export const adminUserInfo = {
   icon:''
 }
 
-export const subMenuList = [shopManagerConfig,promoterManagerConfig,backgroundStatisticsConfig,BGManagerConfig,topicManagerConfig,actionManagerConfig,messagePushConfig,userFeedbackConfig]
+export const subMenuList = [shopManagerConfig,promoterManagerConfig,backgroundStatisticsConfig,BGManagerConfig,topicManagerConfig,actionManagerConfig,messagePushConfig,smsConfig, userFeedbackConfig]
 
 export class getMenuList{
   static fromLeancloudObject(results){
