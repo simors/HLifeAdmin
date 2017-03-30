@@ -121,7 +121,7 @@ export default {
     },
     closeModal(state,action){
       return {
-        ...state,catagoryModalOpen:false,modalKey:state.modalKey-1,modalData:{}
+        ...state,catagoryModalOpen:false,modalKey:state.modalKey-1
       }
     }
 
