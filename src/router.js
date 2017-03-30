@@ -17,7 +17,7 @@ import AppUserDetailManager from './routes/AppUserManager/AppUserDetailManager'
 import MessagePushIndex from './routes/MessagePush/MessagePushIndex'
 import SmsIndex from './routes/Sms/SmsIndex'
 import ActionQueryManager from './routes/ActionManager/ActionQueryManager'
-
+import PromoterCommissionManager from './routes/PromoterManager/PromoterCommissionManager'
 import Welcome from './routes/welcome'
 import err from './routes/error'
 export default function ({history, app}) {
@@ -44,6 +44,7 @@ export default function ({history, app}) {
         <IndexRoute   component={ShopListManager}/>
         <Route path="/shopManager/shopInfoManager/shopDetailsManager" breadcrumbName="店铺详情管理" component={ShopDetailsManager}/>
       </Route>
+      <Route path="/promoterManager/promoterCommissionManager" breadcrumbName="推广员提成管理" component={PromoterCommissionManager}/>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>
       <Route path="/topicManager/topicCategoryManager" breadcrumbName="分类管理" component={TopicCategoryManager}/>
