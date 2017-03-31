@@ -2,7 +2,7 @@
  * Created by lilu on 2017/3/30.
  */
 import {parse} from 'qs'
-import {fetchCommissionCof} from '../../services/PromoterManager/promoterCommissionManager'
+import {fetchCommissionCof,submitCommissionCof} from '../../services/PromoterManager/promoterCommissionManager'
 export default {
   namespace: 'promoterCommissionManager',
   state:{
@@ -24,7 +24,14 @@ export default {
         })
       }
     },
-
+    *submitCommissionCof({payload},{call,put}){
+      const data = yield call(submitCommissionCof,parse(payload))
+      if(data.success){
+        yield put({
+          type:'query'
+        })
+      }
+      }
   },
   reducers:{
     showLoading (state) {
