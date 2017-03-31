@@ -88,7 +88,7 @@ export default {
           return
         }
       }
-      if(LC_CONFIG.__DEV__) {
+      if(LC_CONFIG.ENV_DEV_) {
         payload.prod = 'dev'
       }
       let isSuccess = yield call(MessagePush.push, payload)

@@ -24,7 +24,7 @@ AV.init(
 
   // KM_Dev
   // KM_PRO
-  LC_CONFIG.__DEV__ ? KM_Dev : KM_PRO
+  LC_CONFIG.ENV_DEV_ ? KM_Dev : KM_PRO
 )
 
 
