@@ -80,7 +80,8 @@ export const promoterManagerConfig = {
   icon: '',
   child:[
     {key:'promoterGroupManager',name:'推广小组管理'},
-    {key:'promoterCommissionManager',name:'推广员提成管理'}
+    {key:'promoterCommissionManager',name:'推广员提成管理'},
+    {key:'promoterAgentSet',name:'地区代理设置'}
 
   ]
 }
