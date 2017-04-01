@@ -7,7 +7,7 @@ import {TweenOneGroup} from 'rc-tween-one'
 // import styles from './CategoryList.less'
 
 
-class CategoryList extends React.Component {
+class TagList extends React.Component {
   constructor(props) {
     super(props)
     this.enterAnim = [
@@ -133,4 +133,4 @@ class CategoryList extends React.Component {
   }
 }
 
-export default CategoryList
+export default TagList

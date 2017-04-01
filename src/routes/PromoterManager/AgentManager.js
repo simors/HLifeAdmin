@@ -1,6 +1,9 @@
 /**
  * Created by lilu on 2017/4/1.
  */
+/**
+ * Created by lilu on 2017/4/1.
+ */
 import React, {Component, PropTypes} from 'react'
 import {Link, routerRedux} from 'dva/router'
 import {connect} from 'dva'
@@ -9,12 +12,12 @@ import PromoterAgentManager from './PromoterAgentManager'
 import {getPromoterList} from '../../selector/PromoterManager/promoterAgentSelector'
 import PromoterList from '../../components/PromoterManager/PromoterAgent/PromoterList'
 
-class AddAgent extends Component {
+class AgentManager extends Component {
   constructor(props){
     super(props)
   }
   componentDidMount() {
-    this.props.dispatch({type: 'promoterAgentSet/query', })
+    this.props.dispatch({type: 'promoterAgentSet/queryAgent' })
   }
   render(){
     return(
@@ -33,4 +36,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(AddAgent)
+export default connect(mapStateToProps)(AgentManager)

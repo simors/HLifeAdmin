@@ -2,7 +2,7 @@
  * Created by lilu on 2017/4/1.
  */
 import {parse} from 'qs'
-import {fetchPromoterList} from '../../services/PromoterManager/promoterAgentManager'
+import {fetchPromoterList,fetchAgentList} from '../../services/PromoterManager/promoterAgentManager'
 export default {
   namespace: 'promoterAgentSet',
   state:{
@@ -15,6 +15,18 @@ export default {
     *query ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
       const data = yield call(fetchPromoterList, parse(payload))
+      if (data.success) {
+        yield put({
+          type: 'querySuccess',
+          payload: {
+            promoterList: data.promoterList,
+          }
+        })
+      }
+    },
+    *queryAgent ({payload}, {call, put}) {
+      yield put({type: 'showLoading'})
+      const data = yield call(fetchAgentList, parse(payload))
       if (data.success) {
         yield put({
           type: 'querySuccess',

@@ -19,6 +19,7 @@ import SmsIndex from './routes/Sms/SmsIndex'
 import ActionQueryManager from './routes/ActionManager/ActionQueryManager'
 import PromoterCommissionManager from './routes/PromoterManager/PromoterCommissionManager'
 import AddAgent from './routes/PromoterManager/AddAgent'
+import AgentManager from './routes/PromoterManager/AgentManager'
 
 import Welcome from './routes/welcome'
 import err from './routes/error'
@@ -49,6 +50,7 @@ export default function ({history, app}) {
       <Route path="/promoterManager/promoterCommissionManager" breadcrumbName="推广员提成管理" component={PromoterCommissionManager}/>
       <Route path="/promoterManager/promoterAgentSet" breadcrumbName="地区代理设置">
         <IndexRoute component={AddAgent}/>
+        <Route path="/promoterManager/promoterAgentSet/agentManager" breadcrumbName="代理管理" component={AgentManager}/>
       </Route>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>

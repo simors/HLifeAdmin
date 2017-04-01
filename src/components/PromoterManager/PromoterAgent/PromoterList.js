@@ -137,6 +137,19 @@ class PromoterList extends React.Component {
         title:'等级',
         dataIndex:'level',
         key:'level',
+        render:(text,record)=>{
+          if(record.level==1){
+            return <p>青铜</p>
+          }else if(record.level==2){
+            return <p>白银</p>
+          }else if(record.level==3){
+            return <p>黄金</p>
+          }else if(record.level==4){
+            return <p>钻石</p>
+          }else if(record.level==5){
+            return <p>皇冠</p>
+          }
+        }
       },
       {
         title: '代理区域',
