@@ -36,10 +36,9 @@ class CategoryModal extends Component {
       selectTags: []
     }
   }
-
   componentWillReceiveProps(newProps) {
     if(newProps.type!='create'){
-      if(newProps.data.imageSource!=this.props.data.imageSource){
+      if((newProps.data.imageSource!=this.props.data.imageSource)||this.state.fileList.length==0){
         // console.log('data===============>', newProps.data.imageSource)
 
         if(newProps.data.imageSource){
@@ -55,8 +54,8 @@ class CategoryModal extends Component {
 
 
       }
-      if(newProps.data.showPictureSource!=this.props.data.showPictureSource){
-        // console.log('data===============>', newProps.data.showPictureSource)
+      if((newProps.data.showPictureSource!=this.props.data.showPictureSource)||this.state.fileList.length==0){
+         console.log('data===============>', newProps.data.showPictureSource)
 
         if(newProps.data.showPictureSource){
           this.setState({
@@ -69,7 +68,7 @@ class CategoryModal extends Component {
           })
         }
       }
-      if(newProps.data.containedTag!=this.props.data.containedTag) {
+      if((newProps.data.containedTag!=this.props.data.containedTag)||this.state.selectedRowKeys.length==0) {
         // console.log('data===============>', newProps.data.showPictureSource)
 
         if (newProps.data.containedTag) {
@@ -82,11 +81,20 @@ class CategoryModal extends Component {
 
           this.setState({
             selectedRowKeys:rowKeys,
-            selectTags:newProps.data.containedTag
+            selectTags:newProps.containedTag
           })
           console.log('this.state',this.state.selectedRowKeys,this.state.selectTags)
         }
       }
+    }else{
+      this.setState({
+        color: '#000000',
+        pickerOpen: false,
+        fileList: [],
+        imageList: [],
+        selectedRowKeys: [],
+        selectTags: []
+      })
     }
 
   }
@@ -421,7 +429,7 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              defaultFileList={(this.state.fileList.length>0) ? [{
+              fileList={(this.state.fileList.length>0) ? [{
                 uid: -1,
                 status: 'done',
                 name: this.state.fileList[0].name,
@@ -457,7 +465,7 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              defaultFileList={(this.state.imageList.length>0) ? [{
+              fileList={(this.state.imageList.length>0) ? [{
                 uid: -1,
                 status: 'done',
                 name: this.state.imageList[0].name,
