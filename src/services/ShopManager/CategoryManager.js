@@ -66,7 +66,7 @@ export async function createShopCategory(payload) {
 }
 
 export async function updateShopCategory(payload) {
-  // console.log('as',payload)
+   console.log('as',payload)
   let imageSource = ''
   let showPictureSource = ''
   if (payload.imageSource.file) {
@@ -91,15 +91,17 @@ export async function updateShopCategory(payload) {
   }
 
   let tagList = []
+  if(payload.selectedTags){
+    payload.selectedTags.forEach((result)=> {
+      let tag = {
+        __type: 'Pointer',
+        className: 'ShopTag',
+        objectId: result.id
+      }
+      tagList.push(tag)
+    })
+  }
 
-  payload.selectedTags.forEach((result)=> {
-    let tag = {
-      __type: 'Pointer',
-      className: 'ShopTag',
-      objectId: result.id
-    }
-    tagList.push(tag)
-  })
   let categoryInfo = {
     id: payload.key,
     text: payload.text,

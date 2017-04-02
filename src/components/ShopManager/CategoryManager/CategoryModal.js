@@ -78,7 +78,7 @@ class CategoryModal extends Component {
         }
       }
       if ((newProps.data.containedTag != this.props.data.containedTag) || this.state.selectedRowKeys.length == 0) {
-        // console.log('data===============>', newProps.data.showPictureSource)
+         console.log('data===============>', newProps.data.showPictureSource)
 
         if (newProps.data.containedTag) {
           let rowKeys = []
@@ -90,7 +90,7 @@ class CategoryModal extends Component {
 
           this.setState({
             selectedRowKeys: rowKeys,
-            selectTags: newProps.containedTag
+            selectTags: newProps.data.containedTag
           })
           // console.log('this.state',this.state.selectedRowKeys,this.state.selectTags)
         }
@@ -310,7 +310,7 @@ class CategoryModal extends Component {
       })
     }
     const selectedRowKeys = this.state.selectedRowKeys
-
+    console.log('selectTag',this.state.selectTags)
     // let fileCount = 0
     // let imageCount = 0
     // if (this.state.fileList.length > 0) {
@@ -445,12 +445,7 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              fileList={(this.state.fileList.length > 0) ? [{
-                uid: -1,
-                status: 'done',
-                name: this.state.fileList[0].name,
-                url: this.state.fileList[0].url
-              }] : []}
+              fileList={this.state.fileList}
               onChange={(info)=> {
                 {/*console.log('info', info)*/
                 }
@@ -460,10 +455,11 @@ class CategoryModal extends Component {
                 //console.log('fileList',fileList)
 
               }}
+
             >
 
-              { (this.state.fileList.length > 0) ? null :
-                <div><Icon type='plus' className={styles.avatar}/></div>}
+
+                <div><Button>点击上传图标</Button></div>
             </Upload>)}
           </FormItem>
           <FormItem label='精选封面：' hasFeedback {...formItemLayout}>
@@ -482,12 +478,7 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              fileList={(this.state.imageList.length > 0) ? [{
-                uid: -1,
-                status: 'done',
-                name: this.state.imageList[0].name,
-                url: this.state.imageList[0].url
-              }] : []}
+              fileList={this.state.imageList}
               onChange={(info)=> {
                 {/*console.log('info', info)*/
                 }
@@ -499,11 +490,8 @@ class CategoryModal extends Component {
 
               }}
             >
-
-              { (this.state.imageList.length > 0) ? null : (
-                <div><Icon type='plus' className={styles.avatar}/></div>)}
+                <div><Button>点击上传封面</Button></div>
             </Upload>)}
-            <div><Input  onChange={(value)=>{this.tagChange(value)}} placeholder="添加标签"></Input><Button onClick={()=>{this.addTag()}}>添加标签</Button></div>
           </FormItem>
           {/*<FormItem label='显示状态：' hasFeedback {...formItemLayout}>*/}
           {/*{this.props.form.getFieldDecorator('status', {*/}
@@ -523,7 +511,10 @@ class CategoryModal extends Component {
           {/*</div>*/}
           {/*)}*/}
           {/*</FormItem>*/}
-          {this.props.type == 'create' ? null : <FormItem label='标签' hasFeedback {...formItemLayout}>
+          {this.props.type=='create'?null:<div style={{marginLeft:115,marginRight:115}}><Input size='default' onChange={(value)=>{this.tagChange(value)}} placeholder="添加标签"></Input><Button onClick={()=>{this.addTag()}}>添加标签</Button></div>}
+          {this.props.type == 'create' ? null :
+
+          <FormItem label='标签' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('containedTag', {
               initialValue: rowKeys
             })(

@@ -125,7 +125,11 @@ class ActionModal extends Component {
       </Col>
     )
   }
-
+  cancelImg(){
+  this.setState({
+    fileList:[]
+  })
+}
   handleOk() {
 
     this.props.form.validateFields((errors) => {
@@ -239,8 +243,8 @@ class ActionModal extends Component {
           {/*</FormItem>*/}
           <div style={{marginLeft:45,marginBottom:20}}>* 活动类型:
           <Select  style={{marginLeft:8,width:100}} defaultValue='link' onChange={(value)=>{this.selectActionType(value)}}>
-            <Option value='shop'>店铺</Option>
-            <Option value='topic'>文章</Option>
+            {/*<Option value='shop'>店铺</Option>*/}
+            {/*<Option value='topic'>文章</Option>*/}
             <Option value='link'>网页</Option>
           </Select>
             </div>
@@ -282,13 +286,11 @@ class ActionModal extends Component {
                 let fileList = info.fileList
                 fileList = fileList.slice(-1)
                 this.setState({fileList: fileList})
-                //console.log('fileList',fileList)
-
+                console.log('fileList',fileList)
               }}
+              fileList={this.state.fileList}
             >
-
-              { (this.state.fileList.length>0) ? null :
-                <div><Icon type='plus' className={styles.avatar}/></div>}
+                <div><Button>点击上传封面</Button></div>
             </Upload>)}
           </FormItem>
 
