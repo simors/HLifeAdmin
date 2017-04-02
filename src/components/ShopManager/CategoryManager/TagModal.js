@@ -77,7 +77,7 @@ class TagModal extends Component {
     // console.log('roleList',this.props.roleList)
     return (
       <Modal
-        title={(this.props.type === 'create') ? '新建用户' : '修改用户'}
+        title={(this.props.type === 'create') ? '新建标签' : '修改标签'}
         visible={this.state.visible}
         onOk={()=> {
           this.handleOk()

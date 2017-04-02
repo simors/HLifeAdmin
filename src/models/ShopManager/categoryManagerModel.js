@@ -75,7 +75,7 @@ export default {
       if (tag.success) {
         yield put({
           type: 'queryTag',
-
+          payload:payload
         })
       }
       },

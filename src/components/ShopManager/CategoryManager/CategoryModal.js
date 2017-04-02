@@ -34,7 +34,8 @@ class CategoryModal extends Component {
       imageList: [],
       selectedRowKeys: [],
       selectTags: [],
-      tagList: []
+      tagList: [],
+      newTag:''
     }
   }
 
@@ -215,7 +216,9 @@ class CategoryModal extends Component {
     // console.log('hahahah',this.state.visible)
 
   }
-
+  addTag(){
+    this.props.dispatch({type:'shopCategoryManager/tagcreate',payload:{categoryId:this.props.data.id,name:this.state.newTag}})
+  }
   onSelectChange = (selectedRowKeys, selectedRowData) => {
     // console.log('selectedRowKeys changed: ', selectedRowKeys);
     //console.log('selectedRowKeys changed: ', this.state.selectedRowKeys);
@@ -246,7 +249,12 @@ class CategoryModal extends Component {
       this.props.onOk(data)
     })
   }
-
+  tagChange(value){
+    this.setState({
+      newTag:value.target.value
+    })
+    console.log('value',value.target.value)
+  }
   pickOpen() {
     this.setState({pickerOpen: !this.state.pickerOpen})
   }
@@ -495,6 +503,7 @@ class CategoryModal extends Component {
               { (this.state.imageList.length > 0) ? null : (
                 <div><Icon type='plus' className={styles.avatar}/></div>)}
             </Upload>)}
+            <div><Input  onChange={(value)=>{this.tagChange(value)}} placeholder="添加标签"></Input><Button onClick={()=>{this.addTag()}}>添加标签</Button></div>
           </FormItem>
           {/*<FormItem label='显示状态：' hasFeedback {...formItemLayout}>*/}
           {/*{this.props.form.getFieldDecorator('status', {*/}
