@@ -2,7 +2,7 @@
  * Created by lilu on 2017/2/20.
  */
 import React, {Component} from 'react'
-import {Table, Popconfirm, Checkbox} from 'antd'
+import {Table, Popconfirm, Checkbox,Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './topicList.less'
 import {Link,} from 'dva/router'
@@ -91,7 +91,6 @@ class topicList extends React.Component {
         dataIndex: 'createdAt',
         key: 'createdAt',
         render:(text,record)=>{
-          const status=record.status
           return <p>{formatLeancloudTime(new Date(record.createdAt))}</p>
         }
       }, {
@@ -102,7 +101,19 @@ class topicList extends React.Component {
         title: '点赞数',
         dataIndex: 'likeCount',
         key: 'likeCount',
-      }, {
+      },
+      {
+        title: '显示状态',
+        dataIndex: 'status',
+        key: 'status',
+        render: (text, record)=> {
+// console.log('record',record.key,record.status)
+          return <Switch checkedChildren={'显示'} unCheckedChildren={'不显示'}
+                         defaultChecked={(record.status == 1) ? true : false} onChange={(payload)=> {
+            this.props.updateTopicStatus(payload, record.key)
+          }}></Switch>
+        }
+      },{
         title: '精选',
         dataIndex: 'picked',
         render: (text, record) => {

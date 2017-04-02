@@ -8,6 +8,8 @@
  * Created by lilu on 2017/2/20.
  */
 import React from 'react'
+import {Link,} from 'dva/router'
+
 import {Table, Popconfirm,Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './PromoterList.less'
@@ -202,14 +204,19 @@ class PromoterList extends React.Component {
         title: '操作',
         key: 'operation',
         width: 100,
-        render: (text, record) => (
+        render: (text, record,index) => (
           <p>
           <a onClick={() => this.props.onEditItem(record.objectId)} style={{
             marginRight: 4
           }}>设置代理</a>
-          <a onClick={(record) => this.props.onEditItem(record)} style={{
-            marginRight: 4
-          }}>详情</a>
+            <p>
+              <Link to={{
+                pathname: "/promoterManager/promoterAgentSet/promoterDetail",
+                query: {id: record.objectId, index: index}
+              }} style={{
+                marginRight: 4
+              }}>详情</Link>
+            </p>
         </p>
         )
       }

@@ -14,7 +14,15 @@ export async function getTopicList(payload) {
     return {success:false}
   }
 }
-
+export async function updateTopicStatus(payload){
+  try{
+    // console.log('payload-===>',payload)
+    await AV.Cloud.run('updateTopicStatus',payload)
+    return{success:true}
+  }catch (err){
+    return {success:false}
+  }
+}
 export async function getTopicCategoryList(payload) {
   try {
     let topicInfo = await AV.Cloud.run('getAdminTopicCategoryList', payload)

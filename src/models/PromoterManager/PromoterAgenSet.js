@@ -2,11 +2,12 @@
  * Created by lilu on 2017/4/1.
  */
 import {parse} from 'qs'
-import {fetchPromoterList,fetchAgentList,agentSet} from '../../services/PromoterManager/promoterAgentManager'
+import {fetchPromoterList,fetchAgentList,agentSet,getPromoterInfoById} from '../../services/PromoterManager/promoterAgentManager'
 export default {
   namespace: 'promoterAgentSet',
   state:{
-    promoterList:[]
+    promoterList:[],
+    promoterDetail:{}
   },
   subscriptions:{
 
@@ -46,6 +47,16 @@ export default {
         })
       }
     },
+    *fetchPromoterDetail({payload},{call,put}){
+      yield put({type:'showLoading'})
+      const data = yield call(getPromoterInfoById,parse(payload))
+      if(data.success){
+        yield put ({
+          type:'promoterDetailReducer',
+          payload:{promoterDetail:data.promoterDetail}
+        })
+      }
+    },
     *agentSet({payload},{call,put}){
       yield put({type: 'showLoading'})
       const promoter = yield call(agentSet, parse(payload))
@@ -64,11 +75,17 @@ export default {
     },
     querySuccess(state,action){
       let {promoterList} = action.payload
-    console.log('promoterList',promoterList)
+    // console.log('promoterList',promoterList)
       return {
         ...state,promoterList:promoterList
       }
     },
+    promoterDetailReducer(state,action){
+      let {promoterDetail}=action.payload
+      return{
+        ...state,promoterDetail:promoterDetail
+      }
+    }
 
 
   }

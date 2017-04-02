@@ -20,7 +20,9 @@ export class topicList {
       topicInfo.commentNum = result.commentNum
       topicInfo.createdAt = result.createdAt
       topicInfo.picked = result.picked
-     // count++
+      topicInfo.status = result.status
+
+      // count++
       topicList.push(topicInfo)
     })
     return topicList
@@ -32,6 +34,7 @@ export class topicCategoryList {
     let topicCategoryList = []
     results.forEach((result)=> {
       let topicCategoryInfo = {}
+
       topicCategoryInfo.title = result.title
       topicCategoryInfo.id = result.id
       topicCategoryInfo.picked = result.isPicked

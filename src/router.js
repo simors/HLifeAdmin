@@ -20,7 +20,7 @@ import ActionQueryManager from './routes/ActionManager/ActionQueryManager'
 import PromoterCommissionManager from './routes/PromoterManager/PromoterCommissionManager'
 import AddAgent from './routes/PromoterManager/AddAgent'
 import AgentManager from './routes/PromoterManager/AgentManager'
-
+import PromoterDetail from './routes/PromoterManager/PromoterDetail'
 import Welcome from './routes/welcome'
 import err from './routes/error'
 export default function ({history, app}) {
@@ -51,6 +51,8 @@ export default function ({history, app}) {
       <Route path="/promoterManager/promoterAgentSet" breadcrumbName="地区代理设置">
         <IndexRoute component={AddAgent}/>
         <Route path="/promoterManager/promoterAgentSet/agentManager" breadcrumbName="代理管理" component={AgentManager}/>
+        <Route path="/promoterManager/promoterAgentSet/promoterDetail" breadcrumbName="推广用户详情" component={PromoterDetail}/>
+
       </Route>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>

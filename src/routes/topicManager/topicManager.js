@@ -82,7 +82,23 @@ class topicManager extends Component {
     })
     this.setState({modalVisible: false})
   }
+  updateTopicStatus(payload, record) {
+    // console.log('payload', payload, record)
+    this.props.dispatch({
+      type: 'topicManage/updateTopicStatus',
+      payload: {id: record, status: payload ? 1 : 0,payload: {
 
+        orderMode: this.state.orderMode,
+          categoryName: this.state.categoryName == '所有分类' ? '' : this.state.categoryName,
+          filterValue: this.state.filterValue,
+          startTime: this.state.startTime,
+          endTime: this.state.endTime,
+          picked: this.state.picked,
+
+    }}
+    })
+
+  }
   onCancel() {
     this.setState({modalVisible: false})
   }
@@ -202,6 +218,7 @@ class topicManager extends Component {
 
         </Row>
         <TopicList
+          updateTopicStatus={(payload,record)=>{this.updateTopicStatus(payload,record)}}
           changePicked={(id, picked)=> {
             this.props.dispatch({
               type: 'topicManage/update',
