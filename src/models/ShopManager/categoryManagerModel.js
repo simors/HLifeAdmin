@@ -23,12 +23,25 @@ export default {
     *query ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
       const category = yield call(getShopCategoryList, parse(payload))
-      const tag = yield call(getShopTagList,parse(payload))
-      if (category.success&&tag.success) {
+      // const tag = yield call(getShopTagList,parse(payload))
+      if (category.success) {
         yield put({
           type: 'querySuccess',
           payload: {
             categoryList: category.categoryList,
+            // tagList: tag.tagList
+          }
+        })
+      }
+    },
+    *queryTag ({payload}, {call, put}) {
+      yield put({type: 'showLoading'})
+      // const category = yield call(getShopCategoryList, parse(payload))
+      const tag = yield call(getShopTagList,parse(payload))
+      if (tag.success) {
+        yield put({
+          type: 'queryTagSuccess',
+          payload: {
             tagList: tag.tagList
           }
         })
@@ -61,7 +74,7 @@ export default {
       const tag = yield call(createShopTag, parse(payload))
       if (tag.success) {
         yield put({
-          type: 'query',
+          type: 'queryTag',
 
         })
       }
@@ -91,7 +104,7 @@ export default {
       const category = yield call(updateShopTag, parse(payload))
       if (category.success) {
         yield put({
-          type: 'query',
+          type: 'queryTag',
 
         })
       }
@@ -102,10 +115,17 @@ export default {
       return {...state, loading: true}
     },
     querySuccess(state,action){
-      let {categoryList,tagList} = action.payload
+      let {categoryList} = action.payload
 
       return {
-        ...state,categoryList:categoryList,tagList:tagList
+        ...state,categoryList:categoryList
+      }
+    },
+    queryTagSuccess(state,action){
+      let {tagList} = action.payload
+
+      return {
+        ...state,tagList:tagList
       }
     },
     queryPoolSuccess(state,action){

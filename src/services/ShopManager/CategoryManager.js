@@ -13,10 +13,10 @@ export async function getShopCategoryList(payload) {
   }
 }
 
-export async function getShopTagList() {
+export async function getShopTagList(payload) {
   try {
-    let tagList = await AV.Cloud.run('getShopTagList')
-    // console.log('tagList',tagList)
+    let tagList = await AV.Cloud.run('getShopTagList',payload)
+     console.log('tagList=======>',tagList)
     return {success: true, tagList: tagList}
   } catch (err) {
     return {success: false}
@@ -123,6 +123,7 @@ export async function updateShopCategory(payload){
 
 export async function createShopTag(payload){
   try{
+    // console.log('payload===>',payload)
     await AV.Cloud.run('createShopTag',payload)
     return {success: true}
   }catch(err){

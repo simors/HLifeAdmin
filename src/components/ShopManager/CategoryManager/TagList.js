@@ -109,6 +109,16 @@ class TagList extends React.Component {
         width: 1000,
 
       },
+      {
+        title: '分类名称',
+        dataIndex: 'categoryName',
+        key: 'categoryName',
+        width: 1000,
+        render:(text,record)=>{
+          return <p>{record.categoryName}</p>
+        }
+
+      },
 
       {
         title: '操作',

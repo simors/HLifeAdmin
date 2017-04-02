@@ -47,7 +47,7 @@ class CategoryQuery extends Component {
     })
     this.props.dispatch({type: 'shopCategoryManager/closeModal'})
 
-     console.log('data====>',data)
+    // console.log('data====>',data)
     // this.setState({modalVisible:false,modalRandomKey:this.state.modalRandomKey-1})
   }
 

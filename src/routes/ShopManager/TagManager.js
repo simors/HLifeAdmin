@@ -26,7 +26,7 @@ class ShopTagManager extends Component {
   }
 
   componentDidMount() {
-    // this.props.dispatch({type:'shopCategoryManager/query'})
+     this.props.dispatch({type:'shopCategoryManager/queryTag'})
   }
 
   add() {
@@ -40,7 +40,7 @@ class ShopTagManager extends Component {
       type: 'shopCategoryManager/tag' + this.state.modalType,
       payload: data
     })
-    console.log('data====>', data)
+    // console.log('data====>', data)
     this.setState({modalVisible: false})
   }
 
@@ -77,9 +77,10 @@ class ShopTagManager extends Component {
             onDeleteItem={(payload)=> {
               this.onDelete(payload)
             }}
-            pagination={{total: this.props.tagList.length, pageSize: 10}}
+            pagination={{total: this.props.tagList?this.props.tagList.length:1, pageSize: 10}}
           />
           <TagModal
+            categoryList = {this.props.categoryList}
             visible={this.state.modalVisible}
             type={this.state.modalType}
             onOk={(payload)=> {
@@ -98,11 +99,11 @@ class ShopTagManager extends Component {
 
 
 function mapStateToProps(state) {
-  // let categoryList = getCategoryList(state)
+  let categoryList = getCategoryList(state)
   let tagList = getTagList(state)
-  console.log('tagList', tagList)
+  // console.log('tagList', tagList)
   return {
-    //   categoryList:categoryList,
+      categoryList:categoryList,
     tagList: tagList
 
   }

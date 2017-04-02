@@ -7,7 +7,7 @@ import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, B
 import styles from './CategoryModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
-import {getModalData, getModalState, getModalKey} from '../../../selector/ShopManager/categorySelector'
+import {getModalData, getModalState, getModalKey,getTagList} from '../../../selector/ShopManager/categorySelector'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -33,11 +33,18 @@ class CategoryModal extends Component {
       fileList: [],
       imageList: [],
       selectedRowKeys: [],
-      selectTags: []
+      selectTags: [],
+      tagList:[]
     }
   }
   componentWillReceiveProps(newProps) {
     if(newProps.type!='create'){
+      if(newProps.data.id!=this.props.data.id){
+        this.props.dispatch({type:'shopCategoryManager/queryTag',payload:{categoryId:newProps.data.id}})
+        this.setState({
+          tagList:newProps.data.tagList
+        })
+      }
       if((newProps.data.imageSource!=this.props.data.imageSource)||this.state.fileList.length==0){
         // console.log('data===============>', newProps.data.imageSource)
 
@@ -503,7 +510,7 @@ class CategoryModal extends Component {
           {/*</div>*/}
           {/*)}*/}
           {/*</FormItem>*/}
-          <FormItem label='标签' hasFeedback {...formItemLayout}>
+          {this.props.type=='create'?null: <FormItem label='标签' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('containedTag', {
               initialValue: rowKeys
             })(
@@ -512,7 +519,7 @@ class CategoryModal extends Component {
               }} dataSource={this.props.tagList} columns={columns} pagination='false' rowKey={record=>record.id}
                      rowSelection={rowSelection}></Table>
             )}
-          </FormItem>
+          </FormItem>}
         </Form>
       </Modal>
     )
@@ -528,11 +535,13 @@ CategoryModal.propTypes = {
 }
 
 function mapStateToProps(state) {
+  let tagList = getTagList(state)
   let data = getModalData(state)
   let modalVisible = getModalState(state)
   let modalKey = getModalKey(state)
-  // console.log('data', data)
+   console.log('tagList==========>', tagList)
   return {
+    tagList:tagList,
     data: data,
     modalVisible: modalVisible,
     modalKey: modalKey

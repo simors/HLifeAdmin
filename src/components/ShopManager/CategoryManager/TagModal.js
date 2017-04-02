@@ -2,10 +2,11 @@
  * Created by lilu on 2017/2/21.
  */
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox} from 'antd'
+import {Form, Input, InputNumber, Radio, Modal, Checkbox,Select} from 'antd'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
+const Option = Select.Option;
 
 const formItemLayout = {
   labelCol: {
@@ -51,7 +52,14 @@ class TagModal extends Component {
       this.props.onOk(data)
     })
   }
-
+  renderCategoryList(){
+    if(this.props.categoryList){
+      let categoryList = this.props.categoryList.map((item,key)=>{
+        return <Option key={item.id}>{item.text}</Option>
+      })
+      return categoryList
+    }
+  }
   render() {
     const options = ['apple', 'pear', 'orange']
     // console.log('ahahahahahaha', this.props.item)
@@ -80,6 +88,19 @@ class TagModal extends Component {
         key={this.state.count}
       >
         <Form horizontal>
+          <FormItem label='上级分类：' hasFeedback {...formItemLayout}>
+            {this.props.form.getFieldDecorator('categoryId', {
+              initialValue: this.props.type === 'create' ? '' : this.props.item.categoryId,
+              rules: [
+                {
+                  required: true,
+                  message: '上级分类未选择'
+                }
+              ]
+            })(<Select>
+              {this.renderCategoryList()}
+            </Select>)}
+          </FormItem>
           <FormItem label='标签名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
               initialValue: this.props.type === 'create' ? '' : this.props.item.name,
