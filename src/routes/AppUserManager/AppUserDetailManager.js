@@ -19,10 +19,7 @@ class appUserDetailManager extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch({
-      type: 'appUserManager/fetchShopDetailByUserId',
-      payload: {id: this.props.location.query.id}
-    })
+
     this.props.dispatch({
       type: 'common/fetchSubAreaList'
     })

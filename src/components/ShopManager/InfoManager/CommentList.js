@@ -58,7 +58,7 @@ class CommentList extends React.Component {
   replyList(data){
     let replyColumns=[
       {
-        title: '评论内容',
+        title: '回复内容',
         dataIndex: 'content',
         key: 'content',
       },{
