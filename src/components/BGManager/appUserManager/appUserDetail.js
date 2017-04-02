@@ -7,16 +7,42 @@
 import React, {Component} from 'react'
 import {Table, Popconfirm, Card, Rate, Tag, Button, Icon, Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
+import UserToPromoter from './user2promoterModal'
 import {Link} from 'dva/router'
 
 export default class AppUserDetail extends Component {
   constructor(props) {
     super(props)
+    this.state={
+      modalVisible:false
+    }
   }
 
+  onOk(data){
+    // console.log('data=====>',data)
+    this.props.user2promoter(data)
+    this.setState({
+      modalVisible:false
+    })
+  }
+  openVisible(){
+    this.setState({
+      modalVisible:true
+    })
+  }
+  onCancel(){
+    this.setState({
+      modalVisible:false
+    })
+  }
+  renderToPromoter(){
+    return(
+      <div><Button onClick={()=>{this.openVisible()}}>直接升为推广员</Button></div>
 
+    )
+  }
   render() {
-    // console.log('asas',this.props.userDetail)
+     console.log('asas',this.props.areaTreeSelectData)
     return (
       <div>
         <div>头像：<img style={{width: 150, height: 150}} src={this.props.userDetail.avatar}></img></div>
@@ -35,8 +61,8 @@ export default class AppUserDetail extends Component {
         <div>性别：{this.props.userDetail.gender}</div>
         <div>认证数据：{this.props.userDetail.authData}</div>
         <div>注册时间：{this.props.userDetail.createdAt}</div>
-
-
+        {this.renderToPromoter()}
+        <UserToPromoter onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
       </div>
     )
   }

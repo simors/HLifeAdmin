@@ -115,7 +115,10 @@ class PromoterList extends React.Component {
       {
         title: '地址',
         dataIndex: 'address',
-        key: 'address'
+        key: 'address',
+        render:(text,record)=>{
+          return <p>{record.liveProvince+record.liveCity+record.liveDistrict}</p>
+        }
       },
       {
         title: '邀请店铺数量',
@@ -204,9 +207,9 @@ class PromoterList extends React.Component {
             <a onClick={() => this.props.onEditItem(record)} style={{
               marginRight: 4
             }}>设置代理</a>
-            <Popconfirm title='确定要删除吗？' onConfirm={() => this.props.onDeleteItem(record.key)}>
-            <a>详情</a>
-            </Popconfirm>
+            <a onClick={() => this.props.onEditItem(record)} style={{
+              marginRight: 4
+            }}>详情</a>
           </p>
         )
       }

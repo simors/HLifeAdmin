@@ -3,14 +3,14 @@
  */
 
 import {parse} from 'qs'
-import {getAppUserList,updateAppUserEnable,getShopByUserId} from '../../services/BGManager/appUserManager'
+import {getAppUserList,updateAppUserEnable,getShopByUserId,user2promoter} from '../../services/BGManager/appUserManager'
 import {updateShopStatus} from '../../services/ShopManager/shopInfoManager'
 
 export default {
   namespace: 'appUserManager',
   state:{
    appUserList:[],
-   shopDetail:{}
+   shopDetail:{},
   },
   subscriptions:{
 
@@ -52,6 +52,16 @@ export default {
         yield put({
           type: 'fetchShopDetailByUserId',
           payload:{id:payload.userId}
+        })
+      }
+    },
+    *userToPromoter({payload},{call,put}){
+      yield put({type: 'showLoading'})
+      const promoter = yield call(user2promoter, parse(payload))
+      if (promoter.success) {
+        yield put({
+          type: 'query',
+          // payload:{id:payload.userId}
         })
       }
     },

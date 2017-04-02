@@ -37,3 +37,29 @@ export async function getShopByUserId(payload){
     return {success:false}
   }
 }
+
+export async function user2promoter(payload){
+  try{
+     // console.log('payload',payload.identityArea[1])
+    let promoter={
+      province:payload.identityArea[1],
+      city:payload.identityArea[2],
+      district:payload.identityArea[3],
+      liveProvince:payload.liveArea[1],
+      liveCity:payload.liveArea[2],
+      liveDistrict:payload.liveArea[3],
+      cardId:payload.cardId,
+      name:payload.name,
+      phone:payload.phone,
+      userId:payload.userId,
+      identity:payload.identity
+    }
+  await AV.Cloud.run('promoterDirectSetPromoter',promoter)
+
+    // console.log('gogogogogogogoog',promoter)
+
+    return {success:true}
+  }catch (err){
+    return {success:false,message:err.message}
+  }
+}

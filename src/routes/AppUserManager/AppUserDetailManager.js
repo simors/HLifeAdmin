@@ -8,6 +8,8 @@ import AppUserManager from './AppUserManager'
 import {Tag, Tabs} from 'antd'
 import AppUserDetail from '../../components/BGManager/appUserManager/appUserDetail'
 import UserShopDetail from'./UserShopDetail'
+import * as CommonSelect from '../../selector/CommonSelect'
+
 const TabPane = Tabs.TabPane
 
 class appUserDetailManager extends Component {
@@ -21,10 +23,21 @@ class appUserDetailManager extends Component {
       type: 'appUserManager/fetchShopDetailByUserId',
       payload: {id: this.props.location.query.id}
     })
+    this.props.dispatch({
+      type: 'common/fetchSubAreaList'
+    })
 
   }
 
-
+  user2promoter(data){
+    this.props.dispatch({
+      type:'appUserManager/userToPromoter',
+      payload:{
+        ...data,
+        userId:this.props.appUserDetail.id
+      }
+    })
+  }
   updateUserEnable(payload, record) {
     // console.log('payload,record',payload,record)
     this.props.dispatch({type: 'appUserManager/updateAppUserEnable', payload: {id: record, status: payload ? 1 : 0}})
@@ -55,7 +68,7 @@ class appUserDetailManager extends Component {
           // console.log('here is code')
           return <TabPane tab='推广详情' key='2'></TabPane>
         }else if(item=='shopkeeper'){
-          return <TabPane tab='店铺详情' key='3'><UserShopDetail userDetail={this.props.appUserDetail}></UserShopDetail></TabPane>
+          return <TabPane tab='店铺详情' key='3'><UserShopDetail userDetail={this.props.appUserDetail}  ></UserShopDetail></TabPane>
         }
       })
       return panes
@@ -69,10 +82,10 @@ class appUserDetailManager extends Component {
       <AppUserManager>
 
         <Tabs defaultActiveKey='1' className='content-inner'>
-          <TabPane tab='用户详情' key='1'><AppUserDetail userDetail={this.props.appUserDetail}
+          <TabPane tab='用户详情' key='1'><AppUserDetail areaTreeSelectData={this.props.areaTreeSelectData} userDetail={this.props.appUserDetail}
                                                      updateUserEnable={(payload, record)=> {
                                                        this.updateUserEnable(payload, record)
-                                                     }}/>
+                                                     }} user2promoter={(data)=>{this.user2promoter(data)}}/>
 
           </TabPane>
           {this.renderTab()}
@@ -88,9 +101,9 @@ class appUserDetailManager extends Component {
 function mapStateToProps(state, ownProps) {
 // console.log('aaaaa',ownProps.location.query)
   let appUserDetail = getAppUserDetail(state, ownProps.location.query.id)
-
-   console.log('appUserDetail',appUserDetail)
-  return {appUserDetail: appUserDetail}
+  const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
+   console.log('areaTreeSelectData',areaTreeSelectData)
+  return {appUserDetail: appUserDetail,areaTreeSelectData:areaTreeSelectData}
 }
 
 export default connect(mapStateToProps)(appUserDetailManager)
