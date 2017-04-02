@@ -72,34 +72,37 @@ class UserShopDetail extends Component {
   }
 
   updateCategory(payload, record) {
-    this.props.dispatch({type: 'appUserManager/updateShopStatus', payload: {id: record, status: payload ? 1 : 0,userId:this.props.userDetail.id}})
+    this.props.dispatch({
+      type: 'appUserManager/updateShopStatus',
+      payload: {id: record, status: payload ? 1 : 0, userId: this.props.userDetail.id}
+    })
 
   }
 
   render() {
     return (
 
-        <Tabs defaultActiveKey='1' className='content-inner'>
-          <TabPane tab='详情管理' key='1'><ShopDetails shopDetails={this.props.shopDetail} cancelImg={(payload)=> {
-            this.cancelImg(payload)
-          }} updateCategory={(payload, record)=> {
-            this.updateCategory(payload, record)
-          }}/>
-          </TabPane>
-          <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}
-          </TabPane>
-          <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}
-                                                   disableComment={(data)=> {
-                                                     this.disableComment(data)
-                                                   }}
-                                                   enableComment={(data)=> {
-                                                     this.enableComment(data)
-                                                   }}
-          />
-          </TabPane>
+      <Tabs defaultActiveKey='1' className='content-inner'>
+        <TabPane tab='详情管理' key='1'><ShopDetails shopDetails={this.props.shopDetail} cancelImg={(payload)=> {
+          this.cancelImg(payload)
+        }} updateCategory={(payload, record)=> {
+          this.updateCategory(payload, record)
+        }}/>
+        </TabPane>
+        <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}
+        </TabPane>
+        <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}
+                                                 disableComment={(data)=> {
+                                                   this.disableComment(data)
+                                                 }}
+                                                 enableComment={(data)=> {
+                                                   this.enableComment(data)
+                                                 }}
+        />
+        </TabPane>
 
 
-        </Tabs>
+      </Tabs>
 
     )
   }

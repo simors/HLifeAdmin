@@ -2,7 +2,7 @@
  * Created by lilu on 2017/2/21.
  */
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox,Select} from 'antd'
+import {Form, Input, InputNumber, Radio, Modal, Checkbox, Select} from 'antd'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -33,7 +33,8 @@ class TagModal extends Component {
 
   componentDidMount() {
     this.setState({visible: !!this.props.visible})
-    console.log(...this.props)
+    // console.log(...this.props)
+
 
   }
 
@@ -52,14 +53,16 @@ class TagModal extends Component {
       this.props.onOk(data)
     })
   }
-  renderCategoryList(){
-    if(this.props.categoryList){
-      let categoryList = this.props.categoryList.map((item,key)=>{
+
+  renderCategoryList() {
+    if (this.props.categoryList) {
+      let categoryList = this.props.categoryList.map((item, key)=> {
         return <Option key={item.id}>{item.text}</Option>
       })
       return categoryList
     }
   }
+
   render() {
     const options = ['apple', 'pear', 'orange']
     // console.log('ahahahahahaha', this.props.item)

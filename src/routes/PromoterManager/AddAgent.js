@@ -12,44 +12,56 @@ import AgentModal from '../../components/PromoterManager/PromoterAgent/AgentModa
 import * as CommonSelect from '../../selector/CommonSelect'
 
 class AddAgent extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state={
-      modalVisible:false,
-      promoterId:''
+    this.state = {
+      modalVisible: false,
+      promoterId: ''
     }
   }
+
   componentDidMount() {
-    this.props.dispatch({type: 'promoterAgentSet/query', })
+    this.props.dispatch({type: 'promoterAgentSet/query',})
     this.props.dispatch({
       type: 'common/fetchSubAreaList'
     })
   }
-  onOk(data){
+
+  onOk(data) {
     // console.log('data=====>',data)
-    this.props.dispatch({type: 'promoterAgentSet/agentAdd', payload:{...data,promoterId:this.state.promoterId}})
+    this.props.dispatch({type: 'promoterAgentSet/agentAdd', payload: {...data, promoterId: this.state.promoterId}})
     this.setState({
-      modalVisible:false
+      modalVisible: false
     })
   }
-  openVisible(record){
+
+  openVisible(record) {
 
     this.setState({
-      promoterId:record,
-      modalVisible:true
+      promoterId: record,
+      modalVisible: true
     })
   }
-  onCancel(){
+
+  onCancel() {
     this.setState({
-      modalVisible:false
+      modalVisible: false
     })
   }
-  render(){
-    return(
+
+  render() {
+    return (
       <PromoterAgentManager>
         <div>
-          <PromoterList dataSource={this.props.promoterList} onEditItem={(record)=>{this.openVisible(record)}}/>
-          <AgentModal visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData} onOk={(data)=>{this.onOk(data)}} onCancel={()=>{this.onCancel()}} />
+          <PromoterList dataSource={this.props.promoterList} onEditItem={(record)=> {
+            this.openVisible(record)
+          }}/>
+          <AgentModal visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData}
+                      onOk={(data)=> {
+                        this.onOk(data)
+                      }} onCancel={()=> {
+            this.onCancel()
+          }}/>
         </div>
       </PromoterAgentManager>
     )
@@ -60,7 +72,7 @@ function mapStateToProps(state) {
   const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
 
   return {
-    promoterList:promoterList,areaTreeSelectData:areaTreeSelectData
+    promoterList: promoterList, areaTreeSelectData: areaTreeSelectData
   }
 }
 

@@ -114,7 +114,7 @@ class TagList extends React.Component {
         dataIndex: 'categoryName',
         key: 'categoryName',
         width: 1000,
-        render:(text,record)=>{
+        render: (text, record)=> {
           return <p>{record.categoryName}</p>
         }
 
