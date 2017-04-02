@@ -2,7 +2,7 @@
  * Created by lilu on 2017/4/1.
  */
 import {parse} from 'qs'
-import {fetchPromoterList,fetchAgentList} from '../../services/PromoterManager/promoterAgentManager'
+import {fetchPromoterList,fetchAgentList,agentSet} from '../../services/PromoterManager/promoterAgentManager'
 export default {
   namespace: 'promoterAgentSet',
   state:{
@@ -36,6 +36,26 @@ export default {
         })
       }
     },
+    *agentAdd({payload},{call,put}){
+      yield put({type: 'showLoading'})
+      const promoter = yield call(agentSet, parse(payload))
+      if (promoter.success) {
+        yield put({
+          type: 'query',
+          // payload:{id:payload.userId}
+        })
+      }
+    },
+    *agentSet({payload},{call,put}){
+      yield put({type: 'showLoading'})
+      const promoter = yield call(agentSet, parse(payload))
+      if (promoter.success) {
+        yield put({
+          type: 'queryAgent',
+          // payload:{id:payload.userId}
+        })
+      }
+    },
   }
   ,
   reducers:{
@@ -44,7 +64,7 @@ export default {
     },
     querySuccess(state,action){
       let {promoterList} = action.payload
-
+    console.log('promoterList',promoterList)
       return {
         ...state,promoterList:promoterList
       }

@@ -18,7 +18,7 @@ class PromoterAgentManager extends Component {
   }
 
   componentDidMount() {
-     this.props.dispatch({type: 'promoterAgentSet/query', })
+     // this.props.dispatch({type: 'promoterAgentSet/query', })
   }
 
   // console.log('personList====>',personList)

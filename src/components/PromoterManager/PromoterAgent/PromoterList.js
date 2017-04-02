@@ -204,13 +204,13 @@ class PromoterList extends React.Component {
         width: 100,
         render: (text, record) => (
           <p>
-            <a onClick={() => this.props.onEditItem(record)} style={{
-              marginRight: 4
-            }}>设置代理</a>
-            <a onClick={() => this.props.onEditItem(record)} style={{
-              marginRight: 4
-            }}>详情</a>
-          </p>
+          <a onClick={() => this.props.onEditItem(record.objectId)} style={{
+            marginRight: 4
+          }}>设置代理</a>
+          <a onClick={(record) => this.props.onEditItem(record)} style={{
+            marginRight: 4
+          }}>详情</a>
+        </p>
         )
       }
     ]

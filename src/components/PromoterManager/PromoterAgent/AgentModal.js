@@ -2,14 +2,17 @@
  * Created by lilu on 2017/4/2.
  */
 /**
- * Created by lilu on 2017/2/21.
+ * Created by lilu on 2017/4/2.
  */
+
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, InputNumber, Radio, Modal, Checkbox,Cascader} from 'antd'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
 const RadioGroup = Radio.Group;
+
+
 const formItemLayout = {
   labelCol: {
     span: 6
@@ -18,7 +21,7 @@ const formItemLayout = {
     span: 14
   }
 }
-class user2promoterModal extends Component {
+class AgentModal extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -102,39 +105,6 @@ class user2promoterModal extends Component {
         key={this.state.count}
       >
         <Form horizontal>
-          <FormItem label='姓名：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('name', {
-              initialValue: '',
-              rules: [
-                {
-                  required: true,
-                  message: '姓名未填写'
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
-          <FormItem label='身份证：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('cardId', {
-              initialValue: '',
-              rules: [
-                {
-                  required: true,
-                  message: '身份证未填写'
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
-          <FormItem label='电话号码：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('phone', {
-              initialValue: '',
-              rules: [
-                {
-                  required: true,
-                  message: '电话号码未填写'
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
           <FormItem label='代理等级：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('identity', )
             (<RadioGroup  >
@@ -144,25 +114,7 @@ class user2promoterModal extends Component {
               <Radio value={3}>区代理</Radio>
             </RadioGroup>)}
           </FormItem>
-          <FormItem {...formItemLayout} hasFeedback label={'生活地区'}>
-            {this.props.form.getFieldDecorator('liveArea',{
-              rules:[
-                {
-                  required: true,
-                  message:'生活地区未选择'
-                }
-              ]
-            })(
-              <Cascader
-                options={this.props.areaTreeSelectData}
-                changeOnSelect
-                placeholder="请选择生活地区地区"
-                onChange={(value,selectedOptions)=>{
-                  this.selectedLiveDistrict(value,selectedOptions)
-                }}
-              />
-            )}
-          </FormItem>
+
           <FormItem {...formItemLayout} hasFeedback  label={'代理地区'}>
             {this.props.form.getFieldDecorator(`identityArea`)(
               <Cascader
@@ -181,7 +133,7 @@ class user2promoterModal extends Component {
   }
 }
 
-user2promoterModal.propTypes = {
+AgentModal.propTypes = {
   // visible: PropTypes.any,
   // form: PropTypes.object,
   // item: PropTypes.object,
@@ -189,4 +141,4 @@ user2promoterModal.propTypes = {
   // onCancel: PropTypes.func
 }
 
-export default Form.create()(user2promoterModal)
+export default Form.create()(AgentModal)

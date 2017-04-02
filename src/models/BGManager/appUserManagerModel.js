@@ -65,6 +65,7 @@ export default {
         })
       }
     },
+
     *updateAppUserEnable({payload},{call,put}){
       const data = yield call(updateAppUserEnable,parse(payload))
       // console.log('data',data)
