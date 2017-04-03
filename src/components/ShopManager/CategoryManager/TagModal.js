@@ -2,7 +2,7 @@
  * Created by lilu on 2017/2/21.
  */
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox, Select} from 'antd'
+import {Form, Input, InputNumber, Radio, Modal, Checkbox, Select,message} from 'antd'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -37,8 +37,17 @@ class TagModal extends Component {
 
 
   }
-
+  contains(arr, obj) {
+    var i = arr.length;
+    while (i--) {
+      if (arr[i] === obj) {
+        return true;
+      }
+    }
+    return false;
+  }
   handleOk() {
+
     let count = this.state.count + 1
     this.setState({count: count})
     this.props.form.validateFields((errors) => {
@@ -49,8 +58,29 @@ class TagModal extends Component {
         ...this.props.form.getFieldsValue(),
         key: this.props.item.id
       }
+      if((data.name&&data.name!='')&&(data.categoryId&&data.categoryId!='')){
+        let tagNameList = this.props.tagList.map((item,key)=>{
+          if(item.categoryId==data.categoryId){
+            return item.name
+          }
+        })
+        console.log('test',tagNameList,data)
+        let isEx=this.contains(tagNameList,data.name)
+        if(isEx){
+          message.info('已有该标签')
+          this.props.onCancel()
+
+        }else{
+          this.props.onOk(data)
+          // console.log('data====>', data)
+          // this.setState({modalVisible: false})
+        }
+      }else{
+        message.info('请填写标签名称')
+        this.props.onCancel()
+      }
       //console.log('data',data)
-      this.props.onOk(data)
+
     })
   }
 

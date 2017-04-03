@@ -36,18 +36,37 @@ class ShopTagManager extends Component {
   }
 
   onOk(data) {
-    if(data.name&&data.name!=''){
-      this.props.dispatch({
-        type: 'shopCategoryManager/tag' + this.state.modalType,
-        payload: data
+    if((data.name&&data.name!='')&&(data.categoryId&&data.categoryId!='')){
+      let tagNameList = this.props.tagList.map((item,key)=>{
+        if(item.categoryId==data.categoryId){
+          return item.name
+        }
       })
-      // console.log('data====>', data)
-      this.setState({modalVisible: false})
+      console.log('test',tagNameList,data)
+      let isEx=this.contains(tagNameList,data.name)
+        if(isEx){
+          message.info('已有该标签')
+        }else{
+          this.props.dispatch({
+            type: 'shopCategoryManager/tag' + this.state.modalType,
+            payload: data
+          })
+          // console.log('data====>', data)
+          this.setState({modalVisible: false})
+        }
     }else{
       message.info('请填写标签名称')
     }
   }
-
+  contains(arr, obj) {
+    var i = arr.length;
+    while (i--) {
+      if (arr[i] === obj) {
+        return true;
+      }
+    }
+    return false;
+  }
   onCancel() {
     this.setState({modalVisible: false})
   }
@@ -84,6 +103,7 @@ class ShopTagManager extends Component {
             pagination={{total: this.props.tagList?this.props.tagList.length:1, pageSize: 10}}
           />
           <TagModal
+
             categoryList = {this.props.categoryList}
             visible={this.state.modalVisible}
             type={this.state.modalType}

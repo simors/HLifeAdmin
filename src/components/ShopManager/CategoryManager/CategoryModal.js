@@ -217,9 +217,29 @@ class CategoryModal extends Component {
     // console.log('hahahah',this.state.visible)
 
   }
+   contains(arr, obj) {
+  var i = arr.length;
+  while (i--) {
+    if (arr[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+}
   addTag(){
+    // console.log('tagList',this.props.tagList)
+
+    let tagNameList = this.props.tagList.map((item,key)=>{
+      return item.name
+    })
+    // console.log('tagList',tagNameList)
     if(this.state.newTag&&this.state.newTag!=''){
-      this.props.dispatch({type:'shopCategoryManager/tagcreate',payload:{categoryId:this.props.data.id,name:this.state.newTag}})
+      let isEx = this.contains(tagNameList,this.state.newTag)
+      if(isEx){
+        message.info('已经存在该标签')
+      }else{
+        this.props.dispatch({type:'shopCategoryManager/tagcreate',payload:{categoryId:this.props.data.id,name:this.state.newTag}})
+      }
     }else {
       message.info('请填写标签名称')
     }

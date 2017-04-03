@@ -98,8 +98,6 @@ class CategoryQuery extends Component {
         <div className='content-inner'>
           <div>是否仅显示可见:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true} onChange={(status)=>{this.checkStatus(status)}}></Switch></div>
           <br/>
-          {/*<Tabs defaultActiveKey="categoryManager" >*/}
-          {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
           <Button size='large' type='ghost' onClick={()=> {
             this.add()
           }}>添加分类 </Button>
