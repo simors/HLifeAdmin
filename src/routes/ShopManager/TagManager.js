@@ -4,7 +4,7 @@
 import React, {Component, PropTypes} from 'react'
 import {routerRedux} from 'dva/router'
 import {connect} from 'dva'
-import {Button, Tabs} from 'antd'
+import {Button, Tabs,message} from 'antd'
 import CategoryList from '../../components/ShopManager/CategoryManager/CategoryList'
 import {getCategoryList, getTagList} from '../../selector/ShopManager/categorySelector'
 // import UserSearch from '../../components/users/search'
@@ -36,12 +36,15 @@ class ShopTagManager extends Component {
   }
 
   onOk(data) {
-    this.props.dispatch({
-      type: 'shopCategoryManager/tag' + this.state.modalType,
-      payload: data
-    })
-    // console.log('data====>', data)
-    this.setState({modalVisible: false})
+    if(data.name&&data.name!=''){
+      this.props.dispatch({
+        type: 'shopCategoryManager/tag' + this.state.modalType,
+        payload: data
+      })
+      // console.log('data====>', data)
+      this.setState({modalVisible: false})
+    }
+   message.info('请填写标签名称')
   }
 
   onCancel() {

@@ -3,7 +3,7 @@
  */
 import AV from 'leancloud-storage'
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button, Select} from 'antd'
+import { message,Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button, Select} from 'antd'
 import styles from './CategoryModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
@@ -217,7 +217,12 @@ class CategoryModal extends Component {
 
   }
   addTag(){
-    this.props.dispatch({type:'shopCategoryManager/tagcreate',payload:{categoryId:this.props.data.id,name:this.state.newTag}})
+    if(this.state.newTag&&this.state.newTag!=''){
+      this.props.dispatch({type:'shopCategoryManager/tagcreate',payload:{categoryId:this.props.data.id,name:this.state.newTag}})
+    }else {
+      message.info('请填写标签名称')
+    }
+
   }
   onSelectChange = (selectedRowKeys, selectedRowData) => {
     // console.log('selectedRowKeys changed: ', selectedRowKeys);
