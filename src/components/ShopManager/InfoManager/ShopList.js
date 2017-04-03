@@ -127,6 +127,24 @@ class CategoryList extends React.Component {
         key:'targetShopCategory.text',
       },
       {
+        title: '标签列表',
+        dataIndex: 'containedTag',
+        key: 'containedTag',
+        render: (text,record)=> {
+          if (record && record.containedTag.length > 0) {
+            let renderC= record.containedTag.map((item,key)=> {
+              //console.log('result', item,key)
+              return <p key={key} style={{marginRight:3}}>{item.name}</p>
+            })
+            return renderC
+
+          }else{
+            return <p></p>
+          }
+
+        }
+      },
+      {
         title:'是否开张',
         dataIndex:'status',
         key:'status',
