@@ -231,7 +231,7 @@ class PromoterCommissionManager extends Component {
       level3Royalty1: payload
     })
   }
-  changeLevel1Royal2(payload){
+  changeLevel3Royal2(payload){
     this.setState({
       level3Royalty2: payload
     })
@@ -261,7 +261,7 @@ class PromoterCommissionManager extends Component {
       level4Royalty2: payload
     })
   }
-  changeLevel1Royal3(payload){
+  changeLevel4Royal3(payload){
     this.setState({
       level4Royalty3: payload
     })
@@ -293,7 +293,7 @@ class PromoterCommissionManager extends Component {
   }
   changeInvitePromoterRoyalty(payload){
     this.setState({
-      level5Royalty3: payload
+      invitePromoterRoyalty: payload
     })
   }
   changePromoterCharge(payload){
