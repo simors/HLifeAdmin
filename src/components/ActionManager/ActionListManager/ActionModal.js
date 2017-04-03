@@ -282,11 +282,9 @@ class ActionModal extends Component {
                 url: this.state.fileList[0].url
               }] : []}
               onChange={(info)=> {
-                console.log('info', info)
                 let fileList = info.fileList
                 fileList = fileList.slice(-1)
                 this.setState({fileList: fileList})
-                console.log('fileList',fileList)
               }}
               fileList={this.state.fileList}
             >

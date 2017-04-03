@@ -95,16 +95,17 @@ class CategoryModal extends Component {
           // console.log('this.state',this.state.selectedRowKeys,this.state.selectTags)
         }
       }
-    } else {
-      this.setState({
-        color: '#000000',
-        pickerOpen: false,
-        fileList: [],
-        imageList: [],
-        selectedRowKeys: [],
-        selectTags: []
-      })
     }
+    // else {
+    //   this.setState({
+    //     color: '#000000',
+    //     pickerOpen: false,
+    //     fileList: [],
+    //     imageList: [],
+    //     selectedRowKeys: [],
+    //     selectTags: []
+    //   })
+    // }
 
   }
 
@@ -315,7 +316,7 @@ class CategoryModal extends Component {
       })
     }
     const selectedRowKeys = this.state.selectedRowKeys
-    console.log('selectTag',this.state.selectTags)
+    console.log('selectTag',this.state.fileList)
     // let fileCount = 0
     // let imageCount = 0
     // if (this.state.fileList.length > 0) {
@@ -436,7 +437,7 @@ class CategoryModal extends Component {
 
           <FormItem label='图标：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('imageSource', {
-              initialValue: (this.state.fileList.length > 0) ? {
+              initialValue: (this.state.fileList.length>0) ? {
                 uid: -1,
                 status: 'done',
                 name: this.state.fileList[0].name,
@@ -450,21 +451,20 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              fileList={this.state.fileList}
+              defaultFileList={(this.state.fileList.length>0)? [{
+                uid: -1,
+                status: 'done',
+                name: this.state.fileList[0].name,
+                url: this.state.fileList[0].url
+              }] : []}
               onChange={(info)=> {
-                {/*console.log('info', info)*/
-                }
                 let fileList = info.fileList
                 fileList = fileList.slice(-1)
                 this.setState({fileList: fileList})
-                //console.log('fileList',fileList)
-
               }}
-
+              fileList={this.state.fileList}
             >
-
-
-                <div><Button>点击上传图标</Button></div>
+              <div><Button>点击上传图标</Button></div>
             </Upload>)}
           </FormItem>
           <FormItem label='精选封面：' hasFeedback {...formItemLayout}>
@@ -483,7 +483,6 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              fileList={this.state.imageList}
               onChange={(info)=> {
                 {/*console.log('info', info)*/
                 }
@@ -492,8 +491,8 @@ class CategoryModal extends Component {
                 this.setState({imageList: fileList})
                 {/*console.log('fileList', fileList)*/
                 }
-
               }}
+              fileList={this.state.imageList}
             >
                 <div><Button>点击上传封面</Button></div>
             </Upload>)}
