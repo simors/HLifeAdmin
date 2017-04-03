@@ -43,8 +43,9 @@ class ShopTagManager extends Component {
       })
       // console.log('data====>', data)
       this.setState({modalVisible: false})
+    }else{
+      message.info('请填写标签名称')
     }
-   message.info('请填写标签名称')
   }
 
   onCancel() {
