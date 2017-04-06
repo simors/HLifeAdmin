@@ -111,12 +111,12 @@ class topicCategoryManager extends Component {
   }
 
   onOk(data){
-    console.log('data====>',data)
+    // console.log('data====>',data)
 
-    // this.props.dispatch({
-    //   type:'topicCategoryManage/'+this.state.modalType,
-    //   payload:data
-    // })
+    this.props.dispatch({
+      type:'topicCategoryManage/'+this.state.modalType,
+      payload:data
+    })
     this.setState({modalVisible:false,modalKey:this.state.modalKey-1})
   }
 
@@ -257,6 +257,7 @@ class topicCategoryManager extends Component {
           onOk={(payload)=> {
             this.onOk(payload)
           }}
+          categoryList = {this.props.topicCategoryList}
           onCancel={()=> {
             this.onCancel()
           }}

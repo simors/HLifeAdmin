@@ -2,7 +2,7 @@
  * Created by lilu on 2017/2/21.
  */
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, Modal, Upload,Icon} from 'antd'
+import {Form, Input, Modal, Upload,Icon,message} from 'antd'
 import styles from './topicCategoryModal.less'
 
 const FormItem = Form.Item
@@ -35,7 +35,15 @@ class topicCategoryModal extends Component {
     console.log(...this.props)
 
   }
-
+  contains(arr, obj) {
+    var i = arr.length;
+    while (i--) {
+      if (arr[i] === obj) {
+        return true;
+      }
+    }
+    return false;
+  }
   handleOk() {
     this.props.form.validateFields((errors) => {
       if (errors) {
@@ -45,8 +53,30 @@ class topicCategoryModal extends Component {
         ...this.props.form.getFieldsValue(),
         id: this.props.item.id
       }
-      //console.log('data',data)
-      this.props.onOk(data)
+      if(data.name&&data.name!=''){
+        let categoryList = this.props.categoryList.map((item,key)=>{
+
+            return item.title
+
+        })
+        // console.log('test',categoryList,data)
+        let isEx=this.contains(categoryList,data.name)
+        if(isEx){
+          message.info('已有该分类')
+          this.props.onCancel()
+
+        }else{
+          this.props.onOk(data)
+          // console.log('data====>', data)
+          // this.setState({modalVisible: false})
+        }
+      }else{
+        message.info('请填写分类名称')
+        this.props.onCancel()
+      }
+      // console.log('data',data)
+
+      // this.props.onOk(data)
     })
   }
 
