@@ -121,7 +121,30 @@ class topicManager extends Component {
       }
     })
   }
-
+  unSearchByFilter() {
+    this.setState({
+      orderMode: 'createTimeDescend',
+      orderModeShow: orderShowTab['createTimeDescend'],
+      categoryName: '所有分类',
+      filterValue: '',
+      startTime: new Date('2000-01-01 00:00:00'),
+      endTime: new Date(),
+      picked: false,
+      pickedName: '全部',
+      selectedItem: {},
+    })
+    this.props.dispatch({
+      type: 'topicManage/query',
+      payload: {
+        orderMode: this.state.orderMode,
+        categoryName: this.state.categoryName == '所有分类' ? '' : this.state.categoryName,
+        filterValue: this.state.filterValue,
+        startTime: this.state.startTime,
+        endTime: this.state.endTime,
+        picked: this.state.picked,
+      }
+    })
+  }
   handleFilterSelectedChange(value) {
     this.setState({filterName: value});
   }
@@ -214,7 +237,9 @@ class topicManager extends Component {
           <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>
             <Button type="primary" onClick={()=>this.onSearchByFilter()}>查询</Button>
           </Col>
-
+          <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>
+            <Button type="ghost" onClick={()=>this.unSearchByFilter()}>取消筛选</Button>
+          </Col>
 
         </Row>
         <TopicList
