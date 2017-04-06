@@ -58,6 +58,7 @@ class topicCategoryModal extends Component {
         onOk={()=>{this.handleOk()}}
         onCancel={()=>{this.props.onCancel()}}
         wrapClassName='vertical-center-modal'
+        key={this.props.modalKey}
       >
         <Form horizontal>
           <FormItem label='分类名称：' hasFeedback {...formItemLayout}>

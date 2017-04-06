@@ -5,7 +5,7 @@
  * Created by lilu on 2017/2/21.
  */
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox,Cascader} from 'antd'
+import {Form, Input, InputNumber, Radio, Modal,Button, Checkbox,Cascader,Popconfirm} from 'antd'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -26,6 +26,7 @@ class user2promoterModal extends Component {
       count: 0,
       liveArea:[],
       identityArea:[],
+      popVisible:false
     }
   }
 
@@ -75,10 +76,23 @@ class user2promoterModal extends Component {
 
       }
       //console.log('data',data)
+      this.setState({
+        popVisible:false
+      })
       this.props.onOk(data)
+
     })
   }
-
+  openPop(){
+    this.setState({
+      popVisible:true
+    })
+  }
+  cancel(){
+    this.setState({
+      popVisible:false
+    })
+  }
   render() {
     const options = ['apple', 'pear', 'orange']
     // console.log('ahahahahahaha', this.props.item)
@@ -90,9 +104,7 @@ class user2promoterModal extends Component {
       <Modal
         title={'设置为推广员'}
         visible={this.state.visible}
-        onOk={()=> {
-          this.handleOk()
-        }}
+        onOk={() => this.handleOk()}
         onCancel={()=> {
           let count = this.state.count + 1
           this.setState({count: count})
@@ -100,7 +112,18 @@ class user2promoterModal extends Component {
         }}
         wrapClassName='vertical-center-modal'
         key={this.state.count}
-      >
+        footer={[
+          <Button key="back" size='large' onClick={()=> {
+            let count = this.state.count + 1
+            this.setState({count: count})
+            this.props.onCancel()
+          }}>取消</Button>,
+          <Popconfirm title={'是否直接升为'} onConfirm={() => this.handleOk()} >
+          <Button key="ok" size="large">确定</Button>
+          </Popconfirm>
+          ]}>
+
+
         <Form horizontal>
           <FormItem label='姓名：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {

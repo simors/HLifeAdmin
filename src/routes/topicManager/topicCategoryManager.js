@@ -34,7 +34,7 @@ class topicCategoryManager extends Component {
       enabledName: '启用',
       pickedName: '全部',
       selectedItem: {},
-
+      modalKey:-1,
     }
     this.handleFilterSelectedChange = this.handleFilterSelectedChange.bind(this);
     this.handleFilterInputChange = this.handleFilterInputChange.bind(this);
@@ -89,7 +89,7 @@ class topicCategoryManager extends Component {
 
 
   onCancel() {
-    this.setState({modalVisible: false})
+    this.setState({modalVisible: false,modalKey:this.state.modalKey-1})
   }
 
   onModify(data) {
@@ -111,12 +111,13 @@ class topicCategoryManager extends Component {
   }
 
   onOk(data){
-    this.props.dispatch({
-      type:'topicCategoryManage/'+this.state.modalType,
-      payload:data
-    })
-    // console.log('data====>',data)
-    this.setState({modalVisible:false})
+    console.log('data====>',data)
+
+    // this.props.dispatch({
+    //   type:'topicCategoryManage/'+this.state.modalType,
+    //   payload:data
+    // })
+    this.setState({modalVisible:false,modalKey:this.state.modalKey-1})
   }
 
   handleFilterSelectedChange(value) {
@@ -250,6 +251,7 @@ class topicCategoryManager extends Component {
             this.onModify(payload)
           }}/>
         <TopicCategoryModal
+          modalKey={this.state.modalKey}
           visible={this.state.modalVisible}
           type={this.state.modalType}
           onOk={(payload)=> {
