@@ -40,6 +40,18 @@ class CategoryChoosen extends Component {
     //     categoryChoosenPool:this.state.choosenCategory
     //   }
     // })
+    let choosenCategoryList=[]
+      this.props.categoryList.forEach((item)=>{
+      if(item!=undefined&&item.displaySort&&item.displaySort!=0&&item.displaySort!=null){
+        console.log('+++=item',item)
+       choosenCategoryList.push(item)
+      }
+    })
+    console.log('choosenCategoryList',choosenCategoryList)
+
+    this.setState({
+      choosenCategory:choosenCategoryList
+    })
   }
 
   cancelChoosen(payload) {
@@ -104,7 +116,7 @@ class CategoryChoosen extends Component {
   }
 
   render() {
-    const {choosenCategory} = this.state;
+    const { choosenCategory} = this.state;
     return (
       <CategoryManager>
         <div>
