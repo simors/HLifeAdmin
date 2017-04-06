@@ -26,7 +26,8 @@ class user2promoterModal extends Component {
       count: 0,
       liveArea:[],
       identityArea:[],
-      popVisible:false
+      popVisible:false,
+      identity:'推广员'
     }
   }
 
@@ -57,7 +58,7 @@ class user2promoterModal extends Component {
   }
   componentDidMount() {
     this.setState({visible: !!this.props.visible})
-    console.log(...this.props)
+    // console.log(...this.props)
 
   }
 
@@ -87,6 +88,32 @@ class user2promoterModal extends Component {
     this.setState({
       popVisible:true
     })
+  }
+  onIdentityChange = (e) => {
+    console.log('radio3 checked', e.target.value);
+    let value = e.target.value
+switch (value){
+  case 0:
+    this.setState({
+      identity: '推广员',
+    });
+    break;
+  case 1:
+    this.setState({
+      identity: this.state.identityArea[1]+'代理',
+    });
+    break;
+  case 2:
+    this.setState({
+      identity: this.state.identityArea[2]+'代理',
+    });
+    break;
+  case 3:
+    this.setState({
+      identity: this.state.identityArea[3]+'代理',
+    });
+    break
+}
   }
   cancel(){
     this.setState({
@@ -118,7 +145,7 @@ class user2promoterModal extends Component {
             this.setState({count: count})
             this.props.onCancel()
           }}>取消</Button>,
-          <Popconfirm title={'是否直接升为'} onConfirm={() => this.handleOk()} >
+          <Popconfirm title={'是否直接升为'+this.state.identity} onConfirm={() => this.handleOk()} >
           <Button key="ok" size="large">确定</Button>
           </Popconfirm>
           ]}>
@@ -136,17 +163,6 @@ class user2promoterModal extends Component {
               ]
             })(<Input />)}
           </FormItem>
-          <FormItem label='身份证：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('cardId', {
-              initialValue: '',
-              rules: [
-                {
-                  required: true,
-                  message: '身份证未填写'
-                }
-              ]
-            })(<Input />)}
-          </FormItem>
           <FormItem label='电话号码：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('phone', {
               initialValue: '',
@@ -160,7 +176,7 @@ class user2promoterModal extends Component {
           </FormItem>
           <FormItem label='代理等级：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('identity', )
-            (<RadioGroup  >
+            (<RadioGroup onChange={(e)=>{this.onIdentityChange(e)}} >
               <Radio value={0}>无代理</Radio>
               <Radio value={1}>省代理</Radio>
               <Radio value={2}>市代理</Radio>

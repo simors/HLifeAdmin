@@ -44,7 +44,7 @@ export default {
 
     *create ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
-      const data = yield call(createNewTopicCategory, {name: payload.name, introduction: payload.introduction})
+      const data = yield call(createNewTopicCategory, {name: payload.name, introduction: payload.introduction,id:payload.id})
       if (data && data.success) {
         yield put({
           type: 'query'
