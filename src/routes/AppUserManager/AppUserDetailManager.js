@@ -20,9 +20,6 @@ class appUserDetailManager extends Component {
 
   componentDidMount() {
 
-    this.props.dispatch({
-      type: 'common/fetchSubAreaList'
-    })
 
   }
 

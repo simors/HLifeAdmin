@@ -22,6 +22,10 @@ class AppUserManager extends Component{
   }
   componentDidMount(){
     this.props.dispatch({type:'appUserManager/query'})
+    this.props.dispatch({
+      type: 'common/fetchSubAreaList'
+    })
+
   }
 
   // console.log('personList====>',personList)

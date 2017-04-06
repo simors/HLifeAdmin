@@ -7,7 +7,9 @@
 import React, {Component, PropTypes} from 'react'
 import {routerRedux} from 'dva/router'
 import {connect} from 'dva'
-import {Button, Tabs, Input, DatePicker, Row, Col, Menu, Dropdown, Icon,} from 'antd'
+import * as CommonSelect from '../../selector/CommonSelect'
+
+import {Button, Tabs, Input, DatePicker, Row, Col, Menu, Dropdown, Icon, Cascader} from 'antd'
 const {MonthPicker, RangePicker} = DatePicker;
 
 import AppUserList from '../../components/BGManager/appUserManager/appUserList'
@@ -40,6 +42,7 @@ class AppUserListManager extends Component {
       endTime: new Date(),
       geoCity: '',
       username: '',
+      liveArea: []
 
     }
   }
@@ -57,6 +60,17 @@ class AppUserListManager extends Component {
     this.setState({modalVisible: true, modalType: 'create', selectedItem: {}})
   }
 
+  selectedLiveDistrict(value, selectedOptions) {
+    let liveArea = []
+    selectedOptions.forEach((record)=> {
+      console.log('record',record)
+      liveArea.push(record.label)
+    })
+    this.setState({
+      liveArea: liveArea
+    })
+    // console.log('hahahahahahah',value,selectedOptions)
+  }
 
   handleInputCityChange(value) {
     this.setState({geoCity: value.target.value})
@@ -92,6 +106,7 @@ class AppUserListManager extends Component {
         startTime: this.state.startTime,
         endTime: this.state.endTime,
         geoCity: this.state.geoCity,
+        liveArea: this.state.liveArea
       }
     })
   }
@@ -104,6 +119,7 @@ class AppUserListManager extends Component {
       endTime: new Date(),
       geoCity: '',
       username: '',
+      liveArea: []
     })
     this.props.dispatch({
       type: 'appUserManager/query'
@@ -140,10 +156,15 @@ class AppUserListManager extends Component {
               </Dropdown>
             </Col>
             <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
-              <p>城市关键字：</p>
-              <Input style={{width: 200}} defaultValue="" onChange={(value)=> {
-                this.handleInputCityChange(value)
-              }}/>
+              <p>选择用户所在地区</p>
+              <Cascader
+                options={this.props.areaTreeSelectData}
+                changeOnSelect
+                placeholder="请选择生活地区地区"
+                onChange={(value, selectedOptions)=> {
+                  this.selectedLiveDistrict(value, selectedOptions)
+                }}
+              />
             </Col>
             <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>用户名关键字：</p>
@@ -177,8 +198,10 @@ class AppUserListManager extends Component {
 
 function mapStateToProps(state) {
   let appUserList = getAppUserList(state)
+  const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
+
   // console.log('appUserList',appUserList)
-  return {appUserList: appUserList}
+  return {appUserList: appUserList, areaTreeSelectData: areaTreeSelectData}
 }
 
 export default connect(mapStateToProps)(AppUserListManager)

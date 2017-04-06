@@ -142,9 +142,12 @@ class appUserList extends React.Component {
         }
       },
       {
-        title: '所在城市',
+        title: '所在地区',
         dataIndex: 'geoCity',
-        key: 'geoCity'
+        key: 'geoCity',
+        render: (text,record)=>{
+          return <p>{record.geoProvince+record.geoCity+record.geoDistrict}</p>
+        }
       },
       {
         title: '联系电话',
