@@ -27,7 +27,7 @@ class user2promoterModal extends Component {
       liveArea:[],
       identityArea:[],
       popVisible:false,
-      identity:'推广员'
+      identity:0
     }
   }
 
@@ -90,30 +90,12 @@ class user2promoterModal extends Component {
     })
   }
   onIdentityChange = (e) => {
-    console.log('radio3 checked', e.target.value);
-    let value = e.target.value
-switch (value){
-  case 0:
+    // console.log('radio3 checked', e.target.value);
+    // console.log(' this.state.identityArea', this.state.identityArea);
     this.setState({
-      identity: '推广员',
-    });
-    break;
-  case 1:
-    this.setState({
-      identity: this.state.identityArea[1]+'代理',
-    });
-    break;
-  case 2:
-    this.setState({
-      identity: this.state.identityArea[2]+'代理',
-    });
-    break;
-  case 3:
-    this.setState({
-      identity: this.state.identityArea[3]+'代理',
-    });
-    break
-}
+      identity:e.target.value
+    })
+
   }
   cancel(){
     this.setState({
@@ -124,7 +106,22 @@ switch (value){
     const options = ['apple', 'pear', 'orange']
     // console.log('ahahahahahaha', this.props.item)
     // console.log('ahahahahahaha',options)
+    let value=''
+    switch (this.state.identity){
+      case 0:
+        value = '推广员'
+        break;
+      case 1:
+          value = this.state.identityArea[1]+'省代理'
+        break;
+      case 2:
+        value=this.state.identityArea[2]+'市代理'
 
+        break;
+      case 3:
+        value= this.state.identityArea[3]+'区代理'
+        break
+    }
     // console.log('type',this.props.type)
     // console.log('roleList',this.props.roleList)
     return (
@@ -145,7 +142,7 @@ switch (value){
             this.setState({count: count})
             this.props.onCancel()
           }}>取消</Button>,
-          <Popconfirm title={'是否直接升为'+this.state.identity} onConfirm={() => this.handleOk()} >
+          <Popconfirm title={'是否直接升为'+value} onConfirm={() => this.handleOk()} >
           <Button key="ok" size="large">确定</Button>
           </Popconfirm>
           ]}>
@@ -177,10 +174,10 @@ switch (value){
           <FormItem label='代理等级：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('identity', )
             (<RadioGroup onChange={(e)=>{this.onIdentityChange(e)}} >
-              <Radio value={0}>无代理</Radio>
-              <Radio value={1}>省代理</Radio>
-              <Radio value={2}>市代理</Radio>
-              <Radio value={3}>区代理</Radio>
+              <Radio key={0} value={0}>无代理</Radio>
+              <Radio key={1} value={1}>省代理</Radio>
+              <Radio key={2} value={2}>市代理</Radio>
+              <Radio key={3} value={3}>区代理</Radio>
             </RadioGroup>)}
           </FormItem>
           <FormItem {...formItemLayout} hasFeedback label={'生活地区'}>
