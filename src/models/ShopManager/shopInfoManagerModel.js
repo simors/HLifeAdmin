@@ -5,7 +5,7 @@
  * Created by lilu on 2017/2/28.
  */
 import {parse} from 'qs'
-import {getShopList,updateShopStatus,getAnnouncementsByShopId,getShopCommentList,enableShopComment,disableShopComment} from '../../services/ShopManager/shopInfoManager'
+import {getShopList,updateShopStatus,getAnnouncementsByShopId,getShopCommentList,updateReplyStatus,updateCommentStatus} from '../../services/ShopManager/shopInfoManager'
 
 export default {
   namespace: 'shopInfoManager',
@@ -41,23 +41,23 @@ export default {
         })
       }
     },
-    *disableComment ({payload}, {call, put}) {
+    *updateReplyStatus({payload},{call,put}){
       yield put({type: 'showLoading'})
-      yield call(disableShopComment, parse(payload))
-      // if (shop.success) {
-      //   yield put({
-      //     type: 'query',
-      //   })
-      // }
+      const shop = yield call(updateReplyStatus, parse(payload))
+      if (shop.success) {
+        yield put({
+          type: 'query',
+        })
+      }
     },
-    *enableComment ({payload}, {call, put}) {
+    *updateCommentStatus({payload},{call,put}){
       yield put({type: 'showLoading'})
-    yield call(enableShopComment, parse(payload))
-      // if (shop.success) {
-      //   yield put({
-      //     type: 'query',
-      //   })
-      // }
+      const shop = yield call(updateCommentStatus, parse(payload))
+      if (shop.success) {
+        yield put({
+          type: 'query',
+        })
+      }
     },
     *getAnnouncements ({payload}, {call, put}) {
       yield put({type: 'showLoading'})

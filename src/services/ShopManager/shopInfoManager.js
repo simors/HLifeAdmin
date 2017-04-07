@@ -42,6 +42,24 @@ export async function updateShopStatus(payload){
   }
 }
 
+export async function updateCommentStatus(payload){
+  try{
+     console.log('asdasd',payload)
+    await AV.Cloud.run('updateCommentStatus',payload)
+    return {success:true}
+  }catch(err){
+    return {success: false}
+  }
+}
+export async function updateReplyStatus(payload){
+  try{
+    console.log('asdasd',payload)
+    await AV.Cloud.run('updateReplyStatus',payload)
+    return {success:true}
+  }catch(err){
+    return {success: false}
+  }
+}
 
 export async function getShopCommentList(payload){
   // console.log('hahaha',payload)

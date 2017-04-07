@@ -4,7 +4,7 @@
 
 
 import React from 'react'
-import {Table, Popconfirm} from 'antd'
+import {Table, Popconfirm,Switch} from 'antd'
 import {TweenOneGroup} from 'rc-tween-one'
 import styles from './ShopList.less'
 import {Link,} from 'dva/router'
@@ -66,6 +66,18 @@ class CommentList extends React.Component {
         dataIndex: 'user.username',
         key: 'user.username'
       },
+      {
+        title: '是否启用',
+        dataIndex: 'status',
+        key: 'status',
+        render: (text, record)=> {
+          const status = record.status
+          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={(record.status==1)?true:false}
+                         onChange={(payload)=> {
+                           this.props.updateReplyStatus(payload, record.id)
+                         }}></Switch>
+        }
+      },
     ]
 
     let replyData=data
@@ -101,18 +113,14 @@ test(){
       },
       {
         title: '是否显示',
-        dataIndex: 'enable',
-        key: 'enable',
-        render: (text,record)=> {
-          if (record && record.enable==true) {
-            // console.log('record', record)
-            return <div>显示</div>
-          }
-
-          else{
-            return <div>屏蔽</div>
-          }
-
+        dataIndex: 'status',
+        key: 'status',
+        render: (text, record)=> {
+          const status = record.status
+          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={(record.status==1)?true:false}
+                         onChange={(payload)=> {
+                           this.props.updateCommentStatus(payload, record.id)
+                         }}></Switch>
         }
       },
       {
@@ -156,23 +164,7 @@ test(){
         dataIndex: 'user.username',
         key: 'user.username'
       },
-      {
-        title: '操作',
-        key: 'operation',
-        width: 100,
-        render: (text, record,index) => (
-          <p>
-            <Popconfirm  title='确定要显示吗？' onConfirm={() => this.props.enableComment(record.id)}>
-              <a style={{
-                marginRight: 4
-              }}>显示</a>
-            </Popconfirm>
-            <Popconfirm title='确定要屏蔽吗？' onConfirm={() => this.props.disableComment(record.id)}>
-              <a>屏蔽</a>
-            </Popconfirm>
-          </p>
-        )
-      }
+
     ]
     // console.log('hahahahahah',dataSource)
     return <div>

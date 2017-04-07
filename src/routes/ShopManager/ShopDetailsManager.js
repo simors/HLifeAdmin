@@ -72,6 +72,14 @@ class ShopDetailsManager extends Component {
     this.props.dispatch({type: 'shopInfoManager/updateShopStatus', payload: {id: record, status: payload ? 1 : 0}})
 
   }
+  updateCommentStatus(payload, record){
+    this.props.dispatch({type: 'shopInfoManager/updateCommentStatus', payload: {id: record, status: payload ? 1 : 0}})
+
+  }
+  updateReplyStatus(payload, record){
+    this.props.dispatch({type: 'shopInfoManager/updateReplyStatus', payload: {id: record, status: payload ? 1 : 0}})
+
+  }
 
   render() {
     return (
@@ -87,11 +95,11 @@ class ShopDetailsManager extends Component {
           <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}
           </TabPane>
           <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}
-                                                   disableComment={(data)=> {
-                                                     this.disableComment(data)
+                                                   updateCommentStatus={(payload,record)=> {
+                                                     this.updateCommentStatus(payload,record)
                                                    }}
-                                                   enableComment={(data)=> {
-                                                     this.enableComment(data)
+                                                   updateReplyStatus={(payload,record)=> {
+                                                     this.updateReplyStatus(payload,record)
                                                    }}
           />
           </TabPane>
