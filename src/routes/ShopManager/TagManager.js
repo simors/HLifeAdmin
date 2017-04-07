@@ -4,13 +4,14 @@
 import React, {Component, PropTypes} from 'react'
 import {routerRedux} from 'dva/router'
 import {connect} from 'dva'
-import {Button, Tabs,message} from 'antd'
+import {Button, Tabs,message,Select} from 'antd'
 import CategoryList from '../../components/ShopManager/CategoryManager/CategoryList'
 import {getCategoryList, getTagList} from '../../selector/ShopManager/categorySelector'
 // import UserSearch from '../../components/users/search'
 import TagModal from '../../components/ShopManager/CategoryManager/TagModal'
 import TagList from '../../components/ShopManager/CategoryManager/TagList'
 import CategoryManager from './CategoryManager'
+const Option = Select.Option;
 
 
 class ShopTagManager extends Component {
@@ -21,6 +22,7 @@ class ShopTagManager extends Component {
       modalVisible: false,
       modalType: 'create',
       selectedItem: {},
+      selectCategory:''
 
     }
   }
@@ -52,7 +54,7 @@ class ShopTagManager extends Component {
             payload: data
           })
           // console.log('data====>', data)
-          this.setState({modalVisible: false})
+          this.setState({modalVisible: false,selectCategory:data.categoryId})
         }
     }else{
       message.info('请填写标签名称')
@@ -82,13 +84,34 @@ class ShopTagManager extends Component {
       payload: itemId
     })
   }
+  renderCategoryList() {
+    if (this.props.categoryList) {
+      let categoryList = this.props.categoryList.map((item, key)=> {
+        return <Option key={item.id}>{item.text}</Option>
+      })
+      return categoryList
+    }
+  }
+  changeCategory(value){
+    this.setState({
+      selectCategory:value
+    })
+    this.props.dispatch({type:'shopCategoryManager/queryTag',payload:{categoryId:value}})
 
+  }
   render() {
     return (
       <CategoryManager>
         <div className='content-inner'>
           {/*<Tabs defaultActiveKey="categoryManager" >*/}
           {/*<TabPane tab = '分类管理' key = 'categoryManager'>*/}
+          <div>选择分类</div>
+          <Select defaultValue='all' onChange={(value)=>{
+            this.changeCategory(value)
+          }}>
+            <Option key = 'all'>全部分类</Option>
+            {this.renderCategoryList()}
+          </Select>
           <Button size='large' type='ghost' onClick={()=> {
             this.add()
           }}>添加标签</Button>

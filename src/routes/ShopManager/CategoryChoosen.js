@@ -136,7 +136,7 @@ class CategoryChoosen extends Component {
             </Col>
             <Col span={10}>
               <div style={{flex: 1, height: 350, borderWidth: 1, borderColor: '#FFFFFF', backgroundColor: '#FFFFFF'}}>
-                <div style={{left: 50, fontSize: 14}}>精选分类</div>
+                <div style={{left: 50, fontSize: 14,marginBottom:10}}>精选分类</div>
                 {choosenCategory.map((card, i) => (
                   <Card
                     key={card.id}
