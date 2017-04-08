@@ -21,6 +21,9 @@ import PromoterCommissionManager from './routes/PromoterManager/PromoterCommissi
 import AddAgent from './routes/PromoterManager/AddAgent'
 import AgentManager from './routes/PromoterManager/AgentManager'
 import PromoterDetail from './routes/PromoterManager/PromoterDetail'
+import UserFeedbackList from './routes/UserFeedback/UserFeedBackList'
+import UserFeedbackDetail from './routes/UserFeedback/UserFeedbackDetail'
+
 import Welcome from './routes/welcome'
 import err from './routes/error'
 export default function ({history, app}) {
@@ -57,6 +60,10 @@ export default function ({history, app}) {
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>
       <Route path="/topicManager/topicCategoryManager" breadcrumbName="分类管理" component={TopicCategoryManager}/>
+      <Route path="/userFeedback" breadcrumbName="反馈信息列表" >
+        <IndexRoute component={UserFeedbackList}/>
+        <Route path="/userFeedback/userFeedbackDetail" breadcrumbName="反馈详情" component={UserFeedbackDetail}/>
+      </Route>
       <Route path="/messagePushManager/messagePushIndex" breadcrumbName="消息推送" component={MessagePushIndex}/>
       <Route path="/smsManager/smsIndex" breadcrumbName="发短信" component={SmsIndex}/>
       <Route path="*" component={err}/>
