@@ -13,6 +13,7 @@ import AppUserDetail from '../../components/BGManager/appUserManager/appUserDeta
 // import UserShopDetail from'./UserShopDetail'
 import * as CommonSelect from '../../selector/CommonSelect'
 import PromoterAgentManager from './PromoterAgentManager'
+import PromoterInfo from '../../components/PromoterManager/PromoterAgent/promoterDetail'
 
 const TabPane = Tabs.TabPane
 
@@ -83,7 +84,14 @@ class PromoterDetail extends Component {
   render() {
     return (
       <PromoterAgentManager>
-        <Tabs defaultActiveKey='1' className='content-inner'>
+        <Tabs defaultActiveKey='3' className='content-inner'>
+          <TabPane tab='推广员详情' key='3'>
+            <PromoterInfo areaTreeSelectData={this.props.areaTreeSelectData}
+                            promoterDetail={this.props.promoterDetail.promoter}
+                            user2promoter={(data)=> {
+              this.user2promoter(data)
+            }}/>
+          </TabPane>
           <TabPane tab='用户详情' key='1'>
             <AppUserDetail areaTreeSelectData={this.props.areaTreeSelectData}
                            userDetail={this.props.promoterDetail.user}
@@ -94,6 +102,7 @@ class PromoterDetail extends Component {
             }}/>
 
           </TabPane>
+
           {this.renderUpUser()}
 
         </Tabs>

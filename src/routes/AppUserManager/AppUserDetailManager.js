@@ -9,7 +9,6 @@ import {Tag, Tabs} from 'antd'
 import AppUserDetail from '../../components/BGManager/appUserManager/appUserDetail'
 import UserShopDetail from'./UserShopDetail'
 import * as CommonSelect from '../../selector/CommonSelect'
-
 const TabPane = Tabs.TabPane
 
 class appUserDetailManager extends Component {
@@ -82,6 +81,7 @@ class appUserDetailManager extends Component {
                                                      }} user2promoter={(data)=>{this.user2promoter(data)}}/>
 
           </TabPane>
+
           {this.renderTab()}
           {/*{this.renderPromotorTab()}*/}
 
