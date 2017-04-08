@@ -358,32 +358,62 @@ class PromoterCommissionManager extends Component {
     console.log('hahahaha', {...this.state})
 
     return (
-      <div>
-        <div style={{borderWidth: 2, borderColor: '#FFFFFF', marginBottom: 20}}><Icon type='star'></Icon><p style={{fontSize: 17,color:'#5A5A5A'}}>地区总代理提成配置</p>
-          <div style={{marginTop: 1, marginBottom: 1}}>省代理提成：<InputNumber formatter={value => ` ${value*100}%`}
+      <div style={{flex:1}}>
+        <div style={{borderWidth: 2, borderColor: '#FFFFFF', marginBottom: 20 ,flex:1}}>
+          <Row type='flex' align='left' justify='center'>
+            <Col span={1}><Icon type='star'/></Col>
+            <Col span={23}><p style={{fontSize:17}}>基本设置</p></Col>
+          </Row>
+          <div>推广员入驻费提成比例:<InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
+                                       value={this.state.invitePromoterRoyalty}
+                                       onChange={(payload)=> {
+                                         this.changeInvitePromoterRoyalty(payload)
+                                       }}></InputNumber></div>
+          <div>推广员入驻费:<InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                                   value={this.state.promoterCharge}
+                                   onChange={(payload)=> {
+                                     this.changePromoterCharge(payload)
+                                   }}></InputNumber></div>
+          <div>店铺入驻最低费用:<InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                                     value={this.state.minShopkeeperCharge}
+                                     onChange={(payload)=> {
+                                       this.changeMinShopkeeperCharge(payload)
+                                     }}></InputNumber></div>
+        </div>
+        <div style={{borderWidth: 2, borderColor: '#FFFFFF', marginBottom: 20}}>
+          <Row type='flex' align='left' justify='center'>
+            <Col span={1}><Icon type='star'/></Col>
+            <Col span={23}><p style={{fontSize:17}}>地区总代理提成配置</p></Col>
+          </Row>
+          <div style={{marginTop: 1, marginBottom: 1}}>省代理提成：<InputNumber formatter={value => ` ${value*100}%`} min={0} max={1} step={0.01}
                                                                           value={this.state.province_agent}
                                                                            onChange={(payload)=> {
             this.changeProvinceAgent(payload)
           }}></InputNumber></div>
-          <div style={{marginTop: 1, marginBottom: 1}}>市代理提成：<InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+          <div style={{marginTop: 1, marginBottom: 1}}>市代理提成：<InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                           value={this.state.city_agent}
                                                                            onChange={(payload)=> {
             this.changeCityAgent(payload)
           }}></InputNumber></div>
-          <div style={{marginTop: 1, marginBottom: 1}}>区代理提成：<InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+          <div style={{marginTop: 1, marginBottom: 1}}>区代理提成：<InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                           value={this.state.district_agent}
                                                                            onChange={(payload)=> {
             this.changeDistrictAgent(payload)
           }}></InputNumber></div>
-          <div style={{marginTop: 1, marginBottom: 1}}>街道代理提成：<InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+          <div style={{marginTop: 1, marginBottom: 1}}>街道代理提成：<InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                            value={this.state.street_agent}
                                                                             onChange={(payload)=> {
             this.changeStreetAgent(payload)
           }}></InputNumber></div>
+          <div>{'总计：'+(this.state.province_agent+this.state.city_agent+this.state.district_agent+this.state.street_agent)}</div>
         </div>
-        <div style={{borderWidth: 1, borderColor: '#FFFFFF', marginBottom: 20}}><p style={{fontSize: 17}}>推广员绩效收益方式</p>
-          <div className={style.table}>
-          <Row type='flex' align='middle' justify='center'>
+
+        <div style={{borderWidth: 1, borderColor: '#FFFFFF', marginBottom: 20}}> <Row type='flex' align='left' justify='center'>
+          <Col span={1}><Icon type='star'/></Col>
+          <Col span={23}><p style={{fontSize:17}}>推广员绩效收益方式</p></Col>
+        </Row>
+          <div className={style.table} style={{flex:1}}>
+          <Row type='flex' align='middle' justify='center' className={style.divRow}>
             <Col span={4}>
               <div className={style.divCol}><p>推广员</p></div>
             </Col>
@@ -403,7 +433,7 @@ class PromoterCommissionManager extends Component {
               <div className={style.divCol}>皇冠级</div>
             </Col>
           </Row>
-            <Row >
+            <Row className={style.divRow}>
             <Col span={4}>
               <div className={style.divCol}>邀请成员数</div>
             </Col>
@@ -448,7 +478,7 @@ class PromoterCommissionManager extends Component {
 
             </Col>
           </Row>
-            <Row >
+            <Row className={style.divRow}>
               <Col span={4}>
                 <div className={style.divCol}>邀请店铺数</div>
               </Col>
@@ -528,101 +558,87 @@ class PromoterCommissionManager extends Component {
                                                                 }}></InputNumber></div>
               </Col>
             </Row>
-            <Row >
+            <Row className={style.divRow}>
               <Col span={4}>
                 <div className={style.divCol}>一级成员邀请店铺提成比例</div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level1Royalty2}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel1Royal2(payload)
                                                                 }}></InputNumber></div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level2Royalty2}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel2Royal2(payload)
                                                                 }}></InputNumber></div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level3Royalty2}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel3Royal2(payload)
                                                                 }}></InputNumber></div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level4Royalty2}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel4Royal2(payload)
                                                                 }}></InputNumber></div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level5Royalty2}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel5Royal2(payload)
                                                                 }}></InputNumber></div>
               </Col>
             </Row>
-            <Row >
+            <Row className={style.divRow}>
               <Col span={4}>
                 <div className={style.divCol}>二级成员邀请店铺提成比例</div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level1Royalty3}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel1Royal3(payload)
                                                                 }}></InputNumber></div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{value*100}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{value*100}} min={0} max={1} step={0.01}
                                                                 value={this.state.level2Royalty3}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel2Royal3(payload)
                                                                 }}></InputNumber></div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level3Royalty3}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel3Royal3(payload)
                                                                 }}></InputNumber></div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level4Royalty3}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel4Royal3(payload)
                                                                 }}></InputNumber></div>
               </Col>
               <Col span={4}>
-                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}}
+                <div className={style.divCol}><InputNumber formatter={(value) =>{ ` ${value*100}%`}} min={0} max={1} step={0.01}
                                                                 value={this.state.level5Royalty3}
                                                                 onChange={(payload)=> {
                                                                   this.changeLevel5Royal3(payload)
                                                                 }}></InputNumber></div>
               </Col>
             </Row>
-            <div>推广员入驻费提成比例:<InputNumber formatter={(value) =>{ ` ${value*100}%`}}
-                                         value={this.state.invitePromoterRoyalty}
-                                         onChange={(payload)=> {
-                                           this.changeInvitePromoterRoyalty(payload)
-                                         }}></InputNumber></div>
-            <div>推广员入驻费:<InputNumber formatter={(value) =>{ ` ${value*100}%`}}
-                                     value={this.state.promoterCharge}
-                                     onChange={(payload)=> {
-                                       this.changePromoterCharge(payload)
-                                     }}></InputNumber></div>
-            <div>店铺入驻最低费用:<InputNumber formatter={(value) =>{ ` ${value*100}%`}}
-                                       value={this.state.minShopkeeperCharge}
-                                       onChange={(payload)=> {
-                                         this.changeMinShopkeeperCharge(payload)
-                                       }}></InputNumber></div>
+
           </div>
         </div>
         <Button size='large'  onClick={()=>{
