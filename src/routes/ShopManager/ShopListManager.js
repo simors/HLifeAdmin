@@ -4,9 +4,9 @@
 import React, { Component,PropTypes } from 'react'
 import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
-import {Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon,} from 'antd'
+import {Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon,Cascader} from 'antd'
 const {MonthPicker, RangePicker} = DatePicker;
-
+import * as CommonSelect from '../../selector/CommonSelect'
 import ShopList from '../../components/ShopManager/InfoManager/ShopList'
 import {getShopList} from '../../selector/ShopManager/shopSelector'
 import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
@@ -37,7 +37,8 @@ class ShopListManager extends Component{
       endTime: new Date(),
       geoCity:'',
       username:'',
-      shopCategoryName:''
+      shopCategoryName:'',
+      liveArea: []
 
     }
   }
@@ -66,7 +67,7 @@ class ShopListManager extends Component{
       payload:{id:payload}
     })  }
   onClose(payload){
-    console.log('payload',payload)
+    // console.log('payload',payload)
     this.props.dispatch({
       type:'shopInfoManager/closeShop',
       payload:{id:payload}
@@ -120,8 +121,20 @@ class ShopListManager extends Component{
         startTime: this.state.startTime,
         endTime: this.state.endTime,
         geoCity: this.state.geoCity,
+        liveArea: this.state.liveArea
       }
     })
+  }
+  selectedLiveDistrict(value, selectedOptions) {
+    let liveArea = []
+    selectedOptions.forEach((record)=> {
+      // console.log('record',record)
+      liveArea.push(record.label)
+    })
+    this.setState({
+      liveArea: liveArea
+    })
+    // console.log('hahahahahahah',value,selectedOptions)
   }
   unSearchByFilter(){
     this.setState({
@@ -131,7 +144,8 @@ class ShopListManager extends Component{
       endTime: new Date(),
       geoCity:'',
       username:'',
-      shopCategoryName:''
+      shopCategoryName:'',
+      liveArea: []
     })
     this.props.dispatch({
       type:'shopInfoManager/query'
@@ -160,17 +174,24 @@ class ShopListManager extends Component{
                 </Button>
               </Dropdown>
             </Col>
-            <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
-            <p>城市关键字：</p>
-            <Input style={{width: 200}} defaultValue="" onChange={(value)=>{this.handleInputCityChange(value)}}/>
-          </Col>
+            <Col lg={{offset: 0, span: 5}} style={{marginBottom: 16, textAlign: 'left'}}>
+              <p>选择用户所在地区</p>
+              <Cascader
+                options={this.props.areaTreeSelectData}
+                changeOnSelect
+                placeholder="请选择生活地区地区"
+                onChange={(value, selectedOptions)=> {
+                  this.selectedLiveDistrict(value, selectedOptions)
+                }}
+              />
+            </Col>
             <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>类别关键字：</p>
-              <Input style={{width: 200}} defaultValue="" onChange={(value)=>{this.handleInputCategoryChange(value)}}/>
+              <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.handleInputCategoryChange(value)}}/>
             </Col>
             <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>店主关键字：</p>
-              <Input style={{width: 200}} defaultValue="" onChange={(value)=>{this.handleInputUsernameChange(value)}}/>
+              <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.handleInputUsernameChange(value)}}/>
             </Col>
             <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>选择日期：</p>
@@ -196,8 +217,10 @@ class ShopListManager extends Component{
 
 function mapStateToProps(state) {
   let shopList=getShopList(state)
+  const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
+
   // console.log('shopList',shopList)
-  return {shopList:shopList}
+  return {shopList:shopList,areaTreeSelectData:areaTreeSelectData}
 }
 
 export default connect(mapStateToProps)(ShopListManager)

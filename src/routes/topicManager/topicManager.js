@@ -237,10 +237,13 @@ class topicManager extends Component {
           <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>
             <Button type="primary" onClick={()=>this.onSearchByFilter()}>查询</Button>
           </Col>
-          <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>
+
+
+        </Row>
+        <Row gutter={24}>
+          <Col lg={{offset: 0, span: 2}} style={{ textAlign: 'left'}}>
             <Button type="ghost" onClick={()=>this.unSearchByFilter()}>取消筛选</Button>
           </Col>
-
         </Row>
         <TopicList
           updateTopicStatus={(payload,record)=>{this.updateTopicStatus(payload,record)}}

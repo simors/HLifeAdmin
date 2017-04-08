@@ -155,7 +155,7 @@ class AppUserListManager extends Component {
                 </Button>
               </Dropdown>
             </Col>
-            <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <Col lg={{offset: 0, span: 5}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>选择用户所在地区</p>
               <Cascader
                 options={this.props.areaTreeSelectData}
@@ -166,7 +166,7 @@ class AppUserListManager extends Component {
                 }}
               />
             </Col>
-            <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>用户名关键字：</p>
               <Input style={{width: 200}} defaultValue="" onChange={(value)=> {
                 this.handleInputUsernameChange(value)

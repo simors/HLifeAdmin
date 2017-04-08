@@ -13,7 +13,7 @@
 import React, {Component, PropTypes} from 'react'
 import {routerRedux} from 'dva/router'
 import {connect} from 'dva'
-import {Button, Tabs, Switch} from 'antd'
+import {Button, Tabs, Switch,Cascader} from 'antd'
 import ActioList from '../../components/ActionManager/ActionListManager/ActionList'
 import {getAppUserList,} from '../../selector/ActionManager/actionListManager'
 import ActionListManager from './ActionListManager'

@@ -27,6 +27,9 @@ class ShopInfoManager extends Component {
 
   componentDidMount() {
     this.props.dispatch({type: 'shopInfoManager/query'})
+    this.props.dispatch({
+      type: 'common/fetchSubAreaList'
+    })
   }
 
   // console.log('personList====>',personList)
