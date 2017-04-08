@@ -150,7 +150,7 @@ class CategoryList extends React.Component {
         key:'status',
         render:(text,record)=>{
           const status=record.status
-          return <Switch checkedChildren={'开张'} unCheckedChildren={'关张'} defaultChecked={(record.status==1)?true:false} onChange={(payload)=>{this.props.updateCategory(payload,record.id)}}></Switch>
+          return <Switch checkedChildren={'开张'} unCheckedChildren={'关张'} defaultChecked={(record.status==1)?true:false} onChange={(payload)=>{this.props.updateStatus(payload,record.id,record.owner.id)}}></Switch>
         }
       },
       {

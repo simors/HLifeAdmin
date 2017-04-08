@@ -68,8 +68,8 @@ class ShopDetailsManager extends Component {
     console.log('payload', payload)
   }
 
-  updateCategory(payload, record) {
-    this.props.dispatch({type: 'shopInfoManager/updateShopStatus', payload: {id: record, status: payload ? 1 : 0}})
+  updateStatus(payload, record,userId) {
+    this.props.dispatch({type: 'shopInfoManager/updateShopStatus', payload: {userId:userId,id: record, status: payload ? 1 : 0}})
 
   }
   updateCommentStatus(payload, record){
@@ -88,8 +88,8 @@ class ShopDetailsManager extends Component {
         <Tabs defaultActiveKey='1' className='content-inner'>
           <TabPane tab='详情管理' key='1'><ShopDetails shopDetails={this.props.shopDetail} cancelImg={(payload)=> {
             this.cancelImg(payload)
-          }} updateCategory={(payload, record)=> {
-            this.updateCategory(payload, record)
+          }} updateStatus={(payload, record,userId)=> {
+            this.updateStatus(payload, record,userId)
           }}/>
           </TabPane>
           <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}

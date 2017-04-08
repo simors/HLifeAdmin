@@ -47,7 +47,7 @@ export default class ShopDetails extends Component{
         <div>店铺名称：{this.props.shopDetails.shopName}</div>
         <div>所属城市：{this.props.shopDetails.geoCity}</div>
         <div>所属地区：{this.props.shopDetails.geoDistrict}</div>
-        <div>是否开张：<Switch checkedChildren={'开张'} unCheckedChildren={'关张'} defaultChecked={(this.props.shopDetails.status==1)?true:false} onChange={(payload)=>{this.props.updateCategory(payload,this.props.shopDetails.id)}}></Switch></div>
+        <div>是否开张：<Switch checkedChildren={'开张'} unCheckedChildren={'关张'} defaultChecked={(this.props.shopDetails.status==1)?true:false} onChange={(payload)=>{this.props.updateStatus(payload,this.props.shopDetails.id,this.props.shopDetail.owner.id)}}></Switch></div>
         <div>店长：{this.props.shopDetails.name}</div>
         <div>注册用户：{this.props.shopDetails.owner.username}</div>
         <div>营业时间：{this.props.shopDetails.openTime}</div>
