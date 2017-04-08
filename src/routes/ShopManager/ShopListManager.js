@@ -4,17 +4,20 @@
 import React, { Component,PropTypes } from 'react'
 import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
-import {Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon,Cascader} from 'antd'
+import {Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon,Cascader,Select} from 'antd'
 const {MonthPicker, RangePicker} = DatePicker;
 import * as CommonSelect from '../../selector/CommonSelect'
 import ShopList from '../../components/ShopManager/InfoManager/ShopList'
 import {getShopList} from '../../selector/ShopManager/shopSelector'
 import CategoryModal from '../../components/ShopManager/CategoryManager/CategoryModal'
+import {getCategoryList, getTagList} from '../../selector/ShopManager/categorySelector'
+
 import ShopInfoManager from './ShopInfoManager'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 const dateFormat = 'YYYY-MM-DD';
+const Option = Select.Option;
 
 const orderShowTab = {
   'createTimeDescend': '时间降序',
@@ -37,7 +40,7 @@ class ShopListManager extends Component{
       endTime: new Date(),
       geoCity:'',
       username:'',
-      shopCategoryName:'',
+      selectedCategory:'',
       liveArea: []
 
     }
@@ -116,7 +119,7 @@ class ShopListManager extends Component{
       type:'shopInfoManager/query',
       payload:{
         orderMode: this.state.orderMode,
-        shopCategoryName: this.state.shopCategoryName,
+        selectedCategory: this.state.selectedCategory,
         username: this.state.username,
         startTime: this.state.startTime,
         endTime: this.state.endTime,
@@ -144,11 +147,24 @@ class ShopListManager extends Component{
       endTime: new Date(),
       geoCity:'',
       username:'',
-      shopCategoryName:'',
+      selectedCategory:'',
       liveArea: []
     })
     this.props.dispatch({
       type:'shopInfoManager/query'
+    })
+  }
+  renderCategoryList() {
+    if (this.props.categoryList) {
+      let categoryList = this.props.categoryList.map((item, key)=> {
+        return <Option key={item.id}>{item.text}</Option>
+      })
+      return categoryList
+    }
+  }
+  changeCategory(value){
+    this.setState({
+      selectedCategory:value
     })
   }
   // console.log('personList====>',personList)
@@ -186,8 +202,13 @@ class ShopListManager extends Component{
               />
             </Col>
             <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
-              <p>类别关键字：</p>
-              <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.handleInputCategoryChange(value)}}/>
+              <p>选择类别：</p>
+              <Select defaultValue='all' onChange={(value)=>{
+                this.changeCategory(value)
+              }}>
+                <Option key = 'all'>全部分类</Option>
+                {this.renderCategoryList()}
+              </Select>
             </Col>
             <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>店主关键字：</p>
@@ -217,10 +238,12 @@ class ShopListManager extends Component{
 
 function mapStateToProps(state) {
   let shopList=getShopList(state)
+  let categoryList = getCategoryList(state)
+
   const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
 
   // console.log('shopList',shopList)
-  return {shopList:shopList,areaTreeSelectData:areaTreeSelectData}
+  return {shopList:shopList,areaTreeSelectData:areaTreeSelectData,categoryList:categoryList}
 }
 
 export default connect(mapStateToProps)(ShopListManager)

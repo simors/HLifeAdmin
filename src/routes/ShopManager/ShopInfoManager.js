@@ -30,6 +30,8 @@ class ShopInfoManager extends Component {
     this.props.dispatch({
       type: 'common/fetchSubAreaList'
     })
+    this.props.dispatch({type:'shopCategoryManager/query'})
+
   }
 
   // console.log('personList====>',personList)
