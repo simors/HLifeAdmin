@@ -44,7 +44,7 @@ class CategoryChoosen extends Component {
       this.props.categoryList.forEach((item)=>{
       if(item!=undefined&&item.displaySort&&item.displaySort!=0&&item.displaySort!=null){
         console.log('+++=item',item)
-       choosenCategoryList.push(item)
+       choosenCategoryList[item.displaySort-1]=item
       }
     })
     console.log('choosenCategoryList',choosenCategoryList)
