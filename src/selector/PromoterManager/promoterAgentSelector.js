@@ -4,3 +4,7 @@
 export function getPromoterList(state) {
   return state.promoterAgentSet.promoterList
 }
+export function getPromoterDetail(state){
+  return state.promoterAgentSet.promoterDetail
+
+}

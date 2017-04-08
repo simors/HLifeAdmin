@@ -29,11 +29,16 @@ export default class ShopDetails extends Component{
     }
   }
   renderAlbum(){
-
-    let Albums=this.props.shopDetails.album.map((item,key)=>{
+    if(this.props.shopDetails.album&&this.props.shopDetails.album.length>0){
+      let Albums=this.props.shopDetails.album.map((item,key)=>{
         return <img style={{width:100,height:100}} src={item} key={key}></img>
-    })
-    return Albums
+      })
+      return Albums
+    }else {
+      return null
+    }
+
+
   }
   render(){
     return(
@@ -47,6 +52,7 @@ export default class ShopDetails extends Component{
         <div>注册用户：{this.props.shopDetails.owner.username}</div>
         <div>营业时间：{this.props.shopDetails.openTime}</div>
         <div>联系电话：{this.props.shopDetails.contactNumber}</div>
+        <div>联系电话：{this.props.shopDetails.contactNumber2}</div>
         <div>移动电话：{this.props.shopDetails.phone}</div>
         <div>访问人数：{this.props.shopDetails.pv}</div>
         <div>店铺地址：{this.props.shopDetails.shopAddress}</div>
