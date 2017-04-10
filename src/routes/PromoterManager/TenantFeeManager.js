@@ -6,7 +6,10 @@ import React, {Component, PropTypes} from 'react'
 import {routerRedux} from 'dva/router'
 import {connect} from 'dva'
 import {getCommissionCof} from '../../selector/PromoterManager/PromoterCommissionSelector'
+import {getTenantFeeList} from '../../selector/PromoterManager/tenantFeeManagerSelector'
+import TenantFeeModal from '../../components/PromoterManager/TenantFee/TenantFeeModal'
 import * as CommonSelect from '../../selector/CommonSelect'
+import TenantFeeList from '../../components/PromoterManager/TenantFee/TenantFeeList'
 
 import {
   Radio,
@@ -36,7 +39,10 @@ class TenantFeeManager extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      modalVisible: false,
       liveArea: [],
+      selectedItem: {},
+
     }
   }
 
@@ -67,6 +73,25 @@ class TenantFeeManager extends Component {
     })
   }
 
+  onModify(data) {
+    this.setState({modalVisible: true, selectedItem: data})
+  }
+
+  onCancel() {
+    this.setState({modalVisible: false, modalKey:this.state.modalKey-1})
+  }
+
+  onOk(data){
+    console.log('data====>',data)
+
+    this.props.dispatch({
+      type:'tenantFeeManager/update',
+      payload:data
+    })
+
+    this.setState({modalVisible:false, modalKey:this.state.modalKey-1})
+  }
+
   render() {
     return(
       <div className='content-inner'>
@@ -87,15 +112,34 @@ class TenantFeeManager extends Component {
           </Col>
 
         </Row>
+        <TenantFeeList dataSource={this.props.tenantFeeList}
+                       onEditItem={(payload)=> {
+                         this.onModify(payload)
+                       }}
+        />
+        <TenantFeeModal
+          modalKey={this.state.modalKey}
+          visible={this.state.modalVisible}
+          onOk={(payload)=> {
+            this.onOk(payload)
+          }}
+          onCancel={()=> {
+            this.onCancel()
+          }}
+          item={this.state.selectedItem}
+        />
+
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  let tenantFeeList = getTenantFeeList(state)
   const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
   return {
-    areaTreeSelectData:areaTreeSelectData
+    areaTreeSelectData:areaTreeSelectData,
+    tenantFeeList: tenantFeeList,
   }
 }
 export default connect(mapStateToProps)(TenantFeeManager)

@@ -3,5 +3,5 @@
  */
 
 export function getTenantFeeList(state) {
-  return
+  return state.tenantFeeManager.tenantFeeList
 }
