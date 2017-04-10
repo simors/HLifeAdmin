@@ -164,9 +164,9 @@ class PromoterList extends React.Component {
           if(record.identity==1){
             return <p>{record.province}</p>
           }else if(record.identity==2){
-            return <p>{record.city}</p>
+            return <p>{record.province+record.city}</p>
           }else if(record.identity==3){
-            return <p>{record.district}</p>
+            return <p>{record.province+record.city+record.district}</p>
           }else{
             return <p>无</p>
           }
@@ -205,7 +205,7 @@ class PromoterList extends React.Component {
         key: 'operation',
         width: 100,
         render: (text, record,index) => (
-          <p>
+          <div>
           <a onClick={() => this.props.onEditItem(record.objectId)} style={{
             marginRight: 4
           }}>设置代理</a>
@@ -217,7 +217,7 @@ class PromoterList extends React.Component {
                 marginRight: 4
               }}>详情</Link>
             </p>
-        </p>
+        </div>
         )
       }
     ]

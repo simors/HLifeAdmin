@@ -6,7 +6,7 @@ import AV from 'leancloud-storage'
 
 export async function fetchPromoterList(payload) {
   try {
-    // console.log('===========+>hello=======+>')
+     console.log('===========+>hello=======+>',payload)
 
     let promoterList = await AV.Cloud.run('promoterFetchPromoter', payload)
 
@@ -22,6 +22,7 @@ export async function fetchPromoterList(payload) {
 export async function getPromoterInfoById(payload){
   try{
     let promoterDetail=await AV.Cloud.run('promoterGetPromoterDetail',payload)
+    console.log('promoterDetail',promoterDetail,payload)
     return{success:true,promoterDetail:promoterDetail}
   }catch (err){
     return{success:false}
