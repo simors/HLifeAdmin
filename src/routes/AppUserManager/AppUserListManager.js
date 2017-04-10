@@ -160,7 +160,7 @@ class AppUserListManager extends Component {
               <Cascader
                 options={this.props.areaTreeSelectData}
                 changeOnSelect
-                placeholder="请选择生活地区地区"
+                placeholder="请选择生活地区"
                 onChange={(value, selectedOptions)=> {
                   this.selectedLiveDistrict(value, selectedOptions)
                 }}
