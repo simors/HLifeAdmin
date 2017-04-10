@@ -23,6 +23,7 @@ import AgentManager from './routes/PromoterManager/AgentManager'
 import PromoterDetail from './routes/PromoterManager/PromoterDetail'
 import UserFeedbackList from './routes/UserFeedback/UserFeedBackList'
 import UserFeedbackDetail from './routes/UserFeedback/UserFeedbackDetail'
+import TenantFeeManager from './routes/PromoterManager/TenantFeeManager'
 
 import Welcome from './routes/welcome'
 import err from './routes/error'
@@ -57,6 +58,7 @@ export default function ({history, app}) {
         <Route path="/promoterManager/promoterAgentSet/promoterDetail" breadcrumbName="推广用户详情" component={PromoterDetail}/>
 
       </Route>
+      <Route path="/promoterManager/tenantFeeManager" breadcrumbName="入驻费管理" component={TenantFeeManager}/>
       <Route path="/topicManager/contentManager" breadcrumbName="内容管理" component={TopicManage}/>
       <Route path="/topicManager/topicDetail" breadcrumbName="话题详情" component={TopicDetail}/>
       <Route path="/topicManager/topicCategoryManager" breadcrumbName="分类管理" component={TopicCategoryManager}/>
