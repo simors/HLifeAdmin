@@ -24,6 +24,7 @@ class PromoterDetail extends Component {
   }
 
   componentDidMount() {
+    console.log('this.props',this.props.location.query.id)
     this.props.dispatch({
       type: 'promoterAgentSet/fetchPromoterDetail',
       payload: {promoterId: this.props.location.query.id}
@@ -65,7 +66,7 @@ class PromoterDetail extends Component {
   //   }
   // }
   renderUpUser() {
-    if (this.props.promoterDetail.upUser.id) {
+    if (this.props.promoterDetail.upUser&&this.props.promoterDetail.upUser.id) {
       return <TabPane tab='上级用户详情' key='2'>
         <AppUserDetail areaTreeSelectData={this.props.areaTreeSelectData} userDetail={this.props.promoterDetail.upUser}
                        updateUserEnable={(payload, record)=> {
@@ -82,6 +83,7 @@ class PromoterDetail extends Component {
   }
 
   render() {
+    console.log('assssssssss',this.props.promoterDetail)
     return (
       <PromoterAgentManager>
         <Tabs defaultActiveKey='3' className='content-inner'>
@@ -112,7 +114,7 @@ class PromoterDetail extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-// console.log('aaaaa',ownProps.location.query)
+ // console.log('aaaaa',ownProps.location.query)
   let promoterDetail = getPromoterDetail(state, ownProps.location.query.id)
   const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
   console.log('appUserDetail', promoterDetail)

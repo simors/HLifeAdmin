@@ -46,6 +46,7 @@ export default class PromoterDetail extends Component {
     )
   }
   renderIdentityArea(){
+    if(this.props.promoterDetail&&this.props.promoterDetail.identity)
     switch(this.props.promoterDetail.identity){
       case 0:
         return null
@@ -57,45 +58,48 @@ export default class PromoterDetail extends Component {
         return <div>代理地区：{this.props.promoterDetail.province + this.props.promoterDetail.city}</div>
         break
       case 3:
-        return <div>代理地区：{this.props.promoterDetai.province + this.props.promoterDetail.city + this.props.promoterDetail.district}</div>
+        return <div>代理地区：{this.props.promoterDetail.province + this.props.promoterDetail.city + this.props.promoterDetail.district}</div>
         break
     }
   }
   renderLevel(){
-    switch (this.props.promoterDetail.level){
-      case 1:
-        return <div>级别：青铜级</div>
-      break
-      case 2:
-        return <div>级别：白银级</div>
-        break
-      case 3:
-        return <div>级别：黄金级</div>
-        break
-      case 4:
-        return <div>级别：钻石级</div>
-        break
-      case 5:
-        return <div>级别：皇冠级</div>
-        break
+    if(this.props.promoterDetail&&this.props.promoterDetail.level){
+      switch (this.props.promoterDetail.level){
+        case 1:
+          return <div>级别：青铜级</div>
+          break
+        case 2:
+          return <div>级别：白银级</div>
+          break
+        case 3:
+          return <div>级别：黄金级</div>
+          break
+        case 4:
+          return <div>级别：钻石级</div>
+          break
+        case 5:
+          return <div>级别：皇冠级</div>
+          break
+      }
     }
+
   }
   render() {
-    console.log('promoterDetail',this.props.promoterDetail)
+    // console.log('promoterDetail',this.props.promoterDetail.name)
     return (
       <div>
-        {this.props.promoterDetail.name?<div>名称：{this.props.promoterDetail.name}</div>:null}
-        {this.props.promoterDetail.liveProvince?<div>生活地区：{this.props.promoterDetail.liveProvince+this.props.promoterDetail.liveCity?this.props.promoterDetail.liveCity:''+this.props.promoterDetail.liveDistrict?this.props.promoterDetail.liveDistrict:''}</div>:null}
+        {(this.props.promoterDetail&&this.props.promoterDetail.name)?<div>名称：{this.props.promoterDetail.name}</div>:null}
+        {(this.props.promoterDetail&&this.props.promoterDetail.liveProvince)?<div>生活地区：{this.props.promoterDetail.liveProvince+this.props.promoterDetail.liveCity?this.props.promoterDetail.liveCity:''+this.props.promoterDetail.liveDistrict?this.props.promoterDetail.liveDistrict:''}</div>:null}
         { this.renderIdentityArea()}
         {this.renderLevel}
-        {this.props.promoterDetail.phone?<div>联系电话：{this.props.promoterDetail.phone}</div>:null}
+        {(this.props.promoterDetail&&this.props.promoterDetail.phone)?<div>联系电话：{this.props.promoterDetail.phone}</div>:null}
 
-        <div>邀请店铺数量：{this.props.promoterDetail.inviteShopNum}</div>
-        <div>团队成员数量：{this.props.promoterDetail.teamMemNum}</div>
-        <div>是否交费：{this.props.promoterDetail.payment==0?'未交费':'已交费'}</div>
-        <div>推广店铺提成金额：{this.props.promoterDetail.shopEarnings}</div>
-        <div>推广员提成金额：{this.props.promoterDetail.royaltyEarnings}</div>
-        {this.props.promoterDetail.createdAt?<div>注册时间：{formatLeancloudTime(new Date(this.props.promoterDetail.createdAt))}</div>:null}
+        {(this.props.promoterDetail)?<div>邀请店铺数量：{this.props.promoterDetail.inviteShopNum}</div>:null}
+        {(this.props.promoterDetail)?<div>团队成员数量：{this.props.promoterDetail.teamMemNum}</div>:null}
+          {(this.props.promoterDetail)?<div>是否交费：{this.props.promoterDetail.payment==0?'未交费':'已交费'}</div>:null}
+            {(this.props.promoterDetail)?<div>推广店铺提成金额：{this.props.promoterDetail.shopEarnings}</div>:null}
+              {(this.props.promoterDetail)?<div>推广员提成金额：{this.props.promoterDetail.royaltyEarnings}</div>:null}
+        {(this.props.promoterDetail&&this.props.promoterDetail.createdAt)?<div>注册时间：{formatLeancloudTime(new Date(this.props.promoterDetail.createdAt))}</div>:null}
         {this.renderToPromoter()}
         <UserToPromoter onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
       </div>
