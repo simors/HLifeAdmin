@@ -316,7 +316,36 @@ class CategoryModal extends Component {
   selectStatus(value, optin) {
     // console.log('vale', value, optin)
   }
+  selectTag(value){
+    console.log('value',value)
+    let tagList = this.state.selectTags
+    tagList.push(value)
+    this.setState({
+      selectTags:tagList
+    })
+    console.log('this.state.selectTags',this.state.selectTags)
+  }
+  renderTagList(){
+    // console.log('tagList',this.props.tagList)
+    if(this.props.tagList&&this.props.tagList.length>0){
+     let tagList= this.props.tagList.map((item,key)=>{
+       let tag = {
+         categoryId:item.categoryId,
+         categoryName:item.categoryName,
+         id:item.id,
+         name:item.name
+       }
+        let isSelect = this.contains(this.state.selectedRowKeys,item.id)
+       if(isSelect){
+          return  <Button style={{color:'#FFFFFF',borderRadius:5,width:80,height:25,backgroundColor:'#FF9D4E',marginTop:10,marginLeft:20}} >{item.name}</Button>
+       }else{
+         return <Button style={{color:'#FF9D4E',borderRadius:5,width:80,height:25,backgroundColor:'#FFFFFF',marginTop:10,marginLeft:20}} onClick={()=>{this.selectTag(tag)}}>{item.name}</Button>
 
+       }
+      })
+      return tagList
+    }
+  }
   render() {
     // if(this.props.type!='create'){
     //   let tagKeys = []
@@ -336,7 +365,7 @@ class CategoryModal extends Component {
       })
     }
     const selectedRowKeys = this.state.selectedRowKeys
-    console.log('selectTag',this.state.fileList)
+    // console.log('selectTag',this.state.fileList)
     // let fileCount = 0
     // let imageCount = 0
     // if (this.state.fileList.length > 0) {
@@ -397,7 +426,6 @@ class CategoryModal extends Component {
         wrapClassName='vertical-center-modal'
         key={this.props.modalKey}
       >
-
         <Form horizontal>
           <FormItem label='名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('text', {
@@ -416,7 +444,7 @@ class CategoryModal extends Component {
               rules: [
                 {
                   required: true,
-                  message: '名称未填写'
+                  message: '描述未填写'
                 }
               ]
             })(<Input />)}
@@ -537,17 +565,8 @@ class CategoryModal extends Component {
           {/*</FormItem>*/}
           {this.props.type=='create'?null:<div style={{marginLeft:115,marginRight:115}}><Input size='default' onChange={(value)=>{this.tagChange(value)}} placeholder="添加标签"></Input><Button onClick={()=>{this.addTag()}}>添加标签</Button></div>}
           {this.props.type == 'create' ? null :
-
-          <FormItem label='标签' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('containedTag', {
-              initialValue: rowKeys
-            })(
-              <Table bordered scroll={{
-                y: 300
-              }} dataSource={this.props.tagList} columns={columns} pagination='false' rowKey={record=>record.id}
-                     rowSelection={rowSelection}></Table>
-            )}
-          </FormItem>}
+            <div>{this.renderTagList()}</div>
+          }
         </Form>
       </Modal>
     )

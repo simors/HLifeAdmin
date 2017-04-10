@@ -299,14 +299,7 @@ class AddAgent extends Component {
   }
 
   render() {
-    let menu = (
-      <Menu onClick={(e)=> {
-        this.handleMenuClick(e)
-      }}>
-        <Menu.Item key="createTimeAscend">时间升序</Menu.Item>
-        <Menu.Item key="createTimeDescend">时间降序</Menu.Item>
-      </Menu>
-    );
+
     return (
       <PromoterAgentManager>
         <div>
