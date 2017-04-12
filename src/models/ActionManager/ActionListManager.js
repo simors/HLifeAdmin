@@ -31,7 +31,7 @@ export default {
       }
     },
     *updateBannersStatus({payload},{call,put}){
-      console.log('asdasd',payload)
+      // console.log('asdasd',payload)
       const data = yield call(updateBannersStatus,parse(payload))
       if(data&&data.success){
         put({

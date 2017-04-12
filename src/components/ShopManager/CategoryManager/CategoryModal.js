@@ -337,9 +337,9 @@ class CategoryModal extends Component {
        }
         let isSelect = this.contains(this.state.selectedRowKeys,item.id)
        if(isSelect){
-          return  <Button style={{color:'#FFFFFF',borderRadius:5,width:80,height:25,backgroundColor:'#FF9D4E',marginTop:10,marginLeft:20}} >{item.name}</Button>
+          return  <Button style={{color:'#FFFFFF',borderRadius:5,width:80,height:25,backgroundColor:'#FF9D4E',marginTop:10,marginLeft:20}} key={item.id}>{item.name}</Button>
        }else{
-         return <Button style={{color:'#FF9D4E',borderRadius:5,width:80,height:25,backgroundColor:'#FFFFFF',marginTop:10,marginLeft:20}} onClick={()=>{this.selectTag(tag)}}>{item.name}</Button>
+         return <Button style={{color:'#FF9D4E',borderRadius:5,width:80,height:25,backgroundColor:'#FFFFFF',marginTop:10,marginLeft:20}} key={item.id} onClick={()=>{this.selectTag(tag)}}>{item.name}</Button>
 
        }
       })
