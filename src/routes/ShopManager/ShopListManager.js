@@ -4,7 +4,7 @@
 import React, { Component,PropTypes } from 'react'
 import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
-import {Button,Tabs,Input, DatePicker, Row, Col, Menu, Dropdown, Icon,Cascader,Select} from 'antd'
+import {Button,Tabs,Input, Modal,DatePicker, Row, Col, Menu, Dropdown, Icon,Cascader,Select} from 'antd'
 const {MonthPicker, RangePicker} = DatePicker;
 import * as CommonSelect from '../../selector/CommonSelect'
 import ShopList from '../../components/ShopManager/InfoManager/ShopList'
@@ -41,7 +41,9 @@ class ShopListManager extends Component{
       geoCity:'',
       username:'',
       selectedCategory:'',
-      liveArea: []
+      liveArea: [],
+      certification:'',
+      imgVisible:false
 
     }
   }
@@ -167,6 +169,13 @@ class ShopListManager extends Component{
       selectedCategory:value
     })
   }
+  seeCertification(img){
+    this.setState({
+      certification : img,
+      imgVisible:true
+
+  })
+  }
   // console.log('personList====>',personList)
   render() {
     // console.log('personList===>',this.props.roleList)
@@ -228,8 +237,11 @@ class ShopListManager extends Component{
               <Button type="ghost" onClick={()=>this.unSearchByFilter()}>取消筛选</Button>
             </Col>
           </Row>
-<ShopList dataSource={this.props.shopList} updateCategory={(payload,record,userId)=>{this.updateStatus(payload,record,userId)}} shopInfoView={(payload)=>{this.shopInfoView(payload)}} />
+<ShopList dataSource={this.props.shopList} seeCertification={(img)=>{this.seeCertification(img)}} updateCategory={(payload,record,userId)=>{this.updateStatus(payload,record,userId)}} shopInfoView={(payload)=>{this.shopInfoView(payload)}} />
         </div>
+        <Modal visible={this.state.imgVisible} style={{width:400,height:400}} onCancel={()=>{this.setState({imgVisible:false})}} onOk={()=>{this.setState({imgVisible:false})}}>
+          <img src={this.state.certification} style={{width:400,height:400}}></img>
+        </Modal>
       </ShopInfoManager>
     )
   }
