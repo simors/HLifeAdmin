@@ -328,12 +328,29 @@ class CategoryModal extends Component {
 
     })
     // this.props.dispatch({type:'shopCategoryManager/fetchSelectTag',payload:tagList})
-    // console.log('this.state.selectTags',this.state.selectTags)
+    //  console.log('this.state.selectTags',this.state.selectTags)
 
-  
+    console.log('this.state.selectRowKeys',this.state.selectedRowKeys)
+
   }
   unSelectTag(tag){
     // let tagList = this.state.selectTags
+    let selectKeys = this.state.selectedRowKeys
+    let tagList = this.state.selectTags
+    for(let i=0;i<selectKeys.length;i++){
+      if(selectKeys[i]==tag.id){
+        selectKeys.splice(i,1)
+      }
+    }
+    for(let j = 0;j<tagList.length;j++){
+      if(tagList[j].id==tag.id){
+        tagList.splice(j,1)
+      }
+    }
+    this.setState({
+      selectedRowKeys:selectKeys,
+      selectTags:tagList
+    })
   }
   renderTagList(){
     // console.log('tagList',this.props.tagList)
