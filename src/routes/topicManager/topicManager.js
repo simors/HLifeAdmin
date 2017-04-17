@@ -231,7 +231,7 @@ class topicManager extends Component {
             <p>选择日期：</p>
             <RangePicker
               defaultValue={[moment('2000-01-01', dateFormat), new moment()]}
-              onChange={(date, dateString)=>this.onDateChange(date, dateString)} 
+              onChange={(date, dateString)=>this.onDateChange(date, dateString)}
             />
           </Col>
           <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>

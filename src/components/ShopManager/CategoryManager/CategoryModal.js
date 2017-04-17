@@ -7,7 +7,7 @@ import { message,Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table
 import styles from './CategoryModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
-import {getModalData, getModalState, getModalKey, getTagList} from '../../../selector/ShopManager/categorySelector'
+import {getModalData, getModalState, getModalKey, getTagList,getSelectTags} from '../../../selector/ShopManager/categorySelector'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -87,7 +87,7 @@ class CategoryModal extends Component {
             rowKeys.push(record.id)
           })
           // console.log('this.rowKeys',rowKeys)
-
+          // this.props.dispatch({type:'shopCategoryManager/fetchSelectTag',payload:newProps.data.containedTag})
           this.setState({
             selectedRowKeys: rowKeys,
             selectTags: newProps.data.containedTag
@@ -317,16 +317,27 @@ class CategoryModal extends Component {
     // console.log('vale', value, optin)
   }
   selectTag(value){
-    console.log('value',value)
+    // console.log('value',value)
+    let selectKeys = this.state.selectedRowKeys
+    selectKeys.push(value.id)
     let tagList = this.state.selectTags
     tagList.push(value)
     this.setState({
-      selectTags:tagList
+      selectTags:tagList,
+      selectedRowKeys:selectKeys
+
     })
-    console.log('this.state.selectTags',this.state.selectTags)
+    // this.props.dispatch({type:'shopCategoryManager/fetchSelectTag',payload:tagList})
+    // console.log('this.state.selectTags',this.state.selectTags)
+
+  
+  }
+  unSelectTag(tag){
+    // let tagList = this.state.selectTags
   }
   renderTagList(){
     // console.log('tagList',this.props.tagList)
+
     if(this.props.tagList&&this.props.tagList.length>0){
      let tagList= this.props.tagList.map((item,key)=>{
        let tag = {
@@ -337,7 +348,7 @@ class CategoryModal extends Component {
        }
         let isSelect = this.contains(this.state.selectedRowKeys,item.id)
        if(isSelect){
-          return  <Button style={{color:'#FFFFFF',borderRadius:5,width:80,height:25,backgroundColor:'#FF9D4E',marginTop:10,marginLeft:20}} key={item.id}>{item.name}</Button>
+          return  <Button style={{color:'#FFFFFF',borderRadius:5,width:80,height:25,backgroundColor:'#FF9D4E',marginTop:10,marginLeft:20}} key={item.id} onClick={()=>{this.unSelectTag(tag)}}>{item.name}</Button>
        }else{
          return <Button style={{color:'#FF9D4E',borderRadius:5,width:80,height:25,backgroundColor:'#FFFFFF',marginTop:10,marginLeft:20}} key={item.id} onClick={()=>{this.selectTag(tag)}}>{item.name}</Button>
 
@@ -582,12 +593,14 @@ CategoryModal.propTypes = {
 }
 
 function mapStateToProps(state) {
+  let selectTags = getSelectTags(state)
   let tagList = getTagList(state)
   let data = getModalData(state)
   let modalVisible = getModalState(state)
   let modalKey = getModalKey(state)
   // console.log('tagList==========>', tagList)
   return {
+    selectTags:selectTags,
     tagList: tagList,
     data: data,
     modalVisible: modalVisible,

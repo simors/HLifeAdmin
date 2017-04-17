@@ -26,3 +26,6 @@ export function getModalState(state) {
 export function getModalKey(state) {
   return state.shopCategoryManager.modalKey
 }
+export function getSelectTags(state) {
+  return state.shopCategoryManager.selectTags
+}

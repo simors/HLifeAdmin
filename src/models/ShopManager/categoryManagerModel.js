@@ -15,6 +15,7 @@ export default {
     modalData:{},
     catagoryModalOpen:false,
     modalKey:-1,
+    selectTags:[],
   },
   subscriptions:{
 
@@ -34,6 +35,12 @@ export default {
         })
       }
     },
+    *fetchSelectTag({payload},{call,put}){
+      yield put({type:'showLoading'})
+      if(payload){
+        yield put ({type:'selectTagReducer',payload:payload})
+      }
+      },
     *queryTag ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
       // const category = yield call(getShopCategoryList, parse(payload))
@@ -142,6 +149,11 @@ export default {
     closeModal(state,action){
       return {
         ...state,catagoryModalOpen:false,modalKey:state.modalKey-1
+      }
+    },
+    selectTagReducer(state,action){
+      return {
+        ...state,selectTags:action.payload
       }
     }
 
