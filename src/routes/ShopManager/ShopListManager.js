@@ -221,7 +221,7 @@ class ShopListManager extends Component{
             </Col>
             <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>店主关键字：</p>
-              <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.handleInputUsernameChange(value)}}/>
+              <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.handleInputUsernameChange(value)}} value={this.state.username}/>
             </Col>
             <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>选择日期：</p>

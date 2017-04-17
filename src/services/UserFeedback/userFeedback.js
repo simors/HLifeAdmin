@@ -3,9 +3,9 @@
  */
 import AV from 'leancloud-storage'
 
-export async function getAdviseList(){
+export async function getAdviseList(payload){
   try{
-    let adviseList= await AV.Cloud.run('getAdviseList')
+    let adviseList= await AV.Cloud.run('getAdviseList',payload)
     return{success:true,adviseList:adviseList}
   }catch (err){
     return {success:false}

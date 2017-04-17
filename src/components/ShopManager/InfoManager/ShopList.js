@@ -168,7 +168,7 @@ class CategoryList extends React.Component {
         key: 'coverUrl',
         render:(text,record)=>{
           const status=record.status
-          return <div ><img style={{width:30,height:30}} src={record.coverUrl}></img></div>
+          return <div onClick={()=>{this.props.seeCertification(record.coverUrl)}}><img style={{width:30,height:30}} src={record.coverUrl}></img></div>
         }
       },
       {

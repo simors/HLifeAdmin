@@ -225,13 +225,13 @@ class topicManager extends Component {
           </Col>
           <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
             <p>标题关键字：</p>
-            <Input style={{width: 200}} defaultValue="" onChange={this.handleFilterInputChange}/>
+            <Input style={{width: 200}} defaultValue="" onChange={this.handleFilterInputChange} value={this.state.filterValue}/>
           </Col>
           <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
             <p>选择日期：</p>
             <RangePicker
               defaultValue={[moment('2000-01-01', dateFormat), new moment()]}
-              onChange={(date, dateString)=>this.onDateChange(date, dateString)}
+              onChange={(date, dateString)=>this.onDateChange(date, dateString)} 
             />
           </Col>
           <Col lg={{offset: 0, span: 2}} style={{marginTop: 18, textAlign: 'left'}}>

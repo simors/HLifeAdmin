@@ -5,7 +5,7 @@
  * Created by lilu on 2017/2/20.
  */
 import React, {Component} from 'react'
-import {Table, Popconfirm, Checkbox,Switch} from 'antd'
+import {Table, Popconfirm, Checkbox, Switch, Input,Button} from 'antd'
 import {connect} from 'dva'
 import {TweenOneGroup} from 'rc-tween-one'
 // import styles from './topicList.less'
@@ -15,6 +15,10 @@ import {getAdviseList} from '../../selector/UserFeedbackManager/userFeedbackSele
 class UserFeedBackList extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      username: '',
+      status: 0
+    }
     this.enterAnim = [
       {
         opacity: 0,
@@ -49,12 +53,26 @@ class UserFeedBackList extends React.Component {
       }
     ]
   }
-  componentDidMount() {
-    this.props.dispatch({
-      type: 'userFeedbackModel/query',
 
-    })
+  componentDidMount() {
+    this.props.dispatch({type: 'userFeedbackModel/query', payload: {status: 0}})
+
   }
+
+  checkStatus(payload) {
+    // console.log('payload',payload)
+
+    if (payload == true) {
+      this.setState({status: 0})
+
+      this.props.dispatch({type: 'userFeedbackModel/query', payload: {status: this.state.status}})
+
+    } else {
+      this.setState({status: 1})
+      this.props.dispatch({type: 'userFeedbackModel/query'})
+    }
+  }
+
   getBodyWrapper = (body) => {
     // 切换分页去除动画;
     if (this.currentPage !== this.newPage) {
@@ -78,6 +96,34 @@ class UserFeedBackList extends React.Component {
     this.newPage = pagination.current
   }
 
+  handleInputUsernameChange(value) {
+    this.setState({username: value.target.value})
+
+  }
+
+  unSearchByFilter() {
+    this.setState({
+      username: ''
+    })
+    this.props.dispatch({
+      type: 'userFeedbackModel/query',
+      payload: {
+        status: this.state.status
+      }
+    })
+  }
+
+  onSearchByFilter() {
+    this.props.dispatch({
+      type: 'userFeedbackModel/query',
+
+      payload: {
+        status: this.state.status,
+        username: this.state.username,
+      }
+    })
+  }
+
   render() {
 
     const columns = [
@@ -88,7 +134,7 @@ class UserFeedBackList extends React.Component {
         key: 'status',
         render: (text, record)=> {
 // console.log('record',record.key,record.status)
-          return <p>{record.status?'已读':'未读'}</p>
+          return <p>{record.status ? '已读' : '未读'}</p>
         }
       },
       {
@@ -100,7 +146,7 @@ class UserFeedBackList extends React.Component {
         title: '创建时间',
         dataIndex: 'createdAt',
         key: 'createdAt',
-        render:(text,record)=>{
+        render: (text, record)=> {
           return <p>{formatLeancloudTime(new Date(record.createdAt))}</p>
         }
       },
@@ -114,7 +160,7 @@ class UserFeedBackList extends React.Component {
             <p>
               <Link to={{
                 pathname: "/userFeedback/userFeedbackDetail",
-                query: {adviseContent: record.content,id:record.id}
+                query: {adviseContent: record.content, id: record.id}
               }} style={{
                 marginRight: 4
               }}>反馈详情</Link>
@@ -123,11 +169,20 @@ class UserFeedBackList extends React.Component {
         }
       }
     ]
-    return <div>
-      <Table  bordered scroll={{
+    return (<div>
+      <div>是否仅显示未读:<Switch checkedChildren={'是'} unCheckedChildren={'否'} defaultChecked={true} onChange={(status)=> {
+        this.checkStatus(status)
+      }}></Switch></div>
+      <div><p>店主关键字：</p>
+        <Input style={{width: 100}} defaultValue="" value={this.state.username} onChange={(value)=> {
+          this.handleInputUsernameChange(value)}}/>
+        <Button type="primary" onClick={()=>this.onSearchByFilter()}>查询</Button>
+        <Button type="ghost" onClick={()=>this.unSearchByFilter()}>取消筛选</Button>
+      </div>
+      <Table bordered scroll={{
         x: 800
       }} columns={columns} dataSource={this.props.adviseList} simple rowKey={record => record.id}/>
-    </div>
+    </div>)
   }
 }
 
