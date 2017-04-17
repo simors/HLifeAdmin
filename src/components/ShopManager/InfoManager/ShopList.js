@@ -153,15 +153,15 @@ class CategoryList extends React.Component {
           return <Switch checkedChildren={'开张'} unCheckedChildren={'关张'} defaultChecked={(record.status==1)?true:false} onChange={(payload)=>{this.props.updateStatus(payload,record.id,record.owner.id)}}></Switch>
         }
       },
-      {
-        title: '执照',
-        dataIndex: 'certification',
-        key: 'certification',
-        render:(text,record)=>{
-          const status=record.status
-          return <div onClick={()=>{this.props.seeCertification(record.certification)}}><img style={{width:30,height:30}} src={record.certification}></img></div>
-        }
-      },
+      // {
+      //   title: '执照',
+      //   dataIndex: 'certification',
+      //   key: 'certification',
+      //   render:(text,record)=>{
+      //     const status=record.status
+      //     return <div onClick={()=>{this.props.seeCertification(record.certification)}}><img style={{width:30,height:30}} src={record.certification}></img></div>
+      //   }
+      // },
       {
         title: '封面',
         dataIndex: 'coverUrl',

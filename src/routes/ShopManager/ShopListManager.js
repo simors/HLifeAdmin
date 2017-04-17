@@ -43,7 +43,8 @@ class ShopListManager extends Component{
       selectedCategory:'',
       liveArea: [],
       certification:'',
-      imgVisible:false
+      imgVisible:false,
+      shopName:''
 
     }
   }
@@ -99,8 +100,8 @@ class ShopListManager extends Component{
   handleInputCityChange(value){
     this.setState({geoCity:value.target.value})
   }
-  handleInputUsernameChange(value){
-    this.setState({username:value.target.value})
+  handleInputshopnameChange(value){
+    this.setState({shopName:value.target.value})
 
   }
   handleInputCategoryChange(value){
@@ -122,7 +123,7 @@ class ShopListManager extends Component{
       payload:{
         orderMode: this.state.orderMode,
         selectedCategory: this.state.selectedCategory,
-        username: this.state.username,
+        shopName: this.state.shopName,
         startTime: this.state.startTime,
         endTime: this.state.endTime,
         geoCity: this.state.geoCity,
@@ -148,7 +149,7 @@ class ShopListManager extends Component{
       startTime: new Date('2000-01-01 00:00:00'),
       endTime: new Date(),
       geoCity:'',
-      username:'',
+      shopName:'',
       selectedCategory:'',
       liveArea: []
     })
@@ -220,8 +221,8 @@ class ShopListManager extends Component{
               </Select>
             </Col>
             <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
-              <p>店主关键字：</p>
-              <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.handleInputUsernameChange(value)}} value={this.state.username}/>
+              <p>店铺名称：</p>
+              <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.handleInputshopnameChange(value)}} value={this.state.shopName}/>
             </Col>
             <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>选择日期：</p>
