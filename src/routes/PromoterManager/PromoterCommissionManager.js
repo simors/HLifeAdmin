@@ -379,12 +379,12 @@ class PromoterCommissionManager extends Component {
                                    value={this.state.promoterCharge}
                                    onChange={(payload)=> {
                                      this.changePromoterCharge(payload)
-                                   }}/></div>
+                                   }}/>元</div>
           <div>店铺入驻最低费用:<InputNumber formatter={(value) =>{ ` ${value}元`}} parser={value => value.replace('元', '')}
                                      value={this.state.minShopkeeperCharge}
                                      onChange={(payload)=> {
                                        this.changeMinShopkeeperCharge(payload)
-                                     }}/></div>
+                                     }}/>元</div>
         </div>
         <div style={{borderWidth: 2, borderColor: '#FFFFFF', marginBottom: 20}}>
           <Row type='flex' align='left' justify='center'>

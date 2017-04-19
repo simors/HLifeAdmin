@@ -238,7 +238,7 @@ class ShopListManager extends Component{
               <Button type="ghost" onClick={()=>this.unSearchByFilter()}>取消筛选</Button>
             </Col>
           </Row>
-<ShopList dataSource={this.props.shopList} seeCertification={(img)=>{this.seeCertification(img)}} updateCategory={(payload,record,userId)=>{this.updateStatus(payload,record,userId)}} shopInfoView={(payload)=>{this.shopInfoView(payload)}} />
+<ShopList dataSource={this.props.shopList} seeCertification={(img)=>{this.seeCertification(img)}} updateStatus={(payload,record,userId)=>{this.updateStatus(payload,record,userId)}} shopInfoView={(payload)=>{this.shopInfoView(payload)}} />
         </div>
         <Modal visible={this.state.imgVisible} style={{width:400,height:400}} onCancel={()=>{this.setState({imgVisible:false})}} onOk={()=>{this.setState({imgVisible:false})}}>
           <img src={this.state.certification} style={{width:400,height:400}}></img>
