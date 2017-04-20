@@ -38,7 +38,8 @@ class topicCategoryModal extends Component {
   contains(arr, obj) {
     var i = arr.length;
     while (i--) {
-      if (arr[i] === obj) {
+      if ((arr[i].title === obj.name)&&(arr[i].id!=obj.id)) {
+        console.log('arr',arr[i],obj)
         return true;
       }
     }
@@ -56,12 +57,13 @@ class topicCategoryModal extends Component {
       if(data.name&&data.name!=''){
         let categoryList = this.props.categoryList.map((item,key)=>{
 
-            return item.title
+            return item
 
         })
         // console.log('test',categoryList,data)
-        let isEx=this.contains(categoryList,data.name)
+        let isEx=this.contains(categoryList,data)
         if(isEx){
+
           message.info('已有该分类')
           this.props.onCancel()
 
