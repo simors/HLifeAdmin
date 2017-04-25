@@ -24,6 +24,7 @@ import PromoterDetail from './routes/PromoterManager/PromoterDetail'
 import UserFeedbackList from './routes/UserFeedback/UserFeedBackList'
 import UserFeedbackDetail from './routes/UserFeedback/UserFeedbackDetail'
 import TenantFeeManager from './routes/PromoterManager/TenantFeeManager'
+import PromoterStatistics from './routes/Statistics/PromoterStatistics/index'
 
 import Welcome from './routes/welcome'
 import err from './routes/error'
@@ -38,6 +39,7 @@ export default function ({history, app}) {
         <IndexRoute component={AppUserListManager}/>
         <Route path="/BGManager/appUserManager/appUserDetailManager" breadcrumbName="app用户详情" component={AppUserDetailManager}/>
       </Route>
+      <Route path="/backgroundStatistics/promoterBalanceStatistics" breadcrumbName="推广员统计" component={PromoterStatistics}/>
       <Route path="/actionManager/actionListManager" breadcrumbName="活动列表管理">
         <IndexRoute component={ActionQueryManager}/>
       </Route>
