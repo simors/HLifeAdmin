@@ -1,11 +1,8 @@
 /**
  * Created by lilu on 2017/4/22.
  */
-/**
- * Created by zachary on 2017/3/18.
- */
 import {parse} from 'qs'
-import * as SmsService from '../../services/SmsService'
+import * as promoterFunC from '../../services/Statistics/promoterStatistics'
 import * as MessagePushSelector from '../../selector/MessagePushManager/MessagePushSelector'
 
 export default {

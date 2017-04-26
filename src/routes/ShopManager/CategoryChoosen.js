@@ -135,6 +135,10 @@ class CategoryChoosen extends Component {
               </div>
             </Col>
             <Col span={10}>
+              <div style={{flex:1,flexDirection:'row',justifyContent:'center'}}>
+              <Button onClick={()=> {
+                this.submitCategory()
+              }}>提交精选分类</Button></div>
               <div style={{flex: 1, height: 350, borderWidth: 1, borderColor: '#FFFFFF', backgroundColor: '#FFFFFF'}}>
                 <div style={{left: 50, fontSize: 14,marginBottom:10}}>精选分类</div>
                 {choosenCategory.map((card, i) => (
@@ -153,9 +157,7 @@ class CategoryChoosen extends Component {
             </Col>
           </Row>
           <Row>
-            <Button onClick={()=> {
-              this.submitCategory()
-            }}>提交精选分类</Button>
+
           </Row>
         </div>
       </CategoryManager>
