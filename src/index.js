@@ -47,6 +47,7 @@ app.model(require('./models/PromoterManager/PromoterCommissionManagerModel'))
 app.model(require('./models/PromoterManager/PromoterAgenSet'))
 app.model(require('./models/PromoterManager/tenantFeeManagerModel'))
 app.model(require('./models/UserFeedbackManager/UserFeedbackModel'))
+app.model(require('./models/StatisticsManger/promoterStatisticsModel'))
 
 app.model(require('./models/ShopManager/categoryManagerModel'))
 app.model(require('./models/ShopManager/shopInfoManagerModel'))

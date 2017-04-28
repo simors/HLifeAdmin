@@ -8,7 +8,7 @@ export async function getPromoterStatistics(payload){
 
 export async function fetchDaliyPerformance(payload) {
   try{
-    let data = await AV.Cloud.run('fetchDaliyPerformance',payload)
+    let data = await AV.Cloud.run('statFetchDailyPerformance',payload)
     return {success:true,data:data}
 
   }catch (err){
@@ -17,7 +17,7 @@ export async function fetchDaliyPerformance(payload) {
 }
 export async function fetchLastDaysPerformance(payload) {
   try{
-    let data = await AV.Cloud.run('fetchLastDaysPerformance',payload)
+    let data = await AV.Cloud.run('statFetchLastDaysPerformance',payload)
     return {success:true,data:data}
 
   }catch (err){
@@ -26,7 +26,7 @@ export async function fetchLastDaysPerformance(payload) {
 }
 export async function fetchMonthPerformance(payload) {
   try{
-    let data = await AV.Cloud.run('fetchMonthPerformance',payload)
+    let data = await AV.Cloud.run('statFetchMonthPerformance',payload)
     return {success:true,data:data}
 
   }catch (err){
@@ -35,7 +35,7 @@ export async function fetchMonthPerformance(payload) {
 }
 export async function fetchLastMonthsPerformance(payload) {
   try{
-    let data = await AV.Cloud.run('fetchLastMonthsPerformance',payload)
+    let data = await AV.Cloud.run('statFetchLastMonthsPerformance',payload)
     return {success:true,data:data}
 
   }catch (err){
@@ -44,7 +44,7 @@ export async function fetchLastMonthsPerformance(payload) {
 }
 export async function fetchAreaMonthPerformance(payload) {
   try{
-    let data = await AV.Cloud.run('fetchAreaMonthPerformance',payload)
+    let data = await AV.Cloud.run('statFetchAreaMonthPerformance',payload)
     return {success:true,data:data}
 
   }catch (err){
@@ -53,10 +53,12 @@ export async function fetchAreaMonthPerformance(payload) {
 }
 export async function fetchArealastMonthsPerformance(payload) {
   try{
-    let data = await AV.Cloud.run('fetchArealastMonthsPerformance',payload)
+    let data = await AV.Cloud.run('statFetchAreaLastMonthsPerformance',payload)
     return {success:true,data:data}
 
   }catch (err){
     return{success:false}
   }
 }
+
+
