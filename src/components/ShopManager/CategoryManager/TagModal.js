@@ -3,6 +3,7 @@
  */
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, InputNumber, Radio, Modal, Checkbox, Select,message} from 'antd'
+import {trim} from '../../../services/CommonService'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -40,7 +41,7 @@ class TagModal extends Component {
   contains(arr, obj) {
     var i = arr.length;
     while (i--) {
-      if (arr[i] === obj) {
+      if (trim(arr[i]) === obj) {
         return true;
       }
     }
@@ -58,14 +59,14 @@ class TagModal extends Component {
         ...this.props.form.getFieldsValue(),
         key: this.props.item.id
       }
-      if((data.name&&data.name!='')&&(data.categoryId&&data.categoryId!='')){
+      if((data.name&&trim(data.name)!='')&&(data.categoryId&&data.categoryId!='')){
         let tagNameList = this.props.tagList.map((item,key)=>{
           if(item.categoryId==data.categoryId){
             return item.name
           }
         })
-        console.log('test',tagNameList,data)
-        let isEx=this.contains(tagNameList,data.name)
+        // console.log('test',tagNameList,data)
+        let isEx=this.contains(tagNameList,trim(data.name))
         if(isEx){
           message.info('已有该标签')
           this.props.onCancel()

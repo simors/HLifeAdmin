@@ -123,7 +123,7 @@ class CategoryPool extends React.Component {
     //console.log('dataSource',dataSource)
     const columns = [
       {
-        title: '标签名称',
+        title: '类别名称',
         dataIndex: 'text',
         key: 'text',
         width: 1000,

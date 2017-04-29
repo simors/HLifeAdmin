@@ -4,6 +4,7 @@
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, Modal, Upload,Icon,message} from 'antd'
 import styles from './topicCategoryModal.less'
+import {trim} from '../../../services/CommonService'
 
 const FormItem = Form.Item
 
@@ -38,8 +39,8 @@ class topicCategoryModal extends Component {
   contains(arr, obj) {
     var i = arr.length;
     while (i--) {
-      if ((arr[i].title === obj.name)&&(arr[i].id!=obj.id)) {
-        console.log('arr',arr[i],obj)
+      if ((trim(arr[i].title) === obj)&&(arr[i].id!=obj.id)) {
+        // console.log('arr',arr[i],obj)
         return true;
       }
     }
@@ -54,14 +55,15 @@ class topicCategoryModal extends Component {
         ...this.props.form.getFieldsValue(),
         id: this.props.item.id
       }
-      if(data.name&&data.name!=''){
+      if(data.name&&trim(data.name)!=''){
+        // console.log('this.categoryList',this.props.categoryList)
         let categoryList = this.props.categoryList.map((item,key)=>{
-
+// console.log('item',item)
             return item
 
         })
         // console.log('test',categoryList,data)
-        let isEx=this.contains(categoryList,data)
+        let isEx=this.contains(categoryList,trim(data.name))
         if(isEx){
 
           message.info('已有该分类')

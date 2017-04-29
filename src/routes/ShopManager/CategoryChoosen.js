@@ -119,7 +119,7 @@ class CategoryChoosen extends Component {
     const { choosenCategory} = this.state;
     return (
       <CategoryManager>
-        <div>
+        <div style={{flex:1}}>
           <Row type='flex' justify='center' align='middle'>
             <Col span={10}>
               <div><CategoryPool dataSource={this.state.categoryPool} selectCategory={(payload)=> {
@@ -136,11 +136,11 @@ class CategoryChoosen extends Component {
             </Col>
             <Col span={10}>
               <div style={{flex:1,flexDirection:'row',justifyContent:'center'}}>
-              <Button onClick={()=> {
+              <Button size='large' type="primary" onClick={()=> {
                 this.submitCategory()
               }}>提交精选分类</Button></div>
-              <div style={{flex: 1, height: 350, borderWidth: 1, borderColor: '#FFFFFF', backgroundColor: '#FFFFFF'}}>
-                <div style={{left: 50, fontSize: 14,marginBottom:10}}>精选分类</div>
+              <div style={{flex: 1, height: 350, borderWidth: 1, borderColor: '#FFFFFF', backgroundColor: '#FFFFFF',alignItem:'center'}}>
+                <h1 style={{ fontSize: 14,marginBottom:10,flex:1,flexDirection:'row',justifyContent:'center',backgroundColor:'#CCCCCC'}}>精选分类</h1>
                 {choosenCategory.map((card, i) => (
                   <Card
                     key={card.id}

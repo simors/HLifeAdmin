@@ -18,3 +18,7 @@ export async function fetchSubAreaList(payload) {
   // console.log('fetchSubAreaList.results====>>>>', results)
   return results
 }
+
+export function trim(str){
+  return str.replace(/(^\s*)|(\s*$)/g, "");
+}
