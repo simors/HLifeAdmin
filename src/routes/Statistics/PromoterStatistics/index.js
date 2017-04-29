@@ -99,10 +99,16 @@ class PromoterStatistics extends Component {
   }
 
   onSearchByFilter() {
-    console.log('state', {...this.state})
+    // console.log('state', {...this.state})
     this.props.dispatch({
       type: 'promoterStatistics/queryAreaMonthPerformance',
-      payload: {...this.state}
+      payload: {
+      month:this.state.lastMonth,
+      year:this.state.lastYear,
+      province: this.state.province,
+      city:this.state.city,
+      level:this.state.level
+      }
     })
     // this.props.dispatch({
     //   type:'promoterStatistics/queryDaliyPerformance',
@@ -216,7 +222,7 @@ class PromoterStatistics extends Component {
         </div>
       )
     } else {
-
+      return <div>该月或者该地区无统计数据</div>
     }
 
 
@@ -235,6 +241,16 @@ class PromoterStatistics extends Component {
     if (this.state.level == 3) {
       area = 'province'
     }
+    let defs={
+      'earning':{
+        nice:true,
+        type:'linear',
+      },
+      'month':{
+        type:'cat',
+        tickCount:this.props.lastMonthsPerformance.length
+      }
+    }
     const LineEarning = createG2(chart => {
       chart.axis('earning', {
         position:'left',
@@ -244,10 +260,17 @@ class PromoterStatistics extends Component {
             'textAlign': 'start'
           }
         },
+
         formatter:function (value) {
           return value+'元'
         }
       });
+      chart.tooltip({
+        title: null,
+        map: {
+          value: 'earning'
+        }
+      })
       chart.axis('month', {
         formatter:function (value) {
           return value+'月'
@@ -263,7 +286,16 @@ class PromoterStatistics extends Component {
         position: 'right',
         itemWrap: true,
       });
+      chart.col('month',{
+        type:'cat',
+          tickCount:this.props.lastMonthsPerformance.length
+      })
+      chart.col('earning',{
+        range:[0,1],
+        min:0
 
+      })
+      // chart.source(this.props.lastMonthsPerformance,defs)
       chart.line().position('month*earning').color(area).shape('spline').size(2);
       chart.render();
     });
@@ -277,11 +309,26 @@ class PromoterStatistics extends Component {
           value:this.props.lastMonthsPerformance.length
         }
       });
+      chart.tooltip({
+        title: null,
+        map: {
+          value: 'shopNum'
+        }
+      })
       chart.legend({
         title: null,
         position: 'right',
         itemWrap: true,
       });
+      chart.col('month',{
+        type:'cat',
+        tickCount:this.props.lastMonthsPerformance.length
+      })
+      chart.col('shopNum',{
+        range:[0,1],
+        min:0
+
+      })
       chart.line().position('month*shopNum').color(area).shape('spline').size(2);
       chart.render();
     });
@@ -295,11 +342,26 @@ class PromoterStatistics extends Component {
           value:this.props.lastMonthsPerformance.length
         }
       });
+      chart.tooltip({
+        title: null,
+        map: {
+          value: 'shopNum'
+        }
+      })
       chart.legend({
         title: null,
         position: 'right',
         itemWrap: true,
       });
+      chart.col('month',{
+        type:'cat',
+        tickCount:this.props.lastMonthsPerformance.length
+      })
+      chart.col('promoterNum',{
+        range:[0,1],
+        min:0
+
+      })
       chart.line().position('month*promoterNum').color(area).shape('spline').size(2);
       chart.render();
 
@@ -325,7 +387,7 @@ class PromoterStatistics extends Component {
     }
     return (
       <Tabs defaultActiveKey='1' className='content-inner'>
-        <TabPane tab='当地下辖统计' key='1'>
+        <TabPane tab='地区下辖统计' key='1'>
           <div>
             <Row gutter={24}>
 
@@ -369,7 +431,7 @@ class PromoterStatistics extends Component {
 
           </div>
         </TabPane>
-        <TabPane tab='当地统计' key='2'>
+        <TabPane tab='地区统计' key='2'>
           <div>
             <Row gutter={24}>
 

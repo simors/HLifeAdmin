@@ -83,7 +83,7 @@ export default {
     },
     areaMonthPerformanceReducer(state,action){
       const data = action.payload
-      // console.log('areaMonthPerformanceReducer',data)
+      console.log('areaMonthPerformanceReducer',data)
       return {...state,areaMonthPerformance:data.statistics}
 
     },
