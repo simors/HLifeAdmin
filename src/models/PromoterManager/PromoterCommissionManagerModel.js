@@ -27,6 +27,7 @@ export default {
     *submitCommissionCof({payload},{call,put}){
       const data = yield call(submitCommissionCof,parse(payload))
       if(data.success){
+        payload.success()
         yield put({
           type:'query'
         })

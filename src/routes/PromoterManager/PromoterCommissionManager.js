@@ -26,6 +26,7 @@ import {
   Icon,
   Layout,
   Alert
+
 } from 'antd'
 import style from './PromoterCommissionManager.less'
 
@@ -402,12 +403,17 @@ class PromoterCommissionManager extends Component {
     console.log('sumbit', record)
     this.props.dispatch({
       type: 'promoterCommissionManager/submitCommissionCof',
-      payload: record
+      payload: {
+        ...record,
+        success: function () {
+          message.success('提交成功')
+        }
+      }
     })
   }
 
   render() {
-    console.log('hahahaha', {...this.state})
+    // console.log('hahahaha', {...this.state})
 
     return (
       <div style={{flex: 1}}>
