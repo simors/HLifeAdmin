@@ -229,156 +229,160 @@ class PromoterStatistics extends Component {
   }
 
   renderStatisticsLocal() {
-
-    let area = ''
-    let startMonth = this.props.lastMonthsPerformance[0].month
-    if (this.state.level == 1) {
-      area = 'district'
-    }
-    if (this.state.level == 2) {
-      area = 'city'
-    }
-    if (this.state.level == 3) {
-      area = 'province'
-    }
-    let defs={
-      'earning':{
-        nice:true,
-        type:'linear',
-      },
-      'month':{
-        type:'cat',
-        tickCount:this.props.lastMonthsPerformance.length
+    if(this.props.lastMonthsPerformance&&this.props.lastMonthsPerformance.length>0){
+      let area = ''
+      let startMonth = this.props.lastMonthsPerformance[0].month
+      if (this.state.level == 1) {
+        area = 'district'
       }
-    }
-    const LineEarning = createG2(chart => {
-      chart.axis('earning', {
-        position:'left',
-        title: null,
-        labels: {
-          label: {
-            'textAlign': 'start'
-          }
+      if (this.state.level == 2) {
+        area = 'city'
+      }
+      if (this.state.level == 3) {
+        area = 'province'
+      }
+      let defs={
+        'earning':{
+          nice:true,
+          type:'linear',
         },
-
-        formatter:function (value) {
-          return value+'元'
-        }
-      });
-      chart.tooltip({
-        title: null,
-        map: {
-          value: 'earning'
-        }
-      })
-      chart.axis('month', {
-        formatter:function (value) {
-          return value+'月'
-        },
-        title: null,
-        tickLine:{
-          value:5,
-          lineWidth:1,
-        }
-      });
-      chart.legend({
-        title: null,
-        position: 'right',
-        itemWrap: true,
-      });
-      chart.col('month',{
-        type:'cat',
+        'month':{
+          type:'cat',
           tickCount:this.props.lastMonthsPerformance.length
-      })
-      chart.col('earning',{
-        range:[0,1],
-        min:0
-
-      })
-      // chart.source(this.props.lastMonthsPerformance,defs)
-      chart.line().position('month*earning').color(area).shape('spline').size(2);
-      chart.render();
-    });
-    const LineShopNum = createG2(chart => {
-      chart.axis('month', {
-        formatter:function (value) {
-          return value+'月'
-        },
-        title: null,
-        tickLine:{
-          value:this.props.lastMonthsPerformance.length
         }
-      });
-      chart.tooltip({
-        title: null,
-        map: {
-          value: 'shopNum'
-        }
-      })
-      chart.legend({
-        title: null,
-        position: 'right',
-        itemWrap: true,
-      });
-      chart.col('month',{
-        type:'cat',
-        tickCount:this.props.lastMonthsPerformance.length
-      })
-      chart.col('shopNum',{
-        range:[0,1],
-        min:0
+      }
+      const LineEarning = createG2(chart => {
+        chart.axis('earning', {
+          position:'left',
+          title: null,
+          labels: {
+            label: {
+              'textAlign': 'start'
+            }
+          },
 
-      })
-      chart.line().position('month*shopNum').color(area).shape('spline').size(2);
-      chart.render();
-    });
-    const LinePromoterNum = createG2(chart => {
-      chart.axis('month', {
-        formatter:function (value) {
-          return value+'月'
-        },
-        title: null,
-        tickLine:{
-          value:this.props.lastMonthsPerformance.length
-        }
-      });
-      chart.tooltip({
-        title: null,
-        map: {
-          value: 'shopNum'
-        }
-      })
-      chart.legend({
-        title: null,
-        position: 'right',
-        itemWrap: true,
-      });
-      chart.col('month',{
-        type:'cat',
-        tickCount:this.props.lastMonthsPerformance.length
-      })
-      chart.col('promoterNum',{
-        range:[0,1],
-        min:0
+          formatter:function (value) {
+            return value+'元'
+          }
+        });
+        chart.tooltip({
+          title: null,
+          map: {
+            value: 'earning'
+          }
+        })
+        chart.axis('month', {
+          formatter:function (value) {
+            return value+'月'
+          },
+          title: null,
+          tickLine:{
+            value:5,
+            lineWidth:1,
+          }
+        });
+        chart.legend({
+          title: null,
+          position: 'right',
+          itemWrap: true,
+        });
+        chart.col('month',{
+          type:'cat',
+          tickCount:this.props.lastMonthsPerformance.length
+        })
+        chart.col('earning',{
+          range:[0,1],
+          min:0
 
-      })
-      chart.line().position('month*promoterNum').color(area).shape('spline').size(2);
-      chart.render();
+        })
+        // chart.source(this.props.lastMonthsPerformance,defs)
+        chart.line().position('month*earning').color(area).shape('spline').size(2);
+        chart.render();
+      });
+      const LineShopNum = createG2(chart => {
+        chart.axis('month', {
+          formatter:function (value) {
+            return value+'月'
+          },
+          title: null,
+          tickLine:{
+            value:this.props.lastMonthsPerformance.length
+          }
+        });
+        chart.tooltip({
+          title: null,
+          map: {
+            value: 'shopNum'
+          }
+        })
+        chart.legend({
+          title: null,
+          position: 'right',
+          itemWrap: true,
+        });
+        chart.col('month',{
+          type:'cat',
+          tickCount:this.props.lastMonthsPerformance.length
+        })
+        chart.col('shopNum',{
+          range:[0,1],
+          min:0
 
-    });
-    return (
-      <div>
-        <div>当地{this.state.months}月来营业额
-          <LineEarning data={this.props.lastMonthsPerformance} width={600} height={300}/>
+        })
+        chart.line().position('month*shopNum').color(area).shape('spline').size(2);
+        chart.render();
+      });
+      const LinePromoterNum = createG2(chart => {
+        chart.axis('month', {
+          formatter:function (value) {
+            return value+'月'
+          },
+          title: null,
+          tickLine:{
+            value:this.props.lastMonthsPerformance.length
+          }
+        });
+        chart.tooltip({
+          title: null,
+          map: {
+            value: 'shopNum'
+          }
+        })
+        chart.legend({
+          title: null,
+          position: 'right',
+          itemWrap: true,
+        });
+        chart.col('month',{
+          type:'cat',
+          tickCount:this.props.lastMonthsPerformance.length
+        })
+        chart.col('promoterNum',{
+          range:[0,1],
+          min:0
+
+        })
+        chart.line().position('month*promoterNum').color(area).shape('spline').size(2);
+        chart.render();
+
+      });
+      return (
+        <div>
+          <div>当地{this.state.months}月来营业额
+            <LineEarning data={this.props.lastMonthsPerformance} width={600} height={300}/>
+          </div>
+          <div>当地{this.state.months}月来店铺数量
+            <LineShopNum data={this.props.lastMonthsPerformance} width={600} height={300}/>
+          </div>
+          <div>当地{this.state.months}月来推广人员数量
+            <LinePromoterNum data={this.props.lastMonthsPerformance} width={600} height={300}/>
+          </div>
         </div>
-        <div>当地{this.state.months}月来店铺数量
-          <LineShopNum data={this.props.lastMonthsPerformance} width={600} height={300}/>
-        </div>
-        <div>当地{this.state.months}月来推广人员数量
-          <LinePromoterNum data={this.props.lastMonthsPerformance} width={600} height={300}/>
-        </div>
-      </div>
-    )
+      )
+    }else{
+      return <div>没有统计数据</div>
+    }
+
   }
 
   render() {
