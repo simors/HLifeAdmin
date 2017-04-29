@@ -24,7 +24,8 @@ import {
   Menu,
   Dropdown,
   Icon,
-  Layout
+  Layout,
+  Alert
 } from 'antd'
 import style from './PromoterCommissionManager.less'
 
@@ -144,21 +145,39 @@ class PromoterCommissionManager extends Component {
     })
   }
   changeProvinceAgent(payload) {
-    this.setState({
-      province_agent: payload
-    })
+    if((payload+this.state.city_agent+this.state.district_agent)>1)
+    {
+      message.error('总提成比例不能大于1')
+
+    }else {
+      this.setState({
+        province_agent: payload
+      })
+    }
   }
 
   changeCityAgent(payload) {
-    this.setState({
-      city_agent: payload
-    })
+    if((this.state.province_agent+payload+this.state.district_agent)>1)
+    {
+      message.error('总提成比例不能大于1')
+    }else {
+      this.setState({
+        city_agent: payload
+      })
+    }
   }
 
   changeDistrictAgent(payload) {
-    this.setState({
-      district_agent: payload
-    })
+    if((this.state.province_agent+this.state.city_agent+payload)>1)
+    {
+      message.error('总提成比例不能大于1')
+
+    }else{
+      this.setState({
+        district_agent: payload
+      })
+    }
+
   }
 
   changeStreetAgent(payload) {
@@ -406,12 +425,12 @@ class PromoterCommissionManager extends Component {
                                                                            onChange={(payload)=> {
             this.changeDistrictAgent(payload)
           }}/></div>
-          <div style={{marginTop: 1, marginBottom: 1}}>街道代理提成：<InputNumber formatter={(value) =>{ ` ${value*100}%`}} parser={value => value.replace('%', '')} min={0} max={1} step={0.01}
-                                                                           value={this.state.street_agent}
-                                                                            onChange={(payload)=> {
-            this.changeStreetAgent(payload)
-          }}/></div>
-          <div>{'总计：'+(this.state.province_agent+this.state.city_agent+this.state.district_agent+this.state.street_agent)}</div>
+          {/*<div style={{marginTop: 1, marginBottom: 1}}>街道代理提成：<InputNumber formatter={(value) =>{ ` ${value*100}%`}} parser={value => value.replace('%', '')} min={0} max={1} step={0.01}*/}
+                                                                           {/*value={this.state.street_agent}*/}
+                                                                            {/*onChange={(payload)=> {*/}
+            {/*this.changeStreetAgent(payload)*/}
+          {/*}}/></div>*/}
+          <div>{'总计：'+(this.state.province_agent+this.state.city_agent+this.state.district_agent)}</div>
         </div>
 
         <div style={{borderWidth: 1, borderColor: '#FFFFFF', marginBottom: 20}}> <Row type='flex' align='left' justify='center'>
