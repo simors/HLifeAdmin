@@ -137,7 +137,7 @@ class TagList extends React.Component {
       }
     ]
     return <div>
-      <Table bordered columns={columns} dataSource={dataSource} simple rowKey={record => record.id}
+      <Table bordered style={{width:600}} columns={columns} dataSource={dataSource} simple rowKey={record => record.id}
              pagination={this.props.pagination ? this.props.pagination : {}}/>
     </div>
   }
