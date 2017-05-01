@@ -20,5 +20,10 @@ export async function fetchSubAreaList(payload) {
 }
 
 export function trim(str){
-  return str.replace(/(^\s*)|(\s*$)/g, "");
+  if(str&&str.length>0){
+      str =  str.replace(/(^\s*)|(\s*$)/g, "")
+    console.log('str',str)
+
+    return str;
+  }
 }

@@ -83,7 +83,11 @@ class topicCategoryModal extends Component {
       // this.props.onOk(data)
     })
   }
-
+  setTrimValue(value){
+    let trimValue = trim(value)
+    console.log('trim',trimValue)
+    return trimValue
+  }
   render() {
     return (
       <Modal
@@ -98,6 +102,10 @@ class topicCategoryModal extends Component {
           <FormItem label='分类名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
               initialValue: this.props.type==='create'?'':this.props.item.title,
+              getValueFromEvent:(e)=>{
+                let value=this.setTrimValue(e.target.value)
+                return value
+              },
               rules: [
                 {
                   required: true,

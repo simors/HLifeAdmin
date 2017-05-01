@@ -374,6 +374,13 @@ class CategoryModal extends Component {
       return tagList
     }
   }
+
+  setTrimValue(value){
+    let trimValue = trim(value)
+    console.log('trim',trimValue)
+    return trimValue
+  }
+
   render() {
     // if(this.props.type!='create'){
     //   let tagKeys = []
@@ -458,6 +465,10 @@ class CategoryModal extends Component {
           <FormItem label='名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('text', {
               initialValue: this.props.type === 'create' ? '' : this.props.data.text,
+              getValueFromEvent:(e)=>{
+                let value=this.setTrimValue(e.target.value)
+                return value
+              },
               rules: [
                 {
                   required: true,
