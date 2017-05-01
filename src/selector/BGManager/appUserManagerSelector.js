@@ -20,3 +20,8 @@ export function getAppUserDetail(state,id){
 export function getShopDetailFromUser(state) {
   return state.appUserManager.shopDetail
 }
+
+export function getPromoterDetail(state){
+  return state.appUserManager.promoterDetail
+
+}

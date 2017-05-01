@@ -3,7 +3,7 @@
  */
 
 import {parse} from 'qs'
-import {getAppUserList,updateAppUserEnable,getShopByUserId,user2promoter} from '../../services/BGManager/appUserManager'
+import {getAppUserList,updateAppUserEnable,getShopByUserId,user2promoter,getPromoterInfoByUserId} from '../../services/BGManager/appUserManager'
 import {updateShopStatus} from '../../services/ShopManager/shopInfoManager'
 
 export default {
@@ -11,6 +11,7 @@ export default {
   state:{
    appUserList:[],
    shopDetail:{},
+    promoterDetail:{},
   },
   subscriptions:{
 
@@ -45,6 +46,16 @@ export default {
         })
       }
       },
+    *fetchPromoterDetailByUserId({payload},{call,put}){
+      yield put({type:'showLoading'})
+      const data = yield call(getPromoterInfoByUserId,parse(payload))
+      if(data.success){
+        yield put ({
+          type:'promoterDetailReducer',
+          payload:{promoterDetail:data.promoterDetail}
+        })
+      }
+    },
     *updateShopStatus({payload},{call,put}){
       yield put({type: 'showLoading'})
       const shop = yield call(updateShopStatus, parse(payload))
@@ -91,6 +102,12 @@ export default {
       let {shopDetail}=action.payload
       return{
         ...state,shopDetail:shopDetail
+      }
+    },
+    promoterDetailReducer(state,action){
+      let {promoterDetail}=action.payload
+      return{
+        ...state,promoterDetail:promoterDetail
       }
     }
 

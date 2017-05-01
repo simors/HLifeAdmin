@@ -57,6 +57,7 @@ export default {
         })
       }
     },
+
     *agentSet({payload},{call,put}){
       yield put({type: 'showLoading'})
       const promoter = yield call(agentSet, parse(payload))

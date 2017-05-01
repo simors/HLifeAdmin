@@ -2,9 +2,10 @@
  * Created by lilu on 2017/3/10.
  */
 import React, {Component} from 'react'
-import {getAppUserDetail} from '../../selector/BGManager/appUserManagerSelector'
+import {getAppUserDetail,getPromoterDetail} from '../../selector/BGManager/appUserManagerSelector'
 import {connect} from 'dva'
 import AppUserManager from './AppUserManager'
+import PromoterDetail from '../../components/PromoterManager/PromoterAgent/promoterDetail'
 import {Tag, Tabs} from 'antd'
 import AppUserDetail from '../../components/BGManager/appUserManager/appUserDetail'
 import UserShopDetail from'./UserShopDetail'
@@ -19,6 +20,7 @@ class appUserDetailManager extends Component {
 
   componentDidMount() {
 
+    this.props.dispatch({type:'appUserManager/fetchPromoterDetailByUserId',payload:{userId:this.props.appUserDetail.id}})
 
   }
 
@@ -59,7 +61,7 @@ class appUserDetailManager extends Component {
 
         if(item=='promoter'){
           // console.log('here is code')
-          return <TabPane tab='推广详情' key='2'></TabPane>
+          return <TabPane tab='推广详情' key='2'><PromoterDetail promoterDetail={this.props.promoterDetail.promoter}/></TabPane>
         }else if(item=='shopkeeper'){
           return <TabPane tab='店铺详情' key='3'><UserShopDetail userDetail={this.props.appUserDetail}  ></UserShopDetail></TabPane>
         }
@@ -96,8 +98,9 @@ function mapStateToProps(state, ownProps) {
 // console.log('aaaaa',ownProps.location.query)
   let appUserDetail = getAppUserDetail(state, ownProps.location.query.id)
   const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
-   console.log('areaTreeSelectData',areaTreeSelectData)
-  return {appUserDetail: appUserDetail,areaTreeSelectData:areaTreeSelectData}
+  let promoterDetail = getPromoterDetail(state,ownProps.location.query.id)
+   // console.log('areaTreeSelectData',areaTreeSelectData)
+  return {appUserDetail: appUserDetail,areaTreeSelectData:areaTreeSelectData,promoterDetail:promoterDetail}
 }
 
 export default connect(mapStateToProps)(appUserDetailManager)

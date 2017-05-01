@@ -85,7 +85,7 @@ export default class PromoterDetail extends Component {
 
   }
   render() {
-    // console.log('promoterDetail',this.props.promoterDetail.name)
+    console.log('promoterDetail',this.props.promoterDetail)
     return (
       <div>
         {(this.props.promoterDetail&&this.props.promoterDetail.name)?<div>名称：{this.props.promoterDetail.name}</div>:null}

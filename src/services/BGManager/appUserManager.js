@@ -14,7 +14,15 @@ export async function  getAppUserList(payload){
     return {succes:false}
   }
 }
-
+export async function getPromoterInfoByUserId(payload){
+  try{
+    let promoterDetail=await AV.Cloud.run('promoterFetchByUser',payload)
+    // console.log('promoterDetail',promoterDetail,payload)
+    return{success:true,promoterDetail:promoterDetail}
+  }catch (err){
+    return{success:false}
+  }
+}
 export async function updateAppUserEnable(payload){
   try{
     await AV.Cloud.run('updateAppUserEnable',payload)
