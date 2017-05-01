@@ -19,9 +19,13 @@ class appUserDetailManager extends Component {
   }
 
   componentDidMount() {
+    // console.log('id================?',this.props.location.query.id)
 
-    this.props.dispatch({type:'appUserManager/fetchPromoterDetailByUserId',payload:{userId:this.props.appUserDetail.id}})
-
+    this.props.dispatch({type:'appUserManager/fetchPromoterDetailByUserId',payload:{userId:this.props.location.query.id}})
+    this.props.dispatch({
+      type: 'appUserManager/fetchShopDetailByUserId',
+      payload: {id: this.props.location.query.id}
+    })
   }
 
   user2promoter(data){

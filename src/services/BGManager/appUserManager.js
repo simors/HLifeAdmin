@@ -39,6 +39,7 @@ export async function getShopByUserId(payload){
     console.log('ggogogogogo',payload)
 
     let shopDetail=await AV.Cloud.run('getShopByUserId',payload)
+    console.log('ggogogogogo==============+>',shopDetail)
 
     return {shopDetail:shopDetail,success:true}
   }catch (err){

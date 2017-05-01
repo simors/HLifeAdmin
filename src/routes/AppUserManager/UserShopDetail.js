@@ -22,11 +22,11 @@ class UserShopDetail extends Component {
   }
 
   componentDidMount() {
-
-    this.props.dispatch({
-      type: 'appUserManager/fetchShopDetailByUserId',
-      payload: {id: this.props.userDetail.id}
-    })
+console.log('hahahahahahahahahahahaahahahahahahah')
+    // this.props.dispatch({
+    //   type: 'appUserManager/fetchShopDetailByUserId',
+    //   payload: {id: this.props.userDetail.id}
+    // })
     // this.props.dispatch({
     //   type: 'shopInfoManager/getCommentList',
     //   payload: {id: this.props.location.query.id}

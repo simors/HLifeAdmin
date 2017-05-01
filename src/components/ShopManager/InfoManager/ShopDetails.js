@@ -41,7 +41,8 @@ export default class ShopDetails extends Component{
 
   }
   render(){
-    return(
+    console.log('hahahahahah',this.props.shopDetails)
+    return(this.props.shopDetails?
       <div>
         <div>封面：<img style={{width:150,height:150}} src={this.props.shopDetails.coverUrl}></img><Button onClick={()=>{this.props.cancelImg(this.props.shopDetails.coverUrl)}}><Icon type='close'></Icon></Button></div>
         <div>店铺名称：{this.props.shopDetails.shopName}</div>
@@ -49,7 +50,6 @@ export default class ShopDetails extends Component{
         <div>所属地区：{this.props.shopDetails.geoDistrict}</div>
         <div>是否开张：<Switch checkedChildren={'开张'} unCheckedChildren={'关张'} defaultChecked={(this.props.shopDetails.status==1)?true:false} onChange={(payload)=>{this.props.updateStatus(payload,this.props.shopDetails.id,this.props.shopDetail.owner.id)}}></Switch></div>
         <div>店长：{this.props.shopDetails.name}</div>
-        <div>注册用户：{this.props.shopDetails.owner.username}</div>
         <div>营业时间：{this.props.shopDetails.openTime}</div>
         <div>联系电话：{this.props.shopDetails.contactNumber}</div>
         <div>联系电话：{this.props.shopDetails.contactNumber2}</div>
@@ -62,7 +62,7 @@ export default class ShopDetails extends Component{
         <div>专辑:</div><div>{this.renderAlbum()}</div>
         <div>标签：{this.renderTags()}</div>
 
-      </div>
+      </div>:<div>无店铺资料</div>
     )
   }
 }
