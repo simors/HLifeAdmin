@@ -8,6 +8,8 @@ import styles from './CategoryModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
 import {getModalData, getModalState, getModalKey, getTagList,getSelectTags} from '../../../selector/ShopManager/categorySelector'
+import {trim} from '../../../services/CommonService'
+
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group

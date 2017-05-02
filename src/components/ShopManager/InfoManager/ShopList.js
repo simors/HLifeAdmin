@@ -177,6 +177,20 @@ class CategoryList extends React.Component {
         key: 'owner.username'
       },
       {
+        title: '店主昵称',
+        dataIndex: 'owner.nickname',
+        key: 'owner.nickname'
+      },
+      {
+        title: '店主头像',
+        dataIndex: 'owner.avatar',
+        key: 'owner.avatar',
+        render:(text,record)=>{
+          const status=record.status
+          return <div onClick={()=>{this.props.seeCertification(record.owner.avatar)}}><img style={{width:30,height:30}} src={record.owner.avatar}></img></div>
+        }
+      },
+      {
         title: '注册时间',
         dataIndex: 'createdAt',
         key: 'createdAt',
