@@ -91,7 +91,7 @@ class TagModal extends Component {
   }
   setTrimValue(value){
     let trimValue = trim(value)
-    console.log('trim',trimValue)
+    // console.log('trim',trimValue)
     return trimValue
   }
   renderCategoryList() {

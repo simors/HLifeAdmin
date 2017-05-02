@@ -66,7 +66,7 @@ class CategoryModal extends Component {
 
       }
       if ((newProps.data.showPictureSource != this.props.data.showPictureSource) || this.state.fileList.length == 0) {
-        console.log('data===============>', newProps.data.showPictureSource)
+        // console.log('data===============>', newProps.data.showPictureSource)
 
         if (newProps.data.showPictureSource) {
           this.setState({
@@ -80,7 +80,7 @@ class CategoryModal extends Component {
         }
       }
       if ((newProps.data.containedTag != this.props.data.containedTag) || this.state.selectedRowKeys.length == 0) {
-         console.log('data===============>', newProps.data.showPictureSource)
+         // console.log('data===============>', newProps.data.showPictureSource)
 
         if (newProps.data.containedTag) {
           let rowKeys = []
@@ -379,7 +379,7 @@ class CategoryModal extends Component {
 
   setTrimValue(value){
     let trimValue = trim(value)
-    console.log('trim',trimValue)
+    // console.log('trim',trimValue)
     return trimValue
   }
 
