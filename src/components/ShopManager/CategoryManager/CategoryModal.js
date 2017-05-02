@@ -261,6 +261,7 @@ class CategoryModal extends Component {
       if (errors) {
         return
       }
+      console.log('=======>',{...this.props.form.getFieldsValue()})
       const data = {
         selectedTags: this.state.selectTags,
         ...this.props.form.getFieldsValue(),
@@ -332,7 +333,7 @@ class CategoryModal extends Component {
     // this.props.dispatch({type:'shopCategoryManager/fetchSelectTag',payload:tagList})
     //  console.log('this.state.selectTags',this.state.selectTags)
 
-    console.log('this.state.selectRowKeys',this.state.selectedRowKeys)
+    // console.log('this.state.selectRowKeys',this.state.selectedRowKeys)
 
   }
   unSelectTag(tag){
@@ -467,10 +468,10 @@ class CategoryModal extends Component {
           <FormItem label='名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('text', {
               initialValue: this.props.type === 'create' ? '' : this.props.data.text,
-              getValueFromEvent:(e)=>{
-                let value=this.setTrimValue(e.target.value)
-                return value
-              },
+             // getValueFromEvent:(e)=>{
+              //  let value=this.setTrimValue(e.target.value)
+              //  return value
+              //},
               rules: [
                 {
                   required: true,

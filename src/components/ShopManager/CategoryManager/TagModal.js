@@ -55,14 +55,16 @@ class TagModal extends Component {
     this.setState({count: count})
     this.props.form.validateFields((errors) => {
       if (errors) {
-        console.log('error',errors)
+        // console.log('error',errors)
         return
       }
+      // console.log('=======>',{...this.props.form.getFieldsValue()})
+
       const data = {
         ...this.props.form.getFieldsValue(),
         key: this.props.item.id
       }
-      console.log('data====>', data)
+      // console.log('data====>', data)
 
       if((data.name&&trim(data.name)!='')&&(data.categoryId&&data.categoryId!='')){
         let tagNameList = this.props.tagList.map((item,key)=>{
@@ -77,8 +79,8 @@ class TagModal extends Component {
           this.props.onCancel()
 
         }else{
-          // this.props.onOk(data)
-          console.log('data====>', data)
+          this.props.onOk(data)
+          // console.log('data====>', data)
           // this.setState({modalVisible: false})
         }
       }else{
@@ -90,10 +92,10 @@ class TagModal extends Component {
     })
   }
   setTrimValue(value){
-    let trimValue = trim(value)
-    // console.log('trim',trimValue)
-    return trimValue
-  }
+  let trimValue = trim(value)
+  // console.log('trim',trimValue)
+  return trimValue
+}
   renderCategoryList() {
     if (this.props.categoryList) {
       let categoryList = this.props.categoryList.map((item, key)=> {
@@ -147,10 +149,10 @@ class TagModal extends Component {
           <FormItem label='标签名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
               initialValue: this.props.type === 'create' ? '' : this.props.item.name,
-              getValueFromEvent:(e)=>{
-                let value=this.setTrimValue(e.target.value)
-                return value
-            },
+             // getValueFromEvent:(e)=>{
+               // let value=this.setTrimValue(e.target.value)
+                //return value
+            //},
               rules: [
                 {
                   required: true,

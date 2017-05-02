@@ -10,6 +10,7 @@ import {getCategoryList, getTagList} from '../../selector/ShopManager/categorySe
 // import UserSearch from '../../components/users/search'
 import TagModal from '../../components/ShopManager/CategoryManager/TagModal'
 import TagList from '../../components/ShopManager/CategoryManager/TagList'
+import {trim} from '../../services/CommonService'
 import CategoryManager from './CategoryManager'
 const Option = Select.Option;
 
@@ -44,11 +45,12 @@ class ShopTagManager extends Component {
           return item.name
         }
       })
-      console.log('test',tagNameList,data)
+      // console.log('test',tagNameList,data)
       let isEx=this.contains(tagNameList,data.name)
         if(isEx){
           message.info('已有该标签')
         }else{
+          data.name=trim(data.name)
           this.props.dispatch({
             type: 'shopCategoryManager/tag' + this.state.modalType,
             payload: data
