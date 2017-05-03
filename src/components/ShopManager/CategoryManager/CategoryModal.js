@@ -261,13 +261,14 @@ class CategoryModal extends Component {
       if (errors) {
         return
       }
-      console.log('=======>',{...this.props.form.getFieldsValue()})
+      // console.log('=======>',{...this.props.form.getFieldsValue()})
       const data = {
         selectedTags: this.state.selectTags,
         ...this.props.form.getFieldsValue(),
         key: this.props.data.id ? this.props.data.id : '',
         textColor: this.state.color == '#000000' ? this.props.data.textColor : this.state.color
       }
+      data.text = trim(data.text)
       // let count = this.state.count - 1
       this.setState({
         fileList: [], imageList: [], color: '#000000', selectedRowKeys: [], pickerOpen: false, selectTags: []
@@ -282,7 +283,7 @@ class CategoryModal extends Component {
     this.setState({
       newTag:value.target.value
     })
-    console.log('value',value.target.value)
+    // console.log('value',value.target.value)
   }
   pickOpen() {
     this.setState({pickerOpen: !this.state.pickerOpen})

@@ -49,12 +49,13 @@ class topicCategoryModal extends Component {
   handleOk() {
     this.props.form.validateFields((errors) => {
       if (errors) {
-        return
+        return errors
       }
       const data = {
         ...this.props.form.getFieldsValue(),
         id: this.props.item.id
       }
+      data.name=trim(data.name)
       if(data.name&&trim(data.name)!=''){
         // console.log('this.categoryList',this.props.categoryList)
         let categoryList = this.props.categoryList.map((item,key)=>{
@@ -63,20 +64,18 @@ class topicCategoryModal extends Component {
 
         })
         // console.log('test',categoryList,data)
-        let isEx=this.contains(categoryList,trim(data.name))
+        let isEx=this.contains(categoryList,data.name)
         if(isEx){
-
-          message.info('已有该分类')
-          this.props.onCancel()
-
+          message.error('已有该分类')
+          // this.props.onCancel()
         }else{
           this.props.onOk(data)
           // console.log('data====>', data)
           // this.setState({modalVisible: false})
         }
       }else{
-        message.info('请填写分类名称')
-        this.props.onCancel()
+        message.error('请填写分类名称')
+        // this.props.onCancel()
       }
       // console.log('data',data)
 
@@ -102,10 +101,6 @@ class topicCategoryModal extends Component {
           <FormItem label='分类名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
               initialValue: this.props.type==='create'?'':this.props.item.title,
-              getValueFromEvent:(e)=>{
-                let value=this.setTrimValue(e.target.value)
-                return value
-              },
               rules: [
                 {
                   required: true,
