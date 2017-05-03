@@ -111,7 +111,7 @@ class topicCategoryManager extends Component {
   }
 
   onOk(data){
-     console.log('data====>',data)
+     // console.log('data====>',data)
 
     this.props.dispatch({
       type:'topicCategoryManage/create',

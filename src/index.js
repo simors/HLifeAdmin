@@ -16,15 +16,19 @@ const KM_PRO = {
   appId: LC_CONFIG.LC_PRO_APP_ID,
   appKey: LC_CONFIG.LC_PRO_APP_KEY,
 }
-
+const KM_PRE = {
+  appId: LC_CONFIG.LC_PRE_APP_ID,
+  appKey: LC_CONFIG.LC_PRE_APP_KEY,
+}
 //AV.setProduction(false)
 
 // 1. Initialize
 AV.init(
 
-  // KM_Dev
+  KM_Dev
+  // KM_PRE
   // KM_PRO
-  LC_CONFIG.ENV_DEV_ ? KM_Dev : KM_PRO
+
 )
 
 

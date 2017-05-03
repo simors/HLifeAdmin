@@ -39,18 +39,9 @@ class ShopTagManager extends Component {
   }
 
   onOk(data) {
-    if((data.name&&data.name!='')&&(data.categoryId&&data.categoryId!='')){
-      let tagNameList = this.props.tagList.map((item,key)=>{
-        if(item.categoryId==data.categoryId){
-          return item.name
-        }
-      })
+
       // console.log('test',tagNameList,data)
-      let isEx=this.contains(tagNameList,data.name)
-        if(isEx){
-          message.info('已有该标签')
-        }else{
-          data.name=trim(data.name)
+
           this.props.dispatch({
             type: 'shopCategoryManager/tag' + this.state.modalType,
             payload: data
@@ -58,10 +49,8 @@ class ShopTagManager extends Component {
           // console.log('data====>', data)
           this.setState({modalVisible: false,selectCategory:data.categoryId})
         }
-    }else{
-      message.info('请填写标签名称')
-    }
-  }
+
+
   contains(arr, obj) {
     var i = arr.length;
     while (i--) {

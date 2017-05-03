@@ -65,7 +65,7 @@ class TagModal extends Component {
         key: this.props.item.id
       }
       // console.log('data====>', data)
-
+        data.name = trim(data.name)
       if((data.name&&trim(data.name)!='')&&(data.categoryId&&data.categoryId!='')){
         let tagNameList = this.props.tagList.map((item,key)=>{
           if(item.categoryId==data.categoryId){
@@ -73,7 +73,7 @@ class TagModal extends Component {
           }
         })
         // console.log('test',tagNameList,data)
-        let isEx=this.contains(tagNameList,trim(data.name))
+        let isEx=this.contains(tagNameList,data.name)
         if(isEx){
           message.error('已有该标签')
           // this.props.onCancel()
@@ -157,8 +157,6 @@ class TagModal extends Component {
                 {
                   required: true,
                   message: '名称未填写',
-                  whitespace:true,
-
                 }
               ]
             })(<Input  />)}
