@@ -51,8 +51,8 @@ class TagModal extends Component {
   }
   handleOk() {
 
-    let count = this.state.count + 1
-    this.setState({count: count})
+    // let count = this.state.count + 1
+    // this.setState({count: count})
     this.props.form.validateFields((errors) => {
       if (errors) {
         // console.log('error',errors)
@@ -66,7 +66,7 @@ class TagModal extends Component {
       }
       // console.log('data====>', data)
         data.name = trim(data.name)
-      if((data.name&&trim(data.name)!='')&&(data.categoryId&&data.categoryId!='')){
+      if((data.name&&data.name!='')&&(data.categoryId&&data.categoryId!='')){
         let tagNameList = this.props.tagList.map((item,key)=>{
           if(item.categoryId==data.categoryId){
             return item.name
@@ -80,7 +80,7 @@ class TagModal extends Component {
 
         }else{
           this.props.onOk(data)
-          // console.log('data====>', data)
+           // console.log('data====>', data)
           // this.setState({modalVisible: false})
         }
       }else{
@@ -109,21 +109,19 @@ class TagModal extends Component {
     const options = ['apple', 'pear', 'orange']
     // console.log('ahahahahahaha', this.props.item)
     // console.log('ahahahahahaha',options)
-    const roles = []
-    if (this.props.item.roleList) {
-      this.props.item.roleList.forEach((record)=> {
-        roles.push(record)
-      })
-    }
+    // const roles = []
+    // if (this.props.item.roleList) {
+    //   this.props.item.roleList.forEach((record)=> {
+    //     roles.push(record)
+    //   })
+    // }
     // console.log('type',this.props.type)
     // console.log('roleList',this.props.roleList)
     return (
       <Modal
         title={(this.props.type === 'create') ? '新建标签' : '修改标签'}
         visible={this.state.visible}
-        onOk={()=> {
-          this.handleOk()
-        }}
+        onOk={()=>{this.handleOk()}}
         onCancel={()=> {
           let count = this.state.count + 1
           this.setState({count: count})
