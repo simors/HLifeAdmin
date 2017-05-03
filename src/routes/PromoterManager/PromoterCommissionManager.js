@@ -151,56 +151,71 @@ class PromoterCommissionManager extends Component {
   }
 
   changeProvinceAgent(payload) {
+    if (payload == '0.') {
+      this.setState({
+        province_agent: payload.toFixed(1)
+      })
+    } else {
     if ((payload + this.state.city_agent + this.state.district_agent) > 1) {
       message.error('总提成比例不能大于1')
 
     } else {
 
-      if(payload.toString().split(".")[1].length>3){
+      if (payload > 0 && payload.toString().split(".")[1].length > 3) {
         message.error('请输入不超过小数点后3位')
-        this.setState({
-          province_agent: payload.toFixed(3)
-        })
-      }else{
+
+      } else {
         this.setState({
           province_agent: payload
         })
       }
-
+    }
     }
   }
 
   changeCityAgent(payload) {
-    if ((this.state.province_agent + payload + this.state.district_agent) > 1) {
-      message.error('总提成比例不能大于1')
+    if (payload == '0.') {
+      this.setState({
+        city_agent: payload.toFixed(1)
+      })
     } else {
-      if(payload.toString().split(".")[1].length>3){
-        message.error('请输入不超过小数点后3位')
-        this.setState({
-          city_agent: payload.toFixed(3)
-        })
-      }else{
-        this.setState({
-          city_agent: payload
-        })
+      if ((this.state.province_agent + payload + this.state.district_agent) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+          // this.setState({
+          //   city_agent: payload.toFixed(3)
+          // })
+        } else {
+          this.setState({
+            city_agent: payload
+          })
+        }
       }
     }
   }
 
   changeDistrictAgent(payload) {
-    if ((this.state.province_agent + this.state.city_agent + payload) > 1) {
-      message.error('总提成比例不能大于1')
-
+    if (payload == '0.') {
+      this.setState({
+        district_agent: payload.toFixed(1)
+      })
     } else {
-      if(payload.toString().split(".")[1].length>3){
-        message.error('请输入不超过小数点后3位')
-        this.setState({
-          district_agent: payload.toFixed(3)
-        })
-      }else{
-        this.setState({
-          district_agent: payload
-        })
+      if ((this.state.province_agent + this.state.city_agent + payload) > 1) {
+        message.error('总提成比例不能大于1')
+
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+          // this.setState({
+          //   district_agent: payload.toFixed(3)
+          // })
+        } else {
+          this.setState({
+            district_agent: payload
+          })
+        }
       }
     }
 
@@ -225,21 +240,63 @@ class PromoterCommissionManager extends Component {
   }
 
   changeLevel1Royal1(payload) {
-    this.setState({
-      level1Royalty1: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level1Royalty1: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level1Royalty3 + this.state.level1Royalty2 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level1Royalty1: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel1Royal2(payload) {
-    this.setState({
-      level1Royalty2: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level1Royalty2: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level1Royalty3 + this.state.level1Royalty1 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level1Royalty2: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel1Royal3(payload) {
-    this.setState({
-      level1Royalty3: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level1Royalty3: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level1Royalty2 + this.state.level1Royalty1 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level1Royalty3: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel2Team(payload) {
@@ -255,21 +312,65 @@ class PromoterCommissionManager extends Component {
   }
 
   changeLevel2Royal1(payload) {
-    this.setState({
-      level2Royalty1: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level2Royalty1: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level2Royalty3 + this.state.level2Royalty2 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level2Royalty1: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel2Royal2(payload) {
-    this.setState({
-      level2Royalty2: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level2Royalty2: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level2Royalty3 + this.state.level2Royalty1 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level2Royalty2: payload
+          })
+        }
+      }
+    }
+
   }
 
   changeLevel2Royal3(payload) {
-    this.setState({
-      level2Royalty3: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level2Royalty3: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level2Royalty2 + this.state.level2Royalty1 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level2Royalty3: payload
+          })
+        }
+      }
+    }
+
   }
 
   changeLevel3Team(payload) {
@@ -285,21 +386,64 @@ class PromoterCommissionManager extends Component {
   }
 
   changeLevel3Royal1(payload) {
-    this.setState({
-      level3Royalty1: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level3Royalty1: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level3Royalty2 + this.state.level3Royalty3 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level3Royalty1: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel3Royal2(payload) {
-    this.setState({
-      level3Royalty2: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level3Royalty2: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level3Royalty1 + this.state.level3Royalty3 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level3Royalty2: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel3Royal3(payload) {
-    this.setState({
-      level3Royalty3: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level3Royalty3: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level3Royalty1 + this.state.level3Royalty2 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level3Royalty3: payload
+          })
+        }
+      }
+    }
+
   }
 
   changeLevel4Team(payload) {
@@ -315,21 +459,64 @@ class PromoterCommissionManager extends Component {
   }
 
   changeLevel4Royal1(payload) {
-    this.setState({
-      level4Royalty1: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level4Royalty1: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level4Royalty3 + this.state.level4Royalty2 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level4Royalty1: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel4Royal2(payload) {
-    this.setState({
-      level4Royalty2: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level4Royalty2: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level4Royalty3 + this.state.level4Royalty1 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level4Royalty2: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel4Royal3(payload) {
-    this.setState({
-      level4Royalty3: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level4Royalty3: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level4Royalty2 + this.state.level4Royalty1 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level4Royalty3: payload
+          })
+        }
+      }
+    }
+
   }
 
   changeLevel5Team(payload) {
@@ -345,28 +532,91 @@ class PromoterCommissionManager extends Component {
   }
 
   changeLevel5Royal1(payload) {
-    this.setState({
-      level5Royalty1: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level5Royalty1: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level5Royalty2 + this.state.level5Royalty3 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level5Royalty1: payload
+          })
+        }
+      }
+    }
   }
 
   changeLevel5Royal2(payload) {
-    this.setState({
-      level5Royalty2: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level5Royalty2: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level5Royalty1 + this.state.level5Royalty3 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level5Royalty2: payload
+          })
+        }
+      }
+    }
+
   }
 
   changeLevel5Royal3(payload) {
-    this.setState({
-      level5Royalty3: payload
-    })
+    if (payload == '0.') {
+      this.setState({
+        level5Royalty3: payload.toFixed(1)
+      })
+    } else {
+      if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level5Royalty1 + this.state.level5Royalty2 + payload) > 1) {
+        message.error('总提成比例不能大于1')
+      } else {
+        if (payload > 0 && payload.toString().split(".")[1].length > 3) {
+          message.error('请输入不超过小数点后3位')
+        } else {
+          this.setState({
+            level5Royalty3: payload
+          })
+        }
+      }
+    }
+
   }
 
   changeInvitePromoterRoyalty(payload) {
-    this.setState({
-      invitePromoterRoyalty: payload
-    })
-    console.log('state', this.state.invitePromoterRoyalty)
+    // console.log('hahahahahahah',payload)
+    if(payload=='0.'){
+      this.setState({
+        invitePromoterRoyalty: payload.toFixed(1)
+      })
+    }else{
+      if(payload>1){
+        message.error('提成比例不能大于1')
+      }else{
+        if(payload>0&&payload.toString().split(".")[1].length>3){
+          message.error('请输入不超过小数点后3位')
+
+        }else{
+          this.setState({
+            invitePromoterRoyalty: payload
+          })
+        }
+
+      }
+    }
+
+
+    // console.log('state', this.state.invitePromoterRoyalty)
   }
 
   changePromoterCharge(payload) {
@@ -439,15 +689,15 @@ class PromoterCommissionManager extends Component {
     // console.log('hahahaha', {...this.state})
     // console.log('state.',this.state.province_agent)
     let provinceAgent = this.state.province_agent
-    if(this.state.province_agent==''||this.state.province_agent=='0.'){
+    if(this.state.province_agent==''||this.state.province_agent=='0.0'){
       provinceAgent=0
     }
     let cityAgent = this.state.city_agent
-    if(this.state.city_agent=='0.'||this.state.city_agent==''){
+    if(this.state.city_agent=='0.0'||this.state.city_agent==''){
       cityAgent=0
     }
     let districtAgent = this.state.district_agent
-    if(this.state.district_agent=='0.'||this.state.district_agent==''){
+    if(this.state.district_agent=='0.0'||this.state.district_agent==''){
       districtAgent=0
     }
     let countCom = (provinceAgent +cityAgent + districtAgent).toFixed(3)
@@ -466,7 +716,7 @@ class PromoterCommissionManager extends Component {
 
           <div>推广员入驻费提成比例:<InputNumber formatter={value =>`${value * 100}%` }
                                        parser={value => value.replace('%', '')} min={0} max={1} step={0.001}
-                                       defaultValue={this.state.invitePromoterRoyalty}
+                                       value={this.state.invitePromoterRoyalty}
 
                                        onChange={(payload)=> {
                                          this.changeInvitePromoterRoyalty(payload)
@@ -476,7 +726,7 @@ class PromoterCommissionManager extends Component {
             ` ${value} 元`
           }} parser={value => value.replace('元', '')}
                                     step={0.01}
-                                    defaultValue={this.state.promoterCharge}
+                                    value={this.state.promoterCharge}
                                     onChange={(payload)=> {
                                       this.changePromoterCharge(payload)
                                     }}/>元
@@ -485,7 +735,7 @@ class PromoterCommissionManager extends Component {
           <div>店铺入驻最低费用: <InputNumber step={0.01} formatter={(value) => {
             ` ${value}元`
           }} parser={value => value.replace('元', '')}
-                                      defaultValue={this.state.minShopkeeperCharge}
+                                      value={this.state.minShopkeeperCharge}
                                       onChange={(payload)=> {
                                         this.changeMinShopkeeperCharge(payload)
                                       }}/>元
@@ -503,7 +753,7 @@ class PromoterCommissionManager extends Component {
               <div style={{marginTop: 1, marginBottom: 1}}>省代理提成：<InputNumber formatter={value => ` ${value * 100}%`}
                                                                               parser={value => value.replace('%', '')}
                                                                               min={0} max={1} step={0.001}
-                                                                              defaultValue={this.state.province_agent}
+                                                                              value={this.state.province_agent}
                                                                               onChange={(payload)=> {
                                                                                 this.changeProvinceAgent(payload)
                                                                               }}/></div>
@@ -512,7 +762,7 @@ class PromoterCommissionManager extends Component {
               <div style={{marginTop: 1, marginBottom: 1}}>市代理提成：<InputNumber formatter={(value) => {
                 ` ${value * 100}%`
               }} parser={value => value.replace('%', '')} min={0} max={1} step={0.001}
-                                                                              defaultValue={this.state.city_agent}
+                                                                              value={this.state.city_agent}
                                                                               onChange={(payload)=> {
                                                                                 this.changeCityAgent(payload)
                                                                               }}/></div>
@@ -521,7 +771,7 @@ class PromoterCommissionManager extends Component {
               <div style={{marginTop: 1, marginBottom: 1}}>区代理提成：<InputNumber formatter={(value) => {
                 ` ${value * 100}%`
               }} parser={value => value.replace('%', '')} min={0} max={1} step={0.001}
-                                                                              defaultValue={this.state.district_agent}
+                                                                              value={this.state.district_agent}
                                                                               onChange={(payload)=> {
                                                                                 this.changeDistrictAgent(payload)
                                                                               }}/></div>
@@ -573,7 +823,7 @@ class PromoterCommissionManager extends Component {
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level1Team}
+                  value={this.state.level1Team}
                   onChange={(payload)=> {
                     this.changeLevel1Team(payload)
                   }}/></div>
@@ -581,7 +831,7 @@ class PromoterCommissionManager extends Component {
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level2Team}
+                  value={this.state.level2Team}
                   onChange={(payload)=> {
                     this.changeLevel2Team(payload)
                   }}/></div>
@@ -589,7 +839,7 @@ class PromoterCommissionManager extends Component {
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level3Team}
+                  value={this.state.level3Team}
                   onChange={(payload)=> {
                     this.changeLevel3Team(payload)
                   }}/></div>
@@ -597,7 +847,7 @@ class PromoterCommissionManager extends Component {
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level4Team}
+                  value={this.state.level4Team}
                   onChange={(payload)=> {
                     this.changeLevel4Team(payload)
                   }}/></div>
@@ -605,7 +855,7 @@ class PromoterCommissionManager extends Component {
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level5Team}
+                  value={this.state.level5Team}
                   onChange={(payload)=> {
                     this.changeLevel5Team(payload)
                   }}/></div>
@@ -618,35 +868,35 @@ class PromoterCommissionManager extends Component {
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level1Shop}
+                  value={this.state.level1Shop}
                   onChange={(payload)=> {
                     this.changeLevel1Shop(payload)
                   }}/></div>
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level2Shop}
+                  value={this.state.level2Shop}
                   onChange={(payload)=> {
                     this.changeLevel2Shop(payload)
                   }}/></div>
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level3Shop}
+                  value={this.state.level3Shop}
                   onChange={(payload)=> {
                     this.changeLevel3Shop(payload)
                   }}/></div>
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level4Shop}
+                  value={this.state.level4Shop}
                   onChange={(payload)=> {
                     this.changeLevel4Shop(payload)
                   }}/></div>
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
-                  defaultValue={this.state.level5Shop}
+                  value={this.state.level5Shop}
                   onChange={(payload)=> {
                     this.changeLevel5Shop(payload)
                   }}/></div>
@@ -659,7 +909,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber formatter={value => `${100 * value.replace('%', '')}%`}
                                                            min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level1Royalty1}
+                                                           value={this.state.level1Royalty1}
                                                            onChange={(payload)=> {
                                                              this.changeLevel1Royal1(payload)
                                                            }}/></div>
@@ -668,7 +918,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level2Royalty1}
+                                                           value={this.state.level2Royalty1}
                                                            onChange={(payload)=> {
                                                              this.changeLevel2Royal1(payload)
                                                            }}/></div>
@@ -677,7 +927,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level3Royalty1}
+                                                           value={this.state.level3Royalty1}
                                                            onChange={(payload)=> {
                                                              this.changeLevel3Royal1(payload)
                                                            }}/></div>
@@ -686,7 +936,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level4Royalty1}
+                                                           value={this.state.level4Royalty1}
                                                            onChange={(payload)=> {
                                                              this.changeLevel4Royal1(payload)
                                                            }}/></div>
@@ -695,7 +945,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level5Royalty1}
+                                                           value={this.state.level5Royalty1}
                                                            onChange={(payload)=> {
                                                              this.changeLevel5Royal1(payload)
                                                            }}/></div>
@@ -709,7 +959,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level1Royalty2}
+                                                           value={this.state.level1Royalty2}
                                                            onChange={(payload)=> {
                                                              this.changeLevel1Royal2(payload)
                                                            }}/></div>
@@ -718,7 +968,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level2Royalty2}
+                                                           value={this.state.level2Royalty2}
                                                            onChange={(payload)=> {
                                                              this.changeLevel2Royal2(payload)
                                                            }}/></div>
@@ -727,7 +977,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level3Royalty2}
+                                                           value={this.state.level3Royalty2}
                                                            onChange={(payload)=> {
                                                              this.changeLevel3Royal2(payload)
                                                            }}/></div>
@@ -736,7 +986,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level4Royalty2}
+                                                           value={this.state.level4Royalty2}
                                                            onChange={(payload)=> {
                                                              this.changeLevel4Royal2(payload)
                                                            }}/></div>
@@ -745,7 +995,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level5Royalty2}
+                                                           value={this.state.level5Royalty2}
                                                            onChange={(payload)=> {
                                                              this.changeLevel5Royal2(payload)
                                                            }}/></div>
@@ -759,7 +1009,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level1Royalty3}
+                                                           value={this.state.level1Royalty3}
                                                            onChange={(payload)=> {
                                                              this.changeLevel1Royal3(payload)
                                                            }}/></div>
@@ -768,7 +1018,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   value * 100
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level2Royalty3}
+                                                           value={this.state.level2Royalty3}
                                                            onChange={(payload)=> {
                                                              this.changeLevel2Royal3(payload)
                                                            }}/></div>
@@ -777,7 +1027,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level3Royalty3}
+                                                           value={this.state.level3Royalty3}
                                                            onChange={(payload)=> {
                                                              this.changeLevel3Royal3(payload)
                                                            }}/></div>
@@ -786,7 +1036,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level4Royalty3}
+                                                           value={this.state.level4Royalty3}
                                                            onChange={(payload)=> {
                                                              this.changeLevel4Royal3(payload)
                                                            }}/></div>
@@ -795,7 +1045,7 @@ class PromoterCommissionManager extends Component {
                 <div className={style.divCol}><InputNumber formatter={(value) => {
                   ` ${value * 100}%`
                 }} min={0} max={1} step={0.001}
-                                                           defaultValue={this.state.level5Royalty3}
+                                                           value={this.state.level5Royalty3}
                                                            onChange={(payload)=> {
                                                              this.changeLevel5Royal3(payload)
                                                            }}/></div>
