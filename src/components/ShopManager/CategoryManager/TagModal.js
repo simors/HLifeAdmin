@@ -75,8 +75,8 @@ class TagModal extends Component {
         // console.log('test',tagNameList,data)
         let isEx=this.contains(tagNameList,trim(data.name))
         if(isEx){
-          message.info('已有该标签')
-          this.props.onCancel()
+          message.error('已有该标签')
+          // this.props.onCancel()
 
         }else{
           this.props.onOk(data)
@@ -84,8 +84,8 @@ class TagModal extends Component {
           // this.setState({modalVisible: false})
         }
       }else{
-        message.info('请填写标签名称')
-        this.props.onCancel()
+        message.error('请填写标签名称')
+        // this.props.onCancel()
       }
       //console.log('data',data)
 
