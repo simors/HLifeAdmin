@@ -151,25 +151,25 @@ class user2promoterModal extends Component {
         <Form horizontal>
           <FormItem label='姓名：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
-              initialValue: '',
+              initialValue: this.props.userDetail.nickname,
               rules: [
                 {
                   required: true,
                   message: '姓名未填写'
                 }
               ]
-            })(<Input />)}
+            })(<Input disabled={true}/>)}
           </FormItem>
           <FormItem label='电话号码：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('phone', {
-              initialValue: '',
+              initialValue: this.props.userDetail.mobilePhoneNumber,
               rules: [
                 {
                   required: true,
                   message: '电话号码未填写'
                 }
               ]
-            })(<Input />)}
+            })(<Input disabled={true}/>)}
           </FormItem>
           <FormItem label='代理等级：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('identity', )

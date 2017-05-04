@@ -167,7 +167,7 @@ class AppUserListManager extends Component {
               />
             </Col>
             <Col lg={{offset: 0, span: 6}} style={{marginBottom: 16, textAlign: 'left'}}>
-              <p>用户名关键字：</p>
+              <p>用户手机号码：</p>
               <Input style={{width: 200}} defaultValue="" onChange={(value)=> {
                 this.handleInputUsernameChange(value)
               }}/>

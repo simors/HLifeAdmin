@@ -109,17 +109,17 @@ class PromoterList extends React.Component {
     } = this.props
     //console.log('dataSource',dataSource)
     const columns = [
-      {
-        title: '名称',
-        dataIndex: 'name',
-        key: 'name'
-      },
+      // {
+      //   title: '名称',
+      //   dataIndex: 'name',
+      //   key: 'name'
+      // },
       {
         title: '地址',
         dataIndex: 'address',
         key: 'address',
         render:(text,record)=>{
-          return <p>{record.liveProvince+record.liveCity+record.liveDistrict}</p>
+          return <p>{(record.liveProvince?record.liveProvince:'')+(record.liveCity?record.liveCity:'')+(record.liveDistrict?record.liveDistrict:'')}</p>
         }
       },
       {

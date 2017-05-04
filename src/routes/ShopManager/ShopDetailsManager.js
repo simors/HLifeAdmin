@@ -92,8 +92,8 @@ class ShopDetailsManager extends Component {
             this.updateStatus(payload, record,userId)
           }}/>
           </TabPane>
-          <TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}
-          </TabPane>
+          {/*<TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}*/}
+          {/*</TabPane>*/}
           <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}
                                                    updateCommentStatus={(payload,record)=> {
                                                      this.updateCommentStatus(payload,record)

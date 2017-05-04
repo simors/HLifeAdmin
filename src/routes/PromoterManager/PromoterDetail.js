@@ -83,13 +83,14 @@ class PromoterDetail extends Component {
   }
 
   render() {
-    console.log('assssssssss',this.props.promoterDetail)
+    // console.log('assssssssss',this.props.promoterDetail)
     return (
       <PromoterAgentManager>
         <Tabs defaultActiveKey='3' className='content-inner'>
           <TabPane tab='推广员详情' key='3'>
             <PromoterInfo areaTreeSelectData={this.props.areaTreeSelectData}
                             promoterDetail={this.props.promoterDetail.promoter}
+                            userDetail = {this.props.promoterDetail.user}
                             user2promoter={(data)=> {
               this.user2promoter(data)
             }}/>

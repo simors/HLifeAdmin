@@ -370,10 +370,10 @@ class AddAgent extends Component {
               <p>手机号码：</p>
               <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.filterPhone(value)}}/>
             </Col>
-            <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
-              <p>姓名：</p>
-              <Input style={{width:100}} defaultValue="" onChange={(value)=>{this.filterName(value)}}/>
-            </Col>
+            {/*<Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>*/}
+              {/*<p>姓名：</p>*/}
+              {/*<Input style={{width:100}} defaultValue="" onChange={(value)=>{this.filterName(value)}}/>*/}
+            {/*</Col>*/}
             <Col lg={{offset: 0, span:4}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>请选择推广级别</p>
               <Select style={{width:100}} onChange={(value)=>{this.filterLevel(value)}} >
@@ -384,19 +384,19 @@ class AddAgent extends Component {
                 <Option value='5'>皇冠级</Option>
               </Select>
             </Col>
-            <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>最小店铺收益：</p>
               <InputNumber style={{width:100}} defaultValue = {0} min={0} onChange={(value)=>{this.filterMinShopEarnings(value)}}/>
             </Col>
-            <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>最大店铺收益：</p>
               <InputNumber style={{width:100}}  defaultValue = {0} min={this.state.minShopEarnings} onChange={(value)=>{this.filterMaxShopEarnings(value)}}/>
             </Col>
-            <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>最小邀请店铺数：</p>
               <InputNumber style={{width:100}} defaultValue = {0} min={0} onChange={(value)=>{this.filterMinInviteShopNum(value)}}/>
             </Col>
-            <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
+            <Col lg={{offset: 0, span: 4}} style={{marginBottom: 16, textAlign: 'left'}}>
               <p>最大邀请店铺数：</p>
               <InputNumber style={{width:100}}  defaultValue = {0} min={this.state.minInviteShopNum} onChange={(value)=>{this.filterMaxInviteShopNum(value)}}/>
             </Col>

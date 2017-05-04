@@ -113,8 +113,8 @@ export class getMenuList{
         results.forEach((result)=>{
 
           if(result.subPermission == record.name){
-            //  console.log('result===>',result)
-            // console.log('record====>',record)
+             // console.log('result===>',result)
+             // console.log('record====>',record)
 
             if(result.key )
               keys.push(result.key)
@@ -133,7 +133,7 @@ export class getMenuList{
           })
           // console.log('menus===>',menus)
           record.child = menus
-          //  console.log('record===>',record)
+           // console.log('record===>',record)
 
           menuList.push(record)
         }

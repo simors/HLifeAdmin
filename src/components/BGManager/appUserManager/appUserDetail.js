@@ -63,7 +63,7 @@ export default class AppUserDetail extends Component {
         {this.props.userDetail.authData?<div>认证数据：{this.props.userDetail.authData}</div>:null}
         {this.props.userDetail.createdAt?<div>注册时间：{formatLeancloudTime(new Date(this.props.userDetail.createdAt))}</div>:null}
         {this.renderToPromoter()}
-        <UserToPromoter onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
+        <UserToPromoter onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData} userDetail={this.props.userDetail} onCancel={()=>{this.onCancel()}} />
       </div>
     )
   }

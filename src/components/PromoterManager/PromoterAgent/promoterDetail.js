@@ -85,13 +85,15 @@ export default class PromoterDetail extends Component {
 
   }
   render() {
-    console.log('promoterDetail',this.props.promoterDetail)
+    let userDetail = this.props.userDetail
+    userDetail.mobilePhoneNumber = userDetail.phone
+     console.log('promoterDetail',this.props.promoterDetail)
     return (
       <div>
         {(this.props.promoterDetail&&this.props.promoterDetail.name)?<div>名称：{this.props.promoterDetail.name}</div>:null}
         {(this.props.promoterDetail&&this.props.promoterDetail.liveProvince)?<div>生活地区：{this.props.promoterDetail.liveProvince+this.props.promoterDetail.liveCity?this.props.promoterDetail.liveCity:''+this.props.promoterDetail.liveDistrict?this.props.promoterDetail.liveDistrict:''}</div>:null}
         {this.renderIdentityArea()}
-        {this.renderLevel}
+        {this.renderLevel()}
         {(this.props.promoterDetail&&this.props.promoterDetail.phone)?<div>联系电话：{this.props.promoterDetail.phone}</div>:null}
         {(this.props.promoterDetail)?<div>邀请店铺数量：{this.props.promoterDetail.inviteShopNum}</div>:null}
         {(this.props.promoterDetail)?<div>团队成员数量：{this.props.promoterDetail.teamMemNum}</div>:null}
@@ -100,7 +102,7 @@ export default class PromoterDetail extends Component {
         {(this.props.promoterDetail)?<div>推广员提成金额：{this.props.promoterDetail.royaltyEarnings}</div>:null}
         {(this.props.promoterDetail&&this.props.promoterDetail.createdAt)?<div>注册时间：{formatLeancloudTime(new Date(this.props.promoterDetail.createdAt))}</div>:null}
         {this.renderToPromoter()}
-        <UserToPromoter onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
+        <UserToPromoter onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} userDetail={userDetail} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
       </div>
     )
   }
