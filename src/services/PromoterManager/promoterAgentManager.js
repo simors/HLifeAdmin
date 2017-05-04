@@ -20,9 +20,10 @@ export async function fetchPromoterList(payload) {
 }
 
 export async function getPromoterInfoById(payload){
+  console.log('asas',here)
   try{
     let promoterDetail=await AV.Cloud.run('promoterGetPromoterDetail',payload)
-    // console.log('promoterDetail',promoterDetail,payload)
+     console.log('promoterDetail',promoterDetail,payload)
     return{success:true,promoterDetail:promoterDetail}
   }catch (err){
     return{success:false}

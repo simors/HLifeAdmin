@@ -151,7 +151,7 @@ class user2promoterModal extends Component {
         <Form horizontal>
           <FormItem label='姓名：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('name', {
-              initialValue: this.props.userDetail.nickname,
+              initialValue: this.props.userDetail?this.props.userDetail.nickname:'',
               rules: [
                 {
                   required: true,
@@ -162,7 +162,7 @@ class user2promoterModal extends Component {
           </FormItem>
           <FormItem label='电话号码：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('phone', {
-              initialValue: this.props.userDetail.mobilePhoneNumber,
+              initialValue: this.props.userDetail?(this.props.userDetail.mobilePhoneNumber?this.props.userDetail.mobilePhoneNumber:this.props.userDetail.phone):'',
               rules: [
                 {
                   required: true,

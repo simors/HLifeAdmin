@@ -83,7 +83,7 @@ class PromoterDetail extends Component {
   }
 
   render() {
-    // console.log('assssssssss',this.props.promoterDetail)
+     console.log('assssssssss',this.props.promoterDetail)
     return (
       <PromoterAgentManager>
         <Tabs defaultActiveKey='3' className='content-inner'>

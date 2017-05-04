@@ -37,10 +37,13 @@ export default class AppUserDetail extends Component {
     })
   }
   renderToPromoter(){
-    return(
-      <div><Button onClick={()=>{this.openVisible()}}>直接升为推广员</Button></div>
-
-    )
+    if(this.props.userDetail.identity[0]=='promoter'||this.props.userDetail.identity[1]=='promoter'){
+      return null
+    }else{
+      return(
+        <div><Button onClick={()=>{this.openVisible()}}>直接升为推广员</Button></div>
+      )
+    }
   }
   render() {
      console.log('asas',this.props.areaTreeSelectData)
@@ -63,7 +66,7 @@ export default class AppUserDetail extends Component {
         {this.props.userDetail.authData?<div>认证数据：{this.props.userDetail.authData}</div>:null}
         {this.props.userDetail.createdAt?<div>注册时间：{formatLeancloudTime(new Date(this.props.userDetail.createdAt))}</div>:null}
         {this.renderToPromoter()}
-        <UserToPromoter onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData} userDetail={this.props.userDetail} onCancel={()=>{this.onCancel()}} />
+        <UserToPromoter key = {this.props.userDetail.id} onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} areaTreeSelectData={this.props.areaTreeSelectData} userDetail={this.props.userDetail} onCancel={()=>{this.onCancel()}} />
       </div>
     )
   }
