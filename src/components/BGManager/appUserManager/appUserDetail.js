@@ -37,16 +37,21 @@ export default class AppUserDetail extends Component {
     })
   }
   renderToPromoter(){
-    if(this.props.userDetail.identity[0]=='promoter'||this.props.userDetail.identity[1]=='promoter'){
-      return null
+    if(this.props.userDetail){
+      if(this.props.userDetail.identity[0]=='promoter'||this.props.userDetail.identity[1]=='promoter'){
+        return null
+      }else{
+        return(
+          <div><Button onClick={()=>{this.openVisible()}}>直接升为推广员</Button></div>
+        )
+      }
     }else{
-      return(
-        <div><Button onClick={()=>{this.openVisible()}}>直接升为推广员</Button></div>
-      )
+      return null
     }
+
   }
   render() {
-     // console.log('asas',this.props.areaTreeSelectData)
+      console.log('hhhhahahahah',this.props.userDetail)
     return (
       <div>
         {this.props.userDetail.avatar?<div>头像：<img style={{width: 150, height: 150}} src={this.props.userDetail.avatar}></img></div>:null}

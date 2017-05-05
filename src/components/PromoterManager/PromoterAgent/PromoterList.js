@@ -107,7 +107,7 @@ class PromoterList extends React.Component {
       // onDeleteItem,
       // onEditItem
     } = this.props
-    //console.log('dataSource',dataSource)
+    console.log('dataSource',dataSource)
     const columns = [
       // {
       //   title: '名称',

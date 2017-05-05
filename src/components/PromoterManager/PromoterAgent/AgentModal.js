@@ -6,7 +6,7 @@
  */
 
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber, Radio, Modal, Checkbox,Cascader} from 'antd'
+import {Form, Input, InputNumber,Button,Popconfirm, Radio, Modal, Checkbox,Cascader} from 'antd'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -59,7 +59,7 @@ class AgentModal extends Component {
   }
   componentDidMount() {
     this.setState({visible: !!this.props.visible})
-    console.log(...this.props)
+    // console.log(...this.props)
 
   }
 
@@ -89,6 +89,28 @@ class AgentModal extends Component {
 
     // console.log('type',this.props.type)
     // console.log('roleList',this.props.roleList)
+    let value = ''
+    if(this.props.form.getFieldsValue()){
+      let data = this.props.form.getFieldsValue()
+
+      switch (data.identity){
+        case 0:
+          value = '推广员'
+          break;
+        case 1:
+          value = '省代理'
+          break;
+        case 2:
+          value='市代理'
+
+          break;
+        case 3:
+          value= '区代理'
+          break
+      }
+    }
+
+
     return (
       <Modal
         title={'设置为代理'}
@@ -103,7 +125,17 @@ class AgentModal extends Component {
         }}
         wrapClassName='vertical-center-modal'
         key={this.state.count}
-      >
+        footer={[
+          <Button key="back" size='large' onClick={()=> {
+            let count = this.state.count + 1
+            this.setState({count: count})
+            this.props.onCancel()
+          }}>取消</Button>,
+          <Popconfirm key = {this.state.count} title={'是否直接升为'+value} onConfirm={() => this.handleOk()} >
+            <Button key="ok" size="large">确定</Button>
+          </Popconfirm>
+        ]}>
+
         <Form horizontal>
           <FormItem label='代理等级：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('identity', )

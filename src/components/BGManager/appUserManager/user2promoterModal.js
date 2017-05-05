@@ -142,10 +142,11 @@ class user2promoterModal extends Component {
             this.setState({count: count})
             this.props.onCancel()
           }}>取消</Button>,
-          <Popconfirm title={'是否直接升为'+value} onConfirm={() => this.handleOk()} >
+          <Popconfirm key = {this.state.count} title={'是否直接升为'+value} onConfirm={() => this.handleOk()} >
           <Button key="ok" size="large">确定</Button>
           </Popconfirm>
-          ]}>
+          ]}
+      >
 
 
         <Form horizontal>
