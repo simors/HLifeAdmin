@@ -58,6 +58,17 @@ class appUserDetailManager extends Component {
   //     return null
   //   }
   // }
+  promoter2Agent(data) {
+    // console.log('data=====>',data)
+    this.props.dispatch({type: 'promoterAgentSet/agentAdd', payload: {...data, promoterId: this.props.promoterDetail.promoter.objectId,success:()=>{
+      this.props.dispatch({type:'appUserManager/fetchPromoterDetailByUserId',payload:{userId:this.props.location.query.id}})
+      this.props.dispatch({
+        type: 'appUserManager/fetchShopDetailByUserId',
+        payload: {id: this.props.location.query.id}
+      })
+    }}})
+
+  }
   renderTab(){
     if(this.props.appUserDetail.identity&&this.props.appUserDetail.identity.length>0){
       let panes=this.props.appUserDetail.identity.map((item,key)=>{
@@ -65,7 +76,7 @@ class appUserDetailManager extends Component {
 
         if(item=='promoter'){
           // console.log('here is code')
-          return <TabPane tab='推广详情' key='2'><PromoterDetail promoterDetail={this.props.promoterDetail.promoter}/></TabPane>
+          return <TabPane tab='推广详情' key='2'><PromoterDetail promoterDetail={this.props.promoterDetail.promoter} areaTreeSelectData={this.props.areaTreeSelectData} promoter2Agent={(data)=>{this.promoter2Agent(data)}}/></TabPane>
         }else if(item=='shopkeeper'){
           return <TabPane tab='店铺详情' key='3'><UserShopDetail userDetail={this.props.appUserDetail}  ></UserShopDetail></TabPane>
         }

@@ -13,7 +13,7 @@ import {TweenOneGroup} from 'rc-tween-one'
 import UserToPromoter from '../../BGManager/appUserManager/user2promoterModal'
 import {Link} from 'dva/router'
 import {formatLeancloudTime} from '../../../utils/numberUtils'
-
+import AgentModal from './AgentModal'
 export default class PromoterDetail extends Component {
   constructor(props) {
     super(props)
@@ -24,7 +24,7 @@ export default class PromoterDetail extends Component {
 
   onOk(data){
     // console.log('data=====>',data)
-    this.props.user2promoter(data)
+    this.props.promoter2Agent(data)
     this.setState({
       modalVisible:false
     })
@@ -41,7 +41,7 @@ export default class PromoterDetail extends Component {
   }
   renderToPromoter(){
     return(
-      <div><Button onClick={()=>{this.openVisible()}}>直接升为推广员</Button></div>
+      <div><Button onClick={()=>{this.openVisible()}}>设置为代理</Button></div>
 
     )
   }
@@ -84,6 +84,7 @@ export default class PromoterDetail extends Component {
     }
 
   }
+
   render() {
     // console.log('promoterDetail=========>',this.props.promoterDetail)
     // console.log('userDetail=========>',this.props.userDetail)
@@ -107,7 +108,7 @@ export default class PromoterDetail extends Component {
         {(this.props.promoterDetail)?<div>推广员提成金额：{this.props.promoterDetail.royaltyEarnings}</div>:null}
         {(this.props.promoterDetail&&this.props.promoterDetail.createdAt)?<div>注册时间：{formatLeancloudTime(new Date(this.props.promoterDetail.createdAt))}</div>:null}
         {this.renderToPromoter()}
-        <UserToPromoter onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} userDetail={this.props.userDetail} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
+        <AgentModal onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} userDetail={this.props.userDetail} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
       </div>
     )
   }

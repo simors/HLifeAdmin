@@ -24,7 +24,7 @@ class PromoterDetail extends Component {
   }
 
   componentDidMount() {
-    console.log('this.props',this.props.location.query.id)
+    // console.log('this.props',this.props.location.query.id)
     this.props.dispatch({
       type: 'promoterAgentSet/fetchPromoterDetail',
       payload: {promoterId: this.props.location.query.id}
@@ -81,15 +81,38 @@ class PromoterDetail extends Component {
     }
 
   }
+  promoter2Agent(data) {
+    // console.log('data=====>',data)
+    if(this.props.promoterDetail.promoter.identity!=0){
+      this.props.dispatch({type: 'promoterAgentSet/agentSet', payload: {...data, promoterId: this.props.location.query.id,success:()=>{
+        this.props.dispatch({
+          type: 'promoterAgentSet/fetchPromoterDetail',
+          payload: {promoterId: this.props.location.query.id}
+        })
+      }}})
+    }else{
+      this.props.dispatch({type: 'promoterAgentSet/agentAdd', payload: {...data, promoterId: this.props.location.query.id,success:()=>{
+        this.props.dispatch({
+          type: 'promoterAgentSet/fetchPromoterDetail',
+          payload: {promoterId: this.props.location.query.id}
+        })
+      }}})
+    }
 
+
+
+  }
   render() {
-     console.log('assssssssss',this.props.promoterDetail)
+     // console.log('assssssssss',this.props.promoterDetail)
     return (
       <PromoterAgentManager>
         <Tabs defaultActiveKey='3' className='content-inner'>
           <TabPane tab='推广员详情' key='3'>
             <PromoterInfo areaTreeSelectData={this.props.areaTreeSelectData}
                             promoterDetail={this.props.promoterDetail.promoter}
+                            promoter2Agent = {(data)=>{
+                              this.promoter2Agent(data)
+                            }}
                             userDetail = {this.props.promoterDetail.user}
                             user2promoter={(data)=> {
               this.user2promoter(data)
@@ -118,7 +141,7 @@ function mapStateToProps(state, ownProps) {
  // console.log('aaaaa',ownProps.location.query)
   let promoterDetail = getPromoterDetail(state, ownProps.location.query.id)
   const areaTreeSelectData = CommonSelect.selectAreaTreeSelectData(state)
-  console.log('appUserDetail', promoterDetail)
+  // console.log('appUserDetail', promoterDetail)
   return {promoterDetail: promoterDetail, areaTreeSelectData: areaTreeSelectData}
 }
 

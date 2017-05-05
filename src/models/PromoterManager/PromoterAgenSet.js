@@ -41,10 +41,11 @@ export default {
       yield put({type: 'showLoading'})
       const promoter = yield call(agentSet, parse(payload))
       if (promoter.success) {
-        yield put({
-          type: 'query',
-          // payload:{id:payload.userId}
-        })
+        payload.success()
+        // yield put({
+        //   type: 'query',
+        //   // payload:{id:payload.userId}
+        // })
       }
     },
     *fetchPromoterDetail({payload},{call,put}){

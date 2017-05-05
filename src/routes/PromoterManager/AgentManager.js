@@ -33,7 +33,10 @@ class AgentManager extends Component {
 
   onOk(data) {
     // console.log('data=====>',data)
-    this.props.dispatch({type: 'promoterAgentSet/agentSet', payload: {...data, promoterId: this.state.promoterId}})
+    this.props.dispatch({type: 'promoterAgentSet/agentSet', payload: {...data, promoterId: this.state.promoterId,success:()=>{
+      this.props.dispatch({type: 'promoterAgentSet/queryAgent',})
+
+    }}})
     this.setState({
       modalVisible: false
     })

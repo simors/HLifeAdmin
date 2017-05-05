@@ -91,7 +91,7 @@ class AgentModal extends Component {
     // console.log('roleList',this.props.roleList)
     return (
       <Modal
-        title={'设置为推广员'}
+        title={'设置为代理'}
         visible={this.state.visible}
         onOk={()=> {
           this.handleOk()

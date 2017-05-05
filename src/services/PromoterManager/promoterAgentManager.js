@@ -20,7 +20,7 @@ export async function fetchPromoterList(payload) {
 }
 
 export async function getPromoterInfoById(payload){
-  console.log('asas',here)
+  // console.log('asas',here)
   try{
     let promoterDetail=await AV.Cloud.run('promoterGetPromoterDetail',payload)
      console.log('promoterDetail',promoterDetail,payload)
@@ -50,7 +50,7 @@ export async function fetchAgentList(payload) {
 
 export async function agentSet(payload) {
   try {
-    // console.log('===========+>hello=======+>',payload)
+     // console.log('===========+>hello=======+>',payload)
     let agent = {
       promoterId: payload.promoterId,
       identity: payload.identity,

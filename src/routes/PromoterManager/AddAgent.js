@@ -218,7 +218,34 @@ class AddAgent extends Component {
 
   onOk(data) {
     // console.log('data=====>',data)
-    this.props.dispatch({type: 'promoterAgentSet/agentAdd', payload: {...data, promoterId: this.state.promoterId}})
+    this.props.dispatch({type: 'promoterAgentSet/agentAdd', payload: {...data, promoterId: this.state.promoterId,success:()=>{
+      this.props.dispatch({type: 'promoterAgentSet/query',
+        payload:{
+          identity :this.state.identity,
+          province :this.state.province,
+          city :this.state.city,
+          district:this.state.district,
+          street:this.state.street,
+          liveProvince:this.state.liveProvince,
+          liveCity :this.state.liveCity,
+          liveDistrict:this.state.liveDistrict,
+          phone :this.state.phone,
+          payment :this.state.payment,
+          name:this.state.name,
+          level:this.state.level,
+          minShopEarnings :this.state.minShopEarnings,
+          maxShopEarnings :this.state.maxShopEarnings,
+          minInviteShopNum :this.state.minInviteShopNum,
+          maxInviteShopNum :this.state.maxInviteShopNum,
+          minRoyaltyEarnings :this.state.minRoyaltyEarnings,
+          maxRoyaltyEarnings :this.state.maxRoyaltyEarnings,
+          minTeamMemNum :this.state.minTeamMemNum,
+          maxTeamMemNum :this.state.maxTeamMemNum,
+          orderRule :this.state.orderRule,
+          descend:this.state.descend,
+        }
+      })
+    }}})
     this.setState({
       modalVisible: false
     })
@@ -238,7 +265,7 @@ class AddAgent extends Component {
     })
   }
   onSearchByFilter(){
-    console.log('hahahahahahahahaha',this.state.level)
+    // console.log('hahahahahahahahaha',this.state.level)
     this.props.dispatch({type: 'promoterAgentSet/query',
       payload:{
         identity :this.state.identity,

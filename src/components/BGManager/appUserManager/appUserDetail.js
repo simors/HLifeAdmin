@@ -46,7 +46,7 @@ export default class AppUserDetail extends Component {
     }
   }
   render() {
-     console.log('asas',this.props.areaTreeSelectData)
+     // console.log('asas',this.props.areaTreeSelectData)
     return (
       <div>
         {this.props.userDetail.avatar?<div>头像：<img style={{width: 150, height: 150}} src={this.props.userDetail.avatar}></img></div>:null}
