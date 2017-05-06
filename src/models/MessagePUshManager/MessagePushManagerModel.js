@@ -87,6 +87,15 @@ export default {
           payload.error && payload.error('消息内容格式错误')
           return
         }
+      }else {
+        let pushContentObj = {
+          alert: payload.pushContent,
+          message_title: payload.pushContent,
+          message_abstract: payload.pushContent,
+          notice_type: 'SYSTEM_NOTICE'
+        }
+        payload.pushContent = JSON.stringify(pushContentObj)
+        // console.log('payload.pushContent===', payload.pushContent)
       }
       if(LC_CONFIG.ENV_DEV_) {
         payload.prod = 'dev'

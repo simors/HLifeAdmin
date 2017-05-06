@@ -23,7 +23,7 @@ export async function push(payload) {
     }
   }
 
-  console.log('hLifePush====', payload)
+  // console.log('hLifePush====', payload)
   let result = await AV.Cloud.run('hLifePush', payload)
   if(result && result.code == 1) {
     return true
