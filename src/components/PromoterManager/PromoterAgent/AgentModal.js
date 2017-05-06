@@ -75,8 +75,8 @@ class AgentModal extends Component {
         ...this.props.form.getFieldsValue(),
         liveArea:this.state.liveArea,
         identityArea:this.state.identityArea
-
       }
+
       //console.log('data',data)
       this.props.onOk(data)
     })
@@ -98,14 +98,13 @@ class AgentModal extends Component {
           value = '推广员'
           break;
         case 1:
-          value = '省代理'
+          value =(this.state.identityArea[1]?this.state.identityArea[1]+ '省代理':'请选择代理区域')
           break;
         case 2:
-          value='市代理'
-
+          value=(this.state.identityArea[2]?this.state.identityArea[2]+'市代理':'请选择代理区域')
           break;
         case 3:
-          value= '区代理'
+          value=(this.state.identityArea[3]?this.state.identityArea[3]+'区代理':'请选择代理区域')
           break
       }
     }
@@ -131,14 +130,22 @@ class AgentModal extends Component {
             this.setState({count: count})
             this.props.onCancel()
           }}>取消</Button>,
-          <Popconfirm key = {this.state.count} title={'是否直接升为'+value} onConfirm={() => this.handleOk()} >
+          <Popconfirm key = {this.state.count} title={'是否设置为'+value} onConfirm={() => this.handleOk()} >
             <Button key="ok" size="large">确定</Button>
           </Popconfirm>
         ]}>
 
         <Form horizontal>
           <FormItem label='代理等级：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('identity', )
+            {this.props.form.getFieldDecorator('identity',  {
+              initialValue: this.props.promoterDetail.identity,
+              rules: [
+                {
+                  required: true,
+                  message: '代理级别未选择'
+                }
+              ]
+            })
             (<RadioGroup  >
               <Radio value={0}>无代理</Radio>
               <Radio value={1}>省代理</Radio>

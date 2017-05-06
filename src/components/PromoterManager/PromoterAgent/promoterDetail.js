@@ -41,7 +41,7 @@ export default class PromoterDetail extends Component {
   }
   renderToPromoter(){
     return(
-      <div><Button onClick={()=>{this.openVisible()}}>设置为代理</Button></div>
+      <div><Button onClick={()=>{this.openVisible()}}>设置代理级别</Button></div>
 
     )
   }
@@ -108,7 +108,7 @@ export default class PromoterDetail extends Component {
         {(this.props.promoterDetail)?<div>推广员提成金额：{this.props.promoterDetail.royaltyEarnings}</div>:null}
         {(this.props.promoterDetail&&this.props.promoterDetail.createdAt)?<div>注册时间：{formatLeancloudTime(new Date(this.props.promoterDetail.createdAt))}</div>:null}
         {this.renderToPromoter()}
-        <AgentModal onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} userDetail={this.props.userDetail} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
+        <AgentModal onOk={(data)=>{this.onOk(data)}} visible={this.state.modalVisible} userDetail={this.props.userDetail} promoterDetail={this.props.promoterDetail} areaTreeSelectData={this.props.areaTreeSelectData} onCancel={()=>{this.onCancel()}} />
       </div>
     )
   }

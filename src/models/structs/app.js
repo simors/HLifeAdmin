@@ -69,7 +69,7 @@ export const backgroundStatisticsConfig = {
   name: '后台统计',
   icon: '',
   child: [
-    {key:'companyStatistics',name:'公司统计'},
+   //{key:'companyStatistics',name:'公司统计'},
     {key:'promoterBalanceStatistics',name:'推广员统计'}
 
   ]
@@ -79,7 +79,7 @@ export const promoterManagerConfig = {
   name: '推广员管理',
   icon: '',
   child:[
-    {key:'promoterGroupManager',name:'推广小组管理'},
+   // {key:'promoterGroupManager',name:'推广小组管理'},
     {key:'promoterCommissionManager',name:'推广员提成管理'},
     {key:'promoterAgentSet',name:'地区代理设置'},
     {key:'tenantFeeManager',name:'入驻费管理'}

@@ -242,15 +242,18 @@ class CategoryModal extends Component {
     let tagNameList = this.props.tagList.map((item, key)=> {
       return item.name
     })
+    this.setState({
+      newTag  :trim(this.state.newTag)
+    })
     // console.log('tagList',tagNameList)
-    if (this.state.newTag && this.state.newTag != '') {
-      let isEx = this.contains(tagNameList, this.state.newTag)
+    if (trim(this.state.newTag) && trim(this.state.newTag) != '') {
+      let isEx = this.contains(tagNameList, trim(this.state.newTag))
       if (isEx) {
         message.info('已经存在该标签')
       } else {
         this.props.dispatch({
           type: 'shopCategoryManager/tagcreate',
-          payload: {categoryId: this.props.data.id, name: this.state.newTag}
+          payload: {categoryId: this.props.data.id, name: trim(this.state.newTag)}
         })
       }
     } else {
@@ -266,6 +269,7 @@ class CategoryModal extends Component {
     this.setState({selectedRowKeys: selectedRowKeys, selectTags: selectedRowData});
 
   }
+
   contains(arr, obj) {
     var i = arr.length;
     while (i--) {
@@ -276,6 +280,7 @@ class CategoryModal extends Component {
     }
     return false;
   }
+
   handleOk() {
 
     this.props.form.validateFields((errors) => {
@@ -290,18 +295,18 @@ class CategoryModal extends Component {
         textColor: this.state.color == '#000000' ? this.props.data.textColor : this.state.color
       }
       data.text = trim(data.text)
-      if((data.text&&data.text!='')){
-        let tagNameList = this.props.categoryList.map((item,key)=>{
-            return item.text
+      if ((data.text && data.text != '')) {
+        let tagNameList = this.props.categoryList.map((item, key)=> {
+          return item.text
 
         })
         // console.log('test',tagNameList,data)
-        let isEx=this.contains(tagNameList,data.text)
-        if(isEx){
+        let isEx = this.contains(tagNameList, data.text)
+        if (isEx) {
           message.error('已有该分类')
           // this.props.onCancel()
 
-        }else{
+        } else {
           this.setState({
             fileList: [], imageList: [], color: '#000000', selectedRowKeys: [], pickerOpen: false, selectTags: []
           })
@@ -311,7 +316,7 @@ class CategoryModal extends Component {
           this.props.onOk(data)          // console.log('data====>', data)
           // this.setState({modalVisible: false})
         }
-      }else{
+      } else {
         message.error('请填写分类名称')
         // this.props.onCancel()
       }
