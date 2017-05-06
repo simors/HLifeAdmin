@@ -160,7 +160,7 @@ class SmsIndex extends Component{
 
     const columns = [
       {title: '用户昵称', dataIndex: 'nickname', key: 'nickname'},
-      {title: '用户名', dataIndex: 'username', key: 'username'},
+      // {title: '用户名', dataIndex: 'username', key: 'username'},
       {title: '手机号', dataIndex: 'mobilePhoneNumber', key: 'mobilePhoneNumber'},
       {title: '用户类型', dataIndex: 'identityShowNames', key: 'identityShowNames'},
       {title: '省', dataIndex: 'geoProvince', key: 'geoProvince'},
@@ -219,17 +219,20 @@ class SmsIndex extends Component{
     };
 
     const children = [];
+    /*
+      <FormItem {...formItemLayout} label={'用户名'}>
+        {getFieldDecorator(`username`)(
+          <Input/>
+        )}
+      </FormItem>,
+    */
     const formItemComps = [
       <FormItem {...formItemLayout} label={'用户昵称'}>
         {getFieldDecorator(`nickname`)(
           <Input/>
         )}
       </FormItem>,
-      <FormItem {...formItemLayout} label={'用户名'}>
-        {getFieldDecorator(`username`)(
-          <Input/>
-        )}
-      </FormItem>,
+      
       <FormItem
         {...formItemLayout}
         label={'手机号码'}
@@ -379,7 +382,7 @@ class SmsIndex extends Component{
 
   handleSmsTemplateModalCancel() {
     this.hideSmsTemplateModal()
-    this.setState({ sendSmsPopConfirmVisible: true });
+    this.setState({ sendSmsPopConfirmVisible: false });
   }
 
   handleSmsTemplateChange = (value) => {
