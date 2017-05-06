@@ -3,11 +3,17 @@
  */
 import AV from 'leancloud-storage'
 import React, {PropTypes, Component} from 'react'
-import { message,Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button, Select} from 'antd'
+import {message, Form, Input, InputNumber, Radio, Modal, Checkbox, Upload, Table, Icon, Button, Select} from 'antd'
 import styles from './CategoryModal.less'
 import {connect} from 'dva'
 import {SketchPicker} from 'react-color'
-import {getModalData, getModalState, getModalKey, getTagList,getSelectTags} from '../../../selector/ShopManager/categorySelector'
+import {
+  getModalData,
+  getModalState,
+  getModalKey,
+  getTagList,
+  getSelectTags
+} from '../../../selector/ShopManager/categorySelector'
 import {trim} from '../../../services/CommonService'
 
 //import {checkBox} from '../../common/checkBox'
@@ -37,7 +43,7 @@ class CategoryModal extends Component {
       selectedRowKeys: [],
       selectTags: [],
       tagList: [],
-      newTag:''
+      newTag: ''
     }
   }
 
@@ -80,7 +86,7 @@ class CategoryModal extends Component {
         }
       }
       if ((newProps.data.containedTag != this.props.data.containedTag) || this.state.selectedRowKeys.length == 0) {
-         // console.log('data===============>', newProps.data.showPictureSource)
+        // console.log('data===============>', newProps.data.showPictureSource)
 
         if (newProps.data.containedTag) {
           let rowKeys = []
@@ -219,34 +225,40 @@ class CategoryModal extends Component {
     // console.log('hahahah',this.state.visible)
 
   }
-   contains(arr, obj) {
-  var i = arr.length;
-  while (i--) {
-    if (arr[i] === obj) {
-      return true;
+
+  contains(arr, obj) {
+    var i = arr.length;
+    while (i--) {
+      if (arr[i] === obj) {
+        return true;
+      }
     }
+    return false;
   }
-  return false;
-}
-  addTag(){
+
+  addTag() {
     // console.log('tagList',this.props.tagList)
 
-    let tagNameList = this.props.tagList.map((item,key)=>{
+    let tagNameList = this.props.tagList.map((item, key)=> {
       return item.name
     })
     // console.log('tagList',tagNameList)
-    if(this.state.newTag&&this.state.newTag!=''){
-      let isEx = this.contains(tagNameList,this.state.newTag)
-      if(isEx){
+    if (this.state.newTag && this.state.newTag != '') {
+      let isEx = this.contains(tagNameList, this.state.newTag)
+      if (isEx) {
         message.info('已经存在该标签')
-      }else{
-        this.props.dispatch({type:'shopCategoryManager/tagcreate',payload:{categoryId:this.props.data.id,name:this.state.newTag}})
+      } else {
+        this.props.dispatch({
+          type: 'shopCategoryManager/tagcreate',
+          payload: {categoryId: this.props.data.id, name: this.state.newTag}
+        })
       }
-    }else {
+    } else {
       message.info('请填写标签名称')
     }
 
   }
+
   onSelectChange = (selectedRowKeys, selectedRowData) => {
     // console.log('selectedRowKeys changed: ', selectedRowKeys);
     //console.log('selectedRowKeys changed: ', this.state.selectedRowKeys);
@@ -254,7 +266,16 @@ class CategoryModal extends Component {
     this.setState({selectedRowKeys: selectedRowKeys, selectTags: selectedRowData});
 
   }
-
+  contains(arr, obj) {
+    var i = arr.length;
+    while (i--) {
+      // console.log('arr',arr)
+      if (trim(arr[i]) === obj) {
+        return true;
+      }
+    }
+    return false;
+  }
   handleOk() {
 
     this.props.form.validateFields((errors) => {
@@ -269,22 +290,43 @@ class CategoryModal extends Component {
         textColor: this.state.color == '#000000' ? this.props.data.textColor : this.state.color
       }
       data.text = trim(data.text)
-      // let count = this.state.count - 1
-      this.setState({
-        fileList: [], imageList: [], color: '#000000', selectedRowKeys: [], pickerOpen: false, selectTags: []
-      })
-      // console.log('data',...this.props.form.getFieldsValue())
-      // console.log('data', data)
+      if((data.text&&data.text!='')){
+        let tagNameList = this.props.categoryList.map((item,key)=>{
+            return item.text
 
-      this.props.onOk(data)
+        })
+        // console.log('test',tagNameList,data)
+        let isEx=this.contains(tagNameList,data.text)
+        if(isEx){
+          message.error('已有该分类')
+          // this.props.onCancel()
+
+        }else{
+          this.setState({
+            fileList: [], imageList: [], color: '#000000', selectedRowKeys: [], pickerOpen: false, selectTags: []
+          })
+          // console.log('data',...this.props.form.getFieldsValue())
+          // console.log('data', data)
+
+          this.props.onOk(data)          // console.log('data====>', data)
+          // this.setState({modalVisible: false})
+        }
+      }else{
+        message.error('请填写分类名称')
+        // this.props.onCancel()
+      }
+      // let count = this.state.count - 1
+
     })
   }
-  tagChange(value){
+
+  tagChange(value) {
     this.setState({
-      newTag:value.target.value
+      newTag: value.target.value
     })
     // console.log('value',value.target.value)
   }
+
   pickOpen() {
     this.setState({pickerOpen: !this.state.pickerOpen})
   }
@@ -320,15 +362,16 @@ class CategoryModal extends Component {
   selectStatus(value, optin) {
     // console.log('vale', value, optin)
   }
-  selectTag(value){
+
+  selectTag(value) {
     // console.log('value',value)
     let selectKeys = this.state.selectedRowKeys
     selectKeys.push(value.id)
     let tagList = this.state.selectTags
     tagList.push(value)
     this.setState({
-      selectTags:tagList,
-      selectedRowKeys:selectKeys
+      selectTags: tagList,
+      selectedRowKeys: selectKeys
 
     })
     // this.props.dispatch({type:'shopCategoryManager/fetchSelectTag',payload:tagList})
@@ -337,49 +380,71 @@ class CategoryModal extends Component {
     // console.log('this.state.selectRowKeys',this.state.selectedRowKeys)
 
   }
-  unSelectTag(tag){
+
+  unSelectTag(tag) {
     // let tagList = this.state.selectTags
     let selectKeys = this.state.selectedRowKeys
     let tagList = this.state.selectTags
-    for(let i=0;i<selectKeys.length;i++){
-      if(selectKeys[i]==tag.id){
-        selectKeys.splice(i,1)
+    for (let i = 0; i < selectKeys.length; i++) {
+      if (selectKeys[i] == tag.id) {
+        selectKeys.splice(i, 1)
       }
     }
-    for(let j = 0;j<tagList.length;j++){
-      if(tagList[j].id==tag.id){
-        tagList.splice(j,1)
+    for (let j = 0; j < tagList.length; j++) {
+      if (tagList[j].id == tag.id) {
+        tagList.splice(j, 1)
       }
     }
     this.setState({
-      selectedRowKeys:selectKeys,
-      selectTags:tagList
+      selectedRowKeys: selectKeys,
+      selectTags: tagList
     })
   }
-  renderTagList(){
+
+  renderTagList() {
     // console.log('tagList',this.props.tagList)
 
-    if(this.props.tagList&&this.props.tagList.length>0){
-     let tagList= this.props.tagList.map((item,key)=>{
-       let tag = {
-         categoryId:item.categoryId,
-         categoryName:item.categoryName,
-         id:item.id,
-         name:item.name
-       }
-        let isSelect = this.contains(this.state.selectedRowKeys,item.id)
-       if(isSelect){
-          return  <Button style={{color:'#FFFFFF',borderRadius:5,width:80,height:25,backgroundColor:'#FF9D4E',marginTop:10,marginLeft:20}} key={item.id} onClick={()=>{this.unSelectTag(tag)}}>{item.name}</Button>
-       }else{
-         return <Button style={{color:'#FF9D4E',borderRadius:5,width:80,height:25,backgroundColor:'#FFFFFF',marginTop:10,marginLeft:20}} key={item.id} onClick={()=>{this.selectTag(tag)}}>{item.name}</Button>
+    if (this.props.tagList && this.props.tagList.length > 0) {
+      let tagList = this.props.tagList.map((item, key)=> {
+        let tag = {
+          categoryId: item.categoryId,
+          categoryName: item.categoryName,
+          id: item.id,
+          name: item.name
+        }
+        let isSelect = this.contains(this.state.selectedRowKeys, item.id)
+        if (isSelect) {
+          return <Button style={{
+            color: '#FFFFFF',
+            borderRadius: 5,
+            width: 80,
+            height: 25,
+            backgroundColor: '#FF9D4E',
+            marginTop: 10,
+            marginLeft: 20
+          }} key={item.id} onClick={()=> {
+            this.unSelectTag(tag)
+          }}>{item.name}</Button>
+        } else {
+          return <Button style={{
+            color: '#FF9D4E',
+            borderRadius: 5,
+            width: 80,
+            height: 25,
+            backgroundColor: '#FFFFFF',
+            marginTop: 10,
+            marginLeft: 20
+          }} key={item.id} onClick={()=> {
+            this.selectTag(tag)
+          }}>{item.name}</Button>
 
-       }
+        }
       })
       return tagList
     }
   }
 
-  setTrimValue(value){
+  setTrimValue(value) {
     let trimValue = trim(value)
     // console.log('trim',trimValue)
     return trimValue
@@ -469,7 +534,7 @@ class CategoryModal extends Component {
           <FormItem label='名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('text', {
               initialValue: this.props.type === 'create' ? '' : this.props.data.text,
-             // getValueFromEvent:(e)=>{
+              // getValueFromEvent:(e)=>{
               //  let value=this.setTrimValue(e.target.value)
               //  return value
               //},
@@ -528,7 +593,7 @@ class CategoryModal extends Component {
 
           <FormItem label='图标：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('imageSource', {
-              initialValue: (this.state.fileList.length>0) ? {
+              initialValue: (this.state.fileList.length > 0) ? {
                 uid: -1,
                 status: 'done',
                 name: this.state.fileList[0].name,
@@ -542,7 +607,7 @@ class CategoryModal extends Component {
               ]
             })(<Upload
               listType='picture'
-              defaultFileList={(this.state.fileList.length>0)? [{
+              defaultFileList={(this.state.fileList.length > 0) ? [{
                 uid: -1,
                 status: 'done',
                 name: this.state.fileList[0].name,
@@ -585,7 +650,7 @@ class CategoryModal extends Component {
               }}
               fileList={this.state.imageList}
             >
-                <div><Button>点击上传封面</Button></div>
+              <div><Button>点击上传封面</Button></div>
             </Upload>)}
           </FormItem>
           {/*<FormItem label='显示状态：' hasFeedback {...formItemLayout}>*/}
@@ -606,7 +671,12 @@ class CategoryModal extends Component {
           {/*</div>*/}
           {/*)}*/}
           {/*</FormItem>*/}
-          {this.props.type=='create'?null:<div style={{marginLeft:115,marginRight:115}}><Input size='default' onChange={(value)=>{this.tagChange(value)}} placeholder="添加标签"></Input><Button onClick={()=>{this.addTag()}}>添加标签</Button></div>}
+          {this.props.type == 'create' ? null :
+            <div style={{marginLeft: 115, marginRight: 115}}><Input size='default' onChange={(value)=> {
+              this.tagChange(value)
+            }} placeholder="添加标签"></Input><Button onClick={()=> {
+              this.addTag()
+            }}>添加标签</Button></div>}
           {this.props.type == 'create' ? null :
             <div>{this.renderTagList()}</div>
           }
@@ -632,7 +702,7 @@ function mapStateToProps(state) {
   let modalKey = getModalKey(state)
   // console.log('tagList==========>', tagList)
   return {
-    selectTags:selectTags,
+    selectTags: selectTags,
     tagList: tagList,
     data: data,
     modalVisible: modalVisible,
