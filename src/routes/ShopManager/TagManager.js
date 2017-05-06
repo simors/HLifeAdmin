@@ -40,9 +40,11 @@ class ShopTagManager extends Component {
 
   onOk(data) {
 
-      // console.log('test',tagNameList,data)
+       // console.log('test',data)
+          data.name = trim(data.name)
+    // console.log('test====》',data)
 
-          this.props.dispatch({
+    this.props.dispatch({
             type: 'shopCategoryManager/tag' + this.state.modalType,
             payload: data
           })

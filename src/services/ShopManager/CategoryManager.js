@@ -66,7 +66,7 @@ export async function createShopCategory(payload) {
 }
 
 export async function updateShopCategory(payload) {
-   console.log('as',payload)
+   // console.log('as',payload)
   let imageSource = ''
   let showPictureSource = ''
   if (payload.imageSource.file) {
@@ -125,7 +125,7 @@ export async function updateShopCategory(payload) {
 
 export async function createShopTag(payload) {
   try {
-    // console.log('payload===>',payload)
+     // console.log('payload===>',payload)
     await AV.Cloud.run('createShopTag', payload)
     return {success: true}
   } catch (err) {
@@ -135,6 +135,8 @@ export async function createShopTag(payload) {
 
 export async function updateShopTag(payload) {
   try {
+    // console.log('payload===>',payload)
+
     await AV.Cloud.run('updateShopTag', payload)
     return {success: true}
   } catch (err) {

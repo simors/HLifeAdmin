@@ -37,8 +37,8 @@ export default class AppUserDetail extends Component {
     })
   }
   renderToPromoter(){
-    if(this.props.userDetail&&this.props.userDetail.identity){
-      if(this.props.userDetail.identity[0]=='promoter'||this.props.userDetail.identity[1]=='promoter'){
+    if(this.props.userDetail){
+      if(this.props.userDetail.identity&&(this.props.userDetail.identity[0]=='promoter'||this.props.userDetail.identity[1]=='promoter')){
         return null
       }else{
         return(

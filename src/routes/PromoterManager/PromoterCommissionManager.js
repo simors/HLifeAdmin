@@ -70,9 +70,9 @@ class PromoterCommissionManager extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      province_agent: 0,
-      city_agent: 0,
-      district_agent: 0,
+      province_agent: 0.00,
+      city_agent: 0.00,
+      district_agent: 0.00,
       street_agent: 0.00,
       level1Team: 100,
       level1Shop: 200,
@@ -99,9 +99,9 @@ class PromoterCommissionManager extends Component {
       level5Royalty1: 0.5,
       level5Royalty2: 0.1,
       level5Royalty3: 0.02,
-      invitePromoterRoyalty: 0,       // 推广员入驻费提成比例
-      promoterCharge: 0,              // 推广员入驻费
-      minShopkeeperCharge: 0,          // 店铺入驻最低费用
+      invitePromoterRoyalty: 0.00,       // 推广员入驻费提成比例
+      promoterCharge: 0.00,              // 推广员入驻费
+      minShopkeeperCharge: 0.00,          // 店铺入驻最低费用
 
     }
   }
@@ -620,9 +620,18 @@ class PromoterCommissionManager extends Component {
   }
 
   changePromoterCharge(payload) {
-    this.setState({
-      promoterCharge: payload
-    })
+    if(payload===0.){
+
+      console.log('0.0laile')
+      this.setState({
+        promoterCharge: '0.0'
+      })
+    }else{
+      this.setState({
+        promoterCharge: payload
+      })
+    }
+
   }
 
   changeMinShopkeeperCharge(payload) {
@@ -725,6 +734,7 @@ class PromoterCommissionManager extends Component {
           <div>推广员入驻费: <InputNumber formatter={(value) => {
             ` ${value} 元`
           }} parser={value => value.replace('元', '')}
+                                    min={0}
                                     step={0.01}
                                     value={this.state.promoterCharge}
                                     onChange={(payload)=> {
@@ -735,6 +745,7 @@ class PromoterCommissionManager extends Component {
           <div>店铺入驻最低费用: <InputNumber step={0.01} formatter={(value) => {
             ` ${value}元`
           }} parser={value => value.replace('元', '')}
+                                      min={0}
                                       value={this.state.minShopkeeperCharge}
                                       onChange={(payload)=> {
                                         this.changeMinShopkeeperCharge(payload)
@@ -824,6 +835,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
                   value={this.state.level1Team}
+                  min={0}
                   onChange={(payload)=> {
                     this.changeLevel1Team(payload)
                   }}/></div>
@@ -832,6 +844,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
                   value={this.state.level2Team}
+                  min={0}
                   onChange={(payload)=> {
                     this.changeLevel2Team(payload)
                   }}/></div>
@@ -839,6 +852,7 @@ class PromoterCommissionManager extends Component {
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
+                  min={0}
                   value={this.state.level3Team}
                   onChange={(payload)=> {
                     this.changeLevel3Team(payload)
@@ -847,6 +861,7 @@ class PromoterCommissionManager extends Component {
               </Col>
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
+                  min={0}
                   value={this.state.level4Team}
                   onChange={(payload)=> {
                     this.changeLevel4Team(payload)
@@ -856,6 +871,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
                   value={this.state.level5Team}
+                  min={0}
                   onChange={(payload)=> {
                     this.changeLevel5Team(payload)
                   }}/></div>
@@ -869,6 +885,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
                   value={this.state.level1Shop}
+                  min={0}
                   onChange={(payload)=> {
                     this.changeLevel1Shop(payload)
                   }}/></div>
@@ -876,6 +893,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
                   value={this.state.level2Shop}
+                  min={0}
                   onChange={(payload)=> {
                     this.changeLevel2Shop(payload)
                   }}/></div>
@@ -883,6 +901,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
                   value={this.state.level3Shop}
+                  min={0}
                   onChange={(payload)=> {
                     this.changeLevel3Shop(payload)
                   }}/></div>
@@ -890,6 +909,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
                   value={this.state.level4Shop}
+                  min={0}
                   onChange={(payload)=> {
                     this.changeLevel4Shop(payload)
                   }}/></div>
@@ -897,6 +917,7 @@ class PromoterCommissionManager extends Component {
               <Col span={4}>
                 <div className={style.divCol}><InputNumber
                   value={this.state.level5Shop}
+                  min={0}
                   onChange={(payload)=> {
                     this.changeLevel5Shop(payload)
                   }}/></div>

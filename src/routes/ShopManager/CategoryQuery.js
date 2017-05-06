@@ -27,7 +27,7 @@ class CategoryQuery extends Component {
       selectedItem: {},
       modalRandomKey: -1
     }
-    console.log('hahaha')
+    // console.log('hahaha')
   }
 
   componentDidMount() {
@@ -123,6 +123,7 @@ class CategoryQuery extends Component {
             onCancel={()=> {
               this.onCancel()
             }}
+            categoryList = {this.props.categoryList}
             item={this.state.selectedItem}
             tagList={this.props.tagList}
             modalKey={this.state.modalRandomKey}

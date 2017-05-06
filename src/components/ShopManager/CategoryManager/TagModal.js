@@ -42,7 +42,7 @@ class TagModal extends Component {
   contains(arr, obj) {
     var i = arr.length;
     while (i--) {
-      console.log('arr',arr)
+      // console.log('arr',arr)
       if (trim(arr[i]) === obj) {
         return true;
       }
@@ -66,6 +66,7 @@ class TagModal extends Component {
       }
       // console.log('data====>', data)
         data.name = trim(data.name)
+
       if((data.name&&data.name!='')&&(data.categoryId&&data.categoryId!='')){
         let tagNameList = this.props.tagList.map((item,key)=>{
           if(item.categoryId==data.categoryId){
