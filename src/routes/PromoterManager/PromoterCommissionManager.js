@@ -110,43 +110,48 @@ class PromoterCommissionManager extends Component {
     this.props.dispatch({
       type: 'promoterCommissionManager/query',
     })
-    this.setState({
-      province_agent: this.props.commissionCof.agentTable.province_agent,
-      city_agent: this.props.commissionCof.agentTable.city_agent,
-      district_agent: this.props.commissionCof.agentTable.district_agent,
-      street_agent: this.props.commissionCof.agentTable.street_agent,
-      level1Team: this.props.commissionCof.upgradeTable.promoter_level_1.team,
-      level1Shop: this.props.commissionCof.upgradeTable.promoter_level_1.shop,
-      level1Royalty1: this.props.commissionCof.upgradeTable.promoter_level_1.royalty[0],
-      level1Royalty2: this.props.commissionCof.upgradeTable.promoter_level_1.royalty[1],
-      level1Royalty3: this.props.commissionCof.upgradeTable.promoter_level_1.royalty[2],
-      level2Team: this.props.commissionCof.upgradeTable.promoter_level_2.team,
-      level2Shop: this.props.commissionCof.upgradeTable.promoter_level_2.shop,
-      level2Royalty1: this.props.commissionCof.upgradeTable.promoter_level_2.royalty[0],
-      level2Royalty2: this.props.commissionCof.upgradeTable.promoter_level_2.royalty[1],
-      level2Royalty3: this.props.commissionCof.upgradeTable.promoter_level_2.royalty[2],
-      level3Team: this.props.commissionCof.upgradeTable.promoter_level_3.team,
-      level3Shop: this.props.commissionCof.upgradeTable.promoter_level_3.shop,
-      level3Royalty1: this.props.commissionCof.upgradeTable.promoter_level_3.royalty[0],
-      level3Royalty2: this.props.commissionCof.upgradeTable.promoter_level_3.royalty[1],
-      level3Royalty3: this.props.commissionCof.upgradeTable.promoter_level_3.royalty[2],
-      level4Team: this.props.commissionCof.upgradeTable.promoter_level_4.team,
-      level4Shop: this.props.commissionCof.upgradeTable.promoter_level_4.shop,
-      level4Royalty1: this.props.commissionCof.upgradeTable.promoter_level_4.royalty[0],
-      level4Royalty2: this.props.commissionCof.upgradeTable.promoter_level_4.royalty[1],
-      level4Royalty3: this.props.commissionCof.upgradeTable.promoter_level_4.royalty[2],
-      level5Team: this.props.commissionCof.upgradeTable.promoter_level_5.team,
-      level5Shop: this.props.commissionCof.upgradeTable.promoter_level_5.shop,
-      level5Royalty1: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[0],
-      level5Royalty2: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[1],
-      level5Royalty3: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[2],
-      invitePromoterRoyalty: this.props.commissionCof.invitePromoterRoyalty,       // 推广员入驻费提成比例
-      promoterCharge: this.props.commissionCof.promoterCharge,              // 推广员入驻费
-      minShopkeeperCharge: this.props.commissionCof.minShopkeeperCharge,          // 店铺入驻最低费用
-    })
   }
 
   componentDidMount() {
+
+    if(this.props.commissionCof&&this.props.commissionCof.agentTable){
+      console.log('here is comissionCOf',this.props.commissionCof)
+
+      this.setState({
+        province_agent: this.props.commissionCof.agentTable.province_agent,
+        city_agent: this.props.commissionCof.agentTable.city_agent,
+        district_agent: this.props.commissionCof.agentTable.district_agent,
+        street_agent: this.props.commissionCof.agentTable.street_agent,
+        level1Team: this.props.commissionCof.upgradeTable.promoter_level_1.team,
+        level1Shop: this.props.commissionCof.upgradeTable.promoter_level_1.shop,
+        level1Royalty1: this.props.commissionCof.upgradeTable.promoter_level_1.royalty[0],
+        level1Royalty2: this.props.commissionCof.upgradeTable.promoter_level_1.royalty[1],
+        level1Royalty3: this.props.commissionCof.upgradeTable.promoter_level_1.royalty[2],
+        level2Team: this.props.commissionCof.upgradeTable.promoter_level_2.team,
+        level2Shop: this.props.commissionCof.upgradeTable.promoter_level_2.shop,
+        level2Royalty1: this.props.commissionCof.upgradeTable.promoter_level_2.royalty[0],
+        level2Royalty2: this.props.commissionCof.upgradeTable.promoter_level_2.royalty[1],
+        level2Royalty3: this.props.commissionCof.upgradeTable.promoter_level_2.royalty[2],
+        level3Team: this.props.commissionCof.upgradeTable.promoter_level_3.team,
+        level3Shop: this.props.commissionCof.upgradeTable.promoter_level_3.shop,
+        level3Royalty1: this.props.commissionCof.upgradeTable.promoter_level_3.royalty[0],
+        level3Royalty2: this.props.commissionCof.upgradeTable.promoter_level_3.royalty[1],
+        level3Royalty3: this.props.commissionCof.upgradeTable.promoter_level_3.royalty[2],
+        level4Team: this.props.commissionCof.upgradeTable.promoter_level_4.team,
+        level4Shop: this.props.commissionCof.upgradeTable.promoter_level_4.shop,
+        level4Royalty1: this.props.commissionCof.upgradeTable.promoter_level_4.royalty[0],
+        level4Royalty2: this.props.commissionCof.upgradeTable.promoter_level_4.royalty[1],
+        level4Royalty3: this.props.commissionCof.upgradeTable.promoter_level_4.royalty[2],
+        level5Team: this.props.commissionCof.upgradeTable.promoter_level_5.team,
+        level5Shop: this.props.commissionCof.upgradeTable.promoter_level_5.shop,
+        level5Royalty1: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[0],
+        level5Royalty2: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[1],
+        level5Royalty3: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[2],
+        invitePromoterRoyalty: this.props.commissionCof.invitePromoterRoyalty,       // 推广员入驻费提成比例
+        promoterCharge: this.props.commissionCof.promoterCharge,              // 推广员入驻费
+        minShopkeeperCharge: this.props.commissionCof.minShopkeeperCharge,          // 店铺入驻最低费用
+      })
+    }
 
   }
 
@@ -966,6 +971,7 @@ class PromoterCommissionManager extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
   let commissionCof = getCommissionCof(state)
+   // console.log('commissionCof',commissionCof)
   return {commissionCof: commissionCof}
 }
 export default connect(mapStateToProps)(PromoterCommissionManager)
