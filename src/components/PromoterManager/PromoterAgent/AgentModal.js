@@ -7,7 +7,7 @@
 
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, InputNumber, Button, Popconfirm, Radio, Modal, Checkbox, Cascader} from 'antd'
-import {trim,copyArea} from '../../../services/CommonService'
+import {trim, copyArea} from '../../../services/CommonService'
 
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
@@ -72,11 +72,11 @@ class AgentModal extends Component {
 // console.log('c',value)
     let data = value.target.value
     let areaList = new Array()
-     // areaList =  copyArea(this.props.areaTreeSelectData)
-    areaList = JSON.parse( JSON.stringify(this.props.areaTreeSelectData) )
+    // areaList =  copyArea(this.props.areaTreeSelectData)
+    areaList = JSON.parse(JSON.stringify(this.props.areaTreeSelectData))
     // let areaList = this.props.areaTreeSelectData
     // areaList.concat(this.props.areaTreeSelectData)
-    console.log('saassa',areaList)
+    console.log('saassa', areaList)
     switch (data) {
       case 0:
         this.setState({areaList: []})

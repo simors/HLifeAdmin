@@ -243,7 +243,7 @@ class CategoryModal extends Component {
       return item.name
     })
     this.setState({
-      newTag  :trim(this.state.newTag)
+      newTag: trim(this.state.newTag)
     })
     // console.log('tagList',tagNameList)
     if (trim(this.state.newTag) && trim(this.state.newTag) != '') {
@@ -302,7 +302,7 @@ class CategoryModal extends Component {
         })
         // console.log('test',tagNameList,data)
         let isEx = this.contains(tagNameList, data.text)
-        if (isEx&&data.text!=this.props.data.text) {
+        if (isEx && data.text != this.props.data.text) {
           message.error('已有该分类')
           // this.props.onCancel()
 
