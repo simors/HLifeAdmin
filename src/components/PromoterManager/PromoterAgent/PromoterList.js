@@ -176,19 +176,24 @@ class PromoterList extends React.Component {
         title: '店铺收益',
         dataIndex: 'shopEarnings',
         key: 'shopEarnings',
+        render:(text,record)=>{
+          return <p>{record.shopEarnings.toFixed(3)}</p>
+        }
       },
       {
         title: '提成收益',
         dataIndex: 'royaltyEarnings',
         key: 'royaltyEarnings',
-
+        render:(text,record)=>{
+          return <p>{record.royaltyEarnings.toFixed(3)}</p>
+        },
       },
       {
         title:'总收益',
         dataIndex:'totalEarnings',
         key:'totalEarnings',
         render:(text,record)=>{
-          return <p>{record.royaltyEarnings+record.shopEarnings}</p>
+          return <p>{(record.royaltyEarnings+record.shopEarnings).toFixed(3)}</p>
         }
       },
       {

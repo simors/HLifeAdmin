@@ -29,6 +29,15 @@ export function trim(str){
 }
 
 
-export function copyArray(){
-
+export function copyArea(obj) {
+  let out = [],i = 0,len = obj.length;
+  for (; i < len; i++) {
+    // console.log('obje=======>',len,obj[i])
+    if (obj[i].children){
+      out[i] = obj[i]
+      out[i].children = copyArea(obj[i].children);
+    }
+    else out[i] = obj[i];
+  }
+  return out;
 }

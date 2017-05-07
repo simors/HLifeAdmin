@@ -7,6 +7,8 @@
 
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, InputNumber, Button, Popconfirm, Radio, Modal, Checkbox, Cascader} from 'antd'
+import {trim, copyArea} from '../../../services/CommonService'
+
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -66,49 +68,51 @@ class AgentModal extends Component {
 
   }
 
-//   changeAreaList(value) {
-// // console.log('c',value)
-//     let data = value.target.value
-//     let areaList = []
-//     areaList = this.props.areaTreeSelectData
-//     // areaList.concat(this.props.areaTreeSelectData)
-//     console.log('saassa',areaList)
-//     switch (data) {
-//       case 0:
-//         this.setState({areaList: []})
-//         break;
-//       case 1:
-//         areaList.forEach((item)=> {
-//           if (item.children) {
-//             item.children.forEach((result)=> {
-//               delete result.children
-//             })
-//           }
-//         })
-//         this.setState({
-//           areaList: areaList
-//         })
-//         break;
-//       case 2:
-//         areaList.forEach((item)=> {
-//           item.children.forEach((result)=> {
-//             result.children.forEach((record)=> {
-//               delete record.children
-//             })
-//           })
-//         })
-//         this.setState({
-//           areaList: areaList
-//         })
-//         break;
-//       case 3:
-//         // areaList = this.props.areaTreeSelectData
-//         this.setState({
-//           areaList: areaList
-//         })
-//         break
-//     }
-//   }
+  changeAreaList(value) {
+// console.log('c',value)
+    let data = value.target.value
+    let areaList = new Array()
+    // areaList =  copyArea(this.props.areaTreeSelectData)
+    areaList = JSON.parse(JSON.stringify(this.props.areaTreeSelectData))
+    // let areaList = this.props.areaTreeSelectData
+    // areaList.concat(this.props.areaTreeSelectData)
+    console.log('saassa', areaList)
+    switch (data) {
+      case 0:
+        this.setState({areaList: []})
+        break;
+      case 1:
+        areaList.forEach((item)=> {
+          if (item.children) {
+            item.children.forEach((result)=> {
+              delete result.children
+            })
+          }
+        })
+        this.setState({
+          areaList: areaList
+        })
+        break;
+      case 2:
+        areaList.forEach((item)=> {
+          item.children.forEach((result)=> {
+            result.children.forEach((record)=> {
+              delete record.children
+            })
+          })
+        })
+        this.setState({
+          areaList: areaList
+        })
+        break;
+      case 3:
+        // areaList = this.props.areaTreeSelectData
+        this.setState({
+          areaList: areaList
+        })
+        break
+    }
+  }
 
   handleOk() {
     let count = this.state.count + 1
@@ -198,7 +202,7 @@ class AgentModal extends Component {
               ]
             })
             (<RadioGroup onChange={(value)=> {
-          //    this.changeAreaList(value)
+              this.changeAreaList(value)
             }}>
               <Radio value={0}>无代理</Radio>
               <Radio value={1}>省代理</Radio>

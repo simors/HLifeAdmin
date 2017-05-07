@@ -63,7 +63,7 @@ class CategoryModal extends Component {
             fileList: [{
               uid: -1,
               status: 'done',
-              name: newProps.data.text,
+              name: '',
               url: newProps.data.imageSource
             }],
           })
@@ -79,7 +79,7 @@ class CategoryModal extends Component {
             imageList: [{
               uid: -1,
               status: 'done',
-              name: newProps.data.text,
+              name: '',
               url: newProps.data.showPictureSource
             }],
           })
@@ -198,7 +198,7 @@ class CategoryModal extends Component {
         imageList: [{
           uid: -1,
           status: 'done',
-          name: this.props.data.text,
+          name: '',
           url: this.props.data.showPictureSource
         }],
       })
@@ -209,7 +209,7 @@ class CategoryModal extends Component {
         fileList: [{
           uid: -1,
           status: 'done',
-          name: this.props.data.text,
+          name: '',
           url: this.props.data.imageSource
         }],
       })
@@ -243,7 +243,7 @@ class CategoryModal extends Component {
       return item.name
     })
     this.setState({
-      newTag  :trim(this.state.newTag)
+      newTag: trim(this.state.newTag)
     })
     // console.log('tagList',tagNameList)
     if (trim(this.state.newTag) && trim(this.state.newTag) != '') {
@@ -302,7 +302,7 @@ class CategoryModal extends Component {
         })
         // console.log('test',tagNameList,data)
         let isEx = this.contains(tagNameList, data.text)
-        if (isEx&&data.text!=this.props.data.text) {
+        if (isEx && data.text != this.props.data.text) {
           message.error('已有该分类')
           // this.props.onCancel()
 
@@ -601,7 +601,7 @@ class CategoryModal extends Component {
               initialValue: (this.state.fileList.length > 0) ? {
                 uid: -1,
                 status: 'done',
-                name: this.state.fileList[0].name,
+                name: '',
                 url: this.state.fileList[0].url
               } : null,
               rules: [
@@ -615,7 +615,7 @@ class CategoryModal extends Component {
               defaultFileList={(this.state.fileList.length > 0) ? [{
                 uid: -1,
                 status: 'done',
-                name: this.state.fileList[0].name,
+                name: '',
                 url: this.state.fileList[0].url
               }] : []}
               onChange={(info)=> {

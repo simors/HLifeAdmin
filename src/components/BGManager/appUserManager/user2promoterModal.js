@@ -27,7 +27,8 @@ class user2promoterModal extends Component {
       liveArea:[],
       identityArea:[],
       popVisible:false,
-      identity:0
+      identity:0,
+      areaList:[]
     }
   }
 
@@ -95,7 +96,48 @@ class user2promoterModal extends Component {
     this.setState({
       identity:e.target.value
     })
-
+    let data = e.target.value
+    let areaList = new Array()
+    // areaList =  copyArea(this.props.areaTreeSelectData)
+    areaList = JSON.parse(JSON.stringify(this.props.areaTreeSelectData))
+    // let areaList = this.props.areaTreeSelectData
+    // areaList.concat(this.props.areaTreeSelectData)
+    console.log('saassa', areaList)
+    switch (data) {
+      case 0:
+        this.setState({areaList: []})
+        break;
+      case 1:
+        areaList.forEach((item)=> {
+          if (item.children) {
+            item.children.forEach((result)=> {
+              delete result.children
+            })
+          }
+        })
+        this.setState({
+          areaList: areaList
+        })
+        break;
+      case 2:
+        areaList.forEach((item)=> {
+          item.children.forEach((result)=> {
+            result.children.forEach((record)=> {
+              delete record.children
+            })
+          })
+        })
+        this.setState({
+          areaList: areaList
+        })
+        break;
+      case 3:
+        // areaList = this.props.areaTreeSelectData
+        this.setState({
+          areaList: areaList
+        })
+        break
+    }
   }
   cancel(){
     this.setState({
@@ -116,7 +158,6 @@ class user2promoterModal extends Component {
         break;
       case 2:
         value=this.state.identityArea[2]+'市代理'
-
         break;
       case 3:
         value= this.state.identityArea[3]+'区代理'
@@ -203,7 +244,7 @@ class user2promoterModal extends Component {
           <FormItem {...formItemLayout} hasFeedback  label={'代理地区'}>
             {this.props.form.getFieldDecorator(`identityArea`)(
               <Cascader
-                options={this.props.areaTreeSelectData}
+                options={this.state.areaList}
                 changeOnSelect
                 placeholder="请选择代理地区"
                 onChange={(value,selectedOptions)=>{
