@@ -535,7 +535,7 @@ class CategoryModal extends Component {
         wrapClassName='vertical-center-modal'
         key={this.props.modalKey}
       >
-        <Form horizontal>
+        <Form layout="horizontal">
           <FormItem label='名称：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('text', {
               initialValue: this.props.type === 'create' ? '' : this.props.data.text,

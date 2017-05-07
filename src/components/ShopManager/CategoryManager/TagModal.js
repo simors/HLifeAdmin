@@ -131,7 +131,7 @@ class TagModal extends Component {
         wrapClassName='vertical-center-modal'
         key={this.state.count}
       >
-        <Form horizontal>
+        <Form layout="horizontal">
           <FormItem label='上级分类：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('categoryId', {
               initialValue: this.props.type === 'create' ? '' : this.props.item.categoryId,
