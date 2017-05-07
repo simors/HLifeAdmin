@@ -219,7 +219,7 @@ class ActionModal extends Component {
         {/*}}></SelectDisrict>*/}
           {this.renderPushTargetDistrict()}
         </div>
-        <Form horizontal>
+        <Form layout="horizontal">
           <FormItem label='标题：' hasFeedback {...formItemLayout}>
             {this.props.form.getFieldDecorator('title', {
               initialValue: this.props.type === 'create' ? '' : this.props.data.title,

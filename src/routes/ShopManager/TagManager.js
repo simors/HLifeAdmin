@@ -23,7 +23,7 @@ class ShopTagManager extends Component {
       modalVisible: false,
       modalType: 'create',
       selectedItem: {},
-      selectCategory:''
+      selectCategory:'all'
 
     }
   }
@@ -67,7 +67,7 @@ class ShopTagManager extends Component {
   }
 
   onModify(data) {
-    // console.log('data',data)
+    console.log('data',data)
     this.setState({modalVisible: true, modalType: 'update', selectedItem: data})
   }
 
@@ -101,7 +101,7 @@ class ShopTagManager extends Component {
           <div>选择分类</div>
           <Select defaultValue='all' onChange={(value)=>{
             this.changeCategory(value)
-          }}>
+          }} value = {this.state.selectCategory}>
             <Option key = 'all'>全部分类</Option>
             {this.renderCategoryList()}
           </Select>
