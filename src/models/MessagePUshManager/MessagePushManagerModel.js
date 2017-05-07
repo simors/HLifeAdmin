@@ -97,7 +97,7 @@ export default {
         payload.pushContent = JSON.stringify(pushContentObj)
         // console.log('payload.pushContent===', payload.pushContent)
       }
-      if(LC_CONFIG.ENV_DEV_) {
+      if(LC_CONFIG.ENV_DEV) {
         payload.prod = 'dev'
       }
       let isSuccess = yield call(MessagePush.push, payload)
