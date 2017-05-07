@@ -116,7 +116,6 @@ class user2promoterModal extends Component {
         break;
       case 2:
         value=this.state.identityArea[2]+'市代理'
-
         break;
       case 3:
         value= this.state.identityArea[3]+'区代理'
