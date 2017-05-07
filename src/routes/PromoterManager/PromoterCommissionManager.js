@@ -585,6 +585,7 @@ class PromoterCommissionManager extends Component {
                   max={100}
                   defaultValue={1}
                   step={0.1}
+                  value = {(this.state.invitePromoterRoyalty*100).toFixed(1)}
                   onChange={(payload)=> {
                     this.changeInvitePromoterRoyalty(payload)
                   }}/>
@@ -595,8 +596,10 @@ class PromoterCommissionManager extends Component {
                 formatter={value => `${value}¥`}
                 parser={value => value.replace('¥', '')}
                 min={0}
+                value = {this.state.promoterCharge}
                 defaultValue={1}
                 step={1}
+
                 onChange={(payload)=> {
                   this.changePromoterCharge(payload)
                 }}/>
@@ -609,6 +612,7 @@ class PromoterCommissionManager extends Component {
                 min={0}
                 defaultValue={1}
                 step={1}
+                value={this.state.minShopkeeperCharge}
                 onChange={(payload)=> {
                   this.changeMinShopkeeperCharge(payload)
                 }}/>

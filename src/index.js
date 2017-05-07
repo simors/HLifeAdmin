@@ -20,7 +20,7 @@ const KM_PRE = {
   appId: LC_CONFIG.LC_PRE_APP_ID,
   appKey: LC_CONFIG.LC_PRE_APP_KEY,
 }
-//AV.setProduction(false)
+// AV.setProduction(true)
 
 // 1. Initialize
 AV.init(
