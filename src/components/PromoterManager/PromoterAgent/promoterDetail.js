@@ -41,7 +41,7 @@ export default class PromoterDetail extends Component {
   }
   renderToPromoter(){
     return(
-      <div><Button onClick={()=>{this.openVisible()}}>设置代理级别</Button></div>
+      <div><Button onClick={()=>{this.openVisible()}}>代理设置</Button></div>
 
     )
   }

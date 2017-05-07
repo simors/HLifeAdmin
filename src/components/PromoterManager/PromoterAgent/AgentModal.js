@@ -6,7 +6,7 @@
  */
 
 import React, {PropTypes, Component} from 'react'
-import {Form, Input, InputNumber,Button,Popconfirm, Radio, Modal, Checkbox,Cascader} from 'antd'
+import {Form, Input, InputNumber, Button, Popconfirm, Radio, Modal, Checkbox, Cascader} from 'antd'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -27,8 +27,9 @@ class AgentModal extends Component {
     this.state = {
       visible: false,
       count: 0,
-      liveArea:[],
-      identityArea:[],
+      liveArea: [],
+      identityArea: [],
+      areaList: [],
     }
   }
 
@@ -37,31 +38,77 @@ class AgentModal extends Component {
       this.setState({visible: newProps.visible})
     }
   }
-  selectedLiveDistrict(value,selectedOptions)
-  {
-    let liveArea=[]
-    selectedOptions.forEach((record)=>{
+
+  selectedLiveDistrict(value, selectedOptions) {
+    let liveArea = []
+    selectedOptions.forEach((record)=> {
       liveArea.push(record.label)
     })
     this.setState({
-      liveArea:liveArea
+      liveArea: liveArea
     })
     // console.log('hahahahahahah',value,selectedOptions)
   }
-  selectedIdentityArea(value,selectedOptions){
-    let identityArea=[]
-    selectedOptions.forEach((record)=>{
+
+  selectedIdentityArea(value, selectedOptions) {
+    let identityArea = []
+    selectedOptions.forEach((record)=> {
       identityArea.push(record.label)
     })
     this.setState({
-      identityArea:identityArea
+      identityArea: identityArea
     })
   }
+
   componentDidMount() {
-    this.setState({visible: !!this.props.visible})
+    this.setState({visible: !!this.props.visible, areaList: this.props.areaTreeSelectData})
     // console.log(...this.props)
 
   }
+
+//   changeAreaList(value) {
+// // console.log('c',value)
+//     let data = value.target.value
+//     let areaList = []
+//     areaList = this.props.areaTreeSelectData
+//     // areaList.concat(this.props.areaTreeSelectData)
+//     console.log('saassa',areaList)
+//     switch (data) {
+//       case 0:
+//         this.setState({areaList: []})
+//         break;
+//       case 1:
+//         areaList.forEach((item)=> {
+//           if (item.children) {
+//             item.children.forEach((result)=> {
+//               delete result.children
+//             })
+//           }
+//         })
+//         this.setState({
+//           areaList: areaList
+//         })
+//         break;
+//       case 2:
+//         areaList.forEach((item)=> {
+//           item.children.forEach((result)=> {
+//             result.children.forEach((record)=> {
+//               delete record.children
+//             })
+//           })
+//         })
+//         this.setState({
+//           areaList: areaList
+//         })
+//         break;
+//       case 3:
+//         // areaList = this.props.areaTreeSelectData
+//         this.setState({
+//           areaList: areaList
+//         })
+//         break
+//     }
+//   }
 
   handleOk() {
     let count = this.state.count + 1
@@ -73,8 +120,8 @@ class AgentModal extends Component {
       }
       const data = {
         ...this.props.form.getFieldsValue(),
-        liveArea:this.state.liveArea,
-        identityArea:this.state.identityArea
+        liveArea: this.state.liveArea,
+        identityArea: this.state.identityArea
       }
 
       //console.log('data',data)
@@ -88,26 +135,28 @@ class AgentModal extends Component {
     // console.log('ahahahahahaha',options)
 
     // console.log('type',this.props.type)
-    // console.log('roleList',this.props.roleList)
+    console.log('treetree', this.props.areaTreeSelectData)
     let value = ''
-    if(this.props.form.getFieldsValue()){
+
+    if (this.props.form.getFieldsValue()) {
       let data = this.props.form.getFieldsValue()
-if(data.identity){
-  switch (data.identity){
-    case 0:
-      value = '推广员'
-      break;
-    case 1:
-      value =(this.state.identityArea[1]?this.state.identityArea[1]+ '省代理':'请选择代理区域')
-      break;
-    case 2:
-      value=(this.state.identityArea[2]?this.state.identityArea[2]+'市代理':'请选择代理区域')
-      break;
-    case 3:
-      value=(this.state.identityArea[3]?this.state.identityArea[3]+'区代理':'请选择代理区域')
-      break
-  }
-}
+      if (data.identity) {
+        switch (data.identity) {
+          case 0:
+            value = '推广员'
+            break;
+          case 1:
+            value = (this.state.identityArea[1] ? this.state.identityArea[1] + '省代理' : '请选择代理区域')
+            break;
+          case 2:
+            value = (this.state.identityArea[2] ? this.state.identityArea[2] + '市代理' : '请选择代理区域')
+            break;
+          case 3:
+            value = (this.state.identityArea[3] ? this.state.identityArea[3] + '区代理' : '请选择代理区域')
+            break
+        }
+
+      }
 
     }
 
@@ -132,15 +181,15 @@ if(data.identity){
             this.setState({count: count})
             this.props.onCancel()
           }}>取消</Button>,
-          <Popconfirm key = {this.state.count} title={'是否设置为'+value} onConfirm={() => this.handleOk()} >
+          <Popconfirm key={this.state.count} title={'是否设置为' + value} onConfirm={() => this.handleOk()}>
             <Button key="ok" size="large">确定</Button>
           </Popconfirm>
         ]}>
 
         <Form horizontal>
           <FormItem label='代理等级：' hasFeedback {...formItemLayout}>
-            {this.props.form.getFieldDecorator('identity',  {
-             // initialValue: this.props.promoterDetail.identity?this.props.promoterDetail.identity:0,
+            {this.props.form.getFieldDecorator('identity', {
+              // initialValue: this.props.promoterDetail.identity?this.props.promoterDetail.identity:0,
               rules: [
                 {
                   required: true,
@@ -148,7 +197,9 @@ if(data.identity){
                 }
               ]
             })
-            (<RadioGroup  >
+            (<RadioGroup onChange={(value)=> {
+          //    this.changeAreaList(value)
+            }}>
               <Radio value={0}>无代理</Radio>
               <Radio value={1}>省代理</Radio>
               <Radio value={2}>市代理</Radio>
@@ -156,14 +207,14 @@ if(data.identity){
             </RadioGroup>)}
           </FormItem>
 
-          <FormItem {...formItemLayout} hasFeedback  label={'代理地区'}>
+          <FormItem {...formItemLayout} hasFeedback label={'代理地区'}>
             {this.props.form.getFieldDecorator(`identityArea`)(
               <Cascader
-                options={this.props.areaTreeSelectData}
+                options={this.state.areaList}
                 changeOnSelect
                 placeholder="请选择代理地区"
-                onChange={(value,selectedOptions)=>{
-                  this.selectedIdentityArea(value,selectedOptions)
+                onChange={(value, selectedOptions)=> {
+                  this.selectedIdentityArea(value, selectedOptions)
                 }}
               />
             )}

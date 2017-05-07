@@ -302,7 +302,7 @@ class CategoryModal extends Component {
         })
         // console.log('test',tagNameList,data)
         let isEx = this.contains(tagNameList, data.text)
-        if (isEx) {
+        if (isEx&&data.text!=this.props.data.text) {
           message.error('已有该分类')
           // this.props.onCancel()
 
