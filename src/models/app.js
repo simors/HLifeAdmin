@@ -48,6 +48,7 @@ export default {
         yield put({
           type: 'loginFail'
         })
+        payload.error()
       }
     },
     *fetchProvinceList ({payload},{call,put}){

@@ -6,7 +6,7 @@ import Bread from '../components/layout/bread'
 import Footer from '../components/layout/footer'
 import Sider from '../components/layout/sider'
 import styles from '../components/layout/main.less'
-import { Spin } from 'antd'
+import { Spin,message } from 'antd'
 import { classnames } from '../utils'
 import '../components/layout/common.less'
 import {getMenuList} from '../selector/app'
@@ -17,7 +17,7 @@ function App ({params,routes,children, location, dispatch, app}) {
     loading,
     loginButtonLoading,
     onOk (data) {
-      dispatch({type: 'app/login', payload: data})
+      dispatch({type: 'app/login', payload: {...data,error:()=>{message.error('用户名或密码错误')}}})
     }
   }
   const menu = getMenuList(menuList)
