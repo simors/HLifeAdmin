@@ -20,13 +20,13 @@ const KM_PRE = {
   appId: LC_CONFIG.LC_PRE_APP_ID,
   appKey: LC_CONFIG.LC_PRE_APP_KEY,
 }
-// AV.setProduction(true)
+AV.setProduction(true)
 
 // 1. Initialize
 AV.init(
 
-  KM_Dev
-  // KM_PRE
+  // KM_Dev
+  KM_PRE
   // KM_PRO
 
 )
@@ -35,7 +35,7 @@ AV.init(
 const app = dva({
   initialState: {},
    // history: browserHistory,
-  onAction: createLogger(),
+  onAction: createLogger({predicate: (getState, action) => false}),
    extraEnhancers: [autoRehydrate()],
   onError(e) {
     message.error(e.message, 3)

@@ -99,7 +99,9 @@ class PromoterCommissionManager extends Component {
       level5Royalty1: 0.5,
       level5Royalty2: 0.1,
       level5Royalty3: 0.02,
-      invitePromoterRoyalty: 0.00,       // 推广员入驻费提成比例
+      invitePromoterRoyalty1: 0.01,       // 推广员入驻费提成比例
+      invitePromoterRoyalty2: 0.02,       // 推广员入驻费提成比例
+      invitePromoterRoyalty3: 0.03,       // 推广员入驻费提成比例
       promoterCharge: 0.00,              // 推广员入驻费
       minShopkeeperCharge: 0.00,          // 店铺入驻最低费用
 
@@ -147,7 +149,9 @@ class PromoterCommissionManager extends Component {
         level5Royalty1: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[0],
         level5Royalty2: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[1],
         level5Royalty3: this.props.commissionCof.upgradeTable.promoter_level_5.royalty[2],
-        invitePromoterRoyalty: this.props.commissionCof.invitePromoterRoyalty,       // 推广员入驻费提成比例
+        invitePromoterRoyalty1: this.props.commissionCof.invitePromoterRoyalty[0],       // 推广员入驻费提成比例
+        invitePromoterRoyalty2: this.props.commissionCof.invitePromoterRoyalty[1],       // 推广员入驻费提成比例
+        invitePromoterRoyalty3: this.props.commissionCof.invitePromoterRoyalty[2],       // 推广员入驻费提成比例
         promoterCharge: this.props.commissionCof.promoterCharge,              // 推广员入驻费
         minShopkeeperCharge: this.props.commissionCof.minShopkeeperCharge,          // 店铺入驻最低费用
       })
@@ -461,10 +465,36 @@ class PromoterCommissionManager extends Component {
 
   }
 
-  changeInvitePromoterRoyalty(payload) {
-    this.setState({
-      invitePromoterRoyalty: payload/100
-    })
+  changeInvitePromoterRoyalty1(payload) {
+    var ratio = payload == 0? 0: payload/100
+    if((this.state.invitePromoterRoyalty2+this.state.invitePromoterRoyalty3+ratio)>1){
+      message.error('总提成比例不能大于1')
+    }else{
+      this.setState({
+        invitePromoterRoyalty1: Number(ratio.toFixed(3))
+      })
+    }
+
+  }
+  changeInvitePromoterRoyalty2(payload) {
+    var ratio = payload == 0? 0: payload/100
+    if((this.state.invitePromoterRoyalty1+this.state.invitePromoterRoyalty3+ratio)>1){
+     message.error('总提成比例不能大于1')
+    }else{
+      this.setState({
+        invitePromoterRoyalty2: Number(ratio.toFixed(3))
+      })
+    }
+  }
+  changeInvitePromoterRoyalty3(payload) {
+    var ratio = payload == 0? 0: payload/100
+    if((this.state.invitePromoterRoyalty2+this.state.invitePromoterRoyalty1+ratio)>1){
+      message.error('总提成比例不能大于1')
+    }else{
+      this.setState({
+        invitePromoterRoyalty3: Number(ratio.toFixed(3))
+      })
+    }
   }
 
   changePromoterCharge(payload) {
@@ -540,7 +570,7 @@ class PromoterCommissionManager extends Component {
             royalty: [this.state.level5Royalty1, this.state.level5Royalty2, this.state.level5Royalty3]
           },
         },
-        invitePromoterRoyalty: this.state.invitePromoterRoyalty,       // 推广员入驻费提成比例
+        invitePromoterRoyalty: [this.state.invitePromoterRoyalty1,this.state.invitePromoterRoyalty2,this.state.invitePromoterRoyalty3],       // 推广员入驻费提成比例
         promoterCharge: this.state.promoterCharge,              // 推广员入驻费
         minShopkeeperCharge: this.state.minShopkeeperCharge,          // 店铺入驻最低费用
       }
@@ -573,11 +603,11 @@ class PromoterCommissionManager extends Component {
         <div style={{borderWidth: 2, borderColor: '#FFFFFF', marginBottom: 20}}>
           <Row type='flex' align='left' justify='center'>
             <Col span={1}><Icon type='star'/></Col>
-            <Col span={23}><p style={{fontSize: 17}}>基本设置</p></Col>
+            <Col span={23}><p style={{fontSize: 17}}>推广员入驻费提成设置</p></Col>
           </Row>
           <Row gutter={24}>
             <Col span={6}>
-              <div style={{marginTop: 1, marginBottom: 1}}>推广员入驻费提成比例:
+              <div style={{marginTop: 1, marginBottom: 1}}>一级推广员入驻费提成比例:
                 <InputNumber
                   formatter={value => `${value}%`}
                   parser={value => value.replace('%', '')}
@@ -585,12 +615,51 @@ class PromoterCommissionManager extends Component {
                   max={100}
                   defaultValue={1}
                   step={0.1}
-                  value = {(this.state.invitePromoterRoyalty*100).toFixed(1)}
+                  value = {(this.state.invitePromoterRoyalty1*100).toFixed(1)}
                   onChange={(payload)=> {
-                    this.changeInvitePromoterRoyalty(payload)
+                    this.changeInvitePromoterRoyalty1(payload)
                   }}/>
               </div>
             </Col>
+            <Col span={6}>
+              <div style={{marginTop: 1, marginBottom: 1}}>二级推广员入驻费提成比例:
+                <InputNumber
+                  formatter={value => `${value}%`}
+                  parser={value => value.replace('%', '')}
+                  min={0.1}
+                  max={100}
+                  defaultValue={1}
+                  step={0.1}
+                  value = {(this.state.invitePromoterRoyalty2*100).toFixed(1)}
+                  onChange={(payload)=> {
+                    this.changeInvitePromoterRoyalty2(payload)
+                  }}/>
+              </div>
+            </Col>
+            <Col span={6}>
+              <div style={{marginTop: 1, marginBottom: 1}}>三级推广员入驻费提成比例:
+                <InputNumber
+                  formatter={value => `${value}%`}
+                  parser={value => value.replace('%', '')}
+                  min={0.1}
+                  max={100}
+                  defaultValue={1}
+                  step={0.1}
+                  value = {(this.state.invitePromoterRoyalty3*100).toFixed(1)}
+                  onChange={(payload)=> {
+                    this.changeInvitePromoterRoyalty3(payload)
+                  }}/>
+              </div>
+            </Col>
+            </Row>
+          </div>
+          <div style={{borderWidth: 2, borderColor: '#FFFFFF', marginBottom: 20}}>
+
+          <Row type='flex' align='left' justify='center'>
+            <Col span={1}><Icon type='star'/></Col>
+            <Col span={23}><p style={{fontSize: 17}}>基本设置</p></Col>
+          </Row>
+          <Row gutter={24}>
             <Col span={6}>
               <div style={{marginTop: 1, marginBottom: 1}}>推广员入驻费: <InputNumber
                 formatter={value => `${value}¥`}
