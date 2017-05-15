@@ -169,7 +169,7 @@ class PromoterCommissionManager extends Component {
     var amount_level_5 = this.state.level5Royalty1 + this.state.level5Royalty2 + this.state.level5Royalty3 + this.state.city_agent + this.state.district_agent + ratio
 
     if ( amount_level_1 > 1 ||amount_level_2 > 1 ||amount_level_3 > 1 ||amount_level_4 > 1 ||amount_level_5 > 1 ) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         province_agent: Number(ratio.toFixed(3))
@@ -187,7 +187,7 @@ class PromoterCommissionManager extends Component {
     var amount_level_5 = this.state.level5Royalty1 + this.state.level5Royalty2 + this.state.level5Royalty3 + this.state.province_agent + this.state.district_agent + ratio
 
     if ( amount_level_1 > 1 ||amount_level_2 > 1 ||amount_level_3 > 1 ||amount_level_4 > 1 ||amount_level_5 > 1 ) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         city_agent: Number(ratio.toFixed(3))
@@ -206,7 +206,7 @@ class PromoterCommissionManager extends Component {
     var amount_level_5 = this.state.level5Royalty1 + this.state.level5Royalty2 + this.state.level5Royalty3 + this.state.province_agent + this.state.city_agent + ratio
 
     if ( amount_level_1 > 1 ||amount_level_2 > 1 ||amount_level_3 > 1 ||amount_level_4 > 1 ||amount_level_5 > 1 ) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       console.log("setState this.state.district_agent:", Number(ratio.toFixed(3)))
       this.setState({
@@ -231,7 +231,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level1Royalty3 + this.state.level1Royalty2 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level1Royalty1: Number(ratio.toFixed(3))
@@ -243,7 +243,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level1Royalty3 + this.state.level1Royalty1 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level1Royalty2: Number(ratio.toFixed(3))
@@ -256,7 +256,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level1Royalty2 + this.state.level1Royalty1 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level1Royalty3: Number(ratio.toFixed(3))
@@ -280,7 +280,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level2Royalty3 + this.state.level2Royalty2 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level2Royalty1:  Number(ratio.toFixed(3))
@@ -292,7 +292,7 @@ class PromoterCommissionManager extends Component {
   var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level2Royalty3 + this.state.level2Royalty1 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level2Royalty2: Number(ratio.toFixed(3))
@@ -304,7 +304,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level2Royalty2 + this.state.level2Royalty1 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level2Royalty3: Number(ratio.toFixed(3))
@@ -328,7 +328,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level3Royalty2 + this.state.level3Royalty3 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level3Royalty1: Number(ratio.toFixed(3))
@@ -341,7 +341,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level3Royalty1 + this.state.level3Royalty3 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level3Royalty2: Number(ratio.toFixed(3))
@@ -353,7 +353,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level3Royalty1 + this.state.level3Royalty2 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level3Royalty3: Number(ratio.toFixed(3))
@@ -378,7 +378,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level4Royalty3 + this.state.level4Royalty2 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level4Royalty1: Number(ratio.toFixed(3))
@@ -390,7 +390,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level4Royalty3 + this.state.level4Royalty1 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level4Royalty2: Number(ratio.toFixed(3))
@@ -403,7 +403,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level4Royalty2 + this.state.level4Royalty1 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level4Royalty3: Number(ratio.toFixed(3))
@@ -429,7 +429,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level5Royalty2 + this.state.level5Royalty3 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level5Royalty1: Number(ratio.toFixed(3))
@@ -441,7 +441,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level5Royalty1 + this.state.level5Royalty3 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level5Royalty2: Number(ratio.toFixed(3))
@@ -455,7 +455,7 @@ class PromoterCommissionManager extends Component {
     var ratio = payload == 0? 0: payload/100
 
     if ((this.state.province_agent + this.state.city_agent + this.state.district_agent + this.state.level5Royalty1 + this.state.level5Royalty2 + ratio) > 1) {
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     } else {
       this.setState({
         level5Royalty3:  Number(ratio.toFixed(3))
@@ -468,7 +468,7 @@ class PromoterCommissionManager extends Component {
   changeInvitePromoterRoyalty1(payload) {
     var ratio = payload == 0? 0: payload/100
     if((this.state.invitePromoterRoyalty2+this.state.invitePromoterRoyalty3+ratio)>1){
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     }else{
       this.setState({
         invitePromoterRoyalty1: Number(ratio.toFixed(3))
@@ -479,7 +479,7 @@ class PromoterCommissionManager extends Component {
   changeInvitePromoterRoyalty2(payload) {
     var ratio = payload == 0? 0: payload/100
     if((this.state.invitePromoterRoyalty1+this.state.invitePromoterRoyalty3+ratio)>1){
-     message.error('总提成比例不能大于1')
+     message.error('总提成比例不能大于100%')
     }else{
       this.setState({
         invitePromoterRoyalty2: Number(ratio.toFixed(3))
@@ -489,7 +489,7 @@ class PromoterCommissionManager extends Component {
   changeInvitePromoterRoyalty3(payload) {
     var ratio = payload == 0? 0: payload/100
     if((this.state.invitePromoterRoyalty2+this.state.invitePromoterRoyalty1+ratio)>1){
-      message.error('总提成比例不能大于1')
+      message.error('总提成比例不能大于100%')
     }else{
       this.setState({
         invitePromoterRoyalty3: Number(ratio.toFixed(3))
@@ -519,19 +519,19 @@ class PromoterCommissionManager extends Component {
     var amount_level_5 = this.state.level5Royalty1 + this.state.level5Royalty2 + this.state.level5Royalty3 + this.state.city_agent + this.state.district_agent + this.state.province_agent
 
     if(amount_level_1 > 1) {
-      message.error('青铜级:总提成比例不能大于1')
+      message.error('青铜级:总提成比例不能大于100%')
       return
     } else if(amount_level_2 > 1) {
-      message.error('白银级:总提成比例不能大于1')
+      message.error('白银级:总提成比例不能大于100%')
       return
     } else if(amount_level_3 > 1) {
-      message.error('黄金级:总提成比例不能大于1')
+      message.error('黄金级:总提成比例不能大于100%')
       return
     } else if(amount_level_4 > 1) {
-      message.error('钻石级:总提成比例不能大于1')
+      message.error('钻石级:总提成比例不能大于100%')
       return
     } else if(amount_level_5 > 1) {
-      message.error('皇冠级:总提成比例不能大于1')
+      message.error('皇冠级:总提成比例不能大于100%')
       return
     }
 
