@@ -25,15 +25,15 @@ const KM_PRE = {
 
 // 1. Initialize
 AV.init(
-  KM_Dev
-  // KM_PRE
+  // KM_Dev
+  KM_PRE
   // KM_PRO
 )
 
 
 const app = dva({
   initialState: {},
-   // history: browserHistory,
+   history: browserHistory,
   // history: hashHistory,
 
   onAction: createLogger({predicate: (getState, action) => true}),

@@ -5,7 +5,7 @@
 import AV from 'leancloud-storage'
 
 export async function getShopList(payload){
-  console.log('payload',payload)
+  // console.log('payload',payload)
   try {
     let shopList = await AV.Cloud.run('getShopList',payload)
      console.log('shopList',shopList)

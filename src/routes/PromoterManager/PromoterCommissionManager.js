@@ -196,7 +196,7 @@ class PromoterCommissionManager extends Component {
   }
 
   changeDistrictAgent(payload) {
-    console.log("changeDistrictAgent payload", payload)
+    // console.log("changeDistrictAgent payload", payload)
     var ratio = payload == 0? 0: payload/100
 
     var amount_level_1 = this.state.level1Royalty1 + this.state.level1Royalty2 + this.state.level1Royalty3 + this.state.province_agent + this.state.city_agent + ratio
@@ -208,7 +208,7 @@ class PromoterCommissionManager extends Component {
     if ( amount_level_1 > 1 ||amount_level_2 > 1 ||amount_level_3 > 1 ||amount_level_4 > 1 ||amount_level_5 > 1 ) {
       message.error('总提成比例不能大于100%')
     } else {
-      console.log("setState this.state.district_agent:", Number(ratio.toFixed(3)))
+      // console.log("setState this.state.district_agent:", Number(ratio.toFixed(3)))
       this.setState({
         district_agent: Number(ratio.toFixed(3))
       })
