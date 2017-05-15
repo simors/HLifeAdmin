@@ -25,8 +25,8 @@ AV.setProduction(true)
 // 1. Initialize
 AV.init(
 
-  // KM_Dev
-  KM_PRE
+  KM_Dev
+  // KM_PRE
   // KM_PRO
 
 )

@@ -512,11 +512,11 @@ class PromoterCommissionManager extends Component {
   submit() {
 
 
-    var amount_level_1 = this.state.level1Royalty1 + this.state.level1Royalty2 + this.state.level1Royalty3 + this.state.city_agent + this.state.district_agent + this.state.promoterCharge
-    var amount_level_2 = this.state.level2Royalty1 + this.state.level2Royalty2 + this.state.level2Royalty3 + this.state.city_agent + this.state.district_agent + this.state.promoterCharge
-    var amount_level_3 = this.state.level3Royalty1 + this.state.level3Royalty2 + this.state.level3Royalty3 + this.state.city_agent + this.state.district_agent + this.state.promoterCharge
-    var amount_level_4 = this.state.level4Royalty1 + this.state.level4Royalty2 + this.state.level4Royalty3 + this.state.city_agent + this.state.district_agent + this.state.promoterCharge
-    var amount_level_5 = this.state.level5Royalty1 + this.state.level5Royalty2 + this.state.level5Royalty3 + this.state.city_agent + this.state.district_agent + this.state.promoterCharge
+    var amount_level_1 = this.state.level1Royalty1 + this.state.level1Royalty2 + this.state.level1Royalty3 + this.state.city_agent + this.state.district_agent + this.state.province_agent
+    var amount_level_2 = this.state.level2Royalty1 + this.state.level2Royalty2 + this.state.level2Royalty3 + this.state.city_agent + this.state.district_agent + this.state.province_agent
+    var amount_level_3 = this.state.level3Royalty1 + this.state.level3Royalty2 + this.state.level3Royalty3 + this.state.city_agent + this.state.district_agent + this.state.province_agent
+    var amount_level_4 = this.state.level4Royalty1 + this.state.level4Royalty2 + this.state.level4Royalty3 + this.state.city_agent + this.state.district_agent + this.state.province_agent
+    var amount_level_5 = this.state.level5Royalty1 + this.state.level5Royalty2 + this.state.level5Royalty3 + this.state.city_agent + this.state.district_agent + this.state.province_agent
 
     if(amount_level_1 > 1) {
       message.error('青铜级:总提成比例不能大于1')
