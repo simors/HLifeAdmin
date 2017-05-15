@@ -1,5 +1,5 @@
 import React from 'react'
-import {Router, Route, IndexRoute, hashHistory} from 'dva/router'
+import {Router, Route, IndexRoute, hashHistory,browserHistory} from 'dva/router'
 
 import App from './routes/app'
 import PersonManage from './routes/BGManager/personManager'

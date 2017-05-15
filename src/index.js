@@ -1,7 +1,7 @@
 import './index.html'
 import dva from 'dva'
 import createLogger from 'redux-logger'
-import {browserHistory} from 'dva/router'
+import {browserHistory,hashHistory} from 'dva/router'
 import AV from 'leancloud-storage'
 import * as LC_CONFIG from './constants/adminConfig'
 import {message} from 'antd'
@@ -16,6 +16,7 @@ const KM_PRO = {
   appId: LC_CONFIG.LC_PRO_APP_ID,
   appKey: LC_CONFIG.LC_PRO_APP_KEY,
 }
+
 const KM_PRE = {
   appId: LC_CONFIG.LC_PRE_APP_ID,
   appKey: LC_CONFIG.LC_PRE_APP_KEY,
@@ -26,8 +27,8 @@ AV.setProduction(true)
 AV.init(
 
   // KM_Dev
-  KM_PRE
-  // KM_PRO
+  // KM_PRE
+  KM_PRO
 
 )
 
@@ -35,6 +36,8 @@ AV.init(
 const app = dva({
   initialState: {},
    // history: browserHistory,
+  // history: browserHistory,
+
   onAction: createLogger({predicate: (getState, action) => false}),
    extraEnhancers: [autoRehydrate()],
   onError(e) {
