@@ -159,6 +159,50 @@ class PromoterCommissionManager extends Component {
 
   }
 
+  componentWillReceiveProps(nextProps){
+    if (nextProps.commissionCof && nextProps.commissionCof.agentTable) {
+      // console.log('here is comissionCOf', this.props.commissionCof)
+
+      this.setState({
+        province_agent: nextProps.commissionCof.agentTable.province_agent,
+        city_agent: nextProps.commissionCof.agentTable.city_agent,
+        district_agent: nextProps.commissionCof.agentTable.district_agent,
+        street_agent: nextProps.commissionCof.agentTable.street_agent,
+        level1Team: nextProps.commissionCof.upgradeTable.promoter_level_1.team,
+        level1Shop: nextProps.commissionCof.upgradeTable.promoter_level_1.shop,
+        level1Royalty1: nextProps.commissionCof.upgradeTable.promoter_level_1.royalty[0],
+        level1Royalty2: nextProps.commissionCof.upgradeTable.promoter_level_1.royalty[1],
+        level1Royalty3: nextProps.commissionCof.upgradeTable.promoter_level_1.royalty[2],
+        level2Team: nextProps.commissionCof.upgradeTable.promoter_level_2.team,
+        level2Shop: nextProps.commissionCof.upgradeTable.promoter_level_2.shop,
+        level2Royalty1: nextProps.commissionCof.upgradeTable.promoter_level_2.royalty[0],
+        level2Royalty2: nextProps.commissionCof.upgradeTable.promoter_level_2.royalty[1],
+        level2Royalty3: nextProps.commissionCof.upgradeTable.promoter_level_2.royalty[2],
+        level3Team: nextProps.commissionCof.upgradeTable.promoter_level_3.team,
+        level3Shop: nextProps.commissionCof.upgradeTable.promoter_level_3.shop,
+        level3Royalty1: nextProps.commissionCof.upgradeTable.promoter_level_3.royalty[0],
+        level3Royalty2: nextProps.commissionCof.upgradeTable.promoter_level_3.royalty[1],
+        level3Royalty3: nextProps.commissionCof.upgradeTable.promoter_level_3.royalty[2],
+        level4Team: nextProps.commissionCof.upgradeTable.promoter_level_4.team,
+        level4Shop: nextProps.commissionCof.upgradeTable.promoter_level_4.shop,
+        level4Royalty1: nextProps.commissionCof.upgradeTable.promoter_level_4.royalty[0],
+        level4Royalty2: nextProps.commissionCof.upgradeTable.promoter_level_4.royalty[1],
+        level4Royalty3: nextProps.commissionCof.upgradeTable.promoter_level_4.royalty[2],
+        level5Team: nextProps.commissionCof.upgradeTable.promoter_level_5.team,
+        level5Shop: nextProps.commissionCof.upgradeTable.promoter_level_5.shop,
+        level5Royalty1: nextProps.commissionCof.upgradeTable.promoter_level_5.royalty[0],
+        level5Royalty2: nextProps.commissionCof.upgradeTable.promoter_level_5.royalty[1],
+        level5Royalty3: nextProps.commissionCof.upgradeTable.promoter_level_5.royalty[2],
+        invitePromoterRoyalty1: nextProps.commissionCof.invitePromoterRoyalty[0],       // 推广员入驻费提成比例
+        invitePromoterRoyalty2: nextProps.commissionCof.invitePromoterRoyalty[1],       // 推广员入驻费提成比例
+        invitePromoterRoyalty3: nextProps.commissionCof.invitePromoterRoyalty[2],       // 推广员入驻费提成比例
+        promoterCharge: nextProps.commissionCof.promoterCharge,              // 推广员入驻费
+        minShopkeeperCharge: nextProps.commissionCof.minShopkeeperCharge,          // 店铺入驻最低费用
+      })
+    }
+
+  }
+
   changeProvinceAgent(payload) {
     var ratio = payload == 0? 0: payload/100
 
