@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import {Breadcrumb, Icon} from 'antd'
-import {Router, Route, IndexRoute, hashHistory} from 'dva/router'
+import {Router, Route, IndexRoute, hashHistory,Link} from 'dva/router'
 import App from '../../routes/app'
 import PersonManage from '../../routes/BGManager/personManager'
 import TopicManage from '../../routes/topicManager/topicManager'
@@ -49,30 +49,35 @@ function Bread({params,routes, location, menuList}) {
       pathNames.push(('-' + item).hyphenToHump())
     }
   })
-  const breads = pathNames.map((item, key) => {
-    if (!(item in pathSet)) {
-      //item = {icon:'',key:'welcome',name:'welcome'}
-      //console.log('here is code hahahahaaha',item,key)
-      return (
-        <Breadcrumb.Item key={key} href={ '#' + 'welcome' }>
-          <span>{'welcome'}</span>
-        </Breadcrumb.Item>
-      )
-    }
-    return (
-      <Breadcrumb.Item
-        key={key} {...((pathNames.length - 1 === key) || !pathSet[item].clickable) ? '' : {href: '#' + pathSet[item].path}}>
-        {pathSet[item].icon
-          ? <Icon type={pathSet[item].icon}/>
-          : ''}
-        <span>{pathSet[item].name}</span>
-      </Breadcrumb.Item>
-    )
-  })
+  function itemRender(route, params, routes, paths) {
+    const last = routes.indexOf(route) === routes.length - 1;
+    return last ? <span>{route.breadcrumbName}</span> : <Link to={paths.join('/')}>{route.breadcrumbName}</Link>;
+  }
+
+  // const breads = pathNames.map((item, key) => {
+  //   if (!(item in pathSet)) {
+  //     //item = {icon:'',key:'welcome',name:'welcome'}
+  //     //console.log('here is code hahahahaaha',item,key)
+  //     return (
+  //       <Breadcrumb.Item key={key} href={ '#' + 'welcome' }>
+  //         <span>{'welcome'}</span>
+  //       </Breadcrumb.Item>
+  //     )
+  //   }
+  //   return (
+  //     <Breadcrumb.Item
+  //       key={key} {...((pathNames.length - 1 === key) || !pathSet[item].clickable) ? '' : {href: '#' + pathSet[item].path}}>
+  //       {pathSet[item].icon
+  //         ? <Icon type={pathSet[item].icon}/>
+  //         : ''}
+  //       <span>{pathSet[item].name}</span>
+  //     </Breadcrumb.Item>
+  //   )
+  // })
 
   return (
     <div className={styles.bread}>
-      <Breadcrumb routes={routes} params={params}>
+      <Breadcrumb routes={routes} params={params} itemRender={itemRender}>
         {/*<Breadcrumb.Item href='#/'><Icon type='home' />*/}
         {/*<span>主页</span>*/}
         {/*</Breadcrumb.Item>*/}
