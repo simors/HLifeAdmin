@@ -2,7 +2,7 @@
  * Created by lilu on 2017/2/28.
  */
 import {parse} from 'qs'
-import {getShopCategoryList,getShopTagList,createShopCategory,updateShopCategory,createShopTag,updateShopTag,updateChoosenCategory,updateCategoryStatus} from '../../services/ShopManager/CategoryManager'
+import {getShopCategoryList,getShopTagList,createShopCategory,updateShopCategory,createShopTag,updateShopTag,updateChoosenCategory,updateCategoryStatus,updateShopCategoryId} from '../../services/ShopManager/CategoryManager'
 
 export default {
   namespace: 'shopCategoryManager',
@@ -62,6 +62,16 @@ export default {
       },
     *submitChoosenCategory({payload}, {call, put}) {
       yield call(updateChoosenCategory, parse(payload))
+      yield put({
+        type:'query',
+      })
+    },
+
+    *submitCategorySort({payload}, {call, put}) {
+      const success = yield call(updateShopCategoryId, parse(payload))
+      if(success){
+        payload.success()
+      }
       yield put({
         type:'query',
       })

@@ -154,6 +154,17 @@ export async function updateChoosenCategory(payload) {
   }
 }
 
+export async function updateShopCategoryId(payload) {
+  try {
+    console.log('sssssss=>>>>>>>>',payload)
+    await AV.Cloud.run('updateShopCategoryId', payload)
+    return {success: true}
+
+  } catch (err) {
+    return {success: false}
+  }
+}
+
 export async function updateCategoryStatus(payload) {
   try {
     await AV.Cloud.run('updateCategoryStatus', payload)

@@ -1,18 +1,17 @@
 /**
- * Created by lilu on 2017/3/7.
+ * Created by lilu on 2017/5/16.
  */
 import React, {Component, PropTypes} from 'react'
 import CategoryManager from './CategoryManager'
 import {hashHistory} from 'dva/router'
 import {connect} from 'dva'
-import {Row, Col, Button, Icon} from 'antd'
+import {Row, Col, Button, Icon,message} from 'antd'
 import CategoryPool from '../../components/ShopManager/CategoryManager/CagegoryPool'
 import CategoryChoosenPool from '../../components/ShopManager/CategoryManager/CategoryChoosenPool'
 import Card from '../../components/common/card'
 import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 import update from 'react/lib/update';
-
 import {
   getCategoryList,
   getTagList,
@@ -21,18 +20,17 @@ import {
 } from '../../selector/ShopManager/categorySelector'
 @DragDropContext(HTML5Backend)
 
-class CategoryChoosen extends Component {
-  constructor(props) {
+class CategorySort extends Component{
+  constructor(props){
     super(props)
     this.moveCard = this.moveCard.bind(this);
     this.state = {
       selectCategory: {},
-      choosenCategory: [],
+      categoryList: [],
       categoryPool: this.props.categoryList,
-      count: 6
+      count: this.props.categoryList.length
     }
   }
-
   componentDidMount() {
     // this.props.dispatch({
     //   type:'shopCategoryManager/fecthCatagoryPool',
@@ -41,115 +39,77 @@ class CategoryChoosen extends Component {
     //     categoryChoosenPool:this.state.choosenCategory
     //   }
     // })
-    let choosenCategoryList=[]
-      this.props.categoryList.forEach((item)=>{
-      if(item!=undefined&&item.displaySort&&item.displaySort!=0&&item.displaySort!=null){
-        // console.log('+++=item',item)
-       choosenCategoryList[item.displaySort-1]=item
-      }
-    })
+    // let choosenCategoryList=[]
+    // this.props.categoryList.forEach((item)=>{
+    //   if(item!=undefined&&item.displaySort&&item.displaySort!=0&&item.displaySort!=null){
+    //     // console.log('+++=item',item)
+    //     choosenCategoryList[item.displaySort-1]=item
+    //   }
+    // })
     // console.log('choosenCategoryList',choosenCategoryList)
 
     this.setState({
-      choosenCategory:choosenCategoryList
+      categoryList:this.props.categoryList
     })
   }
-
   cancelChoosen(payload) {
-    let choosenCategroyList = this.state.choosenCategory
+    let choosenCategroyList = this.state.categoryList
     choosenCategroyList.splice(payload, 1)
     this.setState({
-      choosenCategory: choosenCategroyList
+      categoryList: choosenCategroyList
     })
   }
 
   moveCard(dragIndex, hoverIndex) {
-    const {choosenCategory} = this.state;
-    const dragCard = choosenCategory[dragIndex];
+    const {categoryList} = this.state;
+    const dragCard = categoryList[dragIndex];
 
     this.setState(update(this.state, {
-      choosenCategory: {
+      categoryList: {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, dragCard],
         ],
       },
     }));
-    console.log('choosenCategory', this.state.choosenCategory)
+    // console.log('choosenCategory', this.state.choosenCategory)
   }
-
-  selectCatgory(data) {
-    // console.log('data',data)
-
-    this.setState({
-      selectCategory: data.selectCategory[0]
-    })
-    // console.log('state',this.state.selectCategory)
-
-  }
-
-  chooseCategory() {
-    let categoryList = this.state.choosenCategory
-    categoryList.push(this.state.selectCategory)
-    this.setState({
-      choosenCategory: categoryList
-    })
-
-    // console.log('this.state.choosen',this.state.choosenCategory)
-    // this.props.dispatch({
-    //   type:'shopCategoryManager/fecthCatagoryPool',
-    //   payload:{
-    //     categoryPool:this.props.categoryPool,
-    //     categoryChoosenPool:this.state.choosenCategory
-    //   }
-    // })
-  }
-
   submitCategory() {
     // console.log('submit',this.state.choosenCategory)
     this.props.dispatch({
-      type: 'shopCategoryManager/submitChoosenCategory',
+      type: 'shopCategoryManager/submitCategorySort',
       payload: {
-        choosenCategory: this.state.choosenCategory
+        categoryList: this.state.categoryList,
+        success: ()=>{
+          message.success('提交成功')
+        }
       }
     })
-    hashHistory.pushState(null, '/shopManager/shopCategoryManager')
+    // hashHistory.pushState(null, '/shopManager/shopCategoryManager')
   }
-
   render() {
-    const { choosenCategory} = this.state;
+    const { categoryList} = this.state;
     return (
       <CategoryManager>
         <div style={{flex:1}}>
           <Row type='flex' justify='center' align='middle'>
-            <Col span={10}>
-              <div><CategoryPool dataSource={this.state.categoryPool} selectCategory={(payload)=> {
-                this.selectCatgory(payload)
-              }}/></div>
-            </Col>
-            <Col span={4}>
-              <div style={{marginLeft: 10}}>
-                {this.state.choosenCategory.length < this.state.count ? <Button onClick={()=> {
-                  this.chooseCategory()
-                }}> <Icon type="right"></Icon></Button> : null}
 
-              </div>
-            </Col>
+
             <Col span={10}>
               <div style={{flex:1,flexDirection:'row',justifyContent:'center'}}>
-              <Button size='large' type="primary" onClick={()=> {
-                this.submitCategory()
-              }}>提交精选分类</Button></div>
+                <Button size='large' type="primary" onClick={()=> {
+                  this.submitCategory()
+                }}>提交精选分类</Button></div>
               <div style={{flex: 1, height: 350, borderWidth: 1, borderColor: '#FFFFFF', backgroundColor: '#FFFFFF',alignItem:'center'}}>
                 <h1 style={{ fontSize: 14,marginBottom:10,flex:1,flexDirection:'row',justifyContent:'center',backgroundColor:'#CCCCCC'}}>精选分类</h1>
-                {choosenCategory.map((card, i) => (
+                {categoryList.map((card, i) => (
                   <Card
                     key={card.id}
                     index={i}
                     id={card.id}
                     text={card.text}
                     moveCard={this.moveCard}
-                    cancelEnable = {true}
+                    cancelEnable = {false}
                     cancelChoosen={(payload)=> {
                       this.cancelChoosen(payload)
                     }}
@@ -165,6 +125,7 @@ class CategoryChoosen extends Component {
       </CategoryManager>
     )
   }
+
 }
 
 function mapStateToProps(state) {
@@ -176,4 +137,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(CategoryChoosen)
+export default connect(mapStateToProps)(CategorySort)

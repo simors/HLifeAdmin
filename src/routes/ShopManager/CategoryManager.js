@@ -49,6 +49,11 @@ class categoryManager extends Component {
           }} style={{
             marginRight: 4
           }}>分类精选</Link>
+          <Link className={styles.Linker} to={{
+            pathname: "/shopManager/shopCategoryManager/shopCategorySort",
+          }} style={{
+            marginRight: 4
+          }}>分类排序</Link>
         </Header>
         <Content>
           {this.props.children}
