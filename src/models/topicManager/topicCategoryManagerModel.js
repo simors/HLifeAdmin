@@ -1,8 +1,9 @@
 /**
  * Created by wuxingyu on 2017/2/20.
  */
+import {parse} from 'qs'
 
-import {getTopicCategoryList, updateTopicCategoryPicked, createNewTopicCategory} from '../../services/topicManager/topicManagerServices'
+import {getTopicCategoryList, updateTopicCategoryPicked, createNewTopicCategory,updateTopicCategoryId} from '../../services/topicManager/topicManagerServices'
 
 export default {
 
@@ -40,6 +41,15 @@ export default {
           payload: payload.payload
         })
       }
+    },
+    *submitTopicCategorySort({payload}, {call, put}) {
+      const success = yield call(updateTopicCategoryId, parse(payload))
+      if(success){
+        payload.success()
+      }
+      yield put({
+        type:'query',
+      })
     },
 
     *create ({payload}, {call, put}) {

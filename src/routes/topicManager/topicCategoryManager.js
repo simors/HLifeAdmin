@@ -3,15 +3,17 @@
  */
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'dva'
-import {Button, Menu, Dropdown, Icon, message, Input, DatePicker, Row, Col} from 'antd'
+import {Button, Menu, Dropdown, Icon, message, Input, DatePicker, Row, Col,Tabs} from 'antd'
 const {MonthPicker, RangePicker} = DatePicker;
 import TopicCategoryList from '../../components/topicManager/topicCategoryManager/topicCategoryList'
 import {getTopicCategoryDetailList} from '../../selector/topicManager/topicManagerSelector'
 import TopicCategoryModal from '../../components/topicManager/topicCategoryManager/topicCategoryModal'
+import TopicCategorySort from './topicCategorySort'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 const dateFormat = 'YYYY-MM-DD';
+const TabPane = Tabs.TabPane
 
 const orderShowTab = {
   'createTimeDescend': '时间降序',
@@ -180,7 +182,9 @@ class topicCategoryManager extends Component {
       </Menu>
     );
     return (
-      <div className='content-inner'>
+      <Tabs defaultActiveKey='1' className='content-inner'>
+        <TabPane tab='分类列表' key='1'>
+          <div className='content-inner'>
         <Row gutter={24}>
           <Col lg={{offset: 0, span: 3}} style={{marginBottom: 16, textAlign: 'left'}}>
             <p>是否精选：</p>
@@ -264,6 +268,11 @@ class topicCategoryManager extends Component {
           item={this.state.selectedItem}
         />
       </div>
+          </TabPane>
+        <TabPane tab='分类排序' key='2'>
+          <TopicCategorySort categoryList = {this.props.topicCategoryList} />
+        </TabPane>
+        </Tabs>
     )
   }
 }

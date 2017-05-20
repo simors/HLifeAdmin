@@ -1,8 +1,10 @@
 /**
+ * Created by lilu on 2017/5/20.
+ */
+/**
  * Created by lilu on 2017/5/16.
  */
 import React, {Component, PropTypes} from 'react'
-import CategoryManager from './CategoryManager'
 import {hashHistory} from 'dva/router'
 import {connect} from 'dva'
 import {Row, Col, Button, Icon,message} from 'antd'
@@ -12,15 +14,10 @@ import Card from '../../components/common/card'
 import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 import update from 'react/lib/update';
-import {
-  getCategoryList,
-  getTagList,
-  getCategoryChoosenPool,
-  getCategoryPool
-} from '../../selector/ShopManager/categorySelector'
+
 @DragDropContext(HTML5Backend)
 
-class CategorySort extends Component{
+class TopicCategorySort extends Component{
   constructor(props){
     super(props)
     this.moveCard = this.moveCard.bind(this);
@@ -77,7 +74,7 @@ class CategorySort extends Component{
   submitCategory() {
     // console.log('submit',this.state.choosenCategory)
     this.props.dispatch({
-      type: 'shopCategoryManager/submitCategorySort',
+      type: 'topicCategoryManage/submitTopicCategorySort',
       payload: {
         categoryList: this.state.categoryList,
         success: ()=>{
@@ -90,7 +87,6 @@ class CategorySort extends Component{
   render() {
     const { categoryList} = this.state;
     return (
-      <CategoryManager>
         <div style={{flex:1}}>
           <Row type='flex' justify='center' align='middle'>
 
@@ -100,14 +96,14 @@ class CategorySort extends Component{
                 <Button size='large' type="primary" onClick={()=> {
                   this.submitCategory()
                 }}>提交分类排序</Button></div>
-              <div style={{flex: 1, height: 350, borderWidth: 1, borderColor: '#FFFFFF', backgroundColor: '#FFFFFF',alignItem:'center'}}>
-                <h1 style={{ fontSize: 14,marginBottom:10,flex:1,flexDirection:'row',justifyContent:'center',backgroundColor:'#CCCCCC'}}>精选分类</h1>
+              <div style={{flex: 1, borderWidth: 1, borderColor: '#FFFFFF', backgroundColor: '#FFFFFF',alignItem:'center'}}>
+                <h1 style={{ fontSize: 14,marginBottom:10,flex:1,flexDirection:'row',justifyContent:'center',backgroundColor:'#CCCCCC'}}>分类排序</h1>
                 {categoryList.map((card, i) => (
                   <Card
                     key={card.id}
                     index={i}
                     id={card.id}
-                    text={card.text}
+                    text={card.title}
                     moveCard={this.moveCard}
                     cancelEnable = {false}
                     cancelChoosen={(payload)=> {
@@ -122,19 +118,19 @@ class CategorySort extends Component{
 
           </Row>
         </div>
-      </CategoryManager>
     )
   }
 
 }
 
 function mapStateToProps(state) {
-  let categoryList = getCategoryList(state)
-
-  return {
-    categoryList: categoryList,
-
-  }
+  // let categoryList = getCategoryList(state)
+  //
+  // return {
+  //   categoryList: categoryList,
+  //
+  // }
+  return {}
 }
 
-export default connect(mapStateToProps)(CategorySort)
+export default connect(mapStateToProps)(TopicCategorySort)

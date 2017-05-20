@@ -52,6 +52,17 @@ export async function updateTopicCategoryPicked(payload) {
   }
 }
 
+export async function updateTopicCategoryId(payload) {
+  try {
+    // console.log('sssssss=>>>>>>>>',payload)
+    await AV.Cloud.run('updateTopicCategoryId', payload)
+    return {success: true}
+
+  } catch (err) {
+    return {success: false}
+  }
+}
+
 export async function createNewTopicCategory(payload) {
   try{
     await AV.Cloud.run('createNewTopicCategory',payload)
