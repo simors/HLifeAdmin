@@ -20,12 +20,25 @@ class appUserDetailManager extends Component {
 
   componentDidMount() {
     // console.log('id================?',this.props.location.query.id)
-
-    this.props.dispatch({type:'appUserManager/fetchPromoterDetailByUserId',payload:{userId:this.props.location.query.id}})
     this.props.dispatch({
-      type: 'appUserManager/fetchShopDetailByUserId',
-      payload: {id: this.props.location.query.id}
+      type: 'appUserManager/fetchUserDetailById',
+      payload: {userId: this.props.location.query.id}
     })
+    if(this.props.appUserDetail.identity&&this.props.appUserDetail.identity.length>0) {
+      if(this.props.appUserDetail.identity[0]=='promoter'||this.props.appUserDetail.identity[1]=='promoter') {
+        this.props.dispatch({
+          type: 'appUserManager/fetchPromoterDetailByUserId',
+          payload: {userId: this.props.location.query.id}
+        })
+      }
+      if(this.props.appUserDetail.identity[0]=='shopKeeper'||this.props.appUserDetail.identity[1]=='shopKeeper') {
+
+        this.props.dispatch({
+          type: 'appUserManager/fetchShopDetailByUserId',
+          payload: {id: this.props.location.query.id}
+        })
+      }
+    }
   }
 
   user2promoter(data){

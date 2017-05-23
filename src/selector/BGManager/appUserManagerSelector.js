@@ -6,15 +6,9 @@ export function getAppUserList(state) {
 }
 
 export function getAppUserDetail(state,id){
-  let userList = getAppUserList(state)
-  let userDetail= {}
-  userList.forEach((result)=>{
-    if (result.id==id){
-      // console.log('result',result)
-      userDetail=result
-    }
-  })
-  return userDetail
+  // let userList = getAppUserList(state)
+  return state.appUserManager.userDetail
+
 }
 
 export function getShopDetailFromUser(state) {

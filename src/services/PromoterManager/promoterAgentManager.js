@@ -60,7 +60,7 @@ export async function agentSet(payload) {
     }
     // console.log('===========+>hello=======+>',agent)
 
-    await AV.Cloud.run('promoterSetAgent62612436', agent)
+    await AV.Cloud.run('promoterSetAgent', agent)
 
     // console.log('hello=======+>',commissionCof.config)
     return {

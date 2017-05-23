@@ -13,10 +13,13 @@ export default class ShopDetails extends Component{
     super(props)
   }
   renderTags(){
-    let tags = this.props.shopDetails.containedTag.map((item,key)=>{
-      return <Tag key={key}>{item.name}</Tag>
-    })
-    return tags
+    if(this.props.shopDetails.containedTag&&this.props.shopDetails.containedTag.length>0){
+      let tags = this.props.shopDetails.containedTag.map((item,key)=>{
+        return <Tag key={key}>{item.name}</Tag>
+      })
+      return tags
+    }
+
   }
   renderScore(){
     return <Rate defaultValue={this.props.shopDetails.score} allowHalf={true} disabled={true}></Rate>

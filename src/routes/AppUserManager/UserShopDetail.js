@@ -22,7 +22,7 @@ class UserShopDetail extends Component {
   }
 
   componentDidMount() {
-console.log('hahahahahahahahahahahaahahahahahahah')
+// console.log('hahahahahahahahahahahaahahahahahahah')
     // this.props.dispatch({
     //   type: 'appUserManager/fetchShopDetailByUserId',
     //   payload: {id: this.props.userDetail.id}
