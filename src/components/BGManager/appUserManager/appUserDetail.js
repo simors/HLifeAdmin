@@ -66,6 +66,7 @@ export default class AppUserDetail extends Component {
         {this.props.userDetail.birthday?<div>生日：{this.props.userDetail.birthday}</div>:null}
         {this.props.userDetail.type?<div>类型：{this.props.userDetail.type=='normal'?'普通':'未知'}</div>:null}
         {this.props.userDetail.emailVerified?<div>是否邮箱认证：{this.props.userDetail.emailVerified}</div>:null}
+        {this.props.userDetail.isVirtual?<div>是否虚拟用户：{this.props.userDetail.isVirtual?'是':'否'}</div>:null}
         {this.props.userDetail.mobilePhoneNumber?<div>联系电话：{this.props.userDetail.mobilePhoneNumber}</div>:null}
         <div>性别：{this.props.userDetail.gender=='male'?'男':'女'}</div>
         {this.props.userDetail.authData?<div>认证数据：{this.props.userDetail.authData}</div>:null}

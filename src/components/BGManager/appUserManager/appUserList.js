@@ -111,6 +111,15 @@ class appUserList extends React.Component {
     //console.log('dataSource',dataSource)
     const columns = [
       {
+        title: '是否虚拟用户',
+        dataIndex: 'isVirtual',
+        key: 'isVirtual',
+        render: (text, record)=> {
+          // console.log('record', record)
+          return <p>{record.isVirtual?'是':'否'}</p>
+        }
+      },
+      {
         title: '用户账号',
         dataIndex: 'username',
         key: 'username'

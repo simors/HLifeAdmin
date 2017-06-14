@@ -6,9 +6,11 @@ import AV from 'leancloud-storage'
 
 export async function  getAppUserList(payload){
   try{
-    // console.log('ggogogogogo',payload)
+     console.log('ggogogogogo',payload)
 
     let appUserList = await AV.Cloud.run('getAppUserList',payload)
+    console.log('appUserList',appUserList)
+
     return {success:true,appUserList:appUserList}
   }catch(err){
     return {succes:false}
@@ -47,10 +49,10 @@ export async function getUserDetailById(payload){
 
 export async function getShopByUserId(payload){
   try{
-    console.log('ggogogogogo',payload)
+    // console.log('ggogogogogo',payload)
 
     let shopDetail=await AV.Cloud.run('getShopByUserId',payload)
-    console.log('ggogogogogo==============+>',shopDetail)
+    // console.log('ggogogogogo==============+>',shopDetail)
 
     return {shopDetail:shopDetail,success:true}
   }catch (err){
@@ -81,5 +83,14 @@ export async function user2promoter(payload){
     return {success:true}
   }catch (err){
     return {success:false,message:err.message}
+  }
+}
+
+export async function addVirtualAppUser(payload){
+  try{
+    await AV.Cloud.run('addVirtualUserByAdmin',payload)
+    return {success:true}
+  }catch (err){
+    return {success:false,error:err}
   }
 }

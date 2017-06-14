@@ -15,7 +15,7 @@ export async function fetchSubAreaList(payload) {
   }
   // console.log('fetchSubAreaList.defaultPayload====>>>>', defaultPayload)
   let results = await AV.Cloud.run('hLifeGetSubAreaList2', defaultPayload)
-  // console.log('fetchSubAreaList.results====>>>>', results)
+   console.log('fetchSubAreaList.results====>>>>', results)
   return results
 }
 

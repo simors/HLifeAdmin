@@ -48,7 +48,7 @@ export function transformSubAreaListToTreeData(subAreaList) {
         delete item.area_name
         delete item.area_type
         delete item.area_code
-        delete item.geo
+        // delete item.geo
         delete item.sup_business_area
         if(item.sub) {
           item.children = item.sub

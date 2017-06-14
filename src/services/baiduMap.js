@@ -48,6 +48,8 @@ export async function getProvinceList() {
   return new Promise((resolve, reject)=>{
     var cityList = new BMapLib.CityList()
     cityList.getSubAreaList(1, (results)=>{
+      console.log('hahahahahahahahahahahhaha',results)
+
       resolve(results)
     })
   })

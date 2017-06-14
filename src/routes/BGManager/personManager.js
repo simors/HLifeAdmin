@@ -9,7 +9,6 @@ import UserList from '../../components/BGManager/personManager/personList'
 import {getPersonList, getAllRoleList} from '../../selector/BGManager/personManagerSelector'
 // import UserSearch from '../../components/users/search'
 import UserModal from '../../components/BGManager/personManager/personModal'
-
 class personManager extends Component {
   constructor(props) {
     super(props)
@@ -23,6 +22,7 @@ class personManager extends Component {
 
   componentDidMount() {
     this.props.dispatch({type: 'personManage/query'})
+
   }
 
   add() {

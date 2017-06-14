@@ -60,7 +60,7 @@ class personModal extends Component {
         roles.push(record)
       })
     }
-     console.log('type',this.props.type)
+     // console.log('type',this.props.type)
     // console.log('roleList',this.props.roleList)
     return (
       <Modal

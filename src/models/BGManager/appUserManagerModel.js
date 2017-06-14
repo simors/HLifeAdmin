@@ -3,7 +3,7 @@
  */
 
 import {parse} from 'qs'
-import {getAppUserList,updateAppUserEnable,getShopByUserId,user2promoter,getPromoterInfoByUserId,getUserDetailById} from '../../services/BGManager/appUserManager'
+import {getAppUserList,updateAppUserEnable,getShopByUserId,user2promoter,getPromoterInfoByUserId,getUserDetailById,addVirtualAppUser} from '../../services/BGManager/appUserManager'
 import {updateShopStatus} from '../../services/ShopManager/shopInfoManager'
 
 export default {
@@ -96,6 +96,18 @@ export default {
         yield put({
           type: 'query',
         })
+      }
+    },
+    *addAppVirtualUser({payload},{call,put}){
+      const data = yield call(addVirtualAppUser,parse(payload))
+      if(data&&data.success){
+        payload.success()
+        yield put({
+          type: 'query',
+          payload:{...payload.state}
+        })
+      }else{
+        payload.error(data.error)
       }
       }
   },
