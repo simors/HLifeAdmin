@@ -176,7 +176,7 @@ class user2promoterModal extends Component {
           this.props.onCancel()
         }}
         wrapClassName='vertical-center-modal'
-        key={this.state.count}
+        key={this.props.key}
         footer={[
           <Button key="back" size='large' onClick={()=> {
             let count = this.state.count + 1

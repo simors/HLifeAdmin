@@ -1,12 +1,7 @@
 /**
  * Created by lilu on 2017/3/16.
  */
-/**
- * Created by lilu on 2017/3/9.
- */
-/**
- * Created by lilu on 2017/2/28.
- */
+
 
 import React from 'react'
 import {Table, Popconfirm, Switch} from 'antd'

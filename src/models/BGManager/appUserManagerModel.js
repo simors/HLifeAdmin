@@ -104,7 +104,7 @@ export default {
         payload.success()
         yield put({
           type: 'query',
-          payload:{...payload.state}
+           payload:{...payload.state}
         })
       }else{
         payload.error(data.error)

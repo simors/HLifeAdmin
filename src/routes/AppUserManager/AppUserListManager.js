@@ -45,7 +45,6 @@ class AppUserListManager extends Component {
       liveArea: [],
       key: 0,
       isVirtual: 0,
-
     }
   }
 
@@ -100,7 +99,7 @@ class AppUserListManager extends Component {
         geoCity: geoCity,
         geoDistrict: geoDistrict,
         geo: userGeo,
-        state:{...this.state},
+        state:{...this.state,endTime:new Date()},
         // ...this.state,
         success: (result)=> {
           this.successAddVirtualUser(result)
