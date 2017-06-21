@@ -276,7 +276,7 @@ class AppUserListManager extends Component {
           </Row>
           <Button style={{marginTop: 10}} size='large' type='ghost' onClick={()=> {
             this.add()
-          }}>添加用户</Button>
+          }}>添加虚拟用户</Button>
           <AppUserList dataSource={appUserList} updateUserEnable={(payload, record)=> {
             this.updateUserEnable(payload, record)
           } }/>
