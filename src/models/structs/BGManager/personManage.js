@@ -27,6 +27,8 @@ export class personList {
       personInfo.key = result.id
       personInfo.username = result.username
       personInfo.password = result.password
+      personInfo.phone = result.phone
+
       personInfo.roleList = result.roleList
 
      // count++

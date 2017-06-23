@@ -3,6 +3,7 @@
  */
 import React, {PropTypes, Component} from 'react'
 import {Form, Input, InputNumber, Radio, Modal, Checkbox} from 'antd'
+import SmsInput from '../../common/SmsInput'
 //import {checkBox} from '../../common/checkBox'
 const FormItem = Form.Item
 const CheckboxGroup = Checkbox.Group
@@ -48,7 +49,7 @@ class personModal extends Component {
         ...this.props.form.getFieldsValue(),
         key: this.props.item.key
       }
-      //console.log('data',data)
+      // console.log('data',data)
       this.props.onOk(data)
     })
   }
@@ -99,6 +100,17 @@ class personModal extends Component {
                 {
                   required: true,
                   message: '密码未填写'
+                }
+              ]
+            })(<Input />)}
+          </FormItem>
+          <FormItem label='手机号：' hasFeedback {...formItemLayout}>
+            {this.props.form.getFieldDecorator('phone', {
+              initialValue: this.props.type === 'create' ? '' : this.props.item.phone,
+              rules: [
+                {
+                  required: true,
+                  message: '手机号未填写'
                 }
               ]
             })(<Input />)}

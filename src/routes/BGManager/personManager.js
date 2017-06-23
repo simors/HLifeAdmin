@@ -8,6 +8,7 @@ import {Button} from 'antd'
 import UserList from '../../components/BGManager/personManager/personList'
 import {getPersonList, getAllRoleList} from '../../selector/BGManager/personManagerSelector'
 // import UserSearch from '../../components/users/search'
+import SmsInput from '../../components/common/SmsInput'
 import UserModal from '../../components/BGManager/personManager/personModal'
 class personManager extends Component {
   constructor(props) {

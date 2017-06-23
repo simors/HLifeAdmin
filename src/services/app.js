@@ -24,15 +24,18 @@ export async function login (params) {
   // })
   try{
     let results = await AV.Cloud.run('getPermissionListOnlyByLogin',params)
-    //console.log('menuList',results)
+    // console.log('params',params)
+    console.log('results',results)
 
-    let menuList = getMenuList.fromLeancloudObject(results)
+
+    let menuList = getMenuList.fromLeancloudObject(results.permissionList)
+    // console.log('menuList',menuList)
 
     let storage = window.sessionStorage
     storage.setItem('username',params.username)
     storage.setItem('password',params.password)
-    // console.log('storage',window.localStorage)
-    return {success:true,menuList:menuList,permissionList:results}
+    // console.log('storage',storage)
+    return {success:true,menuList:menuList,permissionList:results.permissionList,userInfo:results.userInfo}
   }catch (err){
     err.message='用户名或密码错误'
     //throw err
@@ -74,11 +77,11 @@ export async function userInfo (params) {
 
 
 export async function updatePassword(params) {
-  console.log('params',params)
+  // console.log('params',params)
   try{
     let result = await AV.Cloud.run('updateMyPassword',params)
 
-    return {success:true,username:result.username,password: result.password}
+    return {success:true,username:result.username,password: result.password,phone:result.phone}
   }catch(err){
     err.message='密码错误'
     throw err

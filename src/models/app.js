@@ -1,5 +1,7 @@
 import {login, userInfo, logout, updatePassword} from '../services/app'
+import {verifySmsCode,requestSmsAuthCode} from '../services/SmsService'
 import {getProvinceList,getProviceBaiduMap} from '../services/baiduMap'
+import {getUserInfo} from '../selector/userInfo/userInfo'
 import {parse} from 'qs'
 
 export default {
@@ -36,10 +38,7 @@ export default {
         yield put({
           type: 'loginSuccess',
           payload: {
-            user: {
-              name: payload.username,
-              password: payload.password
-            },
+            user: data.userInfo,
             menuList: data.menuList,
             permissionList: data.permissionList
           }
@@ -57,7 +56,26 @@ export default {
       yield put ({type:'pushProvince',payload:{provinces:data.sub}})
 
     },
+    *requestSmsCode({payload},{call,put,select}){
 
+      const data =yield requestSmsAuthCode(payload.phone)
+      console.log('data',data)
+      if(data.success){
+        payload.success()
+      }else{
+        payload.error()
+      }
+      },
+    *verifySmsCodeAction({payload},{call,put,select}){
+      let smsAuthCode = payload.smsAuthCode
+      let phone = payload.phone
+      const data =yield verifySmsCode({smsAuthCode:smsAuthCode,phone:phone})
+      if(data.success){
+        payload.success()
+      }else{
+        payload.error()
+      }
+    },
     *queryUser ({payload}, {call, put}) {
       yield put({type: 'showLoading'})
       const data = yield call(userInfo, parse(payload))
@@ -67,7 +85,8 @@ export default {
           payload: {
             user: {
               name: data.username,
-              password: data.password
+              password: data.password,
+              phone:data.phone
             },
             menuList: data.menuList
           }

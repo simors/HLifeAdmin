@@ -105,6 +105,7 @@ export const subMenuList = [shopManagerConfig,promoterManagerConfig,backgroundSt
 
 export class getMenuList{
   static fromLeancloudObject(results){
+    console.log('result',results)
     let menuList=[]
     subMenuList.forEach((record)=>{
       if(record.child&&record.child.length>0){

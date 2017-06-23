@@ -108,6 +108,10 @@ class personList extends React.Component {
         title: '密码',
         dataIndex: 'password',
         key: 'password'
+      },  {
+        title: '手机号码',
+        dataIndex: 'phone',
+        key: 'phone'
       }, {
         title: '角色列表',
         dataIndex: 'roleList',
