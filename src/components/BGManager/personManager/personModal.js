@@ -79,7 +79,7 @@ class personModal extends Component {
           this.props.onCancel()
         }}
         wrapClassName='vertical-center-modal'
-        key={this.state.count}
+        key={this.props.key}
       >
         <Form horizontal>
           <FormItem label='姓名：' hasFeedback {...formItemLayout}>

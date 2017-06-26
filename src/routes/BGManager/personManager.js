@@ -17,7 +17,7 @@ class personManager extends Component {
       modalVisible: false,
       modalType: 'create',
       selectedItem: {},
-
+      modalKey:0,
     }
   }
 
@@ -29,7 +29,7 @@ class personManager extends Component {
   add() {
     // console.log('openModal')
 
-    this.setState({modalVisible: true, modalType: 'create'})
+    this.setState({modalVisible: true, modalType: 'create',modalKey:this.state.modalKey-1})
   }
 
   onOk(data) {
@@ -46,7 +46,7 @@ class personManager extends Component {
   }
 
   onModify(data) {
-    this.setState({modalVisible: true, modalType: 'update', selectedItem: data})
+    this.setState({modalVisible: true, modalType: 'update', selectedItem: data,modalKey:this.state.modalKey-1})
   }
 
   onDelete(itemId) {
@@ -84,6 +84,7 @@ class personManager extends Component {
           onCancel={()=> {
             this.onCancel()
           }}
+          key = {this.state.modalKey}
           item={this.state.selectedItem}
           roleList={this.props.roleList}
         />
