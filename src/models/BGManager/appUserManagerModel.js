@@ -5,6 +5,7 @@
 import {parse} from 'qs'
 import {getAppUserList,updateAppUserEnable,getShopByUserId,user2promoter,getPromoterInfoByUserId,getUserDetailById,addVirtualAppUser} from '../../services/BGManager/appUserManager'
 import {updateShopStatus} from '../../services/ShopManager/shopInfoManager'
+import {AppUserItem} from '../structs/BGManager/personManage'
 
 export default {
   namespace: 'appUserManager',
@@ -50,10 +51,10 @@ export default {
     *fetchUserDetailById({payload},{call,put}){
       const data = yield call(getUserDetailById,parse(payload))
       if(data&&data.success){
-
+        let userInfo = AppUserItem.fromLeancloudApi(data.userDetail)
         yield put ({
           type:'fetchUserDetailReducer',
-          payload:{userDetail:data.userDetail}
+          payload:{userDetail:userInfo}
         })
 
       }

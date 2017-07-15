@@ -69,3 +69,36 @@ export const personManageConfig = Record({
 export const backgroundManageConfig = Record({
   personManage: personManageConfig()
 }, 'backgroundManageConfig')
+
+export class AppUserItem {
+  static fromLeancloudApi(result){
+    let authData = result.authData
+    let weixin = authData?authData.weixin:undefined
+    let appUser = {
+      id: result.id,
+      identity: result.identity,
+      isVirtual: result.isVirtual,
+      status: result.status,
+      geoCity: result.geoCity,
+      nickname: result.nickname,
+      username: result.username,
+      birthday: result.birthday,
+      type: result.type,
+      emailVerified: result.emailVerified,
+      mobilePhoneNumber: result.mobilePhoneNumber,
+      avatar: result.avatar,
+      geoDistrict: result.geoDistrict,
+      gender: result.gender,
+      // authData: result.authData,
+      openId: weixin?weixin.openId:undefined,
+      access_token: weixin?weixin.access_token:undefined,
+      expires_at: weixin?weixin.expires_at:undefined,
+      MobilePhoneVerified: result.mobilePhoneVerified,
+      // detailId:result.attributes.detail.id,
+      geoProvince: result.geoProvince,
+      createdAt: result.createdAt
+    }
+    return appUser
+
+  }
+}

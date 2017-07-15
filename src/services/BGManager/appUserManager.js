@@ -39,7 +39,7 @@ export async function updateAppUserEnable(payload){
 export async function getUserDetailById(payload){
   try{
     let userDetail = await AV.Cloud.run('getUserDetailById',payload)
-     // console.log('ggogogogogo',userDetail)
+     console.log('ggogogogogo',userDetail)
 
     return {userDetail:userDetail,success:true}
   }catch (err){

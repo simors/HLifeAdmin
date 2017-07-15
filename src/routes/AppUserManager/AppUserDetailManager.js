@@ -26,7 +26,7 @@ class appUserDetailManager extends Component {
     })
     if (this.props.appUserDetail.identity && this.props.appUserDetail.identity.length > 0) {
       if (this.props.appUserDetail.identity[0] == 'promoter' || this.props.appUserDetail.identity[1] == 'promoter') {
-        console.log('this.props.appUserDetail.identity', this.props.appUserDetail.identity)
+        // console.log('this.props.appUserDetail.identity', this.props.appUserDetail.identity)
         this.props.dispatch({
           type: 'appUserManager/fetchPromoterDetailByUserId',
           payload: {userId: this.props.location.query.id}
