@@ -50,10 +50,12 @@ class UserInfo extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.log('hahah', state)
+
   let user = getUserInfo(state)
+  // console.log('user=======》', user)
+
   return {
-    username: user.name,
+    username: user.username,
     password: user.password
   }
 }
