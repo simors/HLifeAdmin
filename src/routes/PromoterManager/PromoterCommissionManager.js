@@ -122,6 +122,7 @@ class PromoterCommissionManager extends Component {
 
   handleSubmit(e){
     // e.preventDefault();
+
     let record = {}
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -304,6 +305,7 @@ class PromoterCommissionManager extends Component {
   }
 
   renderPromtionRow(key, item) {
+    console.log('item.royalty[1]========>',item.royalty[1].toFixed(3))
     return (
       <div key={key}>
         <Col span={4}> <FormItem
@@ -338,7 +340,7 @@ class PromoterCommissionManager extends Component {
         >
           {this.props.form.getFieldDecorator(key + 'royalty1', {
             rules: [{required: true, message: '请确认所有数值都已经输入'}],
-            initialValue: item.royalty[0]*100,
+            initialValue: (item.royalty[0]*100).toFixed(1),
 
           })(
             <InputNumber formatter={value => `${value}%`}
@@ -354,7 +356,7 @@ class PromoterCommissionManager extends Component {
         >
           {this.props.form.getFieldDecorator(key + 'royalty2', {
             rules: [{required: true, message: '请确认所有数值都已经输入'}],
-            initialValue: item.royalty[1]*100,
+            initialValue: (item.royalty[1]*100).toFixed(1),
 
           })(
             <InputNumber formatter={value => `${value}%`}
@@ -370,7 +372,7 @@ class PromoterCommissionManager extends Component {
         >
           {this.props.form.getFieldDecorator(key + 'royalty3', {
             rules: [{required: true, message: '请确认所有数值都已经输入'}],
-            initialValue: item.royalty[2]*100,
+            initialValue: (item.royalty[2]*100).toFixed(1),
 
           })(
             <InputNumber formatter={value => `${value}%`}
@@ -411,6 +413,9 @@ class PromoterCommissionManager extends Component {
 
   render() {
     let commissionConf = this.props.commissionCof
+    console.log('0.14de gushi======>',0.14*100)
+    console.log('0.14de gushi======>',typeof(this.props.commissionCof.invitePromoterRoyalty[0]))
+
     return (
       <div style={{flex: 1}}>
         <Form onSubmit={(e)=>this.handleSubmit(e)}>
