@@ -15,6 +15,7 @@ export async function getShopList(payload){
   }
 }
 
+
 // export async function openShop(payload){
 //   try{
 //     await AV.Cloud.run('openShop',payload)
@@ -80,6 +81,31 @@ export async function getAnnouncementsByShopId(payload){
     // console.log('announcements',announcements)
 
     return {success:true,announcements:announcements}
+  }catch(err){
+    return {success: false}
+  }
+}
+
+export async function getGoodsByShopId(payload){
+  // console.log('hahaha==========>',payload)
+  try{
+    let goodsList=await AV.Cloud.run('adminFetchShopGoods',payload)
+    // console.log('goodsList=====>',goodsList)
+
+    return {success:true,goodsList:goodsList.goods}
+  }catch(err){
+    // console.log('goodsList=====>',err.message)
+    return {success: false}
+  }
+}
+
+export async function getPromotionsByShopId(payload){
+  // console.log('hahaha',payload)
+  try{
+    let promotionList=await AV.Cloud.run('adminFetchPromotionsByShopId',payload)
+    // console.log('promotionList=======>',promotionList)
+
+    return {success:true,promotionList:promotionList.promotions}
   }catch(err){
     return {success: false}
   }

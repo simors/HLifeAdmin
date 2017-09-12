@@ -2,13 +2,14 @@
  * Created by lilu on 2017/3/10.
  */
 import React, {Component} from 'react'
-import {getShopDetail, getAnnouncements, getCommentList} from '../../selector/ShopManager/shopSelector'
+import {getShopDetail, getAnnouncements, getCommentList,getGoodsList,getPromotionList} from '../../selector/ShopManager/shopSelector'
 import {connect} from 'dva'
 import ShopInfoManager from './ShopInfoManager'
 import Announcement from '../../components/ShopManager/InfoManager/Announcement'
 import {Tag, Tabs} from 'antd'
 import ShopDetails from '../../components/ShopManager/InfoManager/ShopDetails'
 import CommentList from '../../components/ShopManager/InfoManager/CommentList'
+import GoodsList from '../../components/ShopManager/InfoManager/GoodsList'
 
 const TabPane = Tabs.TabPane
 
@@ -20,13 +21,21 @@ class ShopDetailsManager extends Component {
 
   componentDidMount() {
 
-    this.props.dispatch({
-      type: 'shopInfoManager/getAnnouncements',
-      payload: {id: this.props.location.query.id}
-    })
+    // this.props.dispatch({
+    //   type: 'shopInfoManager/getAnnouncements',
+    //   payload: {id: this.props.location.query.id}
+    // })
     this.props.dispatch({
       type: 'shopInfoManager/getCommentList',
       payload: {id: this.props.location.query.id}
+    })
+    this.props.dispatch({
+      type: 'shopInfoManager/getGoodsList',
+      payload: {shopId: this.props.location.query.id}
+    })
+    this.props.dispatch({
+      type: 'shopInfoManager/getPromotionList',
+      payload: {shopId: this.props.location.query.id}
     })
 
   }
@@ -92,8 +101,11 @@ class ShopDetailsManager extends Component {
             this.updateStatus(payload, record,userId)
           }}/>
           </TabPane>
-          {/*<TabPane tab='通告管理' key='2'>{this.renderAnnouncement()}*/}
-          {/*</TabPane>*/}
+          <TabPane tab='商品管理' key='2'><GoodsList dataSource={ this.props.goodsList}
+
+          />
+          </TabPane>
+
           <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}
                                                    updateCommentStatus={(payload,record)=> {
                                                      this.updateCommentStatus(payload,record)
@@ -117,8 +129,10 @@ function mapStateToProps(state, ownProps) {
   let shopDetail = getShopDetail(state, ownProps.location.query.id)
   let announcements = getAnnouncements(state)
   let commentList = getCommentList(state)
+  let goodsList = getGoodsList(state)
+  let promotionList = getPromotionList(state)
   // console.log('shopDetail',announcements)
-  return {shopDetail: shopDetail, announcements: announcements, commentList: commentList}
+  return {shopDetail: shopDetail, announcements: announcements, commentList: commentList, goodsList: goodsList, promotionList: promotionList}
 }
 
 export default connect(mapStateToProps)(ShopDetailsManager)

@@ -5,7 +5,7 @@
  * Created by lilu on 2017/2/28.
  */
 import {parse} from 'qs'
-import {getShopList,updateShopStatus,getAnnouncementsByShopId,getShopCommentList,updateReplyStatus,updateCommentStatus} from '../../services/ShopManager/shopInfoManager'
+import {getShopList,updateShopStatus,getAnnouncementsByShopId,getShopCommentList,updateReplyStatus,updateCommentStatus,getGoodsByShopId,getPromotionsByShopId} from '../../services/ShopManager/shopInfoManager'
 
 export default {
   namespace: 'shopInfoManager',
@@ -13,7 +13,9 @@ export default {
     shopList:[],
     loading: false,
     announcements:[],
-    commentList:[]
+    commentList:[],
+    promotionList: [],
+    goodsList: [],
   },
   subscriptions:{
 
@@ -79,6 +81,27 @@ export default {
         })
       }
     },
+    *getGoodsList ({payload}, {call, put}) {
+      console.log('here is get goods list')
+      yield put({type: 'showLoading'})
+      const data = yield call(getGoodsByShopId, parse(payload))
+      if (data.success) {
+        yield put({
+          type: 'goodsListReducer',
+          payload:{goodsList:data.goodsList}
+        })
+      }
+    },
+    *getPromotionList ({payload}, {call, put}) {
+      yield put({type: 'showLoading'})
+      const data = yield call(getPromotionsByShopId, parse(payload))
+      if (data.success) {
+        yield put({
+          type: 'promotionListReducer',
+          payload:{promotionList:data.promotionList}
+        })
+      }
+    },
   },
   reducers:{
     showLoading (state) {
@@ -100,6 +123,14 @@ export default {
     commentListReducer(state,action){
       let {commentList} = action.payload
       return{...state,commentList:commentList}
+    },
+    goodsListReducer(state,action){
+      let {goodsList} = action.payload
+      return{...state,goodsList:goodsList}
+    },
+    promotionListReducer(state,action){
+      let {promotionList} = action.payload
+      return{...state,promotionList:promotionList}
     }
   }
 }

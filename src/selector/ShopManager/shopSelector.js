@@ -24,3 +24,11 @@ export function getAnnouncements(state){
 export function getCommentList(state){
   return state.shopInfoManager.commentList
 }
+
+export function getGoodsList(state){
+  return state.shopInfoManager.goodsList
+}
+
+export function getPromotionList(state){
+  return state.shopInfoManager.promotionList
+}

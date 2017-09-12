@@ -1,4 +1,7 @@
 /**
+ * Created by lilu on 2017/9/12.
+ */
+/**
  * Created by lilu on 2017/3/9.
  */
 
@@ -91,9 +94,9 @@ class CommentList extends React.Component {
     );
   }
 
-test(){
-  return <p>test</p>
-}
+  test(){
+    return <p>test</p>
+  }
 
 
   render () {
@@ -106,63 +109,54 @@ test(){
     } = this.props
     // console.log('dataSource',dataSource)
     const columns = [
-      {
-        title: '评论内容',
-        dataIndex: 'content',
-        key: 'content'
-      },
-      {
-        title: '是否显示',
-        dataIndex: 'status',
-        key: 'status',
-        render: (text, record)=> {
-          const status = record.status
-          return <Switch checkedChildren={'启用'} unCheckedChildren={'不启用'} defaultChecked={(record.status==1)?true:false}
-                         onChange={(payload)=> {
-                           this.props.updateCommentStatus(payload, record.id)
-                         }}></Switch>
-        }
-      },
-      {
-        title: '图片集',
-        dataIndex: 'blueprints',
-        key: 'blueprints',
-        render: (text,record)=> {
-          if(record.blueprints){
-            let imgList = record.blueprints.map((item,key)=>{
-              return <img src={item} style={{width:50,height:50}} key={key}></img>
-            })
-            return imgList
-          }else {
-            return <div></div>
-          }
-          }
 
-      },
       {
         title: '评论时间',
         dataIndex: 'createdDate',
         key: 'createdDate'
       },
       {
-        title: '评分',
-        dataIndex: 'score',
-        key: 'score'
+        title: '名称',
+        dataIndex: 'goodsName',
+        key: 'goodsName'
       },
       {
-        title:'点赞数',
-        dataIndex: 'ups.length',
-        key: 'ups.length'
-      },{
-        title:'回复数',
-        dataIndex: 'replys.length',
-        key: 'replys.length'
+        title: '图片集',
+        dataIndex: 'album',
+        key: 'album',
+        render: (text,record)=> {
+          if(record.album){
+            let imgList = record.album.map((item,key)=>{
+              return <img src={item} style={{width:50,height:50}} key={key}></img>
+            })
+            return imgList
+          }else {
+            return <div></div>
+          }
+        }
+      },
+      {
+        title:'封面',
+        dataIndex: 'coverPhoto',
+        key: 'coverPhoto',
+        render: (text,record)=> {
+          if(record.coverPhoto){
+              return <img src={record.coverPhoto} style={{width:50,height:50}} ></img>
+          }else {
+            return <div></div>
+          }
+        }
+      },
+      {
+        title:'原价',
+        dataIndex: 'originalPrice',
+        key: 'originalPrice'
       },
 
       {
-        title: '作者',
-        dataIndex: 'user.username',
-        key: 'user.username'
+        title: '价格',
+        dataIndex: 'price',
+        key: 'price'
       },
 
     ]
@@ -170,7 +164,7 @@ test(){
     return <div>
       <Table className={styles.components} bordered scroll={{
         x: 1200
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}} expandedRowRender={(record)=>{return this.replyList(record.replys)}} />
+      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.objectId} pagination={this.props.pagination?this.props.pagination:{}} expandedRowRender={(record)=>{return this.replyList(record.replys)}} />
     </div>
   }
 }
