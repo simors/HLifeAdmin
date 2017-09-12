@@ -72,60 +72,41 @@ class CommentList extends React.Component {
     const columns = [
 
       {
-        title: '评论时间',
-        dataIndex: 'createdDate',
-        key: 'createdDate'
+        title: '类型',
+        dataIndex: 'type',
+        key: 'type'
       },
-      {
-        title: '名称',
-        dataIndex: 'goodsName',
-        key: 'goodsName'
-      },
-      {
-        title: '图片集',
-        dataIndex: 'album',
-        key: 'album',
-        render: (text,record)=> {
-          if(record.album){
-            let imgList = record.album.map((item,key)=>{
-              return <img src={item} style={{width:50,height:50}} key={key}></img>
-            })
-            return imgList
-          }else {
-            return <div></div>
-          }
-        }
-      },
-      {
-        title:'封面',
-        dataIndex: 'coverPhoto',
-        key: 'coverPhoto',
-        render: (text,record)=> {
-          if(record.coverPhoto){
-              return <img src={record.coverPhoto} style={{width:50,height:50}} ></img>
-          }else {
-            return <div></div>
-          }
-        }
-      },
-      {
-        title:'原价',
-        dataIndex: 'originalPrice',
-        key: 'originalPrice'
-      },
-
       {
         title: '价格',
-        dataIndex: 'price',
-        key: 'price'
+        dataIndex: 'promotionPrice',
+        key: 'promotionPrice'
       },
 
+      {
+        title:'开始时间',
+        dataIndex: 'startDate',
+        key: 'startDate'
+      },
+      {
+        title: '结束时间',
+        dataIndex: 'endDate',
+        key: 'endDate'
+      },
+      {
+        title: '是否启用',
+        dataIndex: 'status',
+        key: 'status',
+        render:(text,record)=>{
+          return <p>{record.status?'是':'否'}</p>
+
+        }
+      },
     ]
     // console.log('hahahahahah',dataSource)
     return <div>
       <Table className={styles.components} bordered scroll={{
         x: 1200
-      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.objectId} pagination={this.props.pagination?this.props.pagination:{}}  />
+      }} columns={columns} dataSource={dataSource} simple rowKey={record => record.id} pagination={this.props.pagination?this.props.pagination:{}}  />
     </div>
   }
 }

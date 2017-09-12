@@ -10,6 +10,7 @@ import {Tag, Tabs} from 'antd'
 import ShopDetails from '../../components/ShopManager/InfoManager/ShopDetails'
 import CommentList from '../../components/ShopManager/InfoManager/CommentList'
 import GoodsList from '../../components/ShopManager/InfoManager/GoodsList'
+import PromotionList from '../../components/ShopManager/InfoManager/PromotionList'
 
 const TabPane = Tabs.TabPane
 
@@ -101,12 +102,9 @@ class ShopDetailsManager extends Component {
             this.updateStatus(payload, record,userId)
           }}/>
           </TabPane>
-          <TabPane tab='商品管理' key='2'><GoodsList dataSource={ this.props.goodsList}
 
-          />
-          </TabPane>
 
-          <TabPane tab='评论管理' key='3'><CommentList dataSource={ this.props.commentList}
+          <TabPane tab='评论管理' key='2'><CommentList dataSource={ this.props.commentList}
                                                    updateCommentStatus={(payload,record)=> {
                                                      this.updateCommentStatus(payload,record)
                                                    }}
@@ -115,7 +113,13 @@ class ShopDetailsManager extends Component {
                                                    }}
           />
           </TabPane>
+          <TabPane tab='商品列表' key='3'><GoodsList dataSource={ this.props.goodsList}
+          />
+          </TabPane>
+          <TabPane tab='活动列表' key='4'><PromotionList dataSource={ this.props.promotionList}
 
+          />
+          </TabPane>
 
         </Tabs>
 
