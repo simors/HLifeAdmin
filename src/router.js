@@ -27,6 +27,7 @@ import UserFeedbackList from './routes/UserFeedback/UserFeedBackList'
 import UserFeedbackDetail from './routes/UserFeedback/UserFeedbackDetail'
 import TenantFeeManager from './routes/PromoterManager/TenantFeeManager'
 import PromoterStatistics from './routes/Statistics/PromoterStatistics/index'
+import ShopConfigManager from './routes/ShopManager/ShopConfigManager'
 
 import Welcome from './routes/welcome'
 import err from './routes/error'
@@ -56,7 +57,10 @@ export default function ({history, app}) {
       <Route path="/shopManager/shopInfoManager" breadcrumbName="店铺信息管理" >
         <IndexRoute   component={ShopListManager}/>
         <Route path="/shopManager/shopInfoManager/shopDetailsManager" breadcrumbName="店铺详情管理" component={ShopDetailsManager}/>
+
       </Route>
+      <Route path="/shopManager/shopConfigManager" breadcrumbName="店铺参数设置" component={ShopConfigManager}/>
+
       <Route path="/promoterManager/promoterCommissionManager" breadcrumbName="推广员提成管理" component={PromoterCommissionManager}/>
       <Route path="/promoterManager/promoterAgentSet" breadcrumbName="地区代理设置">
         <IndexRoute component={AddAgent}/>

@@ -32,3 +32,11 @@ export function getGoodsList(state){
 export function getPromotionList(state){
   return state.shopInfoManager.promotionList
 }
+
+export function getShopDayPay(state){
+  return state.shopConfigManager.dayPay
+}
+
+export function getShopMaxNum(state){
+  return state.shopConfigManager.maxNum
+}
